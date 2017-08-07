@@ -4,7 +4,7 @@
         <a href="/#/login" class="auth-link">Already have a Rehive account? Sign in!</a>
 
         <form name="registerForm" class="form-horizontal">
-            <div ng-show="havePersonalDetails" ng-hide="havePersonalDetails">
+            <div ng-hide="havePersonalDetails">
                 <div class="form-group">
                     <div class="col-sm-12">
                         <input type="text" ng-model="registerData.first_name" class="form-control" id="firstName" placeholder="First name*" auto-focus="!havePersonalDetails" required>
