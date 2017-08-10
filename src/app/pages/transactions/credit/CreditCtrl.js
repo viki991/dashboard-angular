@@ -26,6 +26,10 @@
           $scope.creditData.user = $state.params.email;
         }
 
+        if ($state.params.account) {
+            $scope.creditData.account = $state.params.account;
+        }
+
         $scope.onGoingTransaction = false;
         $scope.showAdvancedOption = false;
         $scope.showView = 'createCredit';

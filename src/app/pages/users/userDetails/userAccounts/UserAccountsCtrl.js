@@ -25,6 +25,7 @@
                     $scope.loadingUserAccounts = false;
                     if (res.status === 200) {
                         vm.reference = res.data.data.results[0].reference;
+                        $scope.accounts = res.data.data.results;
                         $scope.account = res.data.data.results[0].user;
                         $scope.currencies = res.data.data.results[0].currencies;
                     }
@@ -36,13 +37,13 @@
         };
         vm.getUser();
 
-        $scope.goToView = function(state,currency,email){
+        $scope.goToView = function(state,currency,email,account){
           $rootScope.selectedCurrency = currency;
-          $state.go(state,{"email": email});
+          $state.go(state,{"email": email, "account": account});
         };
 
-        $scope.goToSettings = function(currencyCode){
-            $location.path('account/'+vm.reference+'/settings/'+ currencyCode);
+        $scope.goToSettings = function(currencyCode, account){
+            $location.path('account/'+account+'/settings/'+ currencyCode);
 
         }
 
