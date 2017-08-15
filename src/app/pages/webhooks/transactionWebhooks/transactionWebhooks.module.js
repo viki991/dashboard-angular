@@ -8,17 +8,16 @@
     function routeConfig($stateProvider,$urlRouterProvider) {
         $stateProvider
             .state('webhooks.transactionWebhooks', {
-                url: '/transaction-webhooks',
-                views: {
-                  'webhooksViews': {
-                    controller: 'TransactionWebhooksCtrl',
-                    templateUrl: 'app/pages/webhooks/transactionWebhooks/transactionWebhooks.html'
-                  }
-                },
+                url: '/transaction',
+                templateUrl: 'app/pages/webhooks/transactionWebhooks/transactionWebhooks.html',
+                controller: 'TransactionWebhooksCtrl',
                 params: {
                     secret: null
                 },
-                title: "Transaction webhooks"
+                title: "Transaction webhooks",
+                sidebarMeta: {
+                    order: 200
+                }
             });
     }
 
