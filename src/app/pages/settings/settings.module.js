@@ -7,8 +7,6 @@
       'BlurAdmin.pages.settings.companyInfo',
       'BlurAdmin.pages.settings.bankAccounts',
       'BlurAdmin.pages.settings.subtypes',
-      'BlurAdmin.pages.settings.transactionWebhooks',
-      'BlurAdmin.pages.settings.userWebhooks',
       'BlurAdmin.pages.settings.permissionsAndManagement',
       'BlurAdmin.pages.settings.notifications',
       'BlurAdmin.pages.settings.switches',

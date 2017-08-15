@@ -1,18 +1,18 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.settings.userWebhooks', [])
+    angular.module('BlurAdmin.pages.webhooks.userWebhooks', [])
         .config(routeConfig);
 
     /** @ngInject */
     function routeConfig($stateProvider,$urlRouterProvider) {
         $stateProvider
-            .state('settings.userWebhooks', {
+            .state('webhooks.userWebhooks', {
                 url: '/user-webhooks',
                 views: {
-                  'generalSettings': {
+                  'webhooksViews': {
                     controller: 'UserWebhooksCtrl',
-                    templateUrl: 'app/pages/settings/userWebhooks/userWebhooks.html'
+                    templateUrl: 'app/pages/webhooks/userWebhooks/userWebhooks.html'
                   }
                 },
                 params: {

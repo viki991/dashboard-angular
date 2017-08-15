@@ -1,18 +1,18 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.settings.transactionWebhooks', [])
+    angular.module('BlurAdmin.pages.webhooks.transactionWebhooks', [])
         .config(routeConfig);
 
     /** @ngInject */
     function routeConfig($stateProvider,$urlRouterProvider) {
         $stateProvider
-            .state('settings.transactionWebhooks', {
+            .state('webhooks.transactionWebhooks', {
                 url: '/transaction-webhooks',
                 views: {
-                  'generalSettings': {
+                  'webhooksViews': {
                     controller: 'TransactionWebhooksCtrl',
-                    templateUrl: 'app/pages/settings/transactionWebhooks/transactionWebhooks.html'
+                    templateUrl: 'app/pages/webhooks/transactionWebhooks/transactionWebhooks.html'
                   }
                 },
                 params: {

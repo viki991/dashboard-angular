@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.settings.transactionWebhooks')
+    angular.module('BlurAdmin.pages.webhooks.transactionWebhooks')
         .controller('TransactionWebhooksCtrl', TransactionWebhooksCtrl);
 
     /** @ngInject */

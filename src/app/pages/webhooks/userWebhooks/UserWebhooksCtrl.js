@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.settings.userWebhooks')
+    angular.module('BlurAdmin.pages.webhooks.userWebhooks')
         .controller('UserWebhooksCtrl', UserWebhooksCtrl);
 
     /** @ngInject */

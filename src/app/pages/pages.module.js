@@ -14,6 +14,7 @@
     'BlurAdmin.pages.dashboard',
     'BlurAdmin.pages.transactions',
     'BlurAdmin.pages.currency',
+    'BlurAdmin.pages.webhooks',
     'BlurAdmin.pages.users',
     'BlurAdmin.pages.userDetails',
     'BlurAdmin.pages.services',

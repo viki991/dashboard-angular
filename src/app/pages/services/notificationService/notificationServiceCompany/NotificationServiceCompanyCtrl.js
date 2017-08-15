@@ -61,11 +61,11 @@
         };
 
         $scope.goToTransactionsWebhooks = function(secret){
-            $state.go('settings.transactionWebhooks',{"secret": secret});
+            $state.go('webhooks.transactionWebhooks',{"secret": secret});
         };
 
         $scope.goToUsersWebhooks = function(secret){
-            $state.go('settings.userWebhooks',{"secret": secret});
+            $state.go('webhooks.userWebhooks',{"secret": secret});
         };
 
 
