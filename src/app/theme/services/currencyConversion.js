@@ -11,7 +11,7 @@
 
         return {
             convertToCents: function (amount,divisibility) {
-                return  amount * Math.pow(10,divisibility);
+                return  (+amount * Math.pow(10,divisibility)).toFixed(2);
             },
             convertFromCents: function (amount,divisibility) {
                 return  amount / Math.pow(10,divisibility);
