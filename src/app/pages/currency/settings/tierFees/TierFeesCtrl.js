@@ -127,11 +127,13 @@
         };
 
         $scope.addTierFee = function(tierFeesParams){
-            if(currencyModifiers.validateCurrency(tierFeesParams.value,$rootScope.selectedCurrency.divisibility)){
-                tierFeesParams.value = currencyModifiers.convertToCents(tierFeesParams.value,$rootScope.selectedCurrency.divisibility);
-            } else {
-                toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
-                return;
+            if(tierFeesParams.value){
+                if(currencyModifiers.validateCurrency(tierFeesParams.value,$rootScope.selectedCurrency.divisibility)){
+                    tierFeesParams.value = currencyModifiers.convertToCents(tierFeesParams.value,$rootScope.selectedCurrency.divisibility);
+                } else {
+                    toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
+                    return;
+                }
             }
             if(vm.token) {
                 $scope.loadingTierFees = true;

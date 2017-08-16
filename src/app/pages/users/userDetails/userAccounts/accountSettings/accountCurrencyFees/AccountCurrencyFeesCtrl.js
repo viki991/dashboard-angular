@@ -83,11 +83,13 @@
         $scope.getAccountCurrencyFees();
 
         $scope.addAccountCurrencyFee = function(accountCurrencyFeesParams){
-            if(currencyModifiers.validateCurrency(accountCurrencyFeesParams.value,$scope.currencyObj.divisibility)){
-                accountCurrencyFeesParams.value = currencyModifiers.convertToCents(accountCurrencyFeesParams.value,$scope.currencyObj.divisibility);
-            } else {
-                toastr.error('Please input amount to ' + $scope.currencyObj.divisibility + ' decimal places');
-                return;
+            if(accountCurrencyFeesParams.value) {
+                if (currencyModifiers.validateCurrency(accountCurrencyFeesParams.value, $scope.currencyObj.divisibility)) {
+                    accountCurrencyFeesParams.value = currencyModifiers.convertToCents(accountCurrencyFeesParams.value, $scope.currencyObj.divisibility);
+                } else {
+                    toastr.error('Please input amount to ' + $scope.currencyObj.divisibility + ' decimal places');
+                    return;
+                }
             }
             if(vm.token) {
                 $scope.loadingAccountCurrencyFees = true;
