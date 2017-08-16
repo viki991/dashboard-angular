@@ -111,7 +111,7 @@
                  $scope.loadingSwitches = false;
                  if (res.status === 201) {
                      vm.getSwitches();
-                     toastr.success('You have successfully added the Switch!');
+                     toastr.success('You have successfully added the switch!');
                      $scope.switchesParams = {switch_type: 'Allow transactions', enabled: 'False'};
                      $window.scrollTo(0, 0);
                  }
@@ -145,7 +145,7 @@
                  if (res.status === 200) {
                      vm.updatedSwitches = {};
                      vm.getSwitches();
-                     toastr.success('You have successfully updated the Switch!');
+                     toastr.success('You have successfully updated the switch!');
                  }
              }).catch(function (error) {
                  $scope.loadingSwitches = false;

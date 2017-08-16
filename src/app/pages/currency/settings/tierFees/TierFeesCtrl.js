@@ -135,6 +135,10 @@
                     return;
                 }
             }
+
+            if(!tierFeesParams.percentage){
+                tierFeesParams.percentage = 0;
+            }
             if(vm.token) {
                 $scope.loadingTierFees = true;
                 tierFeesParams.tx_type = tierFeesParams.tx_type.toLowerCase();
@@ -176,6 +180,10 @@
                 }
             } else {
                 vm.updatedTierFee.value = 0;
+            }
+
+            if(!vm.updatedTierFee.percentage){
+                vm.updatedTierFee.percentage = 0;
             }
 
             if(vm.token) {

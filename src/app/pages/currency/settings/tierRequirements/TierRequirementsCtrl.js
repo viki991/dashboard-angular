@@ -38,7 +38,6 @@
                             return parseFloat(a.level) - parseFloat(b.level);
                         });
                         if(tierLevel){
-                          $scope.activeTabIndex = 0;
                           $scope.selectTier(tierLevel);
                         } else {
                           $timeout(function(){

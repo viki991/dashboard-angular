@@ -91,6 +91,10 @@
                     return;
                 }
             }
+
+            if(!accountCurrencyFeesParams.percentage){
+                accountCurrencyFeesParams.percentage = 0;
+            }
             if(vm.token) {
                 $scope.loadingAccountCurrencyFees = true;
                 accountCurrencyFeesParams.tx_type = accountCurrencyFeesParams.tx_type.toLowerCase();
@@ -132,6 +136,10 @@
                 }
             } else {
                 vm.updatedAccountCurrencyFee.value = 0;
+            }
+
+            if(!vm.updatedAccountCurrencyFee.percentage){
+                vm.updatedAccountCurrencyFee.percentage = 0;
             }
 
             if(vm.token) {
