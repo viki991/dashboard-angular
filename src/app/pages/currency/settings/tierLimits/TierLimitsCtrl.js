@@ -129,11 +129,15 @@
         };
 
         $scope.addTierLimit = function(tierLimitsParams){
-            if(currencyModifiers.validateCurrency(tierLimitsParams.value,$rootScope.selectedCurrency.divisibility)){
-                tierLimitsParams.value = currencyModifiers.convertToCents(tierLimitsParams.value,$rootScope.selectedCurrency.divisibility);
+            if(tierLimitsParams.value){
+                if(currencyModifiers.validateCurrency(tierLimitsParams.value,$rootScope.selectedCurrency.divisibility)){
+                    tierLimitsParams.value = currencyModifiers.convertToCents(tierLimitsParams.value,$rootScope.selectedCurrency.divisibility);
+                } else {
+                    toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
+                    return;
+                }
             } else {
-                toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
-                return;
+                tierLimitsParams.value = 0;
             }
             if(vm.token) {
                 $scope.loadingTierLimits = true;
@@ -171,12 +175,17 @@
         };
 
         $scope.updateTierLimit = function(){
-            if(currencyModifiers.validateCurrency($scope.editTierLimit.value,$rootScope.selectedCurrency.divisibility)){
-                vm.updatedTierLimit.value = currencyModifiers.convertToCents($scope.editTierLimit.value,$rootScope.selectedCurrency.divisibility);
+            if($scope.editTierLimit.value){
+                if(currencyModifiers.validateCurrency($scope.editTierLimit.value,$rootScope.selectedCurrency.divisibility)){
+                    vm.updatedTierLimit.value = currencyModifiers.convertToCents($scope.editTierLimit.value,$rootScope.selectedCurrency.divisibility);
+                } else {
+                    toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
+                    return;
+                }
             } else {
-                toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
-                return;
+                vm.updatedTierLimit.value = 0;
             }
+
             if(vm.token) {
                 $scope.loadingTierLimits = true;
                 $scope.editingTierLimits = !$scope.editingTierLimits;

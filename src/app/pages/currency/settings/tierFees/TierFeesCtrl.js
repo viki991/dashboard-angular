@@ -167,12 +167,17 @@
         };
 
         $scope.updateTierFee = function(){
-            if(currencyModifiers.validateCurrency($scope.editTierFee.value,$rootScope.selectedCurrency.divisibility)){
-                vm.updatedTierFee.value = currencyModifiers.convertToCents($scope.editTierFee.value,$rootScope.selectedCurrency.divisibility);
+            if($scope.editTierFee.value){
+                if(currencyModifiers.validateCurrency($scope.editTierFee.value,$rootScope.selectedCurrency.divisibility)){
+                    vm.updatedTierFee.value = currencyModifiers.convertToCents($scope.editTierFee.value,$rootScope.selectedCurrency.divisibility);
+                } else {
+                    toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
+                    return;
+                }
             } else {
-                toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
-                return;
+                vm.updatedTierFee.value = 0;
             }
+
             if(vm.token) {
                 $scope.loadingTierFees = true;
                 $scope.editingTierFees = !$scope.editingTierFees;

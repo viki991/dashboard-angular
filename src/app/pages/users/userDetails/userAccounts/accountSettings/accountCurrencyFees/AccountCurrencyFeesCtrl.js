@@ -123,12 +123,17 @@
         };
 
         $scope.updateAccountCurrencyFee = function(){
-            if(currencyModifiers.validateCurrency($scope.editAccountCurrencyFee.value,$scope.currencyObj.divisibility)){
-                vm.updatedAccountCurrencyFee.value = currencyModifiers.convertToCents($scope.editAccountCurrencyFee.value,$scope.currencyObj.divisibility);
+            if($scope.editAccountCurrencyFee.value){
+                if(currencyModifiers.validateCurrency($scope.editAccountCurrencyFee.value,$scope.currencyObj.divisibility)){
+                    vm.updatedAccountCurrencyFee.value = currencyModifiers.convertToCents($scope.editAccountCurrencyFee.value,$scope.currencyObj.divisibility);
+                } else {
+                    toastr.error('Please input amount to ' + $scope.currencyObj.divisibility + ' decimal places');
+                    return;
+                }
             } else {
-                toastr.error('Please input amount to ' + $scope.currencyObj.divisibility + ' decimal places');
-                return;
+                vm.updatedAccountCurrencyFee.value = 0;
             }
+
             if(vm.token) {
                 $scope.loadingAccountCurrencyFees = true;
                 $scope.editingAccountCurrencyFees = !$scope.editingAccountCurrencyFees;

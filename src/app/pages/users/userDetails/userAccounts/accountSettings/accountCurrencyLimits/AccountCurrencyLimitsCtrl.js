@@ -85,11 +85,15 @@
         $scope.getAccountCurrencyLimits();
 
         $scope.addAccountCurrencyLimit = function(accountCurrencyLimitsParams){
-            if(currencyModifiers.validateCurrency(accountCurrencyLimitsParams.value,$scope.currencyObj.divisibility)){
-                accountCurrencyLimitsParams.value = currencyModifiers.convertToCents(accountCurrencyLimitsParams.value,$scope.currencyObj.divisibility);
+            if(accountCurrencyLimitsParams.value){
+                if(currencyModifiers.validateCurrency(accountCurrencyLimitsParams.value,$scope.currencyObj.divisibility)){
+                    accountCurrencyLimitsParams.value = currencyModifiers.convertToCents(accountCurrencyLimitsParams.value,$scope.currencyObj.divisibility);
+                } else {
+                    toastr.error('Please input amount to ' + $scope.currencyObj.divisibility + ' decimal places');
+                    return;
+                }
             } else {
-                toastr.error('Please input amount to ' + $scope.currencyObj.divisibility + ' decimal places');
-                return;
+                accountCurrencyLimitsParams.value = 0;
             }
             if(vm.token) {
                 $scope.loadingAccountCurrencyLimits = true;
@@ -128,12 +132,17 @@
         };
 
         $scope.updateAccountCurrencyLimit = function(){
-            if(currencyModifiers.validateCurrency($scope.editAccountCurrencyLimit.value,$scope.currencyObj.divisibility)){
-                vm.updatedAccountCurrencyLimit.value = currencyModifiers.convertToCents($scope.editAccountCurrencyLimit.value,$scope.currencyObj.divisibility);
+            if($scope.editAccountCurrencyLimit.value){
+                if(currencyModifiers.validateCurrency($scope.editAccountCurrencyLimit.value,$scope.currencyObj.divisibility)){
+                    vm.updatedAccountCurrencyLimit.value = currencyModifiers.convertToCents($scope.editAccountCurrencyLimit.value,$scope.currencyObj.divisibility);
+                } else {
+                    toastr.error('Please input amount to ' + $scope.currencyObj.divisibility + ' decimal places');
+                    return;
+                }
             } else {
-                toastr.error('Please input amount to ' + $scope.currencyObj.divisibility + ' decimal places');
-                return;
+                vm.updatedAccountCurrencyLimit.value = 0;
             }
+
             if(vm.token) {
                 $scope.loadingAccountCurrencyLimits = true;
                 $scope.editingAccountCurrencyLimits = !$scope.editingAccountCurrencyLimits;

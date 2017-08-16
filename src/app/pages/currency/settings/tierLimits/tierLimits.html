@@ -12,7 +12,7 @@
                         <th></th>
                     </tr>
                     <tr ng-repeat="tierLimit in tiersLimitsList">
-                        <th title="{{tierLimit.tx_type}}" ng-bind="tierLimit.tx_type | capitalizeWord | limitTo: '35'"></th>
+                        <th title="{{tierLimit.tx_type | capitalizeWord}}" ng-bind="tierLimit.tx_type | capitalizeWord | limitTo: '35'"></th>
                         <th title="{{tierLimit.value | currencyModifiersFilter: selectedCurrency.divisibility | preciseRound: selectedCurrency.divisibility}}"
                             ng-bind="tierLimit.value | currencyModifiersFilter: selectedCurrency.divisibility | preciseRound: selectedCurrency.divisibility"></th>
                         <th title="{{tierLimit.type}}" ng-bind="tierLimit.type | capitalizeWord | limitTo: '35'"></th>
@@ -36,8 +36,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label><strong>Amount</strong> <span class="required-icon">*</span></label>
-                        <input type="text" class="form-control" ng-model="tierLimitsParams.value" placeholder="Enter value" required/>
+                        <label><strong>Amount</strong></label>
+                        <input type="text" class="form-control" ng-model="tierLimitsParams.value" placeholder="Enter value" />
                     </div>
                     <div class="form-group">
                         <label><strong>Type</strong> <span class="required-icon">*</span></label>

@@ -7,7 +7,7 @@
                 <th></th>
             </tr>
             <tr ng-repeat="switches in switchesList">
-                <th title="{{switches.switch_type}}" ng-bind="switches.switch_type | limitTo: '35'"></th>
+                <th title="{{switches.switch_type}}" ng-bind="switches.switch_type | limitTo: '50'"></th>
                 <th title="{{switches.enabled}}" ng-bind="switches.enabled | capitalizeWord"></th>
                 <th class="rehive-table-row-last-child">
                     <button ng-click="openSwitchesModal('app/pages/settings/switches/switchModal/switchModal.html','md',switches)" class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
