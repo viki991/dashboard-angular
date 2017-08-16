@@ -6,7 +6,10 @@
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>User</strong></label>
-            <input type="text"  class="form-control" id="user"  placeholder="Enter Email address." ng-model="searchParams.searchUser" size="12">
+            <input type="text" ng-model="searchParams.searchUser" placeholder="Enter Email address."
+                   typeahead-loading="loadingUsersEmails" uib-typeahead="email for email in getUsersTypeahead($viewValue)"
+                   class="form-control" size="12">
+            <i ng-show="loadingUsersEmails"><loading-image class="typeahead-custom-loading"></loading-image></i>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>From date</strong></label>

@@ -5,7 +5,7 @@
         .controller('UsersCtrl', UsersCtrl);
 
     /** @ngInject */
-    function UsersCtrl($rootScope,$scope,environmentConfig,$http,cookieManagement,errorToasts,Upload,$window,toastr,errorHandler) {
+    function UsersCtrl($rootScope,$scope,environmentConfig,$http,typeaheadService,cookieManagement,errorToasts,Upload,$window,toastr,errorHandler) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -39,6 +39,8 @@
 
         $scope.statusOptions = ['Status','Verified','Pending','Declined','Incomplete'];
         $scope.currencyOptions = [];
+
+        $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
 
         $rootScope.$watch('selectedCurrency',function(){
             if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {

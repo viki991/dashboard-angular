@@ -5,7 +5,7 @@
         .controller('HistoryCtrl', HistoryCtrl);
 
     /** @ngInject */
-    function HistoryCtrl($scope,environmentConfig,$http,cookieManagement,$uibModal,errorToasts,$state,$window,errorHandler) {
+    function HistoryCtrl($scope,environmentConfig,$http,cookieManagement,$uibModal,errorToasts,$state,$window,errorHandler,typeaheadService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -106,6 +106,8 @@
             }
         };
         $scope.getLatestTransactions();
+
+        $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
 
         $scope.openModal = function (page, size,transaction) {
             vm.theModal = $uibModal.open({

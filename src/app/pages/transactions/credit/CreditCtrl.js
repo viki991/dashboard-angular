@@ -5,7 +5,8 @@
         .controller('CreditCtrl', CreditCtrl);
 
     /** @ngInject */
-    function CreditCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,toastr,errorToasts,errorHandler,$location,$state,currencyModifiers) {
+    function CreditCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,toastr,
+                        errorToasts,errorHandler,$location,$state,currencyModifiers,typeaheadService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -21,6 +22,8 @@
             note: "",
             account: ""
         };
+
+        $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
 
         if($state.params.email){
           $scope.creditData.user = $state.params.email;

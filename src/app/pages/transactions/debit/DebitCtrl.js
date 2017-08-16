@@ -5,7 +5,9 @@
         .controller('DebitCtrl', DebitCtrl);
 
     /** @ngInject */
-    function DebitCtrl($rootScope, $scope, $http, environmentConfig, cookieManagement, toastr, errorToasts, errorHandler, $location, $state, currencyModifiers) {
+    function DebitCtrl($rootScope, $scope, $http, environmentConfig,
+                       cookieManagement, toastr, errorToasts, errorHandler,
+                       $location, $state, currencyModifiers,typeaheadService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -24,6 +26,8 @@
         $scope.onGoingTransaction = false;
         $scope.showAdvancedOption = false;
         $scope.showView = 'createDebit';
+
+        $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
 
         if ($location.path() === '/transactions/debit/pending') {
             $scope.showView = 'pendingDebit';

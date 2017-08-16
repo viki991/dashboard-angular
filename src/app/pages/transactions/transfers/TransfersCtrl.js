@@ -5,7 +5,7 @@
         .controller('TransfersCtrl', TransfersCtrl);
 
     /** @ngInject */
-    function TransfersCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,toastr,errorToasts,errorHandler,currencyModifiers) {
+    function TransfersCtrl($rootScope,$scope,typeaheadService,$http,environmentConfig,cookieManagement,toastr,errorToasts,errorHandler,currencyModifiers) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -16,6 +16,8 @@
             recipient: "",
             currency: null
         };
+
+        $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
 
         $scope.onGoingTransaction = false;
         $scope.showView = 'createTransfer';
