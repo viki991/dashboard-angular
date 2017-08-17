@@ -7,9 +7,8 @@
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>Email</strong></label>
             <input type="text" ng-model="usersSearchParams.searchEmail" placeholder="Enter email address"
-                   typeahead-loading="loadingUsersEmails" uib-typeahead="email for email in getUsersTypeahead($viewValue)"
+                   uib-typeahead="email for email in getUsersTypeahead($viewValue)"
                    class="form-control" size="12">
-            <i ng-show="loadingUsersEmails"><loading-image class="typeahead-custom-loading"></loading-image></i>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>Mobile number</strong></label>

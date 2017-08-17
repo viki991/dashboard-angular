@@ -1,8 +1,3 @@
-.typeahead-custom-loading img{
-  width: 20px;
-  height: 20px;
-}
-
 .image-center{
   display: block;
   margin: 0 auto 15px auto;
@@ -59,7 +54,7 @@
 }
 
 .transaction-details-button{
-  width: auto;
+  width: auto !important;
   padding: 6px
 }
 
@@ -88,7 +83,7 @@
   margin-bottom: 20px;
 }
 
-@media screen and (max-width: $resXL) {
+@media screen and (max-width: 830px) {
   .transactions-list-element{
     max-width: 80px;
     overflow: hidden;

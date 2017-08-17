@@ -10,9 +10,9 @@
         return {
                 getUsersTypeahead : function () {
                     return function (email) {
-                        if(email.length > 5){
+                        if(email.length > 0){
                             var token = cookieManagement.getCookie('TOKEN');
-                            return $http.get(environmentConfig.API + '/admin/users/?page_size=8&email__contains=' + email, {
+                            return $http.get(environmentConfig.API + '/admin/users/?page_size=10&email__contains=' + email, {
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': token
