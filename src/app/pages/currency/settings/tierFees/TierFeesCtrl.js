@@ -5,18 +5,39 @@
         .controller('TierFeesCtrl', TierFeesCtrl);
 
     /** @ngInject */
-    function TierFeesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,$timeout,errorToasts,toastr,$uibModal,currencyModifiers) {
+    function TierFeesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,
+                          sharedResources,$timeout,errorToasts,toastr,$uibModal,currencyModifiers) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.activeTabIndex = 0;
         $scope.loadingTierFees = true;
+        $scope.loadingSubtypes = false;
         $scope.editingTierFees = false;
         vm.updatedTierFee = {};
         $scope.tierFeesParams = {
-            tx_type: 'Credit'
+            tx_type: 'Credit',
+            subtype: ''
         };
         $scope.txTypeOptions = ['Credit','Debit'];
+
+        $scope.getSubtypesArray = function(params,editing){
+            $scope.loadingSubtypes = true;
+            if(!editing){
+                params.subtype = '';
+            } else if(!params.subtype && editing){
+                params.subtype = '';
+            }
+            sharedResources.getSubtypes().then(function (res) {
+                res.data.data = res.data.data.filter(function (element) {
+                    return element.tx_type == (params.tx_type).toLowerCase();
+                });
+                $scope.subtypeOptions = _.pluck(res.data.data,'name');
+                $scope.subtypeOptions.unshift('');
+                $scope.loadingSubtypes = false;
+            });
+        };
+        $scope.getSubtypesArray($scope.tierFeesParams);
 
         $rootScope.$watch('selectedCurrency',function(){
             if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
@@ -47,6 +68,7 @@
                     $scope.editTierFee = res.data.data;
                     $scope.editTierFee.value = currencyModifiers.convertFromCents($scope.editTierFee.value,$rootScope.selectedCurrency.divisibility);
                     $scope.editTierFee.tx_type == 'credit' ? $scope.editTierFee.tx_type = 'Credit' : $scope.editTierFee.tx_type = 'Debit';
+                    $scope.getSubtypesArray($scope.editTierFee,'editing');
                 }
             }).catch(function (error) {
                 $scope.loadingTierFees = false;
@@ -152,14 +174,18 @@
                     if (res.status === 201) {
                         toastr.success('Fee added successfully to tier');
                         $scope.tierFeesParams = {
-                            tx_type: 'Credit'
+                            tx_type: 'Credit',
+                            subtype: ''
                         };
+                        $scope.getSubtypesArray($scope.tierFeesParams);
                         $scope.getAllTiers($scope.selectedTier.level);
                     }
                 }).catch(function (error) {
                     $scope.tierFeesParams = {
-                        tx_type: 'Credit'
+                        tx_type: 'Credit',
+                        subtype: ''
                     };
+                    $scope.getSubtypesArray($scope.tierFeesParams);
                     $scope.loadingTierFees = false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -171,6 +197,11 @@
         };
 
         $scope.updateTierFee = function(){
+
+            if(!$scope.editTierFee.subtype){
+                vm.updatedTierFee.subtype = '';
+            }
+
             if($scope.editTierFee.value){
                 if(currencyModifiers.validateCurrency($scope.editTierFee.value,$rootScope.selectedCurrency.divisibility)){
                     vm.updatedTierFee.value = currencyModifiers.convertToCents($scope.editTierFee.value,$rootScope.selectedCurrency.divisibility);
@@ -201,14 +232,16 @@
                     if (res.status === 200) {
                         toastr.success('Fee updated successfully');
                         $scope.tierFeesParams = {
-                            tx_type: 'Credit'
+                            tx_type: 'Credit',
+                            subtype: ''
                         };
                         vm.updatedTierFee = {};
                         $scope.getAllTiers($scope.selectedTier.level);
                     }
                 }).catch(function (error) {
                     $scope.tierFeesParams = {
-                        tx_type: 'Credit'
+                        tx_type: 'Credit',
+                        subtype: ''
                     };
                     vm.updatedTierFee = {};
                     $scope.getAllTiers($scope.selectedTier.level);

@@ -7,7 +7,7 @@
     /** @ngInject */
     function DebitCtrl($rootScope, $scope, $http, environmentConfig,
                        cookieManagement, toastr, errorToasts, errorHandler,
-                       $location, $state, currencyModifiers,typeaheadService) {
+                       $location, $state,sharedResources,currencyModifiers,typeaheadService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -26,6 +26,13 @@
         $scope.onGoingTransaction = false;
         $scope.showAdvancedOption = false;
         $scope.showView = 'createDebit';
+        sharedResources.getSubtypes().then(function (res) {
+            res.data.data = res.data.data.filter(function (element) {
+                return element.tx_type == 'debit';
+            });
+            $scope.subtypeOptions = _.pluck(res.data.data,'name');
+            $scope.subtypeOptions.unshift('');
+        });
 
         $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
 

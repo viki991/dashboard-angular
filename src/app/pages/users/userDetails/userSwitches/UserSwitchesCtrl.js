@@ -5,7 +5,8 @@
         .controller('UserSwitchesCtrl', UserSwitchesCtrl);
 
     /** @ngInject */
-    function UserSwitchesCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorToasts,toastr,$uibModal) {
+    function UserSwitchesCtrl($scope,environmentConfig,$stateParams,$http,
+                              sharedResources,cookieManagement,errorToasts,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -13,13 +14,33 @@
         vm.updatedUserSwitch = {};
         $scope.loadingUserSwitches = true;
         $scope.addingUserSwitches = false;
+        $scope.loadingSubtypes = false;
         $scope.editingUserSwitches = false;
         $scope.userSwitchesOptions = ['Credit','Debit'];
         $scope.boolOptions = ['False','True'];
         $scope.userSwitchParams = {
             tx_type: 'Credit',
-            enabled: 'False'
+            enabled: 'False',
+            subtype: ''
         };
+
+        $scope.getSubtypesArray = function(params,editing){
+            $scope.loadingSubtypes = true;
+            if(!editing){
+                params.subtype = '';
+            } else if(!params.subtype && editing){
+                params.subtype = '';
+            }
+            sharedResources.getSubtypes().then(function (res) {
+                res.data.data = res.data.data.filter(function (element) {
+                    return element.tx_type == (params.tx_type).toLowerCase();
+                });
+                $scope.subtypeOptions = _.pluck(res.data.data,'name');
+                $scope.subtypeOptions.unshift('');
+                $scope.loadingSubtypes = false;
+            });
+        };
+        $scope.getSubtypesArray($scope.userSwitchParams);
 
         vm.getUserSwitches = function(){
             if(vm.token) {
@@ -56,11 +77,21 @@
                     if (res.status === 201) {
                         $scope.addingUserSwitches = false;
                         toastr.success('Successfully created the user switch!');
-                        $scope.userSwitchParams = {tx_type: 'Credit', enabled: 'False'};
+                        $scope.userSwitchParams = {
+                            tx_type: 'Credit',
+                            enabled: 'False',
+                            subtype: ''
+                        };
+                        $scope.getSubtypesArray($scope.userSwitchParams);
                         vm.getUserSwitches();
                     }
                 }).catch(function (error) {
-                    $scope.userSwitchParams = {tx_type: 'Credit', enabled: 'False'};
+                    $scope.userSwitchParams = {
+                        tx_type: 'Credit',
+                        enabled: 'False',
+                        subtype: ''
+                    };
+                    $scope.getSubtypesArray($scope.userSwitchParams);
                     $scope.loadingUserSwitches = false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -95,6 +126,7 @@
                     $scope.editUserSwitch = res.data.data;
                     $scope.editUserSwitch.tx_type == 'credit' ? $scope.editUserSwitch.tx_type = 'Credit' : $scope.editUserSwitch.tx_type = 'Debit';
                     $scope.editUserSwitch.enabled == true ? $scope.editUserSwitch.enabled = 'True' : $scope.editUserSwitch.enabled = 'False';
+                    $scope.getSubtypesArray($scope.editUserSwitch,'editing');
                 }
             }).catch(function (error) {
                 $scope.loadingUserSwitches = false;
@@ -111,6 +143,11 @@
         };
 
         $scope.updateUserSwitch = function () {
+
+            if(!$scope.editUserSwitch.subtype){
+                vm.updatedUserSwitch.subtype = '';
+            }
+
             vm.updatedUserSwitch.tx_type ? vm.updatedUserSwitch.tx_type = vm.updatedUserSwitch.tx_type.toLowerCase() : '';
             vm.updatedUserSwitch.enabled ? vm.updatedUserSwitch.enabled = vm.updatedUserSwitch.enabled == 'True' ? true: false : '';
             if(vm.token) {

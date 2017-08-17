@@ -5,21 +5,42 @@
         .controller('AccountCurrencySwitchesCtrl', AccountCurrencySwitchesCtrl);
 
     /** @ngInject */
-    function AccountCurrencySwitchesCtrl($rootScope,$scope,$stateParams,$http,$uibModal,environmentConfig,cookieManagement,errorToasts,currencyModifiers,toastr) {
+    function AccountCurrencySwitchesCtrl($rootScope,$scope,$stateParams,$http,$uibModal,environmentConfig,cookieManagement,
+                                         sharedResources,errorToasts,currencyModifiers,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.currencyCode = $stateParams.currencyCode;
         vm.reference = $stateParams.reference;
         $scope.loadingAccountCurrencySwitches = true;
+        $scope.loadingSubtypes = false;
         $scope.editingAccountCurrencySwitches = false;
         vm.updatedAccountCurrencySwitch = {};
         $scope.accountCurrencySwitchesParams = {
             tx_type: 'Credit',
-            enabled: 'False'
+            enabled: 'False',
+            subtype: ''
         };
         $scope.txTypeOptions = ['Credit','Debit'];
         $scope.boolOptions = ['True','False'];
+
+        $scope.getSubtypesArray = function(params,editing){
+            $scope.loadingSubtypes = true;
+            if(!editing){
+                params.subtype = '';
+            } else if(!params.subtype && editing){
+                params.subtype = '';
+            }
+            sharedResources.getSubtypes().then(function (res) {
+                res.data.data = res.data.data.filter(function (element) {
+                    return element.tx_type == (params.tx_type).toLowerCase();
+                });
+                $scope.subtypeOptions = _.pluck(res.data.data,'name');
+                $scope.subtypeOptions.unshift('');
+                $scope.loadingSubtypes = false;
+            });
+        };
+        $scope.getSubtypesArray($scope.accountCurrencySwitchesParams);
 
         $scope.toggleAccountCurrencySwitchEditView = function(accountCurrencySwitch){
             if(accountCurrencySwitch) {
@@ -45,6 +66,7 @@
                     $scope.editAccountCurrencySwitch = res.data.data;
                     $scope.editAccountCurrencySwitch.tx_type == 'credit' ? $scope.editAccountCurrencySwitch.tx_type = 'Credit' : $scope.editAccountCurrencySwitch.tx_type = 'Debit';
                     $scope.editAccountCurrencySwitch.enabled == true ? $scope.editAccountCurrencySwitch.enabled = 'True' : $scope.editAccountCurrencySwitch.enabled = 'False';
+                    $scope.getSubtypesArray($scope.editAccountCurrencySwitch,'editing');
                 }
             }).catch(function (error) {
                 $scope.loadingAccountCurrencySwitches = false;
@@ -93,15 +115,19 @@
                         toastr.success('Switch added successfully');
                         $scope.accountCurrencySwitchesParams = {
                             tx_type: 'Credit',
-                            enabled: 'False'
+                            enabled: 'False',
+                            subtype: ''
                         };
+                        $scope.getSubtypesArray($scope.accountCurrencySwitchesParams);
                         $scope.getAccountCurrencySwitches();
                     }
                 }).catch(function (error) {
                     $scope.accountCurrencySwitchesParams = {
                         tx_type: 'Credit',
-                        enabled: 'False'
+                        enabled: 'False',
+                        subtype: ''
                     };
+                    $scope.getSubtypesArray($scope.accountCurrencySwitchesParams);
                     $scope.loadingAccountCurrencySwitches = false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -113,6 +139,11 @@
         };
 
         $scope.updateAccountCurrencySwitch = function(){
+
+            if(!$scope.editAccountCurrencySwitch.subtype){
+                vm.updatedAccountCurrencySwitch.subtype = '';
+            }
+
             if(vm.token) {
                 $scope.loadingAccountCurrencySwitches = true;
                 $scope.editingAccountCurrencySwitches = !$scope.editingAccountCurrencySwitches;
@@ -130,7 +161,8 @@
                         toastr.success('Switch updated successfully');
                         $scope.AccountCurrencySwitchesParams = {
                             tx_type: 'Credit',
-                            enabled: 'False'
+                            enabled: 'False',
+                            subtype: ''
                         };
                         vm.updatedAccountCurrencySwitch = {};
                         $scope.getAccountCurrencySwitches();
@@ -138,7 +170,8 @@
                 }).catch(function (error) {
                     $scope.AccountCurrencySwitchesParams = {
                         tx_type: 'Credit',
-                        enabled: 'False'
+                        enabled: 'False',
+                        subtype: ''
                     };
                     vm.updatedAccountCurrencySwitch = {};
                     $scope.getAccountCurrencySwitches();

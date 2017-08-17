@@ -5,7 +5,8 @@
         .controller('AccountCurrencyLimitsCtrl', AccountCurrencyLimitsCtrl);
 
     /** @ngInject */
-    function AccountCurrencyLimitsCtrl($window,$scope,$stateParams,$http,$uibModal,environmentConfig,cookieManagement,errorToasts,currencyModifiers,toastr) {
+    function AccountCurrencyLimitsCtrl($window,$scope,$stateParams,$http,$uibModal,environmentConfig,
+                                       sharedResources,cookieManagement,errorToasts,currencyModifiers,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -13,14 +14,34 @@
         vm.reference = $stateParams.reference;
         vm.currenciesList = JSON.parse($window.sessionStorage.currenciesList);
         $scope.loadingAccountCurrencyLimits = true;
+        $scope.loadingSubtypes = false;
         $scope.editingAccountCurrencyLimits = false;
         vm.updatedAccountCurrencyLimit = {};
         $scope.accountCurrencyLimitsParams = {
             tx_type: 'Credit',
-            type: 'Maximum'
+            type: 'Maximum',
+            subtype: ''
         };
         $scope.txTypeOptions = ['Credit','Debit'];
         $scope.typeOptions = ['Maximum','Maximum per day','Maximum per month','Minimum','Overdraft'];
+
+        $scope.getSubtypesArray = function(params,editing){
+            $scope.loadingSubtypes = true;
+            if(!editing){
+                params.subtype = '';
+            } else if(!params.subtype && editing){
+                params.subtype = '';
+            }
+            sharedResources.getSubtypes().then(function (res) {
+                res.data.data = res.data.data.filter(function (element) {
+                    return element.tx_type == (params.tx_type).toLowerCase();
+                });
+                $scope.subtypeOptions = _.pluck(res.data.data,'name');
+                $scope.subtypeOptions.unshift('');
+                $scope.loadingSubtypes = false;
+            });
+        };
+        $scope.getSubtypesArray($scope.accountCurrencyLimitsParams);
 
         vm.getCurrencyObjFromCurrenciesList = function(){
             $scope.currencyObj = vm.currenciesList.find(function(element){
@@ -52,6 +73,7 @@
                     $scope.editAccountCurrencyLimit = res.data.data;
                     $scope.editAccountCurrencyLimit.value = currencyModifiers.convertFromCents($scope.editAccountCurrencyLimit.value,$scope.currencyObj.divisibility);
                     $scope.editAccountCurrencyLimit.tx_type == 'credit' ? $scope.editAccountCurrencyLimit.tx_type = 'Credit' : $scope.editAccountCurrencyLimit.tx_type = 'Debit';
+                    $scope.getSubtypesArray($scope.editAccountCurrencyLimit,'editing');
                 }
             }).catch(function (error) {
                 $scope.loadingAccountCurrencyLimits = false;
@@ -112,15 +134,19 @@
                         toastr.success('Limit added successfully.');
                         $scope.accountCurrencyLimitsParams = {
                             tx_type: 'Credit',
-                            type: 'Maximum'
+                            type: 'Maximum',
+                            subtype: ''
                         };
+                        $scope.getSubtypesArray($scope.accountCurrencyLimitsParams);
                         $scope.getAccountCurrencyLimits();
                     }
                 }).catch(function (error) {
                     $scope.accountCurrencyLimitsParams = {
                         tx_type: 'Credit',
-                        type: 'Maximum'
+                        type: 'Maximum',
+                        subtype: ''
                     };
+                    $scope.getSubtypesArray($scope.accountCurrencyLimitsParams);
                     $scope.loadingAccountCurrencyLimits = false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -132,6 +158,11 @@
         };
 
         $scope.updateAccountCurrencyLimit = function(){
+
+            if(!$scope.editAccountCurrencyLimit.subtype){
+                vm.updatedAccountCurrencyLimit.subtype = '';
+            }
+
             if($scope.editAccountCurrencyLimit.value){
                 if(currencyModifiers.validateCurrency($scope.editAccountCurrencyLimit.value,$scope.currencyObj.divisibility)){
                     vm.updatedAccountCurrencyLimit.value = currencyModifiers.convertToCents($scope.editAccountCurrencyLimit.value,$scope.currencyObj.divisibility);
@@ -161,7 +192,8 @@
                         toastr.success('Limit updated successfully');
                         $scope.accountCurrencyLimitsParams = {
                             tx_type: 'Credit',
-                            type: 'Maximum'
+                            type: 'Maximum',
+                            subtype: ''
                         };
                         vm.updatedAccountCurrencyLimit = {};
                         $scope.getAccountCurrencyLimits();
@@ -170,7 +202,8 @@
                 }).catch(function (error) {
                     $scope.accountCurrencyLimitsParams = {
                         tx_type: 'Credit',
-                        type: 'Maximum'
+                        type: 'Maximum',
+                        subtype: ''
                     };
                     vm.updatedAccountCurrencyLimit = {};
                     $scope.getAccountCurrencyLimits();

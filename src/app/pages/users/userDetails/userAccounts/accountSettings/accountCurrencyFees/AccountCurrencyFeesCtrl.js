@@ -5,7 +5,8 @@
         .controller('AccountCurrencyFeesCtrl', AccountCurrencyFeesCtrl);
 
     /** @ngInject */
-    function AccountCurrencyFeesCtrl($scope,$window,$stateParams,$http,$uibModal,environmentConfig,cookieManagement,errorToasts,currencyModifiers,toastr) {
+    function AccountCurrencyFeesCtrl($scope,$window,$stateParams,$http,$uibModal,environmentConfig,
+                                     sharedResources,cookieManagement,errorToasts,currencyModifiers,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -13,12 +14,32 @@
         vm.currenciesList = JSON.parse($window.sessionStorage.currenciesList);
         vm.reference = $stateParams.reference;
         $scope.loadingAccountCurrencyFees = true;
+        $scope.loadingSubtypes = false;
         $scope.editingAccountCurrencyFees = false;
         vm.updatedAccountCurrencyFee = {};
         $scope.accountCurrencyFeesParams = {
-            tx_type: 'Credit'
+            tx_type: 'Credit',
+            subtype: ''
         };
         $scope.txTypeOptions = ['Credit','Debit'];
+
+        $scope.getSubtypesArray = function(params,editing){
+            $scope.loadingSubtypes = true;
+            if(!editing){
+                params.subtype = '';
+            } else if(!params.subtype && editing){
+                params.subtype = '';
+            }
+            sharedResources.getSubtypes().then(function (res) {
+                res.data.data = res.data.data.filter(function (element) {
+                    return element.tx_type == (params.tx_type).toLowerCase();
+                });
+                $scope.subtypeOptions = _.pluck(res.data.data,'name');
+                $scope.subtypeOptions.unshift('');
+                $scope.loadingSubtypes = false;
+            });
+        };
+        $scope.getSubtypesArray($scope.accountCurrencyFeesParams);
 
         vm.getCurrencyObjFromCurrenciesList = function(){
             $scope.currencyObj = vm.currenciesList.find(function(element){
@@ -50,6 +71,7 @@
                     $scope.editAccountCurrencyFee = res.data.data;
                     $scope.editAccountCurrencyFee.value = currencyModifiers.convertFromCents($scope.editAccountCurrencyFee.value,$scope.currencyObj.divisibility);
                     $scope.editAccountCurrencyFee.tx_type == 'credit' ? $scope.editAccountCurrencyFee.tx_type = 'Credit' : $scope.editAccountCurrencyFee.tx_type = 'Debit';
+                    $scope.getSubtypesArray($scope.editAccountCurrencyFee,'editing');
                 }
             }).catch(function (error) {
                 $scope.loadingAccountCurrencyFees = false;
@@ -108,14 +130,18 @@
                     if (res.status === 201) {
                         toastr.success('Fee added successfully');
                         $scope.accountCurrencyFeesParams = {
-                            tx_type: 'Credit'
+                            tx_type: 'Credit',
+                            subtype: ''
                         };
+                        $scope.getSubtypesArray($scope.accountCurrencyFeesParams);
                         $scope.getAccountCurrencyFees();
                     }
                 }).catch(function (error) {
                     $scope.accountCurrencyFeesParams = {
-                        tx_type: 'Credit'
+                        tx_type: 'Credit',
+                        subtype: ''
                     };
+                    $scope.getSubtypesArray($scope.accountCurrencyFeesParams);
                     $scope.loadingAccountCurrencyFees = false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -127,6 +153,11 @@
         };
 
         $scope.updateAccountCurrencyFee = function(){
+
+            if(!$scope.editAccountCurrencyFee.subtype){
+                vm.updatedAccountCurrencyFee.subtype = '';
+            }
+
             if($scope.editAccountCurrencyFee.value){
                 if(currencyModifiers.validateCurrency($scope.editAccountCurrencyFee.value,$scope.currencyObj.divisibility)){
                     vm.updatedAccountCurrencyFee.value = currencyModifiers.convertToCents($scope.editAccountCurrencyFee.value,$scope.currencyObj.divisibility);
@@ -157,14 +188,16 @@
                     if (res.status === 200) {
                         toastr.success('Fee updated successfully');
                         $scope.accountCurrencyFeesParams = {
-                            tx_type: 'Credit'
+                            tx_type: 'Credit',
+                            subtype: ''
                         };
                         vm.updatedAccountCurrencyFee = {};
                         $scope.getAccountCurrencyFees();
                     }
                 }).catch(function (error) {
                     $scope.accountCurrencyFeesParams = {
-                        tx_type: 'Credit'
+                        tx_type: 'Credit',
+                        subtype: ''
                     };
                     vm.updatedAccountCurrencyFee = {};
                     $scope.getAccountCurrencyFees();

@@ -28,7 +28,7 @@
         <div class="form-group">
             <label><strong>Transaction type</strong> <span class="required-icon">*</span></label>
             <br>
-            <select class="form-control pointer" ng-model="accountCurrencyLimitsParams.tx_type" ng-options="option for option in txTypeOptions" required>
+            <select class="form-control pointer" ng-change="getSubtypesArray(accountCurrencyLimitsParams)" ng-model="accountCurrencyLimitsParams.tx_type" ng-options="option for option in txTypeOptions" required>
             </select>
         </div>
         <div class="form-group">
@@ -41,9 +41,14 @@
             <select class="form-control pointer" ng-model="accountCurrencyLimitsParams.type" ng-options="typeOption for typeOption in typeOptions" required>
             </select>
         </div>
-        <div class="form-group">
+        <div ng-hide="loadingSubtypes" class="form-group">
             <label><strong>Subtype</strong></label>
-            <input type="text" class="form-control" ng-model="accountCurrencyLimitsParams.subtype" placeholder="Enter subtype name"/>
+            <select class="form-control pointer" ng-model="accountCurrencyLimitsParams.subtype"
+                    ng-options="subtypeOption for subtypeOption in subtypeOptions">
+            </select>
+        </div>
+        <div ng-show="loadingSubtypes">
+            <loading-image class="custom-subtype-loading"></loading-image>
         </div>
         <div class="form-group">
             <button ng-click="addAccountCurrencyLimit(accountCurrencyLimitsParams)" ng-disabled="!accountCurrencyLimitForm.$valid" class="btn btn-primary pull-right">Add</button>

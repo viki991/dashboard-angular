@@ -4,19 +4,40 @@
     angular.module('BlurAdmin.pages.settings.transactionsSwitches')
         .controller('TransactionsSwitchesCtrl', TransactionsSwitchesCtrl);
 
-    function TransactionsSwitchesCtrl($scope,environmentConfig,$uibModal,$rootScope,toastr,$http,cookieManagement,errorToasts,$window,errorHandler) {
+    function TransactionsSwitchesCtrl($scope,environmentConfig,$uibModal,$rootScope,toastr,$http,
+                                      sharedResources,cookieManagement,errorToasts,$window,errorHandler) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.loadingTransactionsSwitches = true;
+        $scope.loadingSubtypes = false;
         $scope.transactionsSwitches = {};
         vm.updatedTransactionsSwitch = {};
         $scope.transactionsSwitchParams = {
             tx_type: 'Credit',
-            enabled: 'False'
+            enabled: 'False',
+            subtype: ''
         };
         $scope.transactionsSwitchesOptions = ['Credit','Debit'];
         $scope.boolOptions = ['True','False'];
+
+        $scope.getSubtypesArray = function(params,editing){
+            $scope.loadingSubtypes = true;
+            if(!editing){
+                params.subtype = '';
+            } else if(!params.subtype && editing){
+                params.subtype = '';
+            }
+            sharedResources.getSubtypes().then(function (res) {
+                res.data.data = res.data.data.filter(function (element) {
+                    return element.tx_type == (params.tx_type).toLowerCase();
+                });
+                $scope.subtypeOptions = _.pluck(res.data.data,'name');
+                $scope.subtypeOptions.unshift('');
+                $scope.loadingSubtypes = false;
+            });
+        };
+        $scope.getSubtypesArray($scope.transactionsSwitchParams);
 
         $scope.toggleTransactionsSwitchesEditView = function(transactionsSwitch){
             if(transactionsSwitch) {
@@ -42,6 +63,7 @@
                     $scope.editTransactionsSwitch = res.data.data;
                     $scope.editTransactionsSwitch.tx_type == 'credit' ? $scope.editTransactionsSwitch.tx_type = 'Credit' : $scope.editTransactionsSwitch.tx_type = 'Debit';
                     $scope.editTransactionsSwitch.enabled == true ? $scope.editTransactionsSwitch.enabled = 'True' : $scope.editTransactionsSwitch.enabled = 'False';
+                    $scope.getSubtypesArray($scope.editTransactionsSwitch,'editing');
                 }
             }).catch(function (error) {
                 $scope.loadingTransactionsSwitches = false;
@@ -89,11 +111,21 @@
                     $scope.loadingTransactionsSwitches = false;
                     if (res.status === 201) {
                         toastr.success('Successfully created the transactions switch!');
-                        $scope.transactionsSwitchParams = {tx_type: 'Credit', enabled: 'False'};
+                        $scope.transactionsSwitchParams = {
+                            tx_type: 'Credit',
+                            enabled: 'False',
+                            subtype: ''
+                        };
+                        $scope.getSubtypesArray($scope.transactionsSwitchParams);
                         vm.getTransactionsSwitches();
                     }
                 }).catch(function (error) {
-                    $scope.transactionsSwitchParams = {tx_type: 'Credit', enabled: 'False'};
+                    $scope.transactionsSwitchParams = {
+                        tx_type: 'Credit',
+                        enabled: 'False',
+                        subtype: ''
+                    };
+                    $scope.getSubtypesArray($scope.transactionsSwitchParams);
                     $scope.loadingTransactionsSwitches = false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -106,6 +138,11 @@
 
         $scope.updateTransactionsSwitch = function () {
             $window.scrollTo(0,0);
+
+            if(!$scope.editTransactionsSwitch.subtype){
+                vm.updatedTransactionsSwitch.subtype = '';
+            }
+            vm.updatedTransactionsSwitch.tx_type ? vm.updatedTransactionsSwitch.tx_type = vm.updatedTransactionsSwitch.tx_type.toLowerCase() : '';
             vm.updatedTransactionsSwitch.enabled ? vm.updatedTransactionsSwitch.enabled = vm.updatedTransactionsSwitch.enabled == 'True' ? true: false : '';
             if(vm.token) {
                 $scope.loadingTransactionsSwitches = true;

@@ -5,20 +5,41 @@
         .controller('TierSwitchesCtrl', TierSwitchesCtrl);
 
     /** @ngInject */
-    function TierSwitchesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,$timeout,errorToasts,toastr,$uibModal) {
+    function TierSwitchesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,
+                              sharedResources,$timeout,errorToasts,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.activeTabIndex = 0;
         $scope.loadingTierSwitches = true;
+        $scope.loadingSubtypes = false;
         $scope.editingTierSwitches = false;
         vm.updatedTierSwitch = {};
         $scope.tierSwitchesParams = {
             tx_type: 'Credit',
-            enabled: 'False'
+            enabled: 'False',
+            subtype: ''
         };
         $scope.txTypeOptions = ['Credit','Debit'];
         $scope.boolOptions = ['True','False'];
+
+        $scope.getSubtypesArray = function(params,editing){
+            $scope.loadingSubtypes = true;
+            if(!editing){
+                params.subtype = '';
+            } else if(!params.subtype && editing){
+                params.subtype = '';
+            }
+            sharedResources.getSubtypes().then(function (res) {
+                res.data.data = res.data.data.filter(function (element) {
+                    return element.tx_type == (params.tx_type).toLowerCase();
+                });
+                $scope.subtypeOptions = _.pluck(res.data.data,'name');
+                $scope.subtypeOptions.unshift('');
+                $scope.loadingSubtypes = false;
+            });
+        };
+        $scope.getSubtypesArray($scope.tierSwitchesParams);
 
         $rootScope.$watch('selectedCurrency',function(){
             if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
@@ -50,6 +71,7 @@
                     $scope.editTierSwitch = res.data.data;
                     $scope.editTierSwitch.tx_type == 'credit' ? $scope.editTierSwitch.tx_type = 'Credit' : $scope.editTierSwitch.tx_type = 'Debit';
                     $scope.editTierSwitch.enabled == true ? $scope.editTierSwitch.enabled = 'True' : $scope.editTierSwitch.enabled = 'False';
+                    $scope.getSubtypesArray($scope.editTierSwitch,'editing');
                 }
             }).catch(function (error) {
                 $scope.loadingTierSwitches = false;
@@ -145,15 +167,19 @@
                         toastr.success('Switch added successfully to tier');
                         $scope.tierSwitchesParams = {
                             tx_type: 'Credit',
-                            enabled: 'False'
+                            enabled: 'False',
+                            subtype: ''
                         };
+                        $scope.getSubtypesArray($scope.tierSwitchesParams);
                         $scope.getAllTiers($scope.selectedTier.level);
                     }
                 }).catch(function (error) {
                     $scope.tierSwitchesParams = {
                         tx_type: 'Credit',
-                        enabled: 'False'
+                        enabled: 'False',
+                        subtype: ''
                     };
+                    $scope.getSubtypesArray($scope.tierSwitchesParams);
                     $scope.loadingTierSwitches = false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -165,6 +191,11 @@
         };
 
         $scope.updateTierSwitch = function(){
+
+            if(!$scope.editTierSwitch.subtype){
+                vm.updatedTierSwitch.subtype = '';
+            }
+
             if(vm.token) {
                 $scope.loadingTierSwitches = true;
                 $scope.editingTierSwitches = !$scope.editingTierSwitches;
@@ -182,7 +213,8 @@
                         toastr.success('Switch updated successfully');
                         $scope.tierSwitchesParams = {
                             tx_type: 'Credit',
-                            enabled: 'False'
+                            enabled: 'False',
+                            subtype: ''
                         };
                         vm.updatedTierSwitch = {};
                         $scope.getAllTiers($scope.selectedTier.level);
@@ -190,7 +222,8 @@
                 }).catch(function (error) {
                     $scope.tierSwitchesParams = {
                         tx_type: 'Credit',
-                        enabled: 'False'
+                        enabled: 'False',
+                        subtype: ''
                     };
                     vm.updatedTierSwitch = {};
                     $scope.getAllTiers($scope.selectedTier.level);

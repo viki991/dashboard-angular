@@ -5,20 +5,41 @@
         .controller('TierLimitsCtrl', TierLimitsCtrl);
 
     /** @ngInject */
-    function TierLimitsCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,$timeout,errorToasts,toastr,$uibModal,currencyModifiers) {
+    function TierLimitsCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,
+                            sharedResources,$timeout,errorToasts,toastr,$uibModal,currencyModifiers) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.activeTabIndex = 0;
         $scope.loadingTierLimits = true;
+        $scope.loadingSubtypes = false;
         $scope.editingTierLimits = false;
         vm.updatedTierLimit = {};
         $scope.tierLimitsParams = {
             tx_type: 'Credit',
-            type: 'Maximum'
+            type: 'Maximum',
+            subtype: ''
         };
         $scope.txTypeOptions = ['Credit','Debit'];
         $scope.typeOptions = ['Maximum','Maximum per day','Maximum per month','Minimum','Overdraft'];
+
+        $scope.getSubtypesArray = function(params,editing){
+            $scope.loadingSubtypes = true;
+            if(!editing){
+                params.subtype = '';
+            } else if(!params.subtype && editing){
+                params.subtype = '';
+            }
+            sharedResources.getSubtypes().then(function (res) {
+                res.data.data = res.data.data.filter(function (element) {
+                    return element.tx_type == (params.tx_type).toLowerCase();
+                });
+                $scope.subtypeOptions = _.pluck(res.data.data,'name');
+                $scope.subtypeOptions.unshift('');
+                $scope.loadingSubtypes = false;
+            });
+        };
+        $scope.getSubtypesArray($scope.tierLimitsParams);
 
         $rootScope.$watch('selectedCurrency',function(){
             if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
@@ -49,6 +70,7 @@
                     $scope.editTierLimit = res.data.data;
                     $scope.editTierLimit.value = currencyModifiers.convertFromCents($scope.editTierLimit.value,$rootScope.selectedCurrency.divisibility);
                     $scope.editTierLimit.tx_type == 'credit' ? $scope.editTierLimit.tx_type = 'Credit' : $scope.editTierLimit.tx_type = 'Debit';
+                    $scope.getSubtypesArray($scope.editTierLimit,'editing');
                 }
             }).catch(function (error) {
                 $scope.loadingTierLimits = false;
@@ -155,15 +177,21 @@
                         toastr.success('Limit added successfully to tier');
                         $scope.tierLimitsParams = {
                             tx_type: 'Credit',
-                            type: 'Maximum'
+                            type: 'Maximum',
+                            subtype: ''
                         };
+
+                        $scope.getSubtypesArray($scope.tierLimitsParams);
                         $scope.getAllTiers($scope.selectedTier.level);
                     }
                 }).catch(function (error) {
                     $scope.tierLimitsParams = {
                         tx_type: 'Credit',
-                        type: 'Maximum'
+                        type: 'Maximum',
+                        subtype: ''
                     };
+
+                    $scope.getSubtypesArray($scope.tierLimitsParams);
                     $scope.loadingTierLimits = false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -175,6 +203,11 @@
         };
 
         $scope.updateTierLimit = function(){
+
+            if(!$scope.editTierLimit.subtype){
+                vm.updatedTierLimit.subtype = '';
+            }
+
             if($scope.editTierLimit.value){
                 if(currencyModifiers.validateCurrency($scope.editTierLimit.value,$rootScope.selectedCurrency.divisibility)){
                     vm.updatedTierLimit.value = currencyModifiers.convertToCents($scope.editTierLimit.value,$rootScope.selectedCurrency.divisibility);
@@ -204,7 +237,8 @@
                         toastr.success('Limit updated successfully');
                         $scope.tierLimitsParams = {
                             tx_type: 'Credit',
-                            type: 'Maximum'
+                            type: 'Maximum',
+                            subtype: ''
                         };
                         vm.updatedTierLimit = {};
                         $scope.getAllTiers($scope.selectedTier.level);
@@ -213,7 +247,8 @@
                 }).catch(function (error) {
                     $scope.tierLimitsParams = {
                         tx_type: 'Credit',
-                        type: 'Maximum'
+                        type: 'Maximum',
+                        subtype: ''
                     };
                     vm.updatedTierLimit = {};
                     $scope.getAllTiers($scope.selectedTier.level);

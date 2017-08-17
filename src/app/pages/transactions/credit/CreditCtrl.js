@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function CreditCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,toastr,
-                        errorToasts,errorHandler,$location,$state,currencyModifiers,typeaheadService) {
+                        errorToasts,errorHandler,sharedResources,$location,$state,currencyModifiers,typeaheadService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -22,6 +22,13 @@
             note: "",
             account: ""
         };
+        sharedResources.getSubtypes().then(function (res) {
+            res.data.data = res.data.data.filter(function (element) {
+                return element.tx_type == 'credit';
+            });
+            $scope.subtypeOptions = _.pluck(res.data.data,'name');
+            $scope.subtypeOptions.unshift('');
+        });
 
         $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
 
