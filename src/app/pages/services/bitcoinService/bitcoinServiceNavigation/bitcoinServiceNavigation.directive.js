@@ -8,7 +8,12 @@
     function bitcoinServiceNavigation() {
         return {
             restrict: 'E',
-            templateUrl: 'app/pages/services/bitcoinService/bitcoinServiceNavigation/bitcoinServiceNavigation.html'
+            templateUrl: 'app/pages/services/bitcoinService/bitcoinServiceNavigation/bitcoinServiceNavigation.html',
+            controller: function($rootScope,$scope,$location){
+                var location = $location.path();
+                var locationArray = location.split('/');
+                $scope.locationIndicator = locationArray[(locationArray.length -1)];
+            }
         };
     }
 })();
