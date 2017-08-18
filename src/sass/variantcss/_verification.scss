@@ -1,7 +1,8 @@
 .verification-text{
- box-sizing: border-box;
+  box-sizing: border-box;
   padding: 10px;
  & > p{
+   text-align: center;
    color:#666;
    font-size: 12px;
   }

@@ -11,8 +11,35 @@
   }
 }
 
+.service-list-navigation-ul{
+  padding: 0;
+}
+
+.service-list-navigation{
+  display: inline-block;
+  margin-right: 50px;
+  & h1{
+    margin: 4px 0 4px 0 !important;
+  }
+  & h5{
+    font-size: 16px;
+    color: #979797;
+  }
+  & h5:hover{
+    color: #F8CF51;
+  }
+}
+
+.service-header .panel{
+  border-top-color: #F8CF51 !important;
+}
+
+.active-notification-nav{
+  color: #F8CF51 !important ;
+}
+
 .notification-webhooks-buttons{
-  width: 100%;
+  width: 100% !important;
 }
 
 .rehive-webhook-div-left{

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.services.notificationService.notificationServiceCompany')
+    angular.module('BlurAdmin.pages.services.notificationService.notificationServiceLogs')
         .controller('NotificationServiceLogsModalCtrl', NotificationServiceLogsModalCtrl);
 
     /** @ngInject */

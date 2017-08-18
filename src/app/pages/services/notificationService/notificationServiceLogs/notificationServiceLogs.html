@@ -1,6 +1,6 @@
 <notification-service-navigation></notification-service-navigation>
 
-<div ng-hide="loadingLogs" ba-panel ba-panel-title="Notifications logs">
+<div ng-hide="loadingLogs" class="service-header" ba-panel ba-panel-title="Notifications logs">
     <div ng-show="notificationLogs.length > 0" class="divider">
         <table class="table table-condensed table-striped table-hover">
             <tr class="black-muted-bg">
@@ -23,6 +23,6 @@
         <i>No logs available to be shown</i>
     </div>
 </div>
-<div ba-panel ng-show="loadingLogs" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div ba-panel class="service-header" ng-show="loadingLogs" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <loading-image></loading-image>
 </div>

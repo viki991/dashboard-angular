@@ -1,14 +1,25 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
-            <div  class="accordian-buttons col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                <a href="#/services/notifications/company-details"><button class="btn btn-primary btn-block">Company details</button></a>
-            </div>
-            <div  class="accordian-buttons col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                <a href="#/services/notifications/list" ><button class="btn btn-primary btn-block">Notifications</button></a>
-            </div>
-            <div  class="accordian-buttons col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                <a href="#/services/notifications/logs" ><button class="btn btn-primary btn-block">Logs</button></a>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ul class="service-list-navigation-ul">
+                    <li class="service-list-navigation"><h1 class="al-title">Notification Service</h1></li>
+                    <li class="service-list-navigation" >
+                        <a href="#/services/notifications/list">
+                            <h5 ng-class="{'active-notification-nav': locationIndicator == 'list'}" class="pointer">Notifications</h5>
+                        </a>
+                    </li>
+                    <li class="service-list-navigation">
+                        <a href="#/services/notifications/logs">
+                            <h5 ng-class="{'active-notification-nav': locationIndicator == 'logs'}" class="pointer">Logs</h5>
+                        </a>
+                    </li>
+                    <li class="service-list-navigation">
+                        <a href="#/services/notifications/settings">
+                            <h5 ng-class="{'active-notification-nav': locationIndicator == 'settings'}" class="pointer">Settings</h5>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

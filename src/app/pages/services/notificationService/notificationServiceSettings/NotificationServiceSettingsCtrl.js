@@ -1,17 +1,23 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.services.notificationService.notificationServiceCompany')
-        .controller('NotificationServiceCompanyCtrl', NotificationServiceCompanyCtrl);
+    angular.module('BlurAdmin.pages.services.notificationService.notificationServiceSettings')
+        .controller('NotificationServiceSettingsCtrl', NotificationServiceSettingsCtrl);
 
     /** @ngInject */
-    function NotificationServiceCompanyCtrl($scope,$http,cookieManagement,toastr,errorToasts,$state) {
+    function NotificationServiceSettingsCtrl($scope,$http,cookieManagement,toastr,errorToasts,$state) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
+        $scope.defaultImageUrl = "https://clariturehealth.com/wp-content/uploads/2016/09/Hexagon-Gray.png";
+        $scope.notificationSettingView = '';
         $scope.updatingCompanyDetails =  false;
         vm.updatedCompany = {};
         $scope.company = {};
+
+        $scope.goToNotificationSetting = function (setting) {
+            $scope.notificationSettingView = setting;
+        };
 
         vm.getCompanyDetails = function () {
           $scope.updatingCompanyDetails =  true;
