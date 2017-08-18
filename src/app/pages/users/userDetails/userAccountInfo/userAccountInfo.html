@@ -9,21 +9,23 @@
             <th width="83%" ng-bind="user.identifier"></th>
             <th></th>
         </tr>
-        <tr ng-show="emailsList.length > 0">
+        <tr>
             <th width="83%"><strong>Primary email address</strong></th>
             <th></th>
         </tr>
-        <tr ng-show="emailsList.length > 0" ng-repeat="email in emailsList | filter: {primary: true}">
-            <th width="83%" ng-bind="email.email"></th>
+        <tr>
+            <th ng-show="filteredEMails.length > 0" ng-repeat="email in emailsList | filter: {primary: true} as filteredEMails" width="83%" ng-bind="email.email"></th>
+            <th ng-show="filteredEMails.length == 0" width="83%">None</th>
             <th class="custom-table-th rehive-table-row-last-child"><button class="btn btn-primary pull-right user-accounts-btn"
                                                                                       ng-click="toggleUserEmailsView()">View all</button></th>
         </tr>
-        <tr ng-show="mobilesList.length > 0">
+        <tr>
             <th width="83%"><strong>Primary mobile number</strong></th>
             <th></th>
         </tr>
-        <tr ng-show="mobilesList.length > 0" ng-repeat="mobile in mobilesList | filter: {primary: true}">
-            <th width="83%" ng-bind="mobile.number"></th>
+        <tr>
+            <th ng-show="filteredMobiles.length > 0" ng-repeat="mobile in mobilesList | filter: {primary: true} as filteredMobiles" width="83%" ng-bind="mobile.number"></th>
+            <th ng-show="filteredMobiles.length == 0" width="83%">None</th>
             <th class="custom-table-th rehive-table-row-last-child"><button class="btn btn-primary pull-right user-accounts-btn"
                                                 ng-click="toggleUserNumbersView()">View all</button></th>
         </tr>
