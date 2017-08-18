@@ -7,7 +7,7 @@
     /** @ngInject */
     function StellarServiceCtrl($scope) {
 
-        $scope.defaultImageUrl = "https://storage.googleapis.com/rehive-static/dashboard/dist/img/default_company_icon.png";
+        $scope.defaultImageUrl = "https://clariturehealth.com/wp-content/uploads/2016/09/Hexagon-Gray.png";
 
     }
 

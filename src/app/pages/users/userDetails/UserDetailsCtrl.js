@@ -11,7 +11,7 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.uuid = $stateParams.uuid;
         $scope.user = {};
-        $scope.user.profile = "https://storage.googleapis.com/rehive-static/dashboard/dist/img/default_company_icon.png";
+        $scope.user.profile = "https://clariturehealth.com/wp-content/uploads/2016/09/Hexagon-Gray.png";
         $scope.loadingUser = true;
         $scope.updatingProfilePic = false;
         $scope.profilePictureFile = {

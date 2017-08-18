@@ -7,7 +7,7 @@
     /** @ngInject */
     function BitcoinServiceCtrl($scope) {
 
-        $scope.defaultImageUrl = "https://storage.googleapis.com/rehive-static/dashboard/dist/img/default_company_icon.png";
+        $scope.defaultImageUrl = "https://www.firstchoicetiles.ie/custom/public/images/30b-hexagon-grey-m.jpg";
 
     }
 

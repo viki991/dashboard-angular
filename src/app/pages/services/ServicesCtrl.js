@@ -7,7 +7,8 @@
     /** @ngInject */
     function ServicesCtrl($scope,$location,$http,environmentConfig,errorToasts,cookieManagement) {
 
-        $scope.defaultImageUrl = "https://storage.googleapis.com/rehive-static/dashboard/dist/img/default_company_icon.png";
+        $scope.defaultImageUrl = "https://clariturehealth.com/wp-content/uploads/2016/09/Hexagon-Gray.png";
+
         $scope.loadingServices = true;
 
         var vm = this;
