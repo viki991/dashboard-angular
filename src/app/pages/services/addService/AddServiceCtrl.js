@@ -35,7 +35,7 @@
 
         $scope.addServicePrompt = function(selectedService) {
             $ngConfirm({
-                title: 'Add Service',
+                title: 'Add service',
                 contentUrl: 'app/pages/services/addService/addServicePrompt.html',
                 animationBounce: 1,
                 animationSpeed: 100,
@@ -49,12 +49,12 @@
                         text: "Add",
                         btnClass: 'btn-primary',
                         keys: ['enter'], // will trigger when enter is pressed
-                        action: function(scope){
-                            if(!$scope.password){
+                        action: function(scope,button){
+                            if(!scope.password){
                                 toastr.error('Please enter your password');
                                 return;
                             }
-                            $scope.addServices(selectedService.selected,$scope.password)
+                            scope.addServices(selectedService.selected,scope.password)
                         }
                     }
                 }

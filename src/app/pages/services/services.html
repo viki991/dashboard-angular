@@ -14,7 +14,10 @@
                 <td width="15%"><img ng-src="{{defaultImageUrl}}" class="currency-logo"></td>
                 <td  width="15%" ng-bind="service.name"></td>
                 <td width="30%" ng-bind="service.description"></td>
-                <td class="rehive-table-row-last-child"><button ng-click="goToService(service)" class="btn btn-primary pull-right rehive-button-no-right-margin">Manage</button></td>
+                <td class="rehive-table-row-last-child">
+                    <button ng-click="goToService(service)" class="btn btn-primary pull-right rehive-button-no-right-margin">Manage</button>
+                    <button ng-click="deactivateServicePrompt(service)" class="btn btn-danger pull-right rehive-button-no-right-margin">Deactivate</button>
+                </td>
             </tr>
         </table>
         <hr class="no-margin hr-top-border">
