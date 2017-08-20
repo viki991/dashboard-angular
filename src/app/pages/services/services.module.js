@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('BlurAdmin.pages.services', [
+        'BlurAdmin.pages.services.ethereumService',
         "BlurAdmin.pages.services.bitcoinService",
         "BlurAdmin.pages.services.stellarService",
         'BlurAdmin.pages.services.notificationService',
