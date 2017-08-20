@@ -15,7 +15,8 @@
         $scope.transactionWebhooksParams = {
             tx_type: 'All',
             event: 'Transaction Create',
-            secret: $state.params.secret || ''
+            secret: $state.params.secret || '',
+            url: $state.params.webhookUrl || ''
         };
 
         $scope.typeOptions = ['All','Credit','Debit'];

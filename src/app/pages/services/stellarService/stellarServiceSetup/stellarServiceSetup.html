@@ -1,4 +1,4 @@
-<div ng-hide="loadingStellarService" ba-panel ba-panel-title="Account setup">
+<div ng-hide="loadingStellarService" class="service-header" ba-panel ba-panel-title="Account setup">
     <form name="accountSetupForm">
         <div class="form-group">
             <label><strong>User deposits account</strong> <span class="required-icon">*</span></label>
@@ -17,6 +17,6 @@
         </div>
     </form>
 </div>
-<div ba-panel ng-show="loadingStellarService">
+<div class="service-header" ba-panel ng-show="loadingStellarService">
     <loading-image></loading-image>
 </div>

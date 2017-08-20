@@ -12,7 +12,8 @@
                 templateUrl: 'app/pages/webhooks/transactionWebhooks/transactionWebhooks.html',
                 controller: 'TransactionWebhooksCtrl',
                 params: {
-                    secret: null
+                    secret: null,
+                    webhookUrl: null
                 },
                 title: "Transaction webhooks",
                 sidebarMeta: {
