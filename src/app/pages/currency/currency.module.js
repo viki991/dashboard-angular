@@ -16,7 +16,7 @@
                 abstract: true,
                 title: 'Currency',
                 sidebarMeta: {
-                    order: 100
+                    order: 200
                 }
             });
     }

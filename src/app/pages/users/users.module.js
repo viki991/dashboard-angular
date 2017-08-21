@@ -13,7 +13,7 @@
                 controller: "UsersCtrl",
                 title: 'Users',
                 sidebarMeta: {
-                    order: 200
+                    order: 300
                 }
             });
     }
