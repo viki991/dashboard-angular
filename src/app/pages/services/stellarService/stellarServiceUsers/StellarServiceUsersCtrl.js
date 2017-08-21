@@ -27,7 +27,7 @@
 
         vm.getUsersUrl = function(){
             vm.filterParams = '?page=' + $scope.usersPagination.pageNo + '&page_size=' + $scope.usersPagination.itemsPerPage
-            + '&email=' + $scope.usersSearchParams.searchEmail
+            + '&email=' + ($scope.usersSearchParams.searchEmail? encodeURIComponent($scope.usersSearchParams.searchEmail) : '')
             + '&identifier=' + $scope.usersSearchParams.searchIdentifier
             + '&address=' + $scope.usersSearchParams.searchAddress;
 

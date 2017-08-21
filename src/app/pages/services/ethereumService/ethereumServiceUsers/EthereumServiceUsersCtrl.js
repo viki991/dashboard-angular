@@ -26,11 +26,11 @@
 
         vm.getUsersUrl = function(){
             vm.filterParams = '?page=' + $scope.usersPagination.pageNo + '&page_size=' + $scope.usersPagination.itemsPerPage
-            + '&email=' + $scope.usersSearchParams.searchEmail
-            + '&identifier=' + $scope.usersSearchParams.searchIdentifier
+            + '&email=' + ($scope.usersSearchParams.searchEmail? encodeURIComponent($scope.usersSearchParams.searchEmail) : '')
+            + '&identifier=' + ($scope.usersSearchParams.searchIdentifier?$scope.usersSearchParams.searchIdentifier: '')
             + '&address=' + $scope.usersSearchParams.searchAddress;
 
-            return 'https://rehive.com/services/bitcoin/users/' + vm.filterParams;
+            return 'https://ethereum.s.services.rehive.io/api/1/admin/users/' + vm.filterParams;
         };
 
         $scope.getAllUsers = function(applyFilter){

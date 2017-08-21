@@ -1,0 +1,20 @@
+<div ng-hide="loadingHdkeys">
+    <div ba-panel ba-panel-title="Add Hdkey" class="service-header" ba-panel-class="light-text with-scroll">
+        <form name="hdKeyForm" class="custom-form" novalidate>
+            <div class="form-group">
+                <label><strong>Email</strong> <span class="required-icon">*</span></label>
+                <input type="text" ng-model="newHdKey.email" class="form-control"  placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <label><strong>Primary</strong> <span class="required-icon">*</span></label>
+                <br>
+                <select class="form-control pointer" ng-model="newHdKey.primary" ng-options="bool for bool in booleanOptions" required>
+                </select>
+            </div>
+            <div class="form-group">
+                <button ng-disabled="!hdKeyForm.$valid" ng-click="createEmail(newHdKey)" class="btn btn-primary pull-right">Add</button>
+                <button ng-click="toggleAddHdkeyView()" class="btn btn-primary pull-right margin-right-10">Back</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -18,7 +18,7 @@
         };
 
         $scope.searchParams = {
-            searchId: '',
+            searchId: $state.params.transactionId || '',
             searchUser: $state.params.code || '',
             searchDateFrom: '',
             searchDateTo: '',
@@ -51,7 +51,7 @@
                 + '&created__gt=' + ($scope.searchParams.searchDateFrom? Date.parse($scope.searchParams.searchDateFrom) : '')
                 + '&created__lt=' + ($scope.searchParams.searchDateTo? Date.parse($scope.searchParams.searchDateTo) : '')
                 + '&currency=' + ($scope.searchParams.searchCurrency.code ? ($scope.searchParams.searchCurrency.code == 'Currency' ? '' : $scope.searchParams.searchCurrency.code) : '')
-                + '&user=' + $scope.searchParams.searchUser
+                + '&user=' + ($scope.searchParams.searchUser ? encodeURIComponent($scope.searchParams.searchUser) : '')
                 + '&orderby=' + ($scope.searchParams.searchOrderBy == 'Latest' ? '-created' : $scope.searchParams.searchOrderBy == 'Largest' ? '-amount' : $scope.searchParams.searchOrderBy == 'Smallest' ? 'amount' : '')
                 + '&id=' + $scope.searchParams.searchId
                 + '&tx_type=' + ($scope.searchParams.searchType == 'Type' ? '' : $scope.searchParams.searchType.toLowerCase())

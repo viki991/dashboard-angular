@@ -1,0 +1,39 @@
+<div>
+    <div ng-hide="loadingHdkeys || addingHdkey" class="service-header" ba-panel ba-panel-title="HD keys">
+        <div>
+            <button class="btn btn-success pull-right panel-header-button" ng-click="toggleAddHdkeyView()">Add</button>
+        </div>
+        <div class="divider admin-emails">
+            <table class="table table-striped admin-emails-table">
+                <tr class="black-muted-bg divider">
+                    <th>Primary</th>
+                    <th>Email</th>
+                    <th>Key type</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="hdKey in hdKeysList">
+                    <th><label  class="checkbox-inline custom-checkbox nowrap">
+                        <input type="checkbox" ng-change="" ng-model="hdKey.primary" ng-checked="hdKey.primary">
+                        <span></span>
+                    </label>
+                    </th>
+                    <th title="{{hdKey.address}}" ng-bind="hdKey.address | limitTo: '30'"></th>
+                    <th title="{{hdKey.key_type}}" ng-bind="hdKey.key_type"></th>
+                    <th title="{{hdKey.status}}" ng-bind="hdKey.status"></th>
+                    <th class="rehive-table-row-last-child">
+                        <button ng-click="disableHdkey(hdKey)" class="btn btn-danger pull-right">Disable</button>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="service-header" ba-panel ng-show="loadingHdkeys">
+        <loading-image></loading-image>
+    </div>
+</div>
+<div ng-show="addingHdkey">
+    <add-hdkey></add-hdkey>
+</div>

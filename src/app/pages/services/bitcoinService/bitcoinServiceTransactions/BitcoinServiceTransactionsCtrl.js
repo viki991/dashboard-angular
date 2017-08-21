@@ -38,7 +38,7 @@
 
         vm.getTransactionUrl = function(){
             vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
-                + '&email=' + $scope.searchParams.searchEmail
+                + '&email=' + ($scope.searchParams.searchEmail? encodeURIComponent($scope.searchParams.searchEmail) : '')
                 + '&tx_type=' + ($scope.searchParams.searchType == 'Type' ? '' : $scope.searchParams.searchType.toLowerCase())
                 + '&transaction_hash=' + $scope.searchParams.searchTxHash
                 + '&rehive_code=' + $scope.searchParams.searchRehiveCode

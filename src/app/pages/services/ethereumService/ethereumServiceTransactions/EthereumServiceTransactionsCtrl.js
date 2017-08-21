@@ -38,7 +38,7 @@
 
         vm.getTransactionUrl = function(){
             vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
-                + '&email=' + $scope.searchParams.searchEmail
+                + '&email=' + ($scope.searchParams.searchEmail? encodeURIComponent($scope.searchParams.searchEmail) : '')
                 + '&tx_type=' + ($scope.searchParams.searchType == 'Type' ? '' : $scope.searchParams.searchType.toLowerCase())
                 + '&transaction_hash=' + $scope.searchParams.searchTxHash
                 + '&rehive_code=' + $scope.searchParams.searchRehiveCode
@@ -47,7 +47,7 @@
                 + '&status=' + ($scope.searchParams.searchStatus == 'Status' ? '' : $scope.searchParams.searchStatus)
                 + '&orderby=' + ($scope.searchParams.searchOrderBy == 'Latest' ? '-created' : $scope.searchParams.searchOrderBy == 'Largest' ? '-amount' : $scope.searchParams.searchOrderBy == 'Smallest' ? 'amount' : '');
 
-            return 'https://rehive.com/services/bitcoin/transactions/' + vm.filterParams;
+            return 'https://ethereum.s.services.rehive.io/api/1/admin/transactions/' + vm.filterParams;
         };
 
         $scope.getLatestTransactions = function(applyFilter){

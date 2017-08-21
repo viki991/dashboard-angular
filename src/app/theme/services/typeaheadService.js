@@ -12,7 +12,7 @@
                     return function (email) {
                         if(email.length > 0){
                             var token = cookieManagement.getCookie('TOKEN');
-                            return $http.get(environmentConfig.API + '/admin/users/?page_size=10&email__contains=' + email, {
+                            return $http.get(environmentConfig.API + '/admin/users/?page_size=10&email__contains=' + encodeURIComponent(email), {
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': token

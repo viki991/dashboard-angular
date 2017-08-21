@@ -51,7 +51,7 @@
                 <p><strong>Rehive code: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="transaction.rehive_code"></p>
+                <p ng-click="goToTransactions(transaction.rehive_code)" class="pointer"><a ng-bind="transaction.rehive_code"></a></p>
             </div>
         </div>
         <div class="row">
