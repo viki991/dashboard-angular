@@ -11,7 +11,7 @@
     'BlurAdmin.pages.twoFactorAuth',
     'BlurAdmin.pages.settings',
     'BlurAdmin.pages.addCurrency',
-    'BlurAdmin.pages.dashboard',
+    'BlurAdmin.pages.home',
     'BlurAdmin.pages.transactions',
     'BlurAdmin.pages.currency',
     'BlurAdmin.pages.webhooks',
@@ -31,7 +31,7 @@
 
   /** @ngInject */
   function routeConfig($urlRouterProvider, baSidebarServiceProvider) {
-    $urlRouterProvider.otherwise('/dashboard');
+    $urlRouterProvider.otherwise('/home');
   }
 
 })();

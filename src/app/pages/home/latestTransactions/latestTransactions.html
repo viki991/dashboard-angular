@@ -12,7 +12,7 @@
             <td><strong>Date</strong></td>
         </tr>
         <tr ng-repeat="transaction in transactions" data-toggle="modal"
-            ng-click="openModal('app/pages/dashboard/latestTransactions/transactionModal/transactionModal.html', 'md',transaction)"
+            ng-click="openModal('app/pages/home/latestTransactions/transactionModal/transactionModal.html', 'md',transaction)"
             class="editable-row pointer">
             <td><div title="{{transaction.user.email}}" class="transactions-list-element" ng-bind="transaction.user.email"></div></td>
             <td><div title="{{transaction.tx_type}}" class="transactions-list-element" ng-bind="transaction.tx_type | capitalizeWord"></div></td>

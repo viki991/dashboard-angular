@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.dashboard')
+    angular.module('BlurAdmin.pages.home')
         .controller('CurrenciesCtrl', CurrenciesCtrl);
 
     /** @ngInject */

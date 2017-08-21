@@ -78,7 +78,7 @@
                             $location.path('currency/add');
                         } else {
                             $rootScope.newUser = false;
-                            $location.path('/dashboard');
+                            $location.path('/home');
                         }
                         $rootScope.$pageFinishedLoading = true;
                     }

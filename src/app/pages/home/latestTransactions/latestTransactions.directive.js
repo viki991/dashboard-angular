@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.dashboard')
+    angular.module('BlurAdmin.pages.home')
         .directive('latestTransactions', latestTransactions);
 
     /** @ngInject */
@@ -9,7 +9,7 @@
         return {
             restrict: 'E',
             controller: 'LatestTransactionsCtrl',
-            templateUrl: 'app/pages/dashboard/latestTransactions/latestTransactions.html'
+            templateUrl: 'app/pages/home/latestTransactions/latestTransactions.html'
         };
     }
 })();

@@ -13,11 +13,11 @@
             }).then(function (res) {
                 if (res.status === 200) {
                     toastr.success("Email has been verified successfully");
-                    $location.path('/dashboard');
+                    $location.path('/home');
                 }
             }).catch(function (error) {
                 errorToasts.evaluateErrors(error.data);
-                $location.path('/dashboard');
+                $location.path('/home');
             });
         };
         $scope.verifyAdminEmail();
