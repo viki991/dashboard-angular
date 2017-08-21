@@ -9,15 +9,16 @@
         $stateProvider
             .state('webhooks.userWebhooks', {
                 url: '/user',
-                templateUrl: 'app/pages/webhooks/userWebhooks/userWebhooks.html',
-                controller: 'UserWebhooksCtrl',
+                views: {
+                    'webhooksSettingsView': {
+                        templateUrl: 'app/pages/webhooks/userWebhooks/userWebhooks.html',
+                        controller: 'UserWebhooksCtrl'
+                    }
+                },
                 params: {
                     secret: null
                 },
-                title: "User webhooks",
-                sidebarMeta: {
-                    order: 100
-                }
+                title: "User webhooks"
             });
     }
 

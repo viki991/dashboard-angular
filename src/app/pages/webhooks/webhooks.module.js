@@ -12,8 +12,8 @@
         $stateProvider
             .state('webhooks', {
                 url: '/webhooks',
-                template: '<ui-view  autoscroll="true" autoscroll-body-top></ui-view>',
-                abstract: true,
+                templateUrl: 'app/pages/webhooks/webhooks.html',
+                controller: "WebhooksCtrl",
                 title: 'Webhooks',
                 sidebarMeta: {
                     order: 400
