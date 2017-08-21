@@ -24,7 +24,7 @@
                 controller: "SettingsCtrl",
                 title: 'Settings',
                 sidebarMeta: {
-                    order: 500
+                    order: 600
                 }
             });
     }
