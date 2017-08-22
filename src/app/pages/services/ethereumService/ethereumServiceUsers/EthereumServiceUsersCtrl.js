@@ -30,7 +30,7 @@
             + '&identifier=' + ($scope.usersSearchParams.searchIdentifier?$scope.usersSearchParams.searchIdentifier: '')
             + '&address=' + $scope.usersSearchParams.searchAddress;
 
-            return 'https://ethereum.s.services.rehive.io/api/1/admin/users/' + vm.filterParams;
+            return cookieManagement.getCookie('SERVICEURL')+ 'admin/users/' + vm.filterParams;
         };
 
         $scope.getAllUsers = function(applyFilter){

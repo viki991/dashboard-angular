@@ -47,7 +47,7 @@
                 + '&status=' + ($scope.searchParams.searchStatus == 'Status' ? '' : $scope.searchParams.searchStatus)
                 + '&orderby=' + ($scope.searchParams.searchOrderBy == 'Latest' ? '-created' : $scope.searchParams.searchOrderBy == 'Largest' ? '-amount' : $scope.searchParams.searchOrderBy == 'Smallest' ? 'amount' : '');
 
-            return 'https://ethereum.s.services.rehive.io/api/1/admin/transactions/' + vm.filterParams;
+            return cookieManagement.getCookie('SERVICEURL')+ 'admin/transactions/' + vm.filterParams;
         };
 
         $scope.getLatestTransactions = function(applyFilter){

@@ -30,7 +30,7 @@
             + '&identifier=' + $scope.usersSearchParams.searchIdentifier
             + '&address=' + $scope.usersSearchParams.searchAddress;
 
-            return 'https://rehive.com/services/bitcoin/users/' + vm.filterParams;
+            return cookieManagement.getCookie('SERVICEURL') + 'users/' + vm.filterParams;
         };
 
         $scope.getAllUsers = function(applyFilter){
