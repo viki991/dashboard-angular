@@ -8,7 +8,11 @@
             <p>In order to maintain high security standards Rehive requires a verified email. Please check your inbox for an email from Rehive.</p>
             <p>Haven't received a verification email? <a ng-click="resendEmail()" class="verification-link">Resend email</a></p>
         </div>
-        <button ng-disabled="verifyingEmail" ng-click="verifyUser()" class="btn btn-primary verification-button">Continue</button>
+        <div class="row form-group">
+            <div class="col-sm-12">
+                <button ng-disabled="verifyingEmail" ng-click="verifyUser()" class="btn btn-primary verification-button">Continue</button>
+            </div>
+        </div>
     </div>
 
 </div>

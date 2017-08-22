@@ -5,17 +5,21 @@
 
         <form class="form-horizontal">
           <div ng-hide="gotCompanyName">
-            <div class="row form-group">
-                <div class="col-sm-12">
-                    <input type="text" ng-model="company" class="form-control" id="inputCompany1" placeholder="Company" auto-focus="!gotCompanyName">
-                </div>
-            </div>
-            <div class="row form-group">
-            <div class="col-sm-12">
-                <button ng-disabled="!company" ng-click="gotCompanyName = true" class="btn btn-primary btn-auth pull-right divider">Next</button>
-                <a href="/#/password/reset" class="forgot-pass pull-left">Forgot password?</a>
-            </div>
-          </div>
+              <div class="row form-group">
+                    <div class="col-sm-12">
+                        <input type="text" ng-model="company" class="form-control" id="inputCompany1" placeholder="Company" auto-focus="!gotCompanyName">
+                    </div>
+              </div>
+              <div class="row form-group">
+                  <div class="col-sm-12">
+                    <button ng-disabled="!company" ng-click="gotCompanyName = true" class="btn btn-lg btn-primary btn-auth pull-right">Next</button>
+                  </div>
+              </div>
+              <div class="row form-group">
+                  <div class="col-sm-12 divider">
+                      <a href="/#/password/reset" class="forgot-pass pull-left">Forgot password?</a>
+                  </div>
+              </div>
           </div>
           <div ng-keydown="($event.keyCode === 13) && login(user,company,password)" ng-show="gotCompanyName">
             <div class="row form-group">
@@ -30,7 +34,7 @@
             </div>
             <div class="row form-group">
                 <div class="col-sm-12">
-                    <button ng-click="login(user,company,password)" class="btn btn-primary btn-auth pull-right">Sign in</button>
+                    <button ng-click="login(user,company,password)" class="btn btn-lg btn-primary btn-auth pull-right">Sign in</button>
                 </div>
             </div>
               <div class="row form-group">
