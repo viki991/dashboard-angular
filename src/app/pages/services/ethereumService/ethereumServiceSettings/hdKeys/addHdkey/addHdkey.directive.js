@@ -8,6 +8,7 @@
     function addHdkey() {
         return {
             restrict: 'E',
+            require: '^parent',
             templateUrl: 'app/pages/services/ethereumService/ethereumServiceSettings/hdKeys/addHdkey/addHdkey.html'
         };
     }
