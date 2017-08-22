@@ -1,3 +1,16 @@
+.main-spinner{
+  display: inline-block;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  vertical-align: middle;
+  height: 200px;
+  width: 200px;
+}
+
 .panel-header-button{
   position: absolute;
   top: 10px;
