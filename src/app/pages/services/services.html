@@ -4,16 +4,16 @@
     </div>
     <div ng-show="servicesList.length > 0">
         <table class="table">
-            <tr  width="15%" class="black-muted-bg">
+            <tr class="black-muted-bg">
                 <td><strong>Logo</strong></td>
                 <td><strong>Name</strong></td>
                 <td><strong>Description</strong></td>
                 <td></td>
             </tr>
             <tr ng-repeat="service in servicesList" class="editable-row">
-                <td width="15%"><img ng-src="{{defaultImageUrl}}" class="currency-logo"></td>
+                <td width="6%"><img ng-src="{{defaultImageUrl}}" class="currency-logo"></td>
                 <td  width="15%" ng-bind="service.name"></td>
-                <td width="30%" ng-bind="service.description"></td>
+                <td width="50%" ng-bind="service.description"></td>
                 <td class="rehive-table-row-last-child">
                     <button ng-click="goToService(service)" class="btn btn-primary pull-right rehive-button-no-right-margin">Manage</button>
                     <button ng-click="deactivateServicePrompt(service)" class="btn btn-danger pull-right rehive-button-no-right-margin">Deactivate</button>
