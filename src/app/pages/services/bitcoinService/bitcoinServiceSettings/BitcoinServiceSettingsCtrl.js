@@ -7,7 +7,7 @@
     /** @ngInject */
     function BitcoinServiceSettingsCtrl($scope) {
 
-        $scope.defaultImageUrl = "https://clariturehealth.com/wp-content/uploads/2016/09/Hexagon-Gray.png";
+        $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
 
     }
 

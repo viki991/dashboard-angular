@@ -11,7 +11,7 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.uuid = $stateParams.uuid;
         $scope.user = {};
-        $scope.user.profile = "https://clariturehealth.com/wp-content/uploads/2016/09/Hexagon-Gray.png";
+        $scope.user.profile = "/assets/img/app/profile/profile_user.svg";
         $scope.loadingUser = true;
         $scope.updatingProfilePic = false;
         $scope.profilePictureFile = {

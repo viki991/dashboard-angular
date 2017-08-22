@@ -100,7 +100,7 @@
                         errorHandler.handle403();
                         return
                     }
-                    $scope.transactionsStateMessage = 'Failed To Load Data';
+                    $scope.transactionsStateMessage = 'Failed to load data';
                     errorToasts.evaluateErrors(error.data);
                 });
             }
