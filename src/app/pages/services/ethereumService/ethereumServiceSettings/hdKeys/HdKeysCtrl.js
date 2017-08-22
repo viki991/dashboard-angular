@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function HdKeysCtrl($scope,$http,cookieManagement,toastr,errorToasts,$ngConfirm) {
-
+        const serviceUrl = cookieManagement.getCookie('SERVICEURL');
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.loadingHdkeys =  true;
@@ -21,7 +21,7 @@
         vm.getHdkeys = function () {
             $scope.loadingHdkeys =  true;
             if(vm.token) {
-                $http.get('https://ethereum.s.services.rehive.io/api/1/admin/hdkeys/', {
+                $http.get(serviceUrl + 'admin/hdkeys/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -73,7 +73,7 @@
         $scope.toggleHdKeyStatus = function(hdKey,status){
             $scope.loadingHdkeys =  true;
             if(vm.token) {
-                $http.patch('https://ethereum.s.services.rehive.io/api/1/admin/hdkeys/' + hdKey.id + '/', {status: status}, {
+                $http.patch(serviceUrl + 'admin/hdkeys/' + hdKey.id + '/', {status: status}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -101,7 +101,7 @@
         $scope.toggleHdKeyPrimaryStatus = function(hdKey){
             $scope.loadingHdkeys =  true;
             if(vm.token) {
-                $http.patch('https://ethereum.s.services.rehive.io/api/1/admin/hdkeys/' + hdKey.id + '/', {primary: hdKey.primary}, {
+                $http.patch(serviceUrl + 'admin/hdkeys/' + hdKey.id + '/', {primary: hdKey.primary}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -123,10 +123,10 @@
 
         $scope.createHdKey = function(newHdKey){
             $scope.loadingHdkeys =  true;
-            newHdKey.primary = newHdKey.primary == 'True' ? true:false;
+            newHdKey.primary = newHdKey.primary == 'True';
             newHdKey.key_type = 'xpub';
             if(vm.token) {
-                $http.post('https://ethereum.s.services.rehive.io/api/1/admin/hdkeys/',newHdKey, {
+                $http.post(serviceUrl + 'admin/hdkeys/',newHdKey, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token

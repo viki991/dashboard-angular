@@ -47,7 +47,7 @@
                 + '&status=' + ($scope.searchParams.searchStatus == 'Status' ? '' : $scope.searchParams.searchStatus)
                 + '&orderby=' + ($scope.searchParams.searchOrderBy == 'Latest' ? '-created' : $scope.searchParams.searchOrderBy == 'Largest' ? '-amount' : $scope.searchParams.searchOrderBy == 'Smallest' ? 'amount' : '');
 
-            return 'https://rehive.com/services/bitcoin/transactions/' + vm.filterParams;
+            return cookieManagement.getCookie('SERVICEURL') + 'transactions/' + vm.filterParams;
         };
 
         $scope.getLatestTransactions = function(applyFilter){
