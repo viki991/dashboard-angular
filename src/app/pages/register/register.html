@@ -1,10 +1,10 @@
+<auth-navigation></auth-navigation>
 <div class="auth-main">
-    <div class="auth-block text-center">
-        <h1>Sign up</h1>
-        <a href="/#/login" class="auth-link">Already have a Rehive account? Sign in!</a>
+    <div class="auth-block">
+        <h1 class="auth-header">Sign up</h1>
 
         <form name="registerForm" class="form-horizontal">
-            <div ng-hide="havePersonalDetails">
+            <div>
                 <div class="form-group">
                     <div class="col-sm-12">
                         <input type="text" ng-model="registerData.first_name" class="form-control" id="firstName" placeholder="First name*" auto-focus="!havePersonalDetails" required>
@@ -15,14 +15,9 @@
                         <input type="text" ng-model="registerData.last_name" class="form-control" id="lastName" placeholder="Last name*" required>
                     </div>
                 </div>
-                <div class="row form-group">
-                    <div class="col-sm-12">
-                        <button ng-disabled="!registerData.last_name || !registerData.first_name" ng-click="havePersonalDetails = true" class="btn btn-primary btn-auth pull-right">Next</button>
-                    </div>
-                </div>
             </div>
-            <div ng-show="havePersonalDetails" ng-keydown="($event.keyCode === 13) && registerForm.$valid && registerUser()">
-                <i class="register-note">The information given here will be used as your login credentials.</i>
+            <div ng-keydown="($event.keyCode === 13) && registerForm.$valid && registerUser()">
+                <i class="register-note">The information given below will be used as your login credentials.</i>
                 <div class="form-group">
                     <div class="col-sm-12">
                         <input type="email" ng-model="registerData.email" class="form-control" id="inputEmail1" placeholder="Email*" auto-focus="havePersonalDetails">
@@ -30,7 +25,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="text" ng-change="fixformat(company)" ng-model="registerData.company" class="form-control" id="inputName1" placeholder="Choose a unique ID for your company" required>
+                        <input type="text" ng-change="fixformat(company)" ng-model="registerData.company" class="form-control" id="inputName1" placeholder="Choose a unique ID for your company*" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -45,8 +40,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <button ng-disabled="!registerForm.$valid" ng-click="registerUser()" class="btn btn-primary btn-auth pull-right">Sign up</button>
-                        <a ng-click="havePersonalDetails = false" class="forgot-pass pull-left pointer">Back</a>
+                        <button ng-disabled="!registerForm.$valid" ng-click="registerUser()" class="btn btn-primary btn-auth pull-right divider">Sign up</button>
                     </div>
                 </div>
             </div>

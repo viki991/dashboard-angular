@@ -17,9 +17,10 @@ $text-color: #494242;
 }
 
 .auth-block {
-  width: 380px;
+  width: 490px;
   margin: 7% auto;
   border-radius: 5px;
+  background-color: white;
   color: #000;
   padding: 20px;
   h1 {
@@ -38,6 +39,12 @@ $text-color: #494242;
     &:hover {
       color: $primary-dark;
     }
+  }
+
+  .auth-header{
+    font-weight: $font-light;
+    margin-bottom: 20px;
+    text-align: left;
   }
 
   .control-label {
@@ -108,5 +115,6 @@ a.forgot-pass {
 }
 
 .btn-auth {
+  width: 100% !important;
   color: #ffffff!important;
 }
