@@ -1,0 +1,160 @@
+(function () {
+    'use strict';
+
+    angular.module('BlurAdmin.pages.services.ethereumService.ethereumServiceSettings')
+        .controller('HdKeysCtrl', HdKeysCtrl);
+
+    /** @ngInject */
+    function HdKeysCtrl($scope,$http,cookieManagement,toastr,errorToasts,$ngConfirm) {
+
+        var vm = this;
+        vm.token = cookieManagement.getCookie('TOKEN');
+        $scope.loadingHdkeys =  true;
+        $scope.addingHdkey =  false;
+        $scope.newHdKey = {
+            primary: 'False',
+            key_type: 'xpub'
+        };
+        $scope.booleanOptions = ['True','False'];
+        $scope.keyTypeOptions = ['xpub','xpriv'];
+
+        vm.getHdkeys = function () {
+            $scope.loadingHdkeys =  true;
+            if(vm.token) {
+                $http.get('https://ethereum.s.services.rehive.io/api/1/admin/hdkeys/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    $scope.loadingHdkeys =  false;
+                    if (res.status === 200) {
+                        $scope.hdKeysList = res.data.data.results;
+                        console.log($scope.hdKeysList)
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                    $scope.loadingHdkeys =  false;
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+        vm.getHdkeys();
+
+        $scope.toggleAddHdkeyView = function(){
+            $scope.addingHdkey = !$scope.addingHdkey;
+        };
+
+        $scope.toggleHdKeyStatusPrompt = function (hdKey,status) {
+            $ngConfirm({
+                title: 'Disable public key',
+                content: 'Are you sure you want to disable this key? ' +
+                'If disabled all addresses associated with the key will be monitored for another 21 days',
+                animationBounce: 1,
+                animationSpeed: 100,
+                scope: $scope,
+                buttons: {
+                    close: {
+                        text: "No",
+                        btnClass: 'btn-default'
+                    },
+                    ok: {
+                        text: "Yes",
+                        btnClass: 'btn-primary',
+                        keys: ['enter'], // will trigger when enter is pressed
+                        action: function(scope){
+                            scope.toggleHdKeyStatus(hdKey,status);
+                        }
+                    }
+                }
+            });
+        };
+
+        $scope.toggleHdKeyStatus = function(hdKey,status){
+            $scope.loadingHdkeys =  true;
+            if(vm.token) {
+                $http.patch('https://ethereum.s.services.rehive.io/api/1/admin/hdkeys/' + hdKey.id + '/', {status: status}, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    console.log(res.data.data);
+                    $scope.loadingHdkeys =  false;
+                    if (res.status === 200) {
+                        if(status == 'Active'){
+                            toastr.success('Public key successfully disabled');
+                        } else {
+                            toastr.success('Public key successfully activated');
+                        }
+                        vm.getHdkeys();
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                    $scope.loadingHdkeys =  false;
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+
+
+        $scope.toggleHdKeyPrimaryStatus = function(hdKey){
+            $scope.loadingHdkeys =  true;
+            if(vm.token) {
+                $http.patch('https://ethereum.s.services.rehive.io/api/1/admin/hdkeys/' + hdKey.id + '/', {primary: hdKey.primary}, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    console.log(res.data.data);
+                    $scope.loadingHdkeys =  false;
+                    if (res.status === 200) {
+                        toastr.success('Public key primary status successfully changed');
+                        vm.getHdkeys();
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                    $scope.loadingHdkeys =  false;
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+
+        $scope.createHdKey = function(newHdKey){
+            $scope.loadingHdkeys =  true;
+            newHdKey.primary = newHdKey.primary == 'True' ? true:false;
+            newHdKey.key_type = 'xpub';
+            if(vm.token) {
+                $http.post('https://ethereum.s.services.rehive.io/api/1/admin/hdkeys/',newHdKey, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    console.log(res);
+                    $scope.toggleAddHdkeyView();
+                    $scope.loadingHdkeys =  false;
+                    if (res.status === 201) {
+                        $scope.newHdKey = {
+                            primary: 'False',
+                            key_type: 'xpub'
+                        };
+                        toastr.success('Public key primary status successfully created');
+                        vm.getHdkeys();
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                    $scope.newHdKey = {
+                        primary: 'False',
+                        key_type: 'xpub'
+                    };
+                    $scope.loadingHdkeys =  false;
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        }
+
+
+    }
+})();

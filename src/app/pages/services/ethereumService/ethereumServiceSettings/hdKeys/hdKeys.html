@@ -1,5 +1,5 @@
 <div>
-    <div ng-hide="loadingHdkeys || addingHdkey" class="service-header" ba-panel ba-panel-title="HD keys">
+    <div ng-hide="loadingHdkeys || addingHdkey" class="service-header" ba-panel ba-panel-title="Public keys">
         <div>
             <button class="btn btn-success pull-right panel-header-button" ng-click="toggleAddHdkeyView()">Add</button>
         </div>
@@ -7,14 +7,14 @@
             <table class="table table-striped admin-emails-table">
                 <tr class="black-muted-bg divider">
                     <th>Primary</th>
-                    <th>Email</th>
+                    <th>Address</th>
                     <th>Key type</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
-                <tr ng-repeat="hdKey in hdKeysList">
+                <tr ng-repeat="hdKey in hdKeysList | filter: {key_type : 'xpub'}">
                     <th><label  class="checkbox-inline custom-checkbox nowrap">
-                        <input type="checkbox" ng-change="" ng-model="hdKey.primary" ng-checked="hdKey.primary">
+                        <input type="checkbox" ng-change="toggleHdKeyPrimaryStatus(hdKey)" ng-model="hdKey.primary" ng-checked="hdKey.primary">
                         <span></span>
                     </label>
                     </th>
@@ -22,7 +22,8 @@
                     <th title="{{hdKey.key_type}}" ng-bind="hdKey.key_type"></th>
                     <th title="{{hdKey.status}}" ng-bind="hdKey.status"></th>
                     <th class="rehive-table-row-last-child">
-                        <button ng-click="disableHdkey(hdKey)" class="btn btn-danger pull-right">Disable</button>
+                        <button ng-show="hdKey.status == 'Active'" ng-click="toggleHdKeyStatusPrompt(hdKey,'Disabled')" class="btn btn-danger pull-right">Disable</button>
+                        <button ng-hide="hdKey.status == 'Active'" ng-click="toggleHdKeyStatus(hdKey,'Active')" class="btn btn-primary pull-right">Activate</button>
                     </th>
                 </tr>
             </table>

@@ -14,7 +14,6 @@
                 return  (+amount * Math.pow(10,divisibility)).toFixed(2);
             },
             convertFromCents: function (amount,divisibility) {
-                var n;
                 return  (amount / Math.pow(10,divisibility)).toFixed(divisibility);
             },
             validateCurrency: function (amount,divisibility) {

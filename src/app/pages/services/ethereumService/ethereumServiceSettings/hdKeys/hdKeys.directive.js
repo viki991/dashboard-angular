@@ -8,7 +8,7 @@
     function hdKeys() {
         return {
             restrict: 'E',
-            require: '^parent',
+            controller: 'HdKeysCtrl',
             templateUrl: 'app/pages/services/ethereumService/ethereumServiceSettings/hdKeys/hdKeys.html'
         };
     }
