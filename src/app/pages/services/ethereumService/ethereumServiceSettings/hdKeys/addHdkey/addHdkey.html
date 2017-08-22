@@ -1,15 +1,9 @@
 <div ng-hide="loadingHdkeys">
-    <div ba-panel ba-panel-title="Add Hdkey" class="service-header" ba-panel-class="light-text with-scroll">
+    <div ba-panel ba-panel-title="Add public key" class="service-header" ba-panel-class="light-text with-scroll">
         <form name="hdKeyForm" class="custom-form" novalidate>
             <div class="form-group">
                 <label><strong>Extended public key for user address generation</strong> <span class="required-icon">*</span></label>
                 <input type="text" ng-model="newHdKey.address" class="form-control"  placeholder="address" required>
-            </div>
-            <div class="form-group">
-                <label><strong>Key type</strong> <span class="required-icon">*</span></label>
-                <br>
-                <select class="form-control pointer" ng-model="newHdKey.key_type" ng-options="keyType for keyType in keyTypeOptions" required>
-                </select>
             </div>
             <div class="form-group">
                 <label><strong>Primary</strong> <span class="required-icon">*</span></label>

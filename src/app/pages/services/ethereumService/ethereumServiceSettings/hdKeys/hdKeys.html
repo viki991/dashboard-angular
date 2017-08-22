@@ -12,7 +12,7 @@
                     <th>Status</th>
                     <th></th>
                 </tr>
-                <tr ng-repeat="hdKey in hdKeysList">
+                <tr ng-repeat="hdKey in hdKeysList | filter: {key_type : 'xpub'}">
                     <th><label  class="checkbox-inline custom-checkbox nowrap">
                         <input type="checkbox" ng-change="toggleHdKeyPrimaryStatus(hdKey)" ng-model="hdKey.primary" ng-checked="hdKey.primary">
                         <span></span>

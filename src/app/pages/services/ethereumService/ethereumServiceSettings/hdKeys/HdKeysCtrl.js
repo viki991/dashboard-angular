@@ -124,6 +124,7 @@
         $scope.createHdKey = function(newHdKey){
             $scope.loadingHdkeys =  true;
             newHdKey.primary = newHdKey.primary == 'True' ? true:false;
+            newHdKey.key_type = 'xpub';
             if(vm.token) {
                 $http.post('https://ethereum.s.services.rehive.io/api/1/admin/hdkeys/',newHdKey, {
                     headers: {
