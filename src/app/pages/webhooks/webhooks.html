@@ -1,8 +1,13 @@
-<div class="row" >
+<div ng-hide="newUser"  class="row" >
     <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
         <webhooks-settings-menu></webhooks-settings-menu>
     </div>
     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
         <div ui-view="webhooksSettingsView"></div>
+    </div>
+</div>
+<div ng-show="newUser">
+    <div class="row">
+        <initial-add-currency></initial-add-currency>
     </div>
 </div>
