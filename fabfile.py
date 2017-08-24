@@ -9,6 +9,8 @@ from fabric.context_managers import hide
 from fabric.contrib.project import rsync_project
 import posixpath
 
+class FabricException(Exception):
+    pass
 
 def set_env(config, version_tag=None):
     """
@@ -120,12 +122,24 @@ def prebuild():
     """
     image = '{}:{}'.format(env.image_name + '-js-build', env.version_tag)
 
-    with cd(env.project_dir):
-        run("docker run --rm -v $PWD/release:/app/release:rw {image} bash -c 'gulp clean && gulp build{env_string}'"\
-            .format(
-                image=image,
-                env_string=env.env_string),
-        )
+    # Compile js using docker image:
+    with settings(abort_exception=FabricException):
+        try:
+            with cd(env.project_dir):
+                run("docker run --rm -v $PWD/release:/app/release:rw {image} bash -c 'gulp clean && gulp build{env_string}'".format(
+                        image=image,
+                        env_string=env.env_string))
+
+        # If the build image is not found, build it and then run
+        except FabricException:
+            create_build_image()
+            push_build_image()
+            with cd(env.project_dir):
+                run(
+                    "docker run --rm -v $PWD/release:/app/release:rw {image} bash -c 'gulp clean && gulp build{env_string}'".format(
+                        image=image,
+                        env_string=env.env_string,
+                        pty=True))
 
 
 def build():
