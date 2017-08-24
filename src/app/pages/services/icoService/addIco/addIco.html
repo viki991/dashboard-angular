@@ -1,0 +1,44 @@
+<ico-service-navigation></ico-service-navigation>
+<div ng-hide="creatingIco" ba-panel ba-panel-title="Create ico" class="service-header">
+    <form name="icoForm" novalidate>
+        <div class="form-group">
+            <label><strong>Currency</strong> <span class="required-icon">*</span></label>
+            <select class="form-control pointer divider" ng-model="icoParams.currency"
+                    ng-options="currency.code for currency in currenciesList | orderBy: 'code'" required>
+            </select>
+        </div>
+        <div class="form-group">
+            <label><strong>Amount</strong> <span class="required-icon">*</span></label>
+            <input type="text" ng-model="icoParams.amount" class="form-control"  placeholder="Enter amount" required>
+        </div>
+        <div class="form-group">
+            <label><strong>Base currency</strong> <span class="required-icon">*</span></label>
+            <select class="form-control pointer divider" ng-model="icoParams.base_currency"
+                    ng-options="currency.code for currency in currenciesList | filter: {code: '!' + icoParams.currency.code}" required>
+            </select>
+        </div>
+        <div class="form-group">
+            <label><strong>Base goal amount</strong> <span class="required-icon">*</span></label>
+            <input type="text" ng-model="icoParams.base_goal_amount" class="form-control"  placeholder="Enter amount" required>
+        </div>
+        <div class="form-group">
+            <label><strong>Exchange provider</strong></label>
+            <input type="text" ng-model="icoParams.exchange_provider" class="form-control"  placeholder="Enter exchange provider url" >
+        </div>
+        <div class="form-group">
+            <label><strong>Enabled</strong> (Only one ico can be enabled at a time)</label>
+            <br>
+            <label  class="checkbox-inline custom-checkbox nowrap">
+                <input type="checkbox" ng-model="icoParams.enabled" ng-checked="icoParams.enabled">
+                <span></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <button ng-disabled="!icoForm.$valid" ng-click="addIco(icoParams)" class="btn btn-primary pull-right">Add</button>
+            <button ng-click="goToIcoListView()" class="btn btn-primary pull-right margin-right-10">Back</button>
+        </div>
+    </form>
+</div>
+<div ng-show="creatingIco" ba-panel class="service-header">
+    <loading-image></loading-image>
+</div>

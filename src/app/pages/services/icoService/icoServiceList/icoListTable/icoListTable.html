@@ -1,0 +1,43 @@
+<div ba-panel  ba-panel-title="Ico List" class="service-header">
+    <div>
+        <button class="btn btn-success pull-right panel-header-button" ng-click="goToAddIcoView()">Add</button>
+    </div>
+    <table ng-hide="icosList.length == 0 || loadingIcos" class="table table-condensed table-striped table-hover ">
+        <tr class="black-muted-bg">
+            <td><strong>Currency</strong></td>
+            <td><strong>Amount</strong></td>
+            <td><strong>Base currency</strong></td>
+            <td><strong>Base goal amount</strong></td>
+            <td><strong>Exchange provider</strong></td>
+            <td><strong>Enabled</strong></td>
+            <td><strong>Created</strong></td>
+            <td></td>
+        </tr>
+        <tr ng-repeat="ico in icosList | orderBy: '-created'"
+            ng-click="goToEditView(ico)"
+            class="editable-row center pointer">
+            <td><div title="{{ico.currency.code}}" class="icos-list-element"
+                     ng-bind="ico.currency.code"></div></td>
+            <td><div title="{{ico.amount  | currencyModifiersFilter: ico.currency.divisibility | preciseRound: ico.currency.divisibility}}" class="icos-list-element"
+                     ng-bind="ico.amount  | currencyModifiersFilter: ico.currency.divisibility | preciseRound: ico.currency.divisibility"></div></td>
+            <td><div title="{{ico.base_currency.code}}" class="icos-list-element" ng-bind="ico.base_currency.code"></div></td>
+            <td><div title="{{ico.base_goal_amount  | currencyModifiersFilter: ico.base_currency.divisibility | preciseRound: ico.base_currency.divisibility}}" class="icos-list-element"
+                     ng-bind="ico.base_goal_amount  | currencyModifiersFilter: ico.base_currency.divisibility | preciseRound: ico.base_currency.divisibility"></div></td>
+            <td><div title="{{ico.exchange_provider || 'None'}}" class="icos-list-element"
+                     ng-bind="ico.exchange_provider || 'None' | limitTo: 18"></div></td>
+            <td><div title="{{ico.enabled}}"
+                     class="icos-list-element" ng-bind="ico.enabled | capitalizeWord"></div></td>
+            <td><div title="{{ico.created | date:'mediumDate'}} {{ico.created | date:'shortTime'}}" class="icos-list-element">
+                {{ico.created | date:'mediumDate'}} {{ico.created | date:'shortTime'}}</div></td>
+            <td ng-click="$event.stopPropagation()" class="rehive-table-row-last-child">
+                <button ng-click="deleteIcoPrompt(ico)" class="btn btn-danger pull-right rehive-button-no-right-margin">Delete</button>
+            </td>
+        </tr>
+    </table>
+    <div ng-show="icosList.length == 0">
+        <i>No icos have been created</i>
+    </div>
+</div>
+<div ng-show="loadingIcos">
+    <loading-image></loading-image>
+</div>

@@ -8,7 +8,7 @@
     function tokensList() {
         return {
             restrict: 'E',
-            controller: 'SecurityCtrl',
+            require: '^parent',
             templateUrl: 'app/pages/settings/security/tokens/tokensList/tokensList.html'
         };
     }
