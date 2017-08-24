@@ -5,13 +5,53 @@
         .controller('CompanyNameRequestCtrl', CompanyNameRequestCtrl);
 
     /** @ngInject */
-    function CompanyNameRequestCtrl($rootScope,$scope,$http,toastr,cookieManagement,environmentConfig,$location,errorToasts,userVerification) {
+    function CompanyNameRequestCtrl($rootScope,$scope,$http,toastr,cookieManagement,
+                                    errorHandler,environmentConfig,$location,errorToasts,userVerification) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
+        $rootScope.$pageFinishedLoading = false;
         $scope.company = {
             name: ''
         };
+
+        vm.getCompanyInfo = function () {
+            if(vm.token) {
+                $http.get(environmentConfig.API + '/admin/company/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        if(res.data.data && res.data.data.name){
+                            $rootScope.haveCompanyName = true;
+                            $rootScope.companyName = res.data.data.name;
+                            userVerification.verify(function(err,verified){
+                                if(verified){
+                                    $rootScope.userVerified = true;
+                                    vm.getCompanyCurrencies();
+                                } else {
+                                    $location.path('/verification');
+                                    toastr.error('Please verify your account','Message');
+                                    $rootScope.$pageFinishedLoading = true;
+                                }
+                            });
+                        } else {
+                            $rootScope.$pageFinishedLoading = true;
+                        }
+                    }
+                }).catch(function (error) {
+                    $rootScope.$pageFinishedLoading = true;
+                    if(error.status == 403){
+                        errorHandler.handle403();
+                        return
+                    }
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+        vm.getCompanyInfo();
 
         $scope.updateCompanyInfo = function () {
             $rootScope.$pageFinishedLoading = false;
@@ -46,6 +86,7 @@
         };
 
         vm.getCompanyCurrencies = function(){
+            $rootScope.$pageFinishedLoading = false;
             if(vm.token){
                 $http.get(environmentConfig.API + '/admin/currencies/?enabled=true', {
                     headers: {
