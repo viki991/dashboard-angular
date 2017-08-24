@@ -10,12 +10,13 @@
 
         $scope.notification = notification;
         vm.token = cookieManagement.getCookie('TOKEN');
+        vm.baseUrl = cookieManagement.getCookie('SERVICEURL');
         $scope.deletingNotification = false;
 
 
         $scope.deleteNotification = function () {
             $scope.deletingNotification = true;
-            $http.delete('https://notification.services.rehive.io/api/admin/notifications/' + $scope.notification.id + '/', {
+            $http.delete(vm.baseUrl + 'admin/notifications/' + $scope.notification.id + '/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': vm.token
