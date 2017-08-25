@@ -9,6 +9,7 @@
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
+        vm.baseUrl = cookieManagement.getCookie('SERVICEURL');
         vm.updatedNotification = {};
         $scope.loadingNotifications =  false;
         $scope.addingNotifications = false;
@@ -33,7 +34,7 @@
         vm.getSingleNotification = function (notification) {
             $scope.loadingNotifications =  true;
             if(vm.token) {
-                $http.get('https://notification.services.rehive.io/api/admin/notifications/' + notification.id + '/', {
+                $http.get(vm.baseUrl + 'admin/notifications/' + notification.id + '/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -55,7 +56,7 @@
             $scope.loadingNotifications =  true;
             $scope.notificationsList = [];
             if(vm.token) {
-                $http.get('https://notification.services.rehive.io/api/admin/notifications/', {
+                $http.get(vm.baseUrl + 'admin/notifications/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -85,7 +86,7 @@
             $scope.loadingNotifications =  true;
             $scope.notificationParams.enabled = $scope.notificationParams.enabled == 'True' ? true : false;
             if(vm.token) {
-                $http.post('https://notification.services.rehive.io/api/admin/notifications/',notificationParams, {
+                $http.post(vm.baseUrl + 'admin/notifications/',notificationParams, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -113,7 +114,7 @@
             $scope.editingNotifications = !$scope.editingNotifications;
             $scope.notificationParams.enabled = $scope.notificationParams.enabled == 'True' ? true : false;
             if(vm.token) {
-                $http.patch('https://notification.services.rehive.io/api/admin/notifications/' + $scope.editNotification.id + '/',vm.updatedNotification, {
+                $http.patch(vm.baseUrl + 'admin/notifications/' + $scope.editNotification.id + '/',vm.updatedNotification, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token

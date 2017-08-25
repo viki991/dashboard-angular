@@ -11,6 +11,20 @@
         vm.user = {};
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.verifyingEmail = false;
+        $rootScope.$pageFinishedLoading = false;
+
+        vm.checkIfUserVerified = function(){
+            userVerification.verify(function(err,verified){
+                if(verified){
+                    $rootScope.userVerified = true;
+                    $location.path('/company/name_request');
+                    $rootScope.$pageFinishedLoading = true;
+                } else {
+                    $rootScope.$pageFinishedLoading = true;
+                }
+            });
+        };
+        vm.checkIfUserVerified();
 
         $scope.verifyUser = function(){
             $scope.verifyingEmail = true;

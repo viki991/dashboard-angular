@@ -10,6 +10,7 @@
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
+        vm.baseUrl = cookieManagement.getCookie('SERVICEURL');
         $scope.notificationSettingView = '';
         $scope.updatingCompanyDetails =  false;
         vm.updatedCompany = {};
@@ -22,7 +23,7 @@
         vm.getCompanyDetails = function () {
           $scope.updatingCompanyDetails =  true;
             if(vm.token) {
-                $http.get('https://notification.services.rehive.io/api/admin/company/', {
+                $http.get(vm.baseUrl + 'admin/company/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -48,7 +49,7 @@
           $scope.updatingCompanyDetails =  true;
             $scope.company = {};
             if(vm.token) {
-                $http.patch('https://notification.services.rehive.io/api/admin/company/', vm.updatedCompany, {
+                $http.patch(vm.baseUrl + 'admin/company/', vm.updatedCompany, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token

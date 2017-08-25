@@ -2,6 +2,10 @@
     'use strict';
 
     angular.module('BlurAdmin.pages.services.icoService', [
+        'BlurAdmin.pages.services.icoService.icoServiceSettings',
+        'BlurAdmin.pages.services.icoService.icoServiceList',
+        'BlurAdmin.pages.services.icoService.addIco',
+        'BlurAdmin.pages.services.icoService.editIco'
     ])
         .config(routeConfig);
 
@@ -10,10 +14,11 @@
         $stateProvider
             .state('icoService', {
                 url: '/services/ico',
+                template: '<ui-view  autoscroll="true" autoscroll-body-top></ui-view>',
                 abstract:true,
                 title: 'ICO service'
             });
-        $urlRouterProvider.when("/services/ico", "/services/ico/settings");
+        $urlRouterProvider.when("/services/ico", "/services/ico/list");
     }
 
 })();

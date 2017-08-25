@@ -8,7 +8,7 @@
     function addTokenView() {
         return {
             restrict: 'E',
-            controller: 'SecurityCtrl',
+            require: '^parent',
             templateUrl: 'app/pages/settings/security/tokens/addToken/addToken.html'
         };
     }

@@ -1,6 +1,5 @@
 <div ng-hide="updatingCompanyDetails" ba-panel ba-panel-title="Webhook shortcuts" class="service-header">
-    <p>Notifications are triggered by Rehive webhooks. In order to correctly trigger a notification you should ensure you have at least one webhook of the same
-        event type as the notification event. All notification webhooks should be configured with the company secret
+    <p>Stellar webhooks are configured in webhooks.All stellar webhooks should be configured with the company secret
         because it ensures secure communication between Rehive and the service.</p>
 
     <p class="text-muted">Note: The "secret" field will automatically get filled with the company secret by using the below webhook shortcut buttons
@@ -8,10 +7,10 @@
         communication between Rehive Platform and the service.</p>
 
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 rehive-webhook-div-left">
-        <button ng-click="goToUsersWebhooks(company.secret)" class="btn notification-webhooks-buttons btn-primary btn-block">User webhooks</button>
+        <button ng-click="goToUsersWebhooks(company.secret)" class="btn notification-webhooks-buttons btn-primary btn-block">Users webhooks</button>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 rehive-webhook-div-right">
-        <button ng-click="goToTransactionsWebhooks(company.secret)" class="btn notification-webhooks-buttons btn-primary btn-block">Transaction webhooks</button>
+        <button ng-click="goToTransactionsWebhooks(company.secret)" class="btn notification-webhooks-buttons btn-primary btn-block">Transactions webhooks</button>
     </div>
 </div>
 <div ba-panel ng-show="updatingCompanyDetails" class="service-header">

@@ -1,6 +1,6 @@
 $text-color: #494242;
 
-.auth-main  .form-control, .form-control:focus {
+.auth-main  .form-control,.auth-main .form-control:focus {
   @include placeholderStyle($text-color, 0.5);
   height: auto;
   padding: 12px 10px;

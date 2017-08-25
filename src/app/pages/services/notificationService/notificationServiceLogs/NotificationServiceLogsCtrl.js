@@ -9,13 +9,14 @@
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
+        vm.baseUrl = cookieManagement.getCookie('SERVICEURL');
         $scope.loadingLogs =  false;
         $scope.notificationLogs = [];
 
         vm.getNotificationLogs = function () {
             $scope.loadingLogs =  true;
             if(vm.token) {
-                $http.get('https://notification.services.rehive.io/api/admin/logs/', {
+                $http.get(vm.baseUrl + 'admin/logs/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token

@@ -7,8 +7,8 @@
     /** @ngInject */
     function routeConfig($stateProvider,$urlRouterProvider) {
         $stateProvider
-            .state('icoServiceSettings', {
-                url: '/services/ico/settings',
+            .state('icoService.icoServiceSettings', {
+                url: '/settings',
                 templateUrl: 'app/pages/services/icoService/icoServiceSettings/icoServiceSettings.html',
                 controller: "IcoServiceSettingsCtrl",
                 title: 'Settings'
