@@ -1,0 +1,24 @@
+<div ba-panel  ba-panel-title="Rates List" class="service-header">
+    <table ng-hide="icoRates.length == 0 || loadingRates" class="table table-condensed table-striped">
+        <tr class="black-muted-bg">
+            <td><strong>Currency</strong></td>
+            <td><strong>Rate</strong></td>
+            <td><strong>Created</strong></td>
+        </tr>
+        <tr ng-repeat="rate in icoRates | orderBy: '-created'"
+            class="editable-row center">
+            <td><div title="{{rate.currency.code}}" class="icos-list-element"
+                     ng-bind="rate.currency.code"></div></td>
+            <td><div title="{{rate.rate  | currencyModifiersFilter: rate.currency.divisibility | preciseRound: rate.currency.divisibility}}" class="icos-list-element"
+                     ng-bind="rate.rate  | currencyModifiersFilter: rate.currency.divisibility | preciseRound: rate.currency.divisibility"></div></td>
+            <td><div title="{{rate.created | date:'mediumDate'}} {{rate.created | date:'shortTime'}}" class="icos-list-element">
+                {{rate.created | date:'mediumDate'}} {{rate.created | date:'shortTime'}}</div></td>
+        </tr>
+    </table>
+    <div ng-show="icoRates.length == 0">
+        <i>No rates are available</i>
+    </div>
+    <div ng-show="loadingRates">
+        <loading-image></loading-image>
+    </div>
+</div>

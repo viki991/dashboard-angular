@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.services.icoService.addIcoPhase')
+    angular.module('BlurAdmin.pages.services.icoService.viewIco.addIcoPhase')
         .controller('AddPhaseCtrl', AddPhaseCtrl);
 
     /** @ngInject */
@@ -77,7 +77,7 @@
         };
 
         $scope.goToIcoView = function () {
-            $location.path('services/ico/' + $stateParams.id);
+            $location.path('services/ico/' + $stateParams.id + '/phase/list');
         }
 
 

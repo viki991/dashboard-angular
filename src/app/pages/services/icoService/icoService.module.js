@@ -6,8 +6,7 @@
         'BlurAdmin.pages.services.icoService.listIcos',
         'BlurAdmin.pages.services.icoService.addIco',
         'BlurAdmin.pages.services.icoService.editIco',
-        'BlurAdmin.pages.services.icoService.viewIco',
-        'BlurAdmin.pages.services.icoService.addIcoPhase'
+        'BlurAdmin.pages.services.icoService.viewIco'
     ])
         .config(routeConfig);
 

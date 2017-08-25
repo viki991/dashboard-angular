@@ -1,7 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.services.icoService.viewIco', [])
+    angular.module('BlurAdmin.pages.services.icoService.viewIco', [
+            'BlurAdmin.pages.services.icoService.viewIco.rates',
+            'BlurAdmin.pages.services.icoService.viewIco.addIcoPhase',
+            'BlurAdmin.pages.services.icoService.viewIco.listIcoPhase'
+    ])
         .config(routeConfig);
 
     /** @ngInject */
