@@ -23,6 +23,7 @@
                     $scope.resettingPassword = true;
                     $scope.passwordResetDone = true;
                     toastr.success(res.data.message);
+                    $location.path('/login');
                 }
             }).catch(function (error) {
                 toastr.error("Password reset failed");
