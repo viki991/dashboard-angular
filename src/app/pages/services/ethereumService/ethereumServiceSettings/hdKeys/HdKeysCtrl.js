@@ -6,8 +6,10 @@
 
     /** @ngInject */
     function HdKeysCtrl($scope,$http,cookieManagement,toastr,errorToasts,$ngConfirm) {
-        const serviceUrl = cookieManagement.getCookie('SERVICEURL');
+
+
         var vm = this;
+        vm.serviceUrl = cookieManagement.getCookie('SERVICEURL');
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.loadingHdkeys =  true;
         $scope.addingHdkey =  false;
@@ -21,7 +23,7 @@
         vm.getHdkeys = function () {
             $scope.loadingHdkeys =  true;
             if(vm.token) {
-                $http.get(serviceUrl + 'admin/hdkeys/', {
+                $http.get(vm.serviceUrl + 'admin/hdkeys/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -73,7 +75,7 @@
         $scope.toggleHdKeyStatus = function(hdKey,status){
             $scope.loadingHdkeys =  true;
             if(vm.token) {
-                $http.patch(serviceUrl + 'admin/hdkeys/' + hdKey.id + '/', {status: status}, {
+                $http.patch(vm.serviceUrl + 'admin/hdkeys/' + hdKey.id + '/', {status: status}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -101,7 +103,7 @@
         $scope.toggleHdKeyPrimaryStatus = function(hdKey){
             $scope.loadingHdkeys =  true;
             if(vm.token) {
-                $http.patch(serviceUrl + 'admin/hdkeys/' + hdKey.id + '/', {primary: hdKey.primary}, {
+                $http.patch(vm.serviceUrl + 'admin/hdkeys/' + hdKey.id + '/', {primary: hdKey.primary}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -126,7 +128,7 @@
             newHdKey.primary = newHdKey.primary == 'True';
             newHdKey.key_type = 'xpub';
             if(vm.token) {
-                $http.post(serviceUrl + 'admin/hdkeys/',newHdKey, {
+                $http.post(vm.serviceUrl + 'admin/hdkeys/',newHdKey, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
