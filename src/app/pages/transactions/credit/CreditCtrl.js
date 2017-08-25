@@ -98,7 +98,7 @@
 
             var sendTransactionData = {
                 user: $scope.creditData.user,
-                amount: currencyModifiers.convertToCents($scope.creditData.amount,$rootScope.selectedCurrency.divisibility),
+                amount: parseInt(currencyModifiers.convertToCents($scope.creditData.amount,$rootScope.selectedCurrency.divisibility)),
                 reference: $scope.creditData.reference,
                 confirm_on_create: $scope.creditData.confirm_on_create,
                 metadata: $scope.creditData.metadata,

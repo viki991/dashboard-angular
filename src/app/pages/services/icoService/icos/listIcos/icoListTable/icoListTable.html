@@ -14,7 +14,7 @@
             <td></td>
         </tr>
         <tr ng-repeat="ico in icosList | orderBy: '-created'"
-            ng-click="goToEditView(ico)"
+            ng-click="goToIcoView(ico)"
             class="editable-row center pointer">
             <td><div title="{{ico.currency.code}}" class="icos-list-element"
                      ng-bind="ico.currency.code"></div></td>
@@ -31,13 +31,15 @@
                 {{ico.created | date:'mediumDate'}} {{ico.created | date:'shortTime'}}</div></td>
             <td ng-click="$event.stopPropagation()" class="rehive-table-row-last-child">
                 <button ng-click="deleteIcoPrompt(ico)" class="btn btn-danger pull-right rehive-button-no-right-margin">Delete</button>
+                <button ng-click="goToEditView(ico)" class="btn btn-primary pull-right rehive-button-no-right-margin">Edit</button>
             </td>
         </tr>
     </table>
     <div ng-show="icosList.length == 0">
         <i>No icos have been created</i>
     </div>
+    <div ng-show="loadingIcos">
+        <loading-image></loading-image>
+    </div>
 </div>
-<div ng-show="loadingIcos">
-    <loading-image></loading-image>
-</div>
+

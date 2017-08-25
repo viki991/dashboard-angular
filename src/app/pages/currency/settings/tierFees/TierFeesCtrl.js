@@ -151,7 +151,7 @@
         $scope.addTierFee = function(tierFeesParams){
             if(tierFeesParams.value){
                 if(currencyModifiers.validateCurrency(tierFeesParams.value,$rootScope.selectedCurrency.divisibility)){
-                    tierFeesParams.value = currencyModifiers.convertToCents(tierFeesParams.value,$rootScope.selectedCurrency.divisibility);
+                    tierFeesParams.value = parseInt(currencyModifiers.convertToCents(tierFeesParams.value,$rootScope.selectedCurrency.divisibility));
                 } else {
                     toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
                     return;
@@ -204,7 +204,7 @@
 
             if($scope.editTierFee.value){
                 if(currencyModifiers.validateCurrency($scope.editTierFee.value,$rootScope.selectedCurrency.divisibility)){
-                    vm.updatedTierFee.value = currencyModifiers.convertToCents($scope.editTierFee.value,$rootScope.selectedCurrency.divisibility);
+                    vm.updatedTierFee.value = parseInt(currencyModifiers.convertToCents($scope.editTierFee.value,$rootScope.selectedCurrency.divisibility));
                 } else {
                     toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
                     return;

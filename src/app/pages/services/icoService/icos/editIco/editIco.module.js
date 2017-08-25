@@ -9,9 +9,8 @@
         $stateProvider
             .state('icoService.editIco', {
                 url: '/:id/edit',
-                templateUrl: 'app/pages/services/icoService/editIco/editIco.html',
-                controller: "EditIcoCtrl",
-                title: 'Edit'
+                templateUrl: 'app/pages/services/icoService/icos/editIco/editIco.html',
+                controller: "EditIcoCtrl"
             });
     }
 

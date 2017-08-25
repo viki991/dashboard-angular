@@ -3,9 +3,11 @@
 
     angular.module('BlurAdmin.pages.services.icoService', [
         'BlurAdmin.pages.services.icoService.icoServiceSettings',
-        'BlurAdmin.pages.services.icoService.icoServiceList',
+        'BlurAdmin.pages.services.icoService.listIcos',
         'BlurAdmin.pages.services.icoService.addIco',
-        'BlurAdmin.pages.services.icoService.editIco'
+        'BlurAdmin.pages.services.icoService.editIco',
+        'BlurAdmin.pages.services.icoService.viewIco',
+        'BlurAdmin.pages.services.icoService.addIcoPhase'
     ])
         .config(routeConfig);
 

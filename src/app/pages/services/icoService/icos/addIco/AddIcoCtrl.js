@@ -57,7 +57,7 @@
 
             if($scope.icoParams.amount){
                 if(currencyModifiers.validateCurrency($scope.icoParams.amount,$scope.icoParams.currency.divisibility)){
-                    addIcoObj.amount = currencyModifiers.convertToCents($scope.icoParams.amount,$scope.icoParams.currency.divisibility);
+                    addIcoObj.amount = parseInt(currencyModifiers.convertToCents($scope.icoParams.amount,$scope.icoParams.currency.divisibility));
                 } else {
                     toastr.error('Please input amount to ' + $scope.icoParams.currency.divisibility + ' decimal places');
                     return;
@@ -66,7 +66,7 @@
 
             if($scope.icoParams.base_goal_amount){
                 if(currencyModifiers.validateCurrency($scope.icoParams.base_goal_amount,$scope.icoParams.base_currency.divisibility)){
-                    addIcoObj.base_goal_amount = currencyModifiers.convertToCents($scope.icoParams.base_goal_amount,$scope.icoParams.base_currency.divisibility);
+                    addIcoObj.base_goal_amount = parseInt(currencyModifiers.convertToCents($scope.icoParams.base_goal_amount,$scope.icoParams.base_currency.divisibility));
                 } else {
                     toastr.error('Please input base goal amount to ' + $scope.icoParams.base_currency.divisibility + ' decimal places');
                     return;

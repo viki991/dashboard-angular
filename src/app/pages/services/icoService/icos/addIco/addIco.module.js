@@ -9,7 +9,7 @@
         $stateProvider
             .state('icoService.addIco', {
                 url: '/add',
-                templateUrl: 'app/pages/services/icoService/addIco/addIco.html',
+                templateUrl: 'app/pages/services/icoService/icos/addIco/addIco.html',
                 controller: "AddIcoCtrl",
                 title: 'Add'
             });

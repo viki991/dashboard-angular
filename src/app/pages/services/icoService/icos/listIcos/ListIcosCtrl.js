@@ -1,11 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.services.icoService.icoServiceList')
-        .controller('IcoServiceListCtrl', IcoServiceListCtrl);
+    angular.module('BlurAdmin.pages.services.icoService.listIcos')
+        .controller('ListIcosCtrl', ListIcosCtrl);
 
     /** @ngInject */
-    function IcoServiceListCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$ngConfirm) {
+    function ListIcosCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$ngConfirm) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -41,7 +41,7 @@
         $scope.deleteIcoPrompt = function(ico) {
             $ngConfirm({
                 title: 'Delete ico',
-                contentUrl: 'app/pages/services/icoService/icoServiceList/deleteIcoServicePrompt.html',
+                contentUrl: 'app/pages/services/icoService/icos/listIcos/deleteIcoPrompt.html',
                 animationBounce: 1,
                 animationSpeed: 100,
                 scope: $scope,
@@ -65,7 +65,7 @@
                 }
             });
         };
-        
+
         $scope.deleteIco = function (ico) {
             $scope.loadingIcos =  true;
             if(vm.token) {
@@ -84,11 +84,15 @@
                     errorToasts.evaluateErrors(error.data);
                 });
             }
-        }
+        };
 
-        $scope.goToEditView = function (ico) {
+        $scope.goToIcoView = function (ico) {
+            $location.path('/services/ico/' + ico.id);
+        };
+
+        $scope.goToEditView = function(ico){
             $location.path('/services/ico/' + ico.id + '/edit');
-        }
+        };
 
 
     }
