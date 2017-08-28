@@ -11,9 +11,38 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.serviceUrl = cookieManagement.getCookie('SERVICEURL');
         $scope.loadingQuotes = false;
+        $scope.searchQuoteParams = {
+            searchId: '',
+            searchCurrency: {code: 'Currency'}
+        };
+        $scope.currencyOptions = [];
+
+        $scope.pagination = {
+            itemsPerPage: 10,
+            pageNo: 1,
+            maxSize: 5
+        };
+
+        $scope.getCurrenciesList = function () {
+            if(vm.token) {
+                $http.get(vm.serviceUrl + 'admin/currencies/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        $scope.currencyOptions = res.data.data.results;
+                        $scope.currencyOptions.splice(0,0,{code: 'Currency'});
+                    }
+                }).catch(function (error) {
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+        $scope.getCurrenciesList();
 
         vm.getIco =  function () {
-            $scope.creatingPhase = true;
             if(vm.token) {
                 $http.get(vm.serviceUrl + 'admin/icos/' + $stateParams.id + '/', {
                     headers: {
@@ -21,31 +50,51 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.creatingPhase =  false;
                     if (res.status === 200) {
                         $scope.icoObj = res.data.data;
                     }
                 }).catch(function (error) {
-                    $scope.creatingPhase =  false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
         };
         vm.getIco();
 
-        vm.getIcoQuotes =  function () {
+        vm.getQuoteListUrl = function(){
+            vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
+                +  '&id=' + ($scope.searchQuoteParams.searchId ? $scope.searchQuoteParams.searchId : '')
+                +  '&deposit_currency__code=' + ($scope.searchQuoteParams.searchCurrency.code == 'Currency' ? '' : $scope.searchQuoteParams.searchCurrency.code);
+
+            return vm.serviceUrl + 'admin/icos/' + $stateParams.id + '/quotes/' + vm.filterParams;
+        };
+
+        $scope.getIcoQuotes =  function (applyFilter) {
             $scope.loadingQuotes = true;
+
+            $scope.icoQuotes = [];
+
+            if (applyFilter) {
+                // if function is called from filters directive, then pageNo set to 1
+                $scope.pagination.pageNo = 1;
+            }
+
+            if ($scope.icoQuotes.length > 0) {
+                $scope.icoQuotes.length = 0;
+            }
+
+            var quoteListUrl = vm.getQuoteListUrl();
+
             if(vm.token) {
-                $http.get(vm.serviceUrl + 'admin/icos/' + $stateParams.id + '/quotes/', {
+                $http.get(quoteListUrl, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingQuotes =  false;
                     if (res.status === 200) {
+                        $scope.icoQuotesData = res.data.data;
                         $scope.icoQuotes = res.data.data.results;
-                        console.log(res)
+                        $scope.loadingQuotes =  false;
                     }
                 }).catch(function (error) {
                     $scope.loadingQuotes =  false;
@@ -53,7 +102,7 @@
                 });
             }
         };
-        vm.getIcoQuotes();
+        $scope.getIcoQuotes();
 
         $scope.openQuotesModal = function (page, size,quote) {
             vm.theModal = $uibModal.open({

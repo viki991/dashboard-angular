@@ -1,4 +1,4 @@
-<div ng-hide="loadingUser || updatingProfilePic">
+<div ng-hide="updatingProfilePic">
     <div class="row divider">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
             <img class="pointer" ng-click="toggleProfilePictureView()"
@@ -19,9 +19,6 @@
             <user-switches></user-switches>
         </div>
     </div>
-</div>
-<div ba-panel ng-show="loadingUser">
-    <loading-image></loading-image>
 </div>
 <div ng-show="updatingProfilePic">
     <user-profile-picture></user-profile-picture>

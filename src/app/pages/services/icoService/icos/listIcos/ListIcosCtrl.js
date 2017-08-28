@@ -28,7 +28,7 @@
         };
 
         $scope.getCurrenciesList = function () {
-            $scope.creatingIco =  true;
+            $scope.loadingIcos =  true;
             if(vm.token) {
                 $http.get(vm.serviceUrl + 'admin/currencies/', {
                     headers: {
@@ -36,13 +36,13 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.creatingIco =  false;
+                    $scope.loadingIcos =  false;
                     if (res.status === 200) {
                         $scope.currencyOptions = res.data.data.results;
                         $scope.currencyOptions.splice(0,0,{code: 'Currency'});
                     }
                 }).catch(function (error) {
-                    $scope.creatingIco =  false;
+                    $scope.loadingIcos =  false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
@@ -64,7 +64,7 @@
             $scope.icosList = [];
 
             if (applyFilter) {
-                // if function is called from history-filters directive, then pageNo set to 1
+                // if function is called from filters directive, then pageNo set to 1
                 $scope.pagination.pageNo = 1;
             }
 
@@ -81,10 +81,10 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingIcos =  false;
                     if (res.status === 200) {
                         $scope.icosListData = res.data.data;
                         $scope.icosList = res.data.data.results;
+                        $scope.loadingIcos =  false;
                     }
                 }).catch(function (error) {
                     $scope.searchIcoParams = {

@@ -1,4 +1,4 @@
-<div ba-panel ba-panel-title="User activity" >
+<div ng-hide="loadingUser" ba-panel ba-panel-title="User activity" >
     <table class="table table-condensed table-striped user-details-table">
         <tr>
             <th width="40%"><strong>Joined</strong></th>
@@ -13,4 +13,7 @@
             <th><a  class="pointer" ng-click="goToTransactions(user.identifier)">View</a></th>
         </tr>
     </table>
+</div>
+<div ba-panel ng-show="loadingUser">
+    <loading-image></loading-image>
 </div>
