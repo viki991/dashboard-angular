@@ -1,4 +1,5 @@
-<div ba-panel  ba-panel-title="Purchases" class="service-header col-lg-9 col-md-9 col-sm-9 col-xs-9">
+<purchases-list-filters></purchases-list-filters>
+<div ba-panel  ba-panel-title="Purchases" class="service-header col-lg-9 col-md-9 col-sm-12 col-xs-12">
     <table ng-hide="icoPurchases.length == 0 || loadingPurchases" class="table table-condensed table-striped table-hover">
         <tr class="black-muted-bg">
             <td><strong>User</strong></td>
@@ -26,7 +27,7 @@
         </tr>
     </table>
     <div ng-show="icoPurchases.length == 0">
-        <i>No rates are available</i>
+        <i>No purchases are available</i>
     </div>
     <div ng-show="loadingPurchases">
         <loading-image></loading-image>

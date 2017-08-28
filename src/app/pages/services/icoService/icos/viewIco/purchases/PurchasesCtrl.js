@@ -33,7 +33,7 @@
         };
         vm.getIco();
 
-        vm.getIcoPurchases =  function () {
+        $scope.getIcoPurchases =  function () {
             $scope.loadingPurchases = true;
             if(vm.token) {
                 $http.get(vm.serviceUrl + 'admin/icos/' + $stateParams.id + '/purchases/', {
@@ -52,7 +52,7 @@
                 });
             }
         };
-        vm.getIcoPurchases();
+        $scope.getIcoPurchases();
 
         $scope.openPurchasesModal = function (page, size,purchase) {
             vm.theModal = $uibModal.open({
