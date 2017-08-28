@@ -11,12 +11,71 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.serviceUrl = cookieManagement.getCookie('SERVICEURL');
         $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
+        $scope.icosList = [];
         $scope.icoSettingView = '';
+        $scope.searchIcoParams = {
+            searchId: '',
+            searchStatus: 'Status',
+            searchCurrency: {code: 'Currency'}
+        };
+        $scope.statusOptions = ['Status','True','False'];
+        $scope.currencyOptions = [];
 
-        vm.getIcosList = function () {
-            $scope.loadingIcos =  true;
+        $scope.pagination = {
+            itemsPerPage: 10,
+            pageNo: 1,
+            maxSize: 5
+        };
+
+        $scope.getCurrenciesList = function () {
+            $scope.creatingIco =  true;
             if(vm.token) {
-                $http.get(vm.serviceUrl + 'admin/icos/', {
+                $http.get(vm.serviceUrl + 'admin/currencies/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    $scope.creatingIco =  false;
+                    if (res.status === 200) {
+                        $scope.currencyOptions = res.data.data.results;
+                        $scope.currencyOptions.splice(0,0,{code: 'Currency'});
+                    }
+                }).catch(function (error) {
+                    $scope.creatingIco =  false;
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+        $scope.getCurrenciesList();
+
+        vm.getIcoListUrl = function(){
+            vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
+            +  '&id=' + ($scope.searchIcoParams.searchId ? $scope.searchIcoParams.searchId : '')
+            +  '&enabled=' + ($scope.searchIcoParams.searchStatus == 'True' ? $scope.searchIcoParams.searchStatus
+                    : $scope.searchIcoParams.searchStatus == 'False' ? $scope.searchIcoParams.searchStatus : '')
+            +  '&currency__code=' + ($scope.searchIcoParams.searchCurrency.code == 'Currency' ? '' : $scope.searchIcoParams.searchCurrency.code);
+
+            return vm.serviceUrl + 'admin/icos/' + vm.filterParams;
+        };
+
+        $scope.getIcosList = function (applyFilter) {
+            $scope.loadingIcos =  true;
+            $scope.icosList = [];
+
+            if (applyFilter) {
+                // if function is called from history-filters directive, then pageNo set to 1
+                $scope.pagination.pageNo = 1;
+            }
+
+            if ($scope.icosList.length > 0) {
+                $scope.icosList.length = 0;
+            }
+
+            var icoListUrl = vm.getIcoListUrl();
+
+            if(vm.token) {
+                $http.get(icoListUrl, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -24,15 +83,21 @@
                 }).then(function (res) {
                     $scope.loadingIcos =  false;
                     if (res.status === 200) {
+                        $scope.icosListData = res.data.data;
                         $scope.icosList = res.data.data.results;
                     }
                 }).catch(function (error) {
+                    $scope.searchIcoParams = {
+                        searchId: '',
+                        searchStatus: 'Status',
+                        searchCurrency: {code: 'Currency'}
+                    };
                     $scope.loadingIcos =  false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
         };
-        vm.getIcosList();
+        $scope.getIcosList();
 
         $scope.goToAddIcoView = function () {
             $location.path('/services/ico/add');
@@ -76,10 +141,20 @@
                     }
                 }).then(function (res) {
                     if (res.status === 200) {
+                        $scope.searchIcoParams = {
+                            searchId: '',
+                            searchStatus: 'Status',
+                            searchCurrency: {code: 'Currency'}
+                        };
                         toastr.success('Ico successfully deleted');
-                        vm.getIcosList();
+                        $scope.getIcosList();
                     }
                 }).catch(function (error) {
+                    $scope.searchIcoParams = {
+                        searchId: '',
+                        searchStatus: 'Status',
+                        searchCurrency: {code: 'Currency'}
+                    };
                     $scope.loadingIcos =  false;
                     errorToasts.evaluateErrors(error.data);
                 });

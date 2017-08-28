@@ -2,21 +2,21 @@
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>Id</strong></label>
-            <input type="text"  class="form-control" id="id"  placeholder="Enter Transaction Id" ng-model="searchParams.searchId" size="12">
+            <input type="text"  class="form-control" id="id"  placeholder="Enter transaction Id" ng-model="searchParams.searchId" size="12">
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>User</strong></label>
-            <input type="text" ng-model="searchParams.searchUser" placeholder="Enter Email address."
+            <input type="text" ng-model="searchParams.searchUser" placeholder="Enter email address."
                    uib-typeahead="email for email in getUsersTypeahead($viewValue)"
                    class="form-control" size="12">
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>From date</strong></label>
-            <input type="date" ng-model="searchParams.searchDateFrom" class="form-control" id="date_from"  placeholder="Date From">
+            <input type="date" ng-model="searchParams.searchDateFrom" class="form-control" id="date_from"  placeholder="Date from">
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>To date</strong></label>
-            <input type="date" ng-model="searchParams.searchDateTo" class="form-control" id="date_to"  placeholder="Date To">
+            <input type="date" ng-model="searchParams.searchDateTo" class="form-control" id="date_to"  placeholder="Date to">
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>Type</strong></label>
@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
             <label><strong>Subtype</strong></label>
-            <input type="text"  class="form-control" id="subtype"  placeholder="Enter Subtype" ng-model="searchParams.searchSubType" size="12">
+            <input type="text"  class="form-control" id="subtype"  placeholder="Enter subtype" ng-model="searchParams.searchSubType" size="12">
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
             <label><strong>Currency</strong></label>
