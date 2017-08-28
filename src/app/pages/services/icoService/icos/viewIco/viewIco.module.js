@@ -5,7 +5,8 @@
             'BlurAdmin.pages.services.icoService.viewIco.rates',
             'BlurAdmin.pages.services.icoService.viewIco.addIcoPhase',
             'BlurAdmin.pages.services.icoService.viewIco.listIcoPhase',
-            'BlurAdmin.pages.services.icoService.viewIco.quotes'
+            'BlurAdmin.pages.services.icoService.viewIco.quotes',
+            'BlurAdmin.pages.services.icoService.viewIco.purchases'
     ])
         .config(routeConfig);
 

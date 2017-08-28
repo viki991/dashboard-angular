@@ -1,16 +1,16 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.services.icoService.viewIco.quotes')
-        .controller('QuotesCtrl', QuotesCtrl);
+    angular.module('BlurAdmin.pages.services.icoService.viewIco.purchases')
+        .controller('PurchasesCtrl', PurchasesCtrl);
 
     /** @ngInject */
-    function QuotesCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$uibModal,$stateParams) {
+    function PurchasesCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$uibModal,$stateParams) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.serviceUrl = cookieManagement.getCookie('SERVICEURL');
-        $scope.loadingQuotes = false;
+        $scope.loadingPurchases = false;
 
         vm.getIco =  function () {
             $scope.creatingPhase = true;
@@ -33,37 +33,36 @@
         };
         vm.getIco();
 
-        vm.getIcoQuotes =  function () {
-            $scope.loadingQuotes = true;
+        vm.getIcoPurchases =  function () {
+            $scope.loadingPurchases = true;
             if(vm.token) {
-                $http.get(vm.serviceUrl + 'admin/icos/' + $stateParams.id + '/quotes/', {
+                $http.get(vm.serviceUrl + 'admin/icos/' + $stateParams.id + '/purchases/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingQuotes =  false;
+                    $scope.loadingPurchases =  false;
                     if (res.status === 200) {
-                        $scope.icoQuotes = res.data.data.results;
-                        console.log(res)
+                        $scope.icoPurchases = res.data.data.results;
                     }
                 }).catch(function (error) {
-                    $scope.loadingQuotes =  false;
+                    $scope.loadingPurchases =  false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
         };
-        vm.getIcoQuotes();
+        vm.getIcoPurchases();
 
-        $scope.openQuotesModal = function (page, size,quote) {
+        $scope.openPurchasesModal = function (page, size,purchase) {
             vm.theModal = $uibModal.open({
                 animation: true,
                 templateUrl: page,
                 size: size,
-                controller: 'QuotesModalCtrl',
+                controller: 'PurchasesModalCtrl',
                 resolve: {
-                    quote: function () {
-                        return quote;
+                    purchase: function () {
+                        return purchase;
                     },
                     icoObj: function () {
                         return $scope.icoObj;

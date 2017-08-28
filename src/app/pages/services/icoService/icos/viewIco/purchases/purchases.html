@@ -1,0 +1,34 @@
+<div ba-panel  ba-panel-title="Purchases" class="service-header col-lg-9 col-md-9 col-sm-9 col-xs-9">
+    <table ng-hide="icoPurchases.length == 0 || loadingPurchases" class="table table-condensed table-striped table-hover">
+        <tr class="black-muted-bg">
+            <td><strong>User</strong></td>
+            <td><strong>Phase</strong></td>
+            <td><strong>Deposit tx</strong></td>
+            <td><strong>Token tx</strong></td>
+            <td><strong>Status</strong></td>
+            <td><strong>Created</strong></td>
+        </tr>
+        <tr ng-repeat="purchase in icoPurchases | orderBy: '-created'"
+            ng-click="openPurchasesModal('app/pages/services/icoService/icos/viewIco/purchases/purchasesModal/purchasesModal.html', 'md',purchase)"
+            class="editable-row center pointer">
+            <td><div title="{{purchase.quote.user}}" class="icos-list-element"
+                     ng-bind="purchase.quote.user | limitTo: 13"></div></td>
+            <td><div title="{{purchase.phase}}" class="icos-list-element"
+                     ng-bind="purchase.phase"></div></td>
+            <td><div title="{{purchase.deposit_tx}}" class="icos-list-element"
+                     ng-bind="purchase.deposit_tx | limitTo: 13"></div></td>
+            <td><div title="{{purchase.token_tx}}" class="icos-list-element"
+                     ng-bind="purchase.token_tx | limitTo: 13"></div></td>
+            <td><div title="{{purchase.status}}" class="icos-list-element"
+                     ng-bind="purchase.status | limitTo: 13"></div></td>
+            <td><div title="{{purchase.created | date:'mediumDate'}} {{purchase.created | date:'shortTime'}}" class="icos-list-element">
+                {{purchase.created | date:'mediumDate'}} {{purchase.created | date:'shortTime'}}</div></td>
+        </tr>
+    </table>
+    <div ng-show="icoPurchases.length == 0">
+        <i>No rates are available</i>
+    </div>
+    <div ng-show="loadingPurchases">
+        <loading-image></loading-image>
+    </div>
+</div>
