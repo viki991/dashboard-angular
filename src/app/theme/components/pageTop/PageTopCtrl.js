@@ -21,9 +21,31 @@
         $rootScope.$watch('selectedCurrency',function(){
             if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
               vm.token = cookieManagement.getCookie('TOKEN');
-              vm.getCompanyCurrencies();
+                vm.getCompanyInfo();
             }
         });
+
+        vm.getCompanyInfo = function () {
+            if(vm.token) {
+                $scope.loadingCompanyInfo = true;
+                $http.get(environmentConfig.API + '/admin/company/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    $scope.loadingCompanyInfo = false;
+                    if (res.status === 200) {
+                        $scope.company = res.data.data;
+                        vm.getCompanyCurrencies();
+                    }
+                }).catch(function (error) {
+                    $scope.loadingCompanyInfo = false;
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+
 
         vm.getCompanyCurrencies = function(){
             if(vm.token){
@@ -35,7 +57,11 @@
                 }).then(function (res) {
                     if (res.status === 200) {
                         if(!$rootScope.selectedCurrency){
-                            $rootScope.selectedCurrency = res.data.data.results[0];
+                            var selectedCurrencyObj;
+                            selectedCurrencyObj = res.data.data.results.find(function(element){
+                                return element.code == $scope.company.default_currency;
+                            });
+                            $rootScope.selectedCurrency = selectedCurrencyObj || res.data.data.results[0];
                         }
                         $scope.currencies = res.data.data.results;
                         $window.sessionStorage.currenciesList = JSON.stringify(res.data.data.results);
@@ -56,7 +82,7 @@
         };
 
         if(vm.currentLocation != '/login' && vm.currentLocation != '/verification' && vm.currentLocation != '/company/name_request' && vm.currentLocation != '/register' && vm.currentLocation != '/password/reset'){
-            vm.getCompanyCurrencies();
+            vm.getCompanyInfo();
         }
 
         $scope.selectCurrency = function(selectedCurrency){

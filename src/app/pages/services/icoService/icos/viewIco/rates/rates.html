@@ -1,4 +1,4 @@
-<div ba-panel  ba-panel-title="Rates List" class="service-header">
+<div ba-panel  ba-panel-title="Rates List" class="service-header  col-lg-6 col-md-6 col-sm-6 col-xs-6">
     <table ng-hide="icoRates.length == 0 || loadingRates" class="table table-condensed table-striped">
         <tr class="black-muted-bg">
             <td><strong>Currency</strong></td>
@@ -17,6 +17,9 @@
     </table>
     <div ng-show="icoRates.length == 0">
         <i>No rates are available</i>
+    </div>
+    <div ng-hide="loadingRates" class="form-group">
+        <button ng-click="backToPhaseList()" class="btn btn-primary pull-right">Back</button>
     </div>
     <div ng-show="loadingRates">
         <loading-image></loading-image>

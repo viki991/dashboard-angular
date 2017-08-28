@@ -1,0 +1,37 @@
+<div ba-panel  ba-panel-title="Quotes" class="service-header col-lg-9 col-md-9 col-sm-9 col-xs-9">
+    <table ng-hide="icoQuotes.length == 0 || loadingQuotes" class="table table-condensed table-striped table-hover">
+        <tr class="black-muted-bg">
+            <td><strong>User</strong></td>
+            <td><strong>Phase</strong></td>
+            <td><strong>Deposit amount</strong></td>
+            <td><strong>Deposit currency</strong></td>
+            <td><strong>Token amount</strong></td>
+            <td><strong>Rate</strong></td>
+            <td><strong>Created</strong></td>
+        </tr>
+        <tr ng-repeat="quote in icoQuotes | orderBy: '-created'"
+            ng-click="openQuotesModal('app/pages/services/icoService/icos/viewIco/quotes/quotesModal/quotesModal.html', 'md',quote)"
+            class="editable-row center pointer">
+            <td><div title="{{quote.user}}" class="icos-list-element"
+                     ng-bind="quote.user | limitTo: 13"></div></td>
+            <td><div title="{{quote.phase}}" class="icos-list-element"
+                     ng-bind="quote.phase"></div></td>
+            <td><div title="{{quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility | preciseRound: quote.deposit_currency.divisibility}}" class="icos-list-element"
+                     ng-bind="quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility | preciseRound: quote.deposit_currency.divisibility"></div></td>
+            <td><div title="{{quote.deposit_currency.code}}" class="icos-list-element"
+                     ng-bind="quote.deposit_currency.code"></div></td>
+            <td><div title="{{quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility}}" class="icos-list-element"
+                     ng-bind="quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility | limitTo: 13"></div></td>
+            <td><div title="{{quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility}}" class="icos-list-element"
+                     ng-bind="quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility"></div></td>
+            <td><div title="{{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}" class="icos-list-element">
+                {{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}</div></td>
+        </tr>
+    </table>
+    <div ng-show="icoQuotes.length == 0">
+        <i>No rates are available</i>
+    </div>
+    <div ng-show="loadingQuotes">
+        <loading-image></loading-image>
+    </div>
+</div>

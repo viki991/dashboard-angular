@@ -4,7 +4,8 @@
     angular.module('BlurAdmin.pages.services.icoService.viewIco', [
             'BlurAdmin.pages.services.icoService.viewIco.rates',
             'BlurAdmin.pages.services.icoService.viewIco.addIcoPhase',
-            'BlurAdmin.pages.services.icoService.viewIco.listIcoPhase'
+            'BlurAdmin.pages.services.icoService.viewIco.listIcoPhase',
+            'BlurAdmin.pages.services.icoService.viewIco.quotes'
     ])
         .config(routeConfig);
 
