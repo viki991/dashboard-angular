@@ -1,7 +1,7 @@
 <notification-service-navigation></notification-service-navigation>
-<div ng-hide="addingNotifications || editingNotifications || loadingNotifications" ba-panel class="service-header" ba-panel-title="Notifications list">
+<div ng-hide="loadingNotifications" ba-panel class="service-header" ba-panel-title="Notifications list">
     <div>
-        <button class="btn btn-success pull-right panel-header-button" ng-click="toggleAddCurrencyView()">Add</button>
+        <button class="btn btn-success pull-right panel-header-button" ng-click="goToAddNotificationView()">Add</button>
     </div>
     <div ng-show="notificationsList.length > 0" class="divider">
         <table class="table table-condensed table-striped">
@@ -20,17 +20,11 @@
                 <td class="rehive-table-row-last-child">
                     <button ng-click="openNotificationModal('app/pages/services/notificationService/notificationServiceNotifications/notificationServiceNotificationModal/notificationServiceNotificationModal.html','md',notification)"
                             class="btn btn-danger pull-right rehive-button-no-right-margin">Delete</button>
-                    <button ng-click="toggleNotificationsEditView(notification)" class="btn btn-primary pull-right rehive-button-no-right-margin">Edit</button>
+                    <button ng-click="goToNotificationEditView(notification)" class="btn btn-primary pull-right rehive-button-no-right-margin">Edit</button>
                 </td>
             </tr>
         </table>
     </div>
-</div>
-<div ng-show="addingNotifications" class="service-header" ba-panel ba-panel-title="Create notification">
-    <create-notification-service-notification></create-notification-service-notification>
-</div>
-<div ng-show="editingNotifications">
-    <edit-notification-service-notification></edit-notification-service-notification>
 </div>
 <div ng-show="loadingNotifications" class="service-header" ba-panel>
     <loading-image></loading-image>
