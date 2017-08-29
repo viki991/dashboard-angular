@@ -86,6 +86,7 @@
 
 .dashboard-currencies-hexagon-container {
   position: relative;
+  width: 50px;
   top: 9.9px;
 }
 
@@ -107,7 +108,13 @@
 }
 .dashboard-currencies-hex-over{
   @include hexagon-hex-over(50px, 15px, -39px);
-  margin: 0;
-  text-align: left;
-  padding-left: 12px;
+  margin: 0 auto;
+}
+
+.long-text{
+  font-size: 11px;
+}
+
+.very-long-text{
+  font-size: 9px;
 }

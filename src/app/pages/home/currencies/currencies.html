@@ -15,7 +15,8 @@
             <td width="10%">
                 <div class="dashboard-currencies-hexagon-container">
                     <div class="dashboard-currencies-hexagon"></div>
-                    <div class="dashboard-currencies-hex-over">{{currency.code}}</div>
+                    <div class="dashboard-currencies-hex-over"
+                         ng-class="{'long-text': (currency.code.length > 4), 'very-long-text': (currency.code.length > 6)}">{{currency.code}}</div>
                 </div>
             </td>
             <td width="12%"><i>--</i></td>
