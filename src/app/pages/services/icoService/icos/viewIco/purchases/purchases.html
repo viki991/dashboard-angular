@@ -5,7 +5,7 @@
             <td><strong>User</strong></td>
             <td><strong>Phase</strong></td>
             <td><strong>Deposit tx</strong></td>
-            <td><strong>Token tx</strong></td>
+            <td><strong>Currency</strong></td>
             <td><strong>Status</strong></td>
             <td><strong>Created</strong></td>
         </tr>
@@ -18,15 +18,20 @@
                      ng-bind="purchase.phase"></div></td>
             <td><div title="{{purchase.deposit_tx}}" class="icos-list-element"
                      ng-bind="purchase.deposit_tx | limitTo: 13"></div></td>
-            <td><div title="{{purchase.token_tx}}" class="icos-list-element"
-                     ng-bind="purchase.token_tx | limitTo: 13"></div></td>
+            <td><div title="{{purchase.quote.deposit_currency.code}}" class="icos-list-element"
+                     ng-bind="purchase.quote.deposit_currency.code | limitTo: 13"></div></td>
             <td><div title="{{purchase.status}}" class="icos-list-element"
                      ng-bind="purchase.status | limitTo: 13"></div></td>
             <td><div title="{{purchase.created | date:'mediumDate'}} {{purchase.created | date:'shortTime'}}" class="icos-list-element">
                 {{purchase.created | date:'mediumDate'}} {{purchase.created | date:'shortTime'}}</div></td>
         </tr>
     </table>
-    <div ng-show="icoPurchases.length == 0">
+    <div ng-hide="icoPurchases.length == 0 || loadingPurchases">
+        <p uib-pagination boundary-links="true" items-per-page="pagination.itemsPerPage"  total-items="icoPurchasesData.count" ng-model="pagination.pageNo"
+           max-size="pagination.maxSize" class="pagination-sm pull-right transaction-history-pagination" force-ellipses="true" ng-change="getIcoPurchases()"
+           previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></p>
+    </div>
+    <div ng-show="icoPurchases.length == 0 && !loadingPurchases">
         <i>No purchases are available</i>
     </div>
     <div ng-show="loadingPurchases">
