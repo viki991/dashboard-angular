@@ -19,7 +19,7 @@
                 abstract:true,
                 title: 'ICO service'
             });
-        $urlRouterProvider.when("/services/ico", "/services/ico/list");
+        $urlRouterProvider.when("/services/ico", "/services/ico/settings");
     }
 
 })();

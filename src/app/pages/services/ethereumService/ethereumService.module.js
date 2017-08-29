@@ -18,7 +18,7 @@
                 // controller: "EthereumServiceCtrl",
                 title: 'Ethereum service'
             });
-            $urlRouterProvider.when("/services/ethereum", "/services/ethereum/transactions");
+            $urlRouterProvider.when("/services/ethereum", "/services/ethereum/settings");
     }
 
 })();

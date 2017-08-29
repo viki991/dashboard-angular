@@ -47,7 +47,7 @@
                     if(res.data.data.length == 0){
                         $scope.loadingStellarService = false;
                     } else {
-                        $location.path('/services/stellar/transactions');
+                        $location.path('/services/stellar/settings');
                     }
                 }
             }).catch(function (error) {
@@ -90,7 +90,7 @@
                 if (res.status === 201) {
                     $scope.loadingStellarService = false;
                     toastr.success('Stellar account details successfully saved');
-                    $location.path('/services/stellar/transactions');
+                    $location.path('/services/stellar/settings');
                 }
             }).catch(function (error) {
                 $scope.loadingStellarService = false;
