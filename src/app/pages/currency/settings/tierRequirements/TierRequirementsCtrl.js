@@ -10,7 +10,10 @@
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.activeTabIndex = 0;
-        $scope.loadingTierRequirements = true;
+
+        var capitalize = function (fieldName) {
+            return fieldName.replace(/_/g,' ').replace(/\b\w/g, function(l){ return l.toUpperCase() });
+        }
 
         $rootScope.$watch('selectedCurrency',function(){
             if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
@@ -20,14 +23,12 @@
 
         $scope.getAllTiers = function(tierLevel){
             if(vm.token) {
-                $scope.loadingTierRequirements = true;
                 $http.get(environmentConfig.API + '/admin/tiers/?currency=' + $rootScope.selectedCurrency.code, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingTierRequirements = false;
                     if (res.status === 200) {
                         vm.unsortedTierLevelsArray = _.pluck(res.data.data ,'level');
                         vm.sortedTierLevelsArray = vm.unsortedTierLevelsArray.sort(function(a, b) {
@@ -47,7 +48,6 @@
                         }
                     }
                 }).catch(function (error) {
-                    $scope.loadingTierRequirements = false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
@@ -67,19 +67,16 @@
 
         $scope.getTierRequirements = function(){
             if(vm.token) {
-                $scope.loadingTierRequirements = true;
                 $http.get(environmentConfig.API + '/admin/tiers/' + $scope.selectedTier.id + '/requirements/',{
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingTierRequirements = false;
                     if (res.status === 200) {
                         vm.checkRequirementsInTier(res.data.data);
                     }
                 }).catch(function (error) {
-                    $scope.loadingTierRequirements = false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
@@ -105,20 +102,17 @@
 
         $scope.saveTierRequirements = function(fieldName){
             if(vm.token) {
-                $scope.loadingTierRequirements = true;
                 $http.post(environmentConfig.API + '/admin/tiers/' + $scope.selectedTier.id + '/requirements/' , {"requirement": fieldName} ,{
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingTierRequirements = false;
                     if (res.status === 201) {
-                        $scope.getAllTiers($scope.selectedTier.level);
-                        toastr.success('Requirement successfully added to tier.')
+                        $scope.selectedTier.requirements.push(res.data.data)
+                        toastr.success(capitalize(fieldName) + ' successfully added to tier.')
                     }
                 }).catch(function (error) {
-                    $scope.loadingTierRequirements = false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
@@ -126,9 +120,9 @@
 
         vm.findRequirementId =  function(fieldName){
             var requirementId;
-            var capitalizedFieldName = fieldName.replace(/_/g,' ').replace(/\b\w/g, function(l){ return l.toUpperCase() });
+            
             $scope.selectedTier.requirements.forEach(function(element){
-                if(element.requirement == capitalizedFieldName){
+                if(element.requirement == capitalize(fieldName)){
                     requirementId = element.id;
                 }
             });
@@ -139,20 +133,19 @@
         $scope.deleteTierRequirements = function(fieldName){
             var requirementId = vm.findRequirementId(fieldName);
             if(vm.token) {
-                $scope.loadingTierRequirements = true;
                 $http.delete(environmentConfig.API + '/admin/tiers/' + $scope.selectedTier.id + '/requirements/' + requirementId + '/',{
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingTierRequirements = false;
                     if (res.status === 200) {
-                        $scope.getAllTiers($scope.selectedTier.level);
-                        toastr.success('Requirement successfully deleted from tier.')
+                        $scope.selectedTier.requirements = $scope.selectedTier.requirements.filter(function(e) {
+                            return e.id !== requirementId
+                        })
+                        toastr.success(capitalize(fieldName) + ' successfully deleted from tier.')
                     }
                 }).catch(function (error) {
-                    $scope.loadingTierRequirements = false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }

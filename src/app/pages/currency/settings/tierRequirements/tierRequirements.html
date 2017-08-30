@@ -5,9 +5,6 @@
         </uib-tab>
     </uib-tabset>
 </div>
-<div ba-panel ng-show="!loadingTierRequirements && tierLevelsForRequirements.length == 0">
+<div ba-panel ng-show="tierLevelsForRequirements.length == 0">
     <i>No tiers are available for this currency.</i>
-</div>
-<div ba-panel ng-show="loadingTierRequirements">
-    <loading-image></loading-image>
 </div>
