@@ -66,9 +66,9 @@
                         $scope.currencies = res.data.data.results;
                         $window.sessionStorage.currenciesList = JSON.stringify(res.data.data.results);
                         if(res.data.data.results.length == 0){
-                            $rootScope.newUser = true;
+                            // $rootScope.newUser = true;
                         } else {
-                            $rootScope.newUser = false;
+                            // $rootScope.newUser = false;
                         }
                     }
                 }).catch(function (error) {
@@ -91,7 +91,6 @@
 
         $scope.logout = function(){
             $rootScope.selectedCurrency = null;
-            $rootScope.newUser = false;
             $rootScope.gotToken = false;
             $rootScope.securityConfigured = true;
             $rootScope.companyName = null;

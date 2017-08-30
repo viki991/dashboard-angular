@@ -55,7 +55,6 @@
                         vm.getCompanyCurrencies(token);
                     } else {
                         $rootScope.$pageFinishedLoading = true;
-                        $rootScope.newUser = true;
                         $location.path('/company/name_request');
                     }
                 }).catch(function (error) {
@@ -75,10 +74,9 @@
                 }).then(function (res) {
                     if (res.status === 200) {
                         if(res.data.data.results.length == 0){
-                            $rootScope.newUser = true;
-                            $location.path('currency/add');
+                            $location.path('currency/add/initial');
                         } else {
-                            $rootScope.newUser = false;
+                            $rootScope.intialCurrency = true
                             $location.path('/home');
                         }
                         $rootScope.$pageFinishedLoading = true;

@@ -1,4 +1,4 @@
-<div ng-hide="newUser || loadingServices" ba-panel ba-panel-title="Services" ba-panel-class=" with-scroll" >
+<div ng-hide="loadingServices" ba-panel ba-panel-title="Services" ba-panel-class=" with-scroll" >
     <div>
         <button class="btn btn-success pull-right panel-header-button" ng-click="addService()">Add</button>
     </div>
@@ -23,11 +23,6 @@
         <hr class="no-margin hr-top-border">
     </div>
 </div>
-<div ba-panel ng-show="!newUser && loadingServices">
+<div ba-panel ng-show="loadingServices">
     <loading-image></loading-image>
-</div>
-<div ng-show="newUser">
-    <div class="row">
-        <initial-add-currency></initial-add-currency>
-    </div>
 </div>

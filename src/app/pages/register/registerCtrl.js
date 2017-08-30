@@ -26,7 +26,6 @@
                         cookieManagement.setCookie('TOKEN','Token ' + res.data.data.token);
                         $rootScope.$pageFinishedLoading = true;
                         $rootScope.userVerified = false;
-                        $rootScope.newUser = true;
                     $location.path('/verification');
                     } else {
 

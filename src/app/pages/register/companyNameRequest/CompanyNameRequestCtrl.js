@@ -30,7 +30,7 @@
                             userVerification.verify(function(err,verified){
                                 if(verified){
                                     $rootScope.userVerified = true;
-                                    vm.getCompanyCurrencies();
+                                    $location.path('currency/add/initial');
                                 } else {
                                     $location.path('/verification');
                                     toastr.error('Please verify your account','Message');
@@ -67,7 +67,8 @@
                     userVerification.verify(function(err,verified){
                         if(verified){
                             $rootScope.userVerified = true;
-                            vm.getCompanyCurrencies();
+                            toastr.success('You have successfully updated the company info!');
+                            $location.path('currency/add/initial');
                         } else {
                             $location.path('/verification');
                             toastr.error('Please verify your account','Message');
@@ -84,39 +85,6 @@
                 errorToasts.evaluateErrors(error.data);
             });
         };
-
-        vm.getCompanyCurrencies = function(){
-            $rootScope.$pageFinishedLoading = false;
-            if(vm.token){
-                $http.get(environmentConfig.API + '/admin/currencies/?enabled=true', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': vm.token
-                    }
-                }).then(function (res) {
-                    if (res.status === 200) {
-                        if(res.data.data.results.length == 0){
-                            $rootScope.newUser = true;
-                            $location.path('currency/add');
-                        } else {
-                            $rootScope.newUser = false;
-                            toastr.success('You have successfully updated the company info!');
-                            $location.path('/home');
-                        }
-                        $rootScope.$pageFinishedLoading = true;
-                    }
-                }).catch(function (error) {
-                    $rootScope.$pageFinishedLoading = true;
-                    if(error.status == 403){
-                        errorHandler.handle403();
-                        return
-                    }
-                    errorToasts.evaluateErrors(error.data);
-                });
-            }
-        };
-
-
 
     }
 })();

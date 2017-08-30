@@ -81,7 +81,9 @@ angular.module('BlurAdmin', [
                     }).then(function (res) {
                         if (res.status === 200) {
                             if(res.data.data.results.length == 0){
-                                $rootScope.newUser = true;
+                                $location.path('currency/add/initial');
+                            } else {
+                                $rootScope.intialCurrency = true
                             }
                         }
                     }).catch(function (error) {
