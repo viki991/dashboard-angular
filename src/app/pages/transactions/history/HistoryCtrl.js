@@ -9,7 +9,7 @@
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
-        vm.currenciesList = JSON.parse($window.sessionStorage.currenciesList) || [];
+        vm.currenciesList = JSON.parse($window.sessionStorage.currenciesList || '[]');
 
         $scope.pagination = {
             itemsPerPage: 26,

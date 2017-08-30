@@ -8,13 +8,13 @@
                 <th></th>
             </tr>
             <tr ng-repeat="tier in tiersList | orderBy: 'created'">
-                <th ng-bind="tier.level"></th>
-                <th title="{{tier.name}}" ng-bind="tier.name | limitTo: 20"></th>
-                <th title="{{tier.description}}" ng-bind="tier.description || 'None' | limitTo:36"></th>
-                <th class="rehive-table-row-last-child">
+                <td class="table-row-center transactions-list-element" ng-bind="tier.level"></td>
+                <td class="table-row-center transactions-list-element" title="{{tier.name}}" ng-bind="tier.name"></td>
+                <td class="table-row-center transactions-list-element" title="{{tier.description}}" ng-bind="tier.description || 'None'"></td>
+                <td class="rehive-table-row-last-child">
                     <button ng-click="openTierModal('app/pages/currency/settings/tiers/tierModal/tierModal.html','md',tier)" class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
                     <button ng-click="toggleTierEditView(tier)" class="btn btn-primary pull-right rehive-settings-buttons">Edit</button>
-                </th>
+                </td>
             </tr>
         </table>
     </div>

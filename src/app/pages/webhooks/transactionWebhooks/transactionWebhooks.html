@@ -9,14 +9,14 @@
                 <th></th>
             </tr>
             <tr ng-repeat="webhook in transactionWebhooks">
-                <th title="{{webhook.event}}" ng-bind="webhook.event | capitalizeDottedSentence"></th>
-                <th title="{{webhook.tx_type ? webhook.tx_type : 'all' | capitalizeWord}}" ng-bind="webhook.tx_type ? webhook.tx_type : 'All' | capitalizeWord"></th>
-                <th title="{{webhook.url}}" ng-bind="webhook.url | limitTo: '14'"></th>
-                <th title="{{webhook.secret}}" ng-bind="webhook.secret | limitTo: '14'"></th>
-                <th class="rehive-table-row-last-child">
+                <td class="table-row-center transactions-list-element" title="{{webhook.event}}" ng-bind="webhook.event | capitalizeDottedSentence"></td>
+                <td class="table-row-center transactions-list-element" title="{{webhook.tx_type ? webhook.tx_type : 'all' | capitalizeWord}}" ng-bind="webhook.tx_type ? webhook.tx_type : 'All' | capitalizeWord"></td>
+                <td class="table-row-center transactions-list-element" title="{{webhook.url}}" ng-bind="webhook.url"></td>
+                <td class="table-row-center transactions-list-element" title="{{webhook.secret}}" ng-bind="webhook.secret"></td>
+                <td class="rehive-table-row-last-child">
                     <button ng-click="openTransactionWebhooksModal('app/pages/webhooks/transactionWebhooks/transactionWebhooksModal/transactionWebhooksModal.html','md',webhook)" class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
                     <button ng-click="toggleTransactionWebhooksEditView(webhook)" class="btn btn-primary pull-right rehive-settings-buttons">Edit</button>
-                </th>
+                </td>
             </tr>
         </table>
     </div>

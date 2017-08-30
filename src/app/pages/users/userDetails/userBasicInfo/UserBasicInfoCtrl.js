@@ -14,6 +14,11 @@
         $scope.editUserBasicInfo = {};
         $scope.loadingUserBasicInfo = true;
         $scope.editingUserBasicInfo = false;
+        $scope.birthDate = {
+            year: '',
+            month: '',
+            day: ''
+        };
 
         vm.getUser = function(){
             if(vm.token) {
@@ -26,6 +31,14 @@
                 }).then(function (res) {
                     $scope.loadingUserBasicInfo = false;
                     if (res.status === 200) {
+                        if(res.data.data.birth_date){
+                            var birthdayStringArray = res.data.data.birth_date.split('-');
+                            $scope.birthDate = {
+                                year: birthdayStringArray[0],
+                                month: birthdayStringArray[1],
+                                day: birthdayStringArray[2]
+                            };
+                        }
                         $scope.user = res.data.data;
                     }
                 }).catch(function (error) {
@@ -57,6 +70,14 @@
                 }).then(function (res) {
                     $scope.loadingUserBasicInfo = false;
                     if (res.status === 200) {
+                        if(res.data.data.birth_date){
+                            var birthdayStringArray = res.data.data.birth_date.split('-');
+                            $scope.birthDate = {
+                                year: birthdayStringArray[0],
+                                month: birthdayStringArray[1],
+                                day: birthdayStringArray[2]
+                            };
+                        }
                         $scope.editUserBasicInfo = res.data.data;
                     }
                 }).catch(function (error) {
@@ -72,6 +93,7 @@
 
         $scope.updateUserBasicInfo = function(){
             $scope.editingUserBasicInfo = !$scope.editingUserBasicInfo;
+            vm.updatedUserBasicInfo.birth_date = $scope.birthDate.year + '-' + $scope.birthDate.month + '-' + $scope.birthDate.day;
             if(vm.token) {
                 $scope.loadingUserBasicInfo = true;
                 $http.patch(environmentConfig.API + '/admin/users/' + vm.uuid + '/',vm.updatedUserBasicInfo, {
