@@ -104,7 +104,13 @@
 
         $scope.toggleCustomCurrencyView = function () {
             $scope.showCustomCurrency = !$scope.showCustomCurrency;
-        }
+        };
+
+        $scope.backToAddCurrency = function () {
+            $scope.showCustomCurrency = false;
+            $scope.showConfirmCurrency = false;
+            $scope.showCompleteCurrency = false;
+        };
 
     }
 })();
