@@ -8,13 +8,13 @@
                 <th></th>
             </tr>
             <tr ng-repeat="webhook in userWebhooks">
-                <th title="{{webhook.event}}" ng-bind="webhook.event | capitalizeDottedSentence"></th>
-                <th title="{{webhook.url}}" ng-bind="webhook.url | limitTo: '35'"></th>
-                <th title="{{webhook.secret}}" ng-bind="webhook.secret | limitTo: '14'"></th>
-                <th class="rehive-table-row-last-child">
+                <td class="table-row-center transactions-list-element" title="{{webhook.event}}" ng-bind="webhook.event | capitalizeDottedSentence"></td>
+                <td class="table-row-center transactions-list-element" title="{{webhook.url}}" ng-bind="webhook.url"></td>
+                <td class="table-row-center transactions-list-element" title="{{webhook.secret}}" ng-bind="webhook.secret"></td>
+                <td class="rehive-table-row-last-child">
                     <button ng-click="openUserWebhooksModal('app/pages/webhooks/userWebhooks/userWebhooksModal/userWebhooksModal.html','md',webhook)" class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
                     <button ng-click="toggleUserWebhooksEditView(webhook)" class="btn btn-primary pull-right rehive-settings-buttons">Edit</button>
-                </th>
+                </td>
             </tr>
         </table>
     </div>

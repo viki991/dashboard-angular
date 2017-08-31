@@ -9,14 +9,14 @@
                 <th></th>
             </tr>
             <tr ng-repeat="subtype in subtypes | orderBy: 'created'">
-                <th ng-bind="subtype.tx_type | capitalizeWord"></th>
-                <th title="{{subtype.name}}" ng-bind="subtype.name | limitTo: 25"></th>
-                <th title="{{subtype.label}}" ng-bind="subtype.label || 'None' | limitTo: 6"></th>
-                <th title="{{subtype.description}}" ng-bind="subtype.description || 'None' | limitTo:36"></th>
-                <th class="rehive-table-row-last-child">
+                <td class="table-row-center transactions-list-element" ng-bind="subtype.tx_type | capitalizeWord"></td>
+                <td class="table-row-center transactions-list-element" title="{{subtype.name}}" ng-bind="subtype.name"></td>
+                <td class="table-row-center transactions-list-element" title="{{subtype.label}}" ng-bind="subtype.label || 'None'"></td>
+                <td class="table-row-center transactions-list-element" title="{{subtype.description}}" ng-bind="subtype.description || 'None'"></td>
+                <td class="rehive-table-row-last-child">
                     <button ng-click="openSubtypeModal('app/pages/settings/subtypes/subtypeModal/subtypeModal.html','md',subtype)" class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
                     <button ng-click="toggleSubtypeEditView(subtype)" class="btn btn-primary pull-right rehive-settings-buttons">Edit</button>
-                </th>
+                </td>
             </tr>
         </table>
     </div>

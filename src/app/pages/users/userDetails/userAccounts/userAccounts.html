@@ -2,7 +2,7 @@
     <div ng-if="account.currencies.length > 0" ng-hide="loadingUserAccounts" ba-panel
          ba-panel-title="Account: {{account.name}}">
 
-        <table class="table table-condensed table-striped user-details-table">
+        <table class="table fees-table table-condensed table-striped user-details-table">
             <tr>
                 <th><strong>Currency</strong></th>
                 <th><strong>Balance</strong></th>
@@ -10,12 +10,11 @@
             </tr>
 
             <tr ng-repeat="acc in account.currencies">
-                <th ng-bind="acc.currency.code"></th>
-                <th title="{{acc.balance  | currencyModifiersFilter: acc.currency.divisibility | preciseRound: acc.currency.divisibility}}">
-                    <div class="user-account-balance-overflow"
-                         ng-bind="acc.balance  | currencyModifiersFilter: acc.currency.divisibility | preciseRound: acc.currency.divisibility"></div>
-                </th>
-                <th>
+                <td class="user-accounts-list-element" ng-bind="acc.currency.code"></td>
+                <td class="user-accounts-list-element" title="{{acc.balance  | currencyModifiersFilter: acc.currency.divisibility | preciseRound: acc.currency.divisibility}}"
+                    ng-bind="acc.balance  | currencyModifiersFilter: acc.currency.divisibility | preciseRound: acc.currency.divisibility">
+                </td>
+                <td class="rehive-table-row-last-child">
                     <button ng-click="goToSettings(acc.currency.code,account.reference)"
                             class="btn btn-primary pull-right user-accounts-btn">Settings
                     </button>
@@ -26,7 +25,7 @@
                     <button ng-click="goToView('transactions.debit',acc.currency,account.user.email,account.reference)"
                             class="btn btn-primary pull-right user-accounts-btn margin-right-10">Debit
                     </button>
-                </th>
+                </td>
             </tr>
         </table>
     </div>

@@ -98,7 +98,6 @@
                     if (res.status === 200) {
                         $scope.icoPurchasesData = res.data.data;
                         $scope.icoPurchases = res.data.data.results;
-                        console.log($scope.icoPurchases)
                     }
                 }).catch(function (error) {
                     $scope.loadingPurchases =  false;

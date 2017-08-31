@@ -23,7 +23,6 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    console.log(res);
                     $scope.loadingAPITokens = false;
                     if (res.status === 200) {
                         $scope.tokensList = res.data.data;

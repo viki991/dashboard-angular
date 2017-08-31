@@ -1,9 +1,15 @@
 <div ng-hide="editingBankAccounts || loadingBankAccounts">
     <div ng-show="bankAccounts.length > 0" ba-panel class="setting-bank-accounts" ba-panel-title="Bank accounts" ba-panel-class="light-text with-scroll">
         <table class="table table-striped setting-bank-accounts-table">
+            <tr>
+                <th><strong>Bank name</strong></th>
+                <th><strong>Account number</strong></th>
+                <td></td>
+            </tr>
             <tr ng-repeat="bankAccount in bankAccounts">
-                <th>{{bankAccount.bank_name}}, {{bankAccount.number}}</th>
-                <th>
+                <td class="table-row-center transactions-list-element">{{bankAccount.bank_name}}</td>
+                <td class="table-row-center transactions-list-element">{{bankAccount.number}}</td>
+                <th class="rehive-table-row-last-child">
                     <button ng-click="openBankAccountModal('app/pages/settings/bankAccounts/bankAccountModal/bankAccountModal.html','md',bankAccount)" class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
                     <button ng-click="toggleEditBankAccountsView(bankAccount)" class="btn btn-primary pull-right rehive-settings-buttons">Edit</button>
                 </th>

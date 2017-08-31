@@ -11,8 +11,8 @@
         <tr ng-repeat="transaction in transactions.list" data-toggle="modal"
             ng-click="openModal('app/pages/transactions/credit/pendingCredit/pendingCreditModal/pendingCreditModal.html', 'md',transaction)"
             class="editable-row center pointer">
-            <td class="table-row-center transactions-list-element" ng-bind="transaction.id  | limitTo:12"></td>
-            <td class="table-row-center transactions-list-element" ng-bind="transaction.user.email | limitTo:24"></td>
+            <td class="table-row-center transactions-list-element" ng-bind="transaction.id"></td>
+            <td class="table-row-center transactions-list-element" ng-bind="transaction.user.email"></td>
             <td class="table-row-center transactions-list-element" ng-bind="transaction.currency.code"></td>
             <td class="table-row-center transactions-list-element" ng-bind="transaction.amount  | currencyModifiersFilter: transaction.currency.divisibility | preciseRound: transaction.currency.divisibility"></td>
             <td class="table-row-center transactions-list-element" >{{transaction.created | date:'mediumDate'}} {{transaction.created | date:'shortTime'}}</td>

@@ -8,7 +8,6 @@
 
         $scope.purchase = purchase;
 
-        console.log($scope.purchase)
         $scope.icoObj = icoObj;
 
         $scope.goToUser = function () {

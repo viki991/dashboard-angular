@@ -13,20 +13,18 @@
         <tr ng-repeat="quote in icoQuotes | orderBy: '-created'"
             ng-click="openQuotesModal('app/pages/services/icoService/icos/viewIco/quotes/quotesModal/quotesModal.html', 'md',quote)"
             class="editable-row center pointer">
-            <td><div title="{{quote.user}}" class="icos-list-element"
-                     ng-bind="quote.user | limitTo: 8"></div></td>
-            <td><div title="{{quote.phase}}" class="icos-list-element"
-                     ng-bind="quote.phase"></div></td>
-            <td><div title="{{quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility | preciseRound: quote.deposit_currency.divisibility}}" class="icos-list-element"
-                     ng-bind="quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility | preciseRound: quote.deposit_currency.divisibility | limitTo: 13"></div></td>
-            <td><div title="{{quote.deposit_currency.code}}" class="icos-list-element"
-                     ng-bind="quote.deposit_currency.code"></div></td>
-            <td><div title="{{quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility}}" class="icos-list-element"
-                     ng-bind="quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility | limitTo: 13"></div></td>
-            <td><div title="{{quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility}}" class="icos-list-element"
-                     ng-bind="quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility | limitTo: 6"></div></td>
-            <td><div title="{{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}" class="icos-list-element">
-                {{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}</div></td>
+            <td class="table-row-center transactions-list-element" title="{{quote.user}}" ng-bind="quote.user"></td>
+            <td class="table-row-center transactions-list-element"  title="{{quote.phase}}" ng-bind="quote.phase"></td>
+            <td class="table-row-center transactions-list-element" title="{{quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility | preciseRound: quote.deposit_currency.divisibility}}"
+                ng-bind="quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility | preciseRound: quote.deposit_currency.divisibility"></td>
+            <td class="table-row-center transactions-list-element" title="{{quote.deposit_currency.code}}"
+                ng-bind="quote.deposit_currency.code"></td>
+            <td class="table-row-center transactions-list-element" title="{{quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility}}"
+                ng-bind="quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility"></td>
+            <td class="table-row-center transactions-list-element" title="{{quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility}}"
+                ng-bind="quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility"></td>
+            <td class="table-row-center transactions-list-element" title="{{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}">
+                {{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}</td>
         </tr>
     </table>
     <div ng-hide="icoQuotes.length == 0 || loadingQuotes">

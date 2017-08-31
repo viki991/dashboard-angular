@@ -12,11 +12,11 @@
         <tr ng-repeat="phase in icoPhases"
             ng-click="goToRateListView(phase)"
             class="editable-row center pointer">
-            <td><div title="{{phase.level}}" class="icos-list-element"
+            <td><div title="{{phase.level}}"
                      ng-bind="phase.level"></div></td>
-            <td><div title="{{phase.percentage}}" class="icos-list-element"
+            <td><div title="{{phase.percentage}}"
                      ng-bind="phase.percentage"></div></td>
-            <td><div title="{{phase.base_rate  | currencyModifiersFilter: ico.base_currency.divisibility | preciseRound: ico.base_currency.divisibility}}" class="icos-list-element"
+            <td><div title="{{phase.base_rate  | currencyModifiersFilter: ico.base_currency.divisibility | preciseRound: ico.base_currency.divisibility}}"
                      ng-bind="phase.base_rate  | currencyModifiersFilter: ico.base_currency.divisibility | preciseRound: ico.base_currency.divisibility"></div></td>
             <td ng-click="$event.stopPropagation()" class="rehive-table-row-last-child">
                 <button ng-click="deletePhasePrompt(phase)" class="btn btn-danger pull-right rehive-button-no-right-margin">Delete</button>

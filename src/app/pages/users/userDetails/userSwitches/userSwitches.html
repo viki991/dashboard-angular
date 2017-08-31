@@ -8,13 +8,13 @@
             <th></th>
         </tr>
         <tr ng-repeat="switches in userSwitchesList">
-            <th title="{{switches.tx_type}}" ng-bind="switches.tx_type | capitalizeWord | limitTo: '35'"></th>
-            <th title="{{switches.subtype}}" ng-bind="switches.subtype ? switches.subtype: 'None' | limitTo: '35'"></th>
-            <th title="{{switches.enabled}}" ng-bind="switches.enabled | capitalizeWord"></th>
-            <th class="rehive-table-row-last-child">
+            <td class="table-row-center transactions-list-element" title="{{switches.tx_type}}" ng-bind="switches.tx_type | capitalizeWord | limitTo: '35'"></td>
+            <td class="table-row-center transactions-list-element" title="{{switches.subtype}}" ng-bind="switches.subtype ? switches.subtype: 'None' | limitTo: '35'"></td>
+            <td class="table-row-center transactions-list-element" title="{{switches.enabled}}" ng-bind="switches.enabled | capitalizeWord"></td>
+            <td class="rehive-table-row-last-child">
                 <button ng-click="openUserSwitchesModal('app/pages/users/userDetails/userSwitches/userSwitchesModal/userSwitchesModal.html','md',switches)" class="btn btn-danger pull-right user-accounts-btn">Delete</button>
                 <button ng-click="toggleUserSwitchesEditView(switches)" class="btn btn-primary pull-right user-accounts-btn margin-right-10">Edit</button>
-            </th>
+            </td>
         </tr>
     </table>
     <div ng-show="userSwitchesList.length == 0">

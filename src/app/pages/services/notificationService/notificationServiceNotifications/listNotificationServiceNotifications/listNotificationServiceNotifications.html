@@ -13,10 +13,10 @@
                 <td><strong></strong></td>
             </tr>
             <tr ng-repeat="notification in notificationsList" class="editable-row">
-                <td><div title="{{notification.name}}" class="notifications-list-element" ng-bind="notification.name | limitTo: '20'"></div></td>
-                <td><div title="{{notification.subject || 'None'}}" class="notifications-list-element" ng-bind="notification.subject || 'None' | limitTo: '20'"></div></td>
-                <td><div title="{{notification.enabled | capitalizeWord}}" class="notifications-list-element" ng-bind="notification.enabled | capitalizeWord"></div></td>
-                <td><div title="{{notification.event | capitalizeDottedSentence}}" class="notifications-list-element" ng-bind="notification.event | capitalizeDottedSentence"></div></td>
+                <td class="transactions-list-element" title="{{notification.name}}" ng-bind="notification.name"></td>
+                <td class="transactions-list-element" title="{{notification.subject || 'None'}}" ng-bind="notification.subject || 'None'"></td>
+                <td class="transactions-list-element" title="{{notification.enabled | capitalizeWord}}" ng-bind="notification.enabled | capitalizeWord"></td>
+                <td class="transactions-list-element" title="{{notification.event | capitalizeDottedSentence}}" ng-bind="notification.event | capitalizeDottedSentence"></td>
                 <td class="rehive-table-row-last-child">
                     <button ng-click="openNotificationModal('app/pages/services/notificationService/notificationServiceNotifications/notificationServiceNotificationModal/notificationServiceNotificationModal.html','md',notification)"
                             class="btn btn-danger pull-right rehive-button-no-right-margin">Delete</button>

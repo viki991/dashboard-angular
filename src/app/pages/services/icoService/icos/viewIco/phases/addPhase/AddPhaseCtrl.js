@@ -62,14 +62,12 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    console.log(res);
                     $scope.creatingPhase =  false;
                     if (res.status === 201) {
                         toastr.success('Phase created successfully');
                         $location.path('services/ico/' + $stateParams.id + '/phase/list');
                     }
                 }).catch(function (error) {
-                    console.log(error);
                     $scope.creatingPhase =  false;
                     errorToasts.evaluateErrors(error.data);
                 });

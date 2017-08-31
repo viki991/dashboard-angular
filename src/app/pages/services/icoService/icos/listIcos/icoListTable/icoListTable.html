@@ -16,18 +16,18 @@
         <tr ng-repeat="ico in icosList | orderBy: '-created'"
             ng-click="goToIcoView(ico)"
             class="editable-row center pointer">
-            <td><div title="{{ico.currency.code}}" class="icos-list-element"
+            <td><div title="{{ico.currency.code}}"
                      ng-bind="ico.currency.code"></div></td>
-            <td><div title="{{ico.amount  | currencyModifiersFilter: ico.currency.divisibility | preciseRound: ico.currency.divisibility}}" class="icos-list-element"
+            <td><div title="{{ico.amount  | currencyModifiersFilter: ico.currency.divisibility | preciseRound: ico.currency.divisibility}}"
                      ng-bind="ico.amount  | currencyModifiersFilter: ico.currency.divisibility | preciseRound: ico.currency.divisibility"></div></td>
-            <td><div title="{{ico.base_currency.code}}" class="icos-list-element" ng-bind="ico.base_currency.code"></div></td>
-            <td><div title="{{ico.base_goal_amount  | currencyModifiersFilter: ico.base_currency.divisibility | preciseRound: ico.base_currency.divisibility}}" class="icos-list-element"
+            <td><div title="{{ico.base_currency.code}}" ng-bind="ico.base_currency.code"></div></td>
+            <td><div title="{{ico.base_goal_amount  | currencyModifiersFilter: ico.base_currency.divisibility | preciseRound: ico.base_currency.divisibility}}"
                      ng-bind="ico.base_goal_amount  | currencyModifiersFilter: ico.base_currency.divisibility | preciseRound: ico.base_currency.divisibility"></div></td>
-            <td><div title="{{ico.exchange_provider || 'None'}}" class="icos-list-element"
+            <td><div title="{{ico.exchange_provider || 'None'}}"
                      ng-bind="ico.exchange_provider || 'None' | limitTo: 18"></div></td>
             <td><div title="{{ico.enabled}}"
-                     class="icos-list-element" ng-bind="ico.enabled | capitalizeWord"></div></td>
-            <td><div title="{{ico.created | date:'mediumDate'}} {{ico.created | date:'shortTime'}}" class="icos-list-element">
+                     ng-bind="ico.enabled | capitalizeWord"></div></td>
+            <td><div title="{{ico.created | date:'mediumDate'}} {{ico.created | date:'shortTime'}}">
                 {{ico.created | date:'mediumDate'}} {{ico.created | date:'shortTime'}}</div></td>
             <td ng-click="$event.stopPropagation()" class="rehive-table-row-last-child">
                 <button ng-click="deleteIcoPrompt(ico)" class="btn btn-danger pull-right rehive-button-no-right-margin">Delete</button>

@@ -13,16 +13,16 @@
         <tr ng-repeat="transaction in transactions | orderBy: '-created'" data-toggle="modal"
             ng-click="openModal('app/pages/services/bitcoinService/bitcoinServiceTransactions/bitcoinServiceTransactionsModal/bitcoinServiceTransactionsModal.html', 'lg',transaction)"
             class="editable-row pointer">
-            <td width="10%"><div title="{{transaction.user.email}}" class="transactions-list-element" ng-bind="transaction.user.email"></div></td>
-            <td width="4%"><div title="{{transaction.amount| currencyModifiersFilter: transaction.currency.divisibility || 8 | preciseRound: transaction.currency.divisibility || 8}}" class="transactions-list-element"
-                                ng-bind="transaction.amount | currencyModifiersFilter: transaction.currency.divisibility || 8 | preciseRound: transaction.currency.divisibility || 8"></div></td>
-            <td width="5%"><div title="{{transaction.tx_type}}" class="transactions-list-element" ng-bind="transaction.tx_type | capitalizeWord"></div></td>
-            <td width="15%"><div title="{{transaction.transaction_hash}}" class="transactions-list-element" ng-bind="transaction.transaction_hash | limitTo: '17'"></div></td>
-            <td width="10%"><div title="{{transaction.confirmations}}" class="transactions-list-element" ng-bind="transaction.confirmations"></div></td>
-            <td width="8%"><div title="{{transaction.rehive_code}}" class="transactions-list-element" ng-bind="transaction.rehive_code"></div></td>
-            <td width="10%"><div title="{{transaction.status}}" class="transactions-list-element" ng-bind="transaction.status"></div></td>
-            <td width="20%"><div title="{{transaction.created | date:'mediumDate'}} {{transaction.created | date:'shortTime'}}" class="transactions-list-element">
-              {{transaction.created | date:'mediumDate'}} {{transaction.created | date:'shortTime'}}</div></td>
+            <td class="transactions-list-element" title="{{transaction.user.email}}" ng-bind="transaction.user.email"></td>
+            <td class="transactions-list-element" title="{{transaction.amount| currencyModifiersFilter: transaction.currency.divisibility || 8 | preciseRound: transaction.currency.divisibility || 8}}"
+                ng-bind="transaction.amount | currencyModifiersFilter: transaction.currency.divisibility || 8 | preciseRound: transaction.currency.divisibility || 8"></td>
+            <td class="transactions-list-element" title="{{transaction.tx_type}}" ng-bind="transaction.tx_type | capitalizeWord"></td>
+            <td class="transactions-list-element" title="{{transaction.transaction_hash}}" ng-bind="transaction.transaction_hash"></td>
+            <td class="transactions-list-element" title="{{transaction.confirmations}}" ng-bind="transaction.confirmations"></td>
+            <td class="transactions-list-element" title="{{transaction.rehive_code}}" ng-bind="transaction.rehive_code"></td>
+            <td class="transactions-list-element" title="{{transaction.status}}" ng-bind="transaction.status"></td>
+            <td class="transactions-list-element" title="{{transaction.created | date:'mediumDate'}} {{transaction.created | date:'shortTime'}}">
+              {{transaction.created | date:'mediumDate'}} {{transaction.created | date:'shortTime'}}</td>
         </tr>
     </table>
     <div>

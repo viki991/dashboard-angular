@@ -8,13 +8,13 @@
                 <th></th>
             </tr>
             <tr ng-repeat="transactionsSwitch in transactionsSwitchesList">
-                <th title="{{transactionsSwitch.tx_type}}" ng-bind="transactionsSwitch.tx_type | capitalizeWord | limitTo: '35'"></th>
-                <th title="{{transactionsSwitch.subtype ? transactionsSwitch.subtype : 'None'}}" ng-bind="transactionsSwitch.subtype ? transactionsSwitch.subtype : 'None'| limitTo: '35'"></th>
-                <th title="{{transactionsSwitch.enabled}}" ng-bind="transactionsSwitch.enabled | capitalizeWord"></th>
-                <th class="rehive-table-row-last-child">
+                <td class="table-row-center transactions-list-element" title="{{transactionsSwitch.tx_type}}" ng-bind="transactionsSwitch.tx_type | capitalizeWord"></td>
+                <td class="table-row-center transactions-list-element" title="{{transactionsSwitch.subtype ? transactionsSwitch.subtype : 'None'}}" ng-bind="transactionsSwitch.subtype ? transactionsSwitch.subtype : 'None'"></td>
+                <td class="table-row-center transactions-list-element" title="{{transactionsSwitch.enabled}}" ng-bind="transactionsSwitch.enabled | capitalizeWord"></td>
+                <td class="rehive-table-row-last-child">
                     <button ng-click="openTransactionsSwitchesModal('app/pages/settings/transactionsSwitches/transactionsSwitchModal/transactionsSwitchModal.html','md',transactionsSwitch)" class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
                     <button ng-click="toggleTransactionsSwitchesEditView(transactionsSwitch)" class="btn btn-primary pull-right rehive-settings-buttons">Edit</button>
-                </th>
+                </td>
             </tr>
         </table>
     </div>

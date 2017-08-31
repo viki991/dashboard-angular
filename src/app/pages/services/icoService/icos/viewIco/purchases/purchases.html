@@ -12,18 +12,18 @@
         <tr ng-repeat="purchase in icoPurchases | orderBy: '-created'"
             ng-click="openPurchasesModal('app/pages/services/icoService/icos/viewIco/purchases/purchasesModal/purchasesModal.html', 'md',purchase)"
             class="editable-row center pointer">
-            <td><div title="{{purchase.quote.user}}" class="icos-list-element"
-                     ng-bind="purchase.quote.user | limitTo: 13"></div></td>
-            <td><div title="{{purchase.phase}}" class="icos-list-element"
-                     ng-bind="purchase.phase"></div></td>
-            <td><div title="{{purchase.deposit_tx}}" class="icos-list-element"
-                     ng-bind="purchase.deposit_tx | limitTo: 13"></div></td>
-            <td><div title="{{purchase.quote.deposit_currency.code}}" class="icos-list-element"
-                     ng-bind="purchase.quote.deposit_currency.code | limitTo: 13"></div></td>
-            <td><div title="{{purchase.status}}" class="icos-list-element"
-                     ng-bind="purchase.status | limitTo: 13"></div></td>
-            <td><div title="{{purchase.created | date:'mediumDate'}} {{purchase.created | date:'shortTime'}}" class="icos-list-element">
-                {{purchase.created | date:'mediumDate'}} {{purchase.created | date:'shortTime'}}</div></td>
+            <td class="table-row-center transactions-list-element" title="{{purchase.quote.user}}"
+                ng-bind="purchase.quote.user"></td>
+            <td class="table-row-center transactions-list-element" title="{{purchase.phase}}"
+                ng-bind="purchase.phase"></td>
+            <td class="table-row-center transactions-list-element" title="{{purchase.deposit_tx}}"
+                ng-bind="purchase.deposit_tx"></td>
+            <td class="table-row-center transactions-list-element" title="{{purchase.quote.deposit_currency.code}}"
+                ng-bind="purchase.quote.deposit_currency.code"></td>
+            <td class="table-row-center transactions-list-element" title="{{purchase.status}}"
+                ng-bind="purchase.status"></td>
+            <td class="table-row-center transactions-list-element" title="{{purchase.created | date:'mediumDate'}} {{purchase.created | date:'shortTime'}}">
+                {{purchase.created | date:'mediumDate'}} {{purchase.created | date:'shortTime'}}</td>
         </tr>
     </table>
     <div ng-hide="icoPurchases.length == 0 || loadingPurchases">

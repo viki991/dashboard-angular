@@ -11,11 +11,11 @@
             </tr>
             <tr ng-repeat="log in notificationLogs | orderBy: '-created'" ng-click="openNotificationServiceLogsModal('app/pages/services/notificationService/notificationServiceLogs/notificationServiceLogsModal/notificationServiceLogsModal.html', 'md',log)"
                 class="editable-row pointer">
-                <td width="25%"><div title="{{log.recipient}}" class="notifications-list-element" ng-bind="log.recipient | limitTo: '20'"></div></td>
-                <td width="25%"><div title="{{log.notification}}" class="notifications-list-element" ng-bind="log.notification | limitTo: '20'"></div></td>
-                <td width="25%"><div title="{{log.sent | capitalizeWord}}" class="notifications-list-element" ng-bind="log.sent |capitalizeWord"></div></td>
-                <td width="25%"><div title="{{log.created | date:'mediumDate'}} {{log.created | date:'shortTime'}}" class="notifications-list-element">
-                    {{log.created | date:'mediumDate'}} {{log.created | date:'shortTime'}}</div></td>
+                <td class="transactions-list-element" title="{{log.recipient}}" ng-bind="log.recipient"></td>
+                <td class="transactions-list-element" title="{{log.notification}}" ng-bind="log.notificatio"></td>
+                <td class="transactions-list-element" title="{{log.sent | capitalizeWord}}" ng-bind="log.sent |capitalizeWord"></td>
+                <td class="transactions-list-element" title="{{log.created | date:'mediumDate'}} {{log.created | date:'shortTime'}}">
+                    {{log.created | date:'mediumDate'}} {{log.created | date:'shortTime'}}</td>
             </tr>
         </table>
     </div>

@@ -7,13 +7,13 @@
             <th></th>
         </tr>
         <tr ng-repeat="accountCurrencySwitch in accountCurrencySwitchesList">
-            <th title="{{accountCurrencySwitch.tx_type}}" ng-bind="accountCurrencySwitch.tx_type | capitalizeWord | limitTo: '35'"></th>
-            <th title="{{accountCurrencySwitch.subtype ? accountCurrencySwitch.subtype : 'None'}}" ng-bind="accountCurrencySwitch.subtype ? accountCurrencySwitch.subtype : 'None'| limitTo: '35'"></th>
-            <th title="{{accountCurrencySwitch.enabled}}" ng-bind="accountCurrencySwitch.enabled | capitalizeWord | limitTo: '35'"></th>
-            <th class="rehive-table-row-last-child">
+            <td class="table-row-center transactions-list-element" title="{{accountCurrencySwitch.tx_type}}" ng-bind="accountCurrencySwitch.tx_type | capitalizeWord | limitTo: '35'"></td>
+            <td class="table-row-center transactions-list-element" title="{{accountCurrencySwitch.subtype ? accountCurrencySwitch.subtype : 'None'}}" ng-bind="accountCurrencySwitch.subtype ? accountCurrencySwitch.subtype : 'None'| limitTo: '35'"></td>
+            <td class="table-row-center transactions-list-element" title="{{accountCurrencySwitch.enabled}}" ng-bind="accountCurrencySwitch.enabled | capitalizeWord | limitTo: '35'"></td>
+            <td class="rehive-table-row-last-child">
                 <button ng-click="openAccountCurrencySwitchesModal('app/pages/users/userDetails/userAccounts/accountSettings/accountCurrencySwitches/accountCurrencySwitchesModal/accountCurrencySwitchesModal.html','md',accountCurrencySwitch)" class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
                 <button ng-click="toggleAccountCurrencySwitchEditView(accountCurrencySwitch)" class="btn btn-primary pull-right rehive-settings-buttons">Edit</button>
-            </th>
+            </td>
         </tr>
     </table>
     <div ng-show="accountCurrencySwitchesList.length == 0">

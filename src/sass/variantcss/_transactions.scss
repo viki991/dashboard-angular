@@ -83,6 +83,34 @@
   margin-bottom: 20px;
 }
 
+@media screen and (max-width: 2000px) {
+  .transactions-list-element{
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: 1700px) {
+  .transactions-list-element{
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+
+@media screen and (max-width: 1400px) {
+  .transactions-list-element{
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 @media screen and (max-width: 1300px) {
   .transactions-list-element{
     max-width: 135px;

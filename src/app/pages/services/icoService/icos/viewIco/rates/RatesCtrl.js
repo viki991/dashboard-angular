@@ -15,7 +15,7 @@
         vm.getIcoRates =  function () {
             $scope.loadingRates = true;
             if(vm.token) {
-                $http.get(vm.serviceUrl + 'admin/icos/' + $stateParams.id + '/phases/' + $stateParams.phaseId + '/rates', {
+                $http.get(vm.serviceUrl + 'admin/icos/' + $stateParams.id + '/phases/' + $stateParams.phaseId + '/rates/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token

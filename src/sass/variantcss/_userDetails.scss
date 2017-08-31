@@ -20,13 +20,6 @@
   width: 80px;
 }
 
-.user-account-balance-overflow{
-  width: 85px;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-
-}
-
 .account-settings-table > tbody > tr> td {
   line-height: 22px;
 }
@@ -35,4 +28,13 @@
   background-image: url('../../assets/img/loading.gif');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+@media screen and (max-width: 1300px) {
+  .user-accounts-list-element{
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
