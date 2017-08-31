@@ -11,6 +11,8 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.activeTabIndex = 0;
         $scope.loadingTierRequirements = true;
+        $scope.tierRequirementFields = {};
+        vm.updatedTierRequirements = {};
 
         $rootScope.$watch('selectedCurrency',function(){
             if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
@@ -95,30 +97,50 @@
         };
 
         $scope.toggleTierRequirements = function(fieldName){
-            $window.scrollTo(0,0);
-            if($scope.tierRequirementFields[fieldName]){
-                $scope.saveTierRequirements(fieldName);
+            if(vm.updatedTierRequirements.hasOwnProperty(fieldName)){
+                delete vm.updatedTierRequirements[fieldName];
             } else {
-                $scope.deleteTierRequirements(fieldName);
+                vm.updatedTierRequirements[fieldName] = $scope.tierRequirementFields[fieldName];
             }
         };
 
-        $scope.saveTierRequirements = function(fieldName){
+        $scope.updateTierRequirements = function () {
+            $scope.loadingTierRequirements = true;
+            var fieldsArray = Object.keys(vm.updatedTierRequirements);
+            for(var i = 0; i < fieldsArray.length; i++){
+                if(vm.updatedTierRequirements[fieldsArray[i]]){
+                    if(i == (fieldsArray.length - 1)){
+                        $scope.saveTierRequirements(fieldsArray[i],'last');
+                    } else {
+                        $scope.saveTierRequirements(fieldsArray[i]);
+                    }
+                } else {
+                    if(i == (fieldsArray.length - 1)){
+                        $scope.deleteTierRequirements(fieldsArray[i],'last');
+                    } else {
+                        $scope.deleteTierRequirements(fieldsArray[i]);
+                    }
+                }
+            }
+            $scope.loadingTierRequirements = false;
+            vm.updatedTierRequirements = {};
+        };
+
+        $scope.saveTierRequirements = function(fieldName,last){
             if(vm.token) {
-                $scope.loadingTierRequirements = true;
                 $http.post(environmentConfig.API + '/admin/tiers/' + $scope.selectedTier.id + '/requirements/' , {"requirement": fieldName} ,{
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingTierRequirements = false;
                     if (res.status === 201) {
-                        $scope.getAllTiers($scope.selectedTier.level);
-                        toastr.success('Requirement successfully added to tier.')
+                        if(last){
+                            $scope.getAllTiers($scope.selectedTier.level);
+                            toastr.success('Tier requirements updated successfully')
+                        }
                     }
                 }).catch(function (error) {
-                    $scope.loadingTierRequirements = false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
@@ -136,23 +158,22 @@
             return requirementId;
         };
 
-        $scope.deleteTierRequirements = function(fieldName){
+        $scope.deleteTierRequirements = function(fieldName,last){
             var requirementId = vm.findRequirementId(fieldName);
             if(vm.token) {
-                $scope.loadingTierRequirements = true;
                 $http.delete(environmentConfig.API + '/admin/tiers/' + $scope.selectedTier.id + '/requirements/' + requirementId + '/',{
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingTierRequirements = false;
                     if (res.status === 200) {
-                        $scope.getAllTiers($scope.selectedTier.level);
-                        toastr.success('Requirement successfully deleted from tier.')
+                        if(last){
+                            $scope.getAllTiers($scope.selectedTier.level);
+                            toastr.success('Tier requirements updated successfully')
+                        }
                     }
                 }).catch(function (error) {
-                    $scope.loadingTierRequirements = false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
