@@ -5,12 +5,85 @@
         .controller('historyModalCtrl', historyModalCtrl);
 
     function historyModalCtrl($uibModalInstance,$http,$scope,errorToasts,toastr,transaction,metadataTextService,$location,environmentConfig,cookieManagement,$ngConfirm) {
-        $scope.metadata = metadataTextService.convertToText(transaction.metadata);
+
         $scope.transaction = transaction;
+        $scope.updateTransactionObj = {};
+        $scope.formatted = {};
+        $scope.formatted.metadata = metadataTextService.convertToText($scope.transaction.metadata);
+        $scope.editingTransaction = false;
         $scope.updatingTransaction = false;
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
+
+        $scope.editTransaction = function(){
+            var metaData;
+            if($scope.updateTransactionObj.metadata){
+                if(vm.isJson($scope.updateTransactionObj.metadata)){
+                    metaData =  JSON.parse($scope.updateTransactionObj.metadata);
+                } else {
+                    toastr.error('Incorrect format');
+                    return false;
+                }
+            } else {
+                metaData = " ";
+            }
+
+            if(vm.token) {
+                $http.patch(environmentConfig.API + '/admin/transactions/' + $scope.transaction.id + '/',
+                    {
+                        metadata: metaData
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': vm.token
+                        }
+                    }).then(function (res) {
+                    if (res.status === 200) {
+                        if(metaData == " "){
+                            delete $scope.formatted.metadata;
+                            delete $scope.transaction.metadata
+                        } else {
+                            $scope.transaction.metadata = metaData;
+                            $scope.formatted.metadata = metadataTextService.convertToText(metaData);
+                        }
+
+                        $scope.toggleEditingTransaction();
+                        toastr.success('Transaction successfully updated');
+                    }
+                }).catch(function (error) {
+                    $uibModalInstance.close();
+                    if(error.status == 403){
+                        errorHandler.handle403();
+                        return
+                    }
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+
+        vm.isJson = function (str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        };
+
+        $scope.toggleEditingTransaction = function () {
+            if(!$scope.editingTransaction){
+                if($scope.formatted.metadata){
+                    $scope.updateTransactionObj.metadata = JSON.stringify($scope.transaction.metadata);
+                } else {
+                    $scope.updateTransactionObj.metadata = '';
+                }
+            } else {
+                delete $scope.updateTransactionObj.metadata;
+            }
+
+            $scope.editingTransaction = !$scope.editingTransaction;
+        };
 
         $scope.updateTransactionConfirm = function (status) {
                 $ngConfirm({
@@ -29,14 +102,14 @@
                     btnClass: 'btn-primary',
                     keys: ['enter'], // will trigger when enter is pressed
                     action: function(scope){
-                      $scope.updateTransaction(status);
+                      $scope.updateTransactionStatus(status);
                     }
                 }
             }
           });
         };
 
-        $scope.updateTransaction = function(status){
+        $scope.updateTransactionStatus = function(status){
             $scope.updatingTransaction = true;
             $http.patch(environmentConfig.API + '/admin/transactions/' + $scope.transaction.id + '/', { status: status },
                 {

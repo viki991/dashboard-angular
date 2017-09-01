@@ -10,19 +10,25 @@
 
         var vm = this;
         $scope.transaction = transaction;
+        $scope.updateTransactionObj = {};
         $scope.formatted = {};
-        $scope.formatted.metadata = metadataTextService.convertToText(transaction.metadata);
+        $scope.formatted.metadata = metadataTextService.convertToText($scope.transaction.metadata);
         $scope.editingTransaction = false;
         vm.token = cookieManagement.getCookie('TOKEN');
 
         $scope.editTransaction = function(){
-            try {
-                JSON.parse($scope.transaction.metadata);
-            } catch (e) {
-                toastr.error("Incorrect format");
-                return false;
+            var metaData;
+            if($scope.updateTransactionObj.metadata){
+                if(vm.isJson($scope.updateTransactionObj.metadata)){
+                    metaData =  JSON.parse($scope.updateTransactionObj.metadata);
+                } else {
+                    toastr.error('Incorrect format');
+                    return false;
+                }
+            } else {
+                metaData = " ";
             }
-            var metaData = JSON.parse($scope.transaction.metadata);
+
             if(vm.token) {
                 $http.patch(environmentConfig.API + '/admin/transactions/' + $scope.transaction.id + '/',
                     {
@@ -34,7 +40,14 @@
                     }
                 }).then(function (res) {
                     if (res.status === 200) {
-                        $scope.formatted.metadata = metadataTextService.convertToText($scope.transaction.metadata);
+                        if(metaData == " "){
+                            delete $scope.formatted.metadata;
+                            delete $scope.transaction.metadata
+                        } else {
+                            $scope.transaction.metadata = metaData;
+                            $scope.formatted.metadata = metadataTextService.convertToText(metaData);
+                        }
+
                         $scope.toggleEditingTransaction();
                         toastr.success('Transaction successfully updated');
                     }
@@ -49,30 +62,28 @@
             }
         };
 
-        // $scope.toggleEditingTransaction = function () {
-        //     if(!$scope.editingTransaction){
-        //         if(JSON.stringify($scope.transaction.metadata) == '{}' || (typeof $scope.transaction.metadata == "string")){
-        //             $scope.transaction.metadata = "";
-        //         } else {
-        //             $scope.transaction.metadata = JSON.stringify($scope.formatted.metadata);
-        //         }
-        //     } else {
-        //         if($scope.transaction.metadata == ''){
-        //             $scope.transaction.metadata = {};
-        //         }
-        //
-        //         try {
-        //             JSON.parse($scope.transaction.metadata);
-        //         } catch (e) {
-        //             $scope.transaction.metadata = {};
-        //             $scope.editingTransaction = !$scope.editingTransaction;
-        //             return false;
-        //         }
-        //         $scope.transaction.metadata = JSON.parse($scope.transaction.metadata);
-        //     }
-        //
-        //     $scope.editingTransaction = !$scope.editingTransaction;
-        // };
+        vm.isJson = function (str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        };
+
+        $scope.toggleEditingTransaction = function () {
+            if(!$scope.editingTransaction){
+                if($scope.formatted.metadata){
+                    $scope.updateTransactionObj.metadata = JSON.stringify($scope.transaction.metadata);
+                } else {
+                    $scope.updateTransactionObj.metadata = '';
+                }
+            } else {
+                delete $scope.updateTransactionObj.metadata;
+            }
+
+            $scope.editingTransaction = !$scope.editingTransaction;
+        };
 
         $scope.goToUser = function () {
             $uibModalInstance.close();

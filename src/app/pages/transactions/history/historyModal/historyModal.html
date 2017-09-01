@@ -109,9 +109,11 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <p><strong>Metadata: </strong></p>
             </div>
-            <div ng-show="formatted.metadata" class="metadata col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <pre ng-hide="editingTransaction">{{formatted.metadata}}</pre>
-                <textarea ng-show="editingTransaction" rows="4" type="text" ng-model="transaction.metadata" class="form-control"  placeholder='e.g. {"Hello" : "World"}'></textarea>
+            <div class="metadata col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                <div ng-show="formatted.metadata">
+                    <pre ng-hide="editingTransaction">{{formatted.metadata}}</pre>
+                </div>
+                <textarea ng-show="editingTransaction" rows="4" type="text" ng-model="updateTransactionObj.metadata" class="form-control"  placeholder='e.g. {"Hello" : "World"}'></textarea>
             </div>
         </div>
         <div class="row">
