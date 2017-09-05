@@ -6,7 +6,7 @@
             Add your first currency to start now.</p>
     </div>
 
-    <div class="row form-group">
+    <div class="row form-group verification-btn-box">
         <div class="col-sm-12">
             <select class="form-control pointer divider" ng-model="addCurrency.currencyChoice"
                     ng-options="currency.code + ' - ' + currency.description for currency in currencyOptions | orderBy: 'code'">
