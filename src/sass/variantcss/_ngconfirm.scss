@@ -1,7 +1,18 @@
 .ng-confirm.ng-confirm-white .ng-confirm-box{
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   border-radius: 0;
 }
 
 .ng-confirm .ng-confirm-box .ng-confirm-buttons button{
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   border-radius: 0;
+  font-weight: normal;
+  text-transform: none !important;
+}
+
+.ng-confirm.ng-confirm-white .ng-confirm-box .ng-confirm-buttons button {
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  border-radius: 0;
+  font-weight: normal;
+  text-transform: none !important;
 }
