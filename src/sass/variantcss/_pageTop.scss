@@ -10,10 +10,6 @@
 
 }
 
-.user-currency-dropdown-last-item{
-  margin: 4px 0 0 0;
-}
-
 .user-currency-dropdown-last-item:hover{
   background-color: #f5f5f5;
 }
@@ -41,7 +37,7 @@
   a{
     font-size: 16px;
     span{
-      color: #5bc0de;
+      color: $primary;
     }
     i{
       font-size: 17px;
