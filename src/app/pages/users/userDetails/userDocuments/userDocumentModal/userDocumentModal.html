@@ -7,10 +7,10 @@
     </div>
     <div class="modal-body">
         <div ng-show="showingDocumentFile" class="row divider">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <img class="documentImage" ng-src="{{document.file || defaultImageUrl}}" height="500px" width="100%">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                <img class="documentImage" ng-src="{{document.file || defaultImageUrl}}" height="600px" width="100%">
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <table ng-show="(document.document_category == 'Proof Of Identity') || document.document_category == 'Advanced Proof Of Identity'"
                        class="table table-condensed table-striped user-details-table">
                     <tr>
@@ -71,6 +71,15 @@
                     </table>
                 </div>
                 <i ng-show="(document.document_category == 'Proof Of Address') && (userAddresses.length == 0)">No address provided</i>
+                <div ng-show="checkIfMetadataExists()">
+                    <h4>Extra</h4>
+                    <table class="table table-striped user-details-table divider">
+                        <tr ng-repeat="(key, value) in editDocument.metadata">
+                            <th width="50%"><strong>{{key}}</strong></th>
+                            <th>{{value}}</th>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div ng-hide="showingDocumentFile" class="divider">
@@ -92,6 +101,10 @@
                 <br>
                 <select class="form-control pointer" ng-change="documentChanged('verified')" ng-model="editDocument.verified" ng-options="status for status in statusTypeOptions" required>
                 </select>
+            </div>
+            <div class="form-group">
+                <label><strong>Note</strong></label>
+                <textarea rows="4" type="text" ng-change="documentChanged('note')" ng-model="editDocument.note" class="form-control"  placeholder='Enter note'></textarea>
             </div>
         </form>
     </div>

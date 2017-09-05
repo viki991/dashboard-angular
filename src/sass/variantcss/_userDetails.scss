@@ -30,6 +30,10 @@
   background-position: center;
 }
 
+.document-modal-window .modal-dialog{
+  width: 90vw;
+}
+
 @media screen and (max-width: 1300px) {
   .user-accounts-list-element{
     max-width: 120px;

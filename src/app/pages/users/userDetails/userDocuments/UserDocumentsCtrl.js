@@ -33,12 +33,12 @@
         };
         vm.getUserDocuments();
 
-        $scope.openUserDocumentModal = function (page, size, document) {
+        $scope.openUserDocumentModal = function (page, document) {
             vm.theModal = $uibModal.open({
                 animation: true,
                 templateUrl: page,
-                size: size,
                 controller: 'UserDocumentModalCtrl',
+                windowClass: 'document-modal-window',
                 scope: $scope,
                 resolve: {
                     document: function () {

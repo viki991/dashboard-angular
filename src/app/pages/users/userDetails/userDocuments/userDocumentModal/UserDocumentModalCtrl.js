@@ -16,8 +16,11 @@
         $scope.editDocument = {
             file: {},
             document_type: document.document_type,
-            verified: document.verified
+            verified: document.verified,
+            note: document.note,
+            metadata: document.metadata
         };
+
         $scope.documentTypeOptions = ['Utility Bill','Bank Statement','Lease Or Rental Agreement',
             'Municipal Rate and Taxes Invoice','Mortgage Statement','Telephone or Cellular Account','Insurance Policy Document',
             'Statement of Account Issued by a Retail Store','Government Issued ID','Passport','Drivers License',
@@ -42,6 +45,14 @@
         $scope.kycDocumentSelected = function (field) {
             $scope.showingDocumentFile = false;
             $scope.documentChanged(field);
+        };
+
+        $scope.checkIfMetadataExists = function () {
+            if(Object.keys($scope.editDocument.metadata).length == 0){
+                return false
+            } else {
+                return true;
+            }
         };
 
         $scope.documentChanged = function (field) {
