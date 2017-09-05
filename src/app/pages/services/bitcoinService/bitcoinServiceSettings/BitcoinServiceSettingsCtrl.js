@@ -7,8 +7,6 @@
     /** @ngInject */
     function BitcoinServiceSettingsCtrl($scope) {
 
-        $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
-
     }
 
 })();

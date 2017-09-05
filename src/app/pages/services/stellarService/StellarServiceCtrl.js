@@ -7,7 +7,6 @@
     /** @ngInject */
     function StellarServiceCtrl($scope) {
 
-        $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
 
     }
 

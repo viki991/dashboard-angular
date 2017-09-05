@@ -10,7 +10,6 @@
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.serviceUrl = cookieManagement.getCookie('SERVICEURL');
-        $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
         $scope.icosList = [];
         $scope.icoSettingView = '';
         $scope.searchIcoParams = {

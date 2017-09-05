@@ -9,7 +9,6 @@
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
-        $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
         vm.baseUrl = cookieManagement.getCookie('SERVICEURL');
         $scope.notificationSettingView = '';
         $scope.updatingCompanyDetails =  false;

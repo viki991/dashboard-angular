@@ -11,7 +11,13 @@
                 <td></td>
             </tr>
             <tr ng-repeat="service in servicesList" class="editable-row">
-                <td width="6%"><img ng-src="{{defaultImageUrl}}" class="currency-logo"></td>
+                <td width="6%">
+                    <div class="hexagon-logo">
+                        <div class="dashboard-currencies-hexagon-container">
+                            <div class="dashboard-currencies-hexagon"></div>
+                        </div>
+                    </div>
+                </td>
                 <td  width="15%" ng-bind="service.name"></td>
                 <td width="50%" ng-bind="service.description"></td>
                 <td class="rehive-table-row-last-child">

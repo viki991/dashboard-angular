@@ -12,7 +12,6 @@
         vm.serviceUrl = cookieManagement.getCookie('SERVICEURL');
         vm.webhookUrl = "https://stellar.services.rehive.io/api/1/hooks/debit/";
         $scope.updatingCompanyDetails =  false;
-        $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
         $scope.stellarSettingView = '';
 
         $scope.goToStellarSetting = function (setting) {

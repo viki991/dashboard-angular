@@ -7,8 +7,6 @@
     /** @ngInject */
     function ServicesCtrl($scope,$location,$http,environmentConfig,errorToasts,$ngConfirm,$timeout,cookieManagement,toastr) {
 
-        $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
-
         $scope.loadingServices = true;
 
         var vm = this;

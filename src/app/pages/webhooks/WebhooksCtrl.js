@@ -9,7 +9,6 @@
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
-        $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
         $scope.settingView = 'accountInfo';
 
 
