@@ -3,7 +3,7 @@
 
     angular.module('BlurAdmin.pages.webhooks', [
         'BlurAdmin.pages.webhooks.transactionWebhooks',
-        'BlurAdmin.pages.webhooks.userWebhooks'
+        'BlurAdmin.pages.webhooks.generalWebhooks'
     ])
         .config(routeConfig);
 
