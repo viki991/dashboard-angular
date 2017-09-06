@@ -14,11 +14,9 @@
             .state('bitcoinService', {
                 url: '/services/bitcoin',
                 abstract:true,
-                // templateUrl: 'app/pages/services/bitcoinService/bitcoinService.html',
-                // controller: "BitcoinServiceCtrl",
                 title: 'Bitcoin service'
             });
-            $urlRouterProvider.when("/services/bitcoin", "/services/bitcoin/transactions");
+            $urlRouterProvider.when("/services/bitcoin", "/services/bitcoin/settings");
     }
 
 })();

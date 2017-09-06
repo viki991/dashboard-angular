@@ -4,22 +4,20 @@
             <button class="btn btn-success pull-right panel-header-button" ng-click="toggleAddHdkeyView()">Add</button>
         </div>
         <div class="divider admin-emails">
-            <table class="table table-striped admin-emails-table">
+            <table class="table table-striped fees-table admin-emails-table">
                 <tr class="black-muted-bg divider">
                     <th>Primary</th>
                     <th>Address</th>
-                    <th>Key type</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
-                <tr ng-repeat="hdKey in hdKeysList | filter: {key_type : 'xpub'}">
-                    <td class="transactions-list-element" width="10%"><label  class="checkbox-inline custom-checkbox nowrap">
+                <tr ng-repeat="hdKey in hdKeysList">
+                    <td width="10%" class="transactions-list-element"><label  class="checkbox-inline custom-checkbox nowrap">
                         <input type="checkbox" ng-change="toggleHdKeyPrimaryStatus(hdKey)" ng-model="hdKey.primary" ng-checked="hdKey.primary">
                         <span></span>
                     </label>
                     </td>
                     <td class="transactions-list-element" title="{{hdKey.address}}" ng-bind="hdKey.address"></td>
-                    <td class="transactions-list-element" title="{{hdKey.key_type}}" ng-bind="hdKey.key_type"></td>
                     <td class="transactions-list-element" title="{{hdKey.status}}" ng-bind="hdKey.status"></td>
                     <td class="rehive-table-row-last-child">
                         <button ng-show="hdKey.status == 'Active'" ng-click="toggleHdKeyStatusPrompt(hdKey,'Disabled')" class="btn btn-danger pull-right">Disable</button>

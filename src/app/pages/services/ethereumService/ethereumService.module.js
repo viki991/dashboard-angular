@@ -14,8 +14,6 @@
             .state('ethereumService', {
                 url: '/services/ethereum',
                 abstract:true,
-                // templateUrl: 'app/pages/services/ethereumService/ethereumService.html',
-                // controller: "EthereumServiceCtrl",
                 title: 'Ethereum service'
             });
             $urlRouterProvider.when("/services/ethereum", "/services/ethereum/settings");

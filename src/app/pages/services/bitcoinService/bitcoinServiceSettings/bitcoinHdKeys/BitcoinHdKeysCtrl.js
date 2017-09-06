@@ -1,11 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.services.ethereumService.ethereumServiceSettings')
-        .controller('HdKeysCtrl', HdKeysCtrl);
+    angular.module('BlurAdmin.pages.services.bitcoinService.bitcoinServiceSettings')
+        .controller('BitcoinHdKeysCtrl', BitcoinHdKeysCtrl);
 
     /** @ngInject */
-    function HdKeysCtrl($scope,$http,cookieManagement,toastr,errorToasts,$ngConfirm) {
+    function BitcoinHdKeysCtrl($scope,$http,cookieManagement,toastr,errorToasts,$ngConfirm) {
 
 
         var vm = this;
@@ -34,7 +34,6 @@
                         $scope.hdKeysList = res.data.data.results;
                     }
                 }).catch(function (error) {
-                    console.log(error);
                     $scope.loadingHdkeys =  false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -115,7 +114,6 @@
                         vm.getHdkeys();
                     }
                 }).catch(function (error) {
-                    console.log(error);
                     $scope.loadingHdkeys =  false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -133,7 +131,6 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    console.log(res);
                     $scope.toggleAddHdkeyView();
                     $scope.loadingHdkeys =  false;
                     if (res.status === 201) {
