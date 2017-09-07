@@ -19,8 +19,8 @@
       maxOpened: 0,
       newestOnTop: true,
       positionClass: 'toast-bottom-right',
-      preventDuplicates: true,
-      preventOpenDuplicates: false,
+      preventDuplicates: false,
+      preventOpenDuplicates: true,
       target: 'body'
     });
   }

@@ -8,6 +8,7 @@
       'BlurAdmin.pages.settings.bankAccounts',
       'BlurAdmin.pages.settings.subtypes',
       'BlurAdmin.pages.settings.permissionsAndManagement',
+      'BlurAdmin.pages.settings.permissions',
       'BlurAdmin.pages.settings.notifications',
       'BlurAdmin.pages.settings.switches',
       'BlurAdmin.pages.settings.transactionsSwitches',

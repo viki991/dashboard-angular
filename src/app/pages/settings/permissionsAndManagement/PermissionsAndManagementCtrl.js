@@ -5,128 +5,132 @@
         .controller('PermissionsAndManagementCtrl', PermissionsAndManagementCtrl);
 
     /** @ngInject */
-    function PermissionsAndManagementCtrl($scope,environmentConfig,$http,cookieManagement,errorToasts,toastr,$uibModal) {
+    function PermissionsAndManagementCtrl($scope,environmentConfig,$http,cookieManagement,errorToasts,toastr,$uibModal,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
-        $scope.loadingPermissions = true;
-        $scope.editingPermissions = false;
+        $scope.loadingPermissionGroups = true;
+        $scope.editingPermissionGroups = false;
         $scope.permissionGroupsParams = {};
         $scope.editPermissionGroupsObj = {};
 
-        $scope.editPermissionToggle = function (permission) {
-            if(permission){
-                vm.getPermission(permission);
+        $scope.goToGroupPermissions = function(permissionGroupName){
+            $location.path('/settings/permissions-and-management/' + permissionGroupName + '/permissions');
+        };
+
+        $scope.editPermissionToggle = function (permissionGroup) {
+            if(permissionGroup){
+                vm.getPermissionGroup(permissionGroup);
             } else {
-                vm.getPermissions();
+                vm.getPermissionGroups();
             }
 
-            $scope.editingPermissions = !$scope.editingPermissions;
+            $scope.editingPermissionGroups = !$scope.editingPermissionGroups;
         };
 
         $scope.editPermissionGroup = function (editPermissionGroupsObj) {
             if(vm.token) {
-                $scope.loadingPermissions = true;
+                $scope.loadingPermissionGroups = true;
                 $http.patch(environmentConfig.API + '/admin/permission-groups/' + editPermissionGroupsObj.name + '/',{name: editPermissionGroupsObj.updateName}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingPermissions = false;
+                    $scope.loadingPermissionGroups = false;
                     if (res.status === 200) {
                         toastr.success('Permission group successfully edited');
-                        $scope.editingPermissions = !$scope.editingPermissions;
-                        vm.getPermissions();
+                        $scope.editingPermissionGroups = !$scope.editingPermissionGroups;
+                        vm.getPermissionGroups();
                     }
                 }).catch(function (error) {
-                    $scope.loadingPermissions = false;
+                    $scope.loadingPermissionGroups = false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
         };
 
-        vm.getPermission = function (permission) {
+        vm.getPermissionGroup = function (permissionGroup) {
             if(vm.token) {
-                $scope.loadingPermissions = true;
-                $http.get(environmentConfig.API + '/admin/permission-groups/' + permission.name + '/', {
+                $scope.loadingPermissionGroups = true;
+                $http.get(environmentConfig.API + '/admin/permission-groups/' + permissionGroup.name + '/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingPermissions = false;
+                    $scope.loadingPermissionGroups = false;
                     if (res.status === 200) {
                         $scope.editPermissionGroupsObj.name = res.data.data.name;
                         $scope.editPermissionGroupsObj.updateName = res.data.data.name;
                     }
                 }).catch(function (error) {
-                    $scope.loadingPermissions = false;
+                    $scope.loadingPermissionGroups = false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
         };
 
-        vm.getPermissions = function () {
+        vm.getPermissionGroups = function () {
             if(vm.token) {
-                $scope.loadingPermissions = true;
+                $scope.loadingPermissionGroups = true;
                 $http.get(environmentConfig.API + '/admin/permission-groups/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingPermissions = false;
+                    $scope.loadingPermissionGroups = false;
                     if (res.status === 200) {
                         $scope.permissionGroups = res.data.data.results;
                     }
                 }).catch(function (error) {
-                    $scope.loadingPermissions = false;
+                    $scope.loadingPermissionGroups = false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
         };
-        vm.getPermissions();
+        vm.getPermissionGroups();
 
         $scope.addPermissionGroup = function (permissionGroupsParams) {
             if(vm.token) {
-                $scope.loadingPermissions = true;
+                $scope.loadingPermissionGroups = true;
                 $http.post(environmentConfig.API + '/admin/permission-groups/', permissionGroupsParams, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingPermissions = false;
+                    $scope.loadingPermissionGroups = false;
                     if (res.status === 201) {
                         $scope.permissionGroupsParams = {};
                         toastr.success('Permission group successfully added');
-                        vm.getPermissions();
+                        vm.getPermissionGroups();
                     }
                 }).catch(function (error) {
                     $scope.permissionGroupsParams = {};
-                    $scope.loadingPermissions = false;
+                    $scope.loadingPermissionGroups = false;
                     errorToasts.evaluateErrors(error.data);
                 });
             }
         };
 
-        $scope.openManagerPermissionsModal = function (page, size,permission) {
+        $scope.openManagerPermissionsModal = function (page, size,permissionGroup) {
             vm.theModal = $uibModal.open({
                 animation: true,
                 templateUrl: page,
                 size: size,
                 controller: 'PermissionsAndManagementModalCtrl',
                 resolve: {
-                    permission: function () {
-                        return permission;
+                    permissionGroup: function () {
+                        return permissionGroup;
                     }
                 }
             });
 
-            vm.theModal.result.then(function(permission){
-                if(permission){
-                    vm.getPermissions();
+            vm.theModal.result.then(function(permissionGroup){
+                if(permissionGroup){
+                    vm.getPermissionGroups();
                 }
             }, function(){
             });

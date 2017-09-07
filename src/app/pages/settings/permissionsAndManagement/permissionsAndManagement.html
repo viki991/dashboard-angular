@@ -1,16 +1,17 @@
-<div ng-hide="loadingPermissions || editingPermissions">
-    <div ba-panel ba-panel-title="Permission groups" ba-panel-class="light-text with-scroll">
+<div ng-hide="loadingPermissionGroups || editingPermissionGroups">
+    <div ng-show="permissionGroups.length > 0" ba-panel ba-panel-title="Permission groups" ba-panel-class="light-text with-scroll">
         <table class="table fees-table table-striped ">
             <tr class="black-muted-bg divider">
                 <th><strong>Name</strong></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="permission in permissionGroups">
-                <td class="transactions-list-element" ng-bind="permission.name"></td>
+            <tr ng-repeat="permissionGroup in permissionGroups">
+                <td class="transactions-list-element" ng-bind="permissionGroup.name"></td>
                 <td class="rehive-table-row-last-child">
-                    <button ng-click="openManagerPermissionsModal('app/pages/settings/permissionsAndManagement/permissionsAndManagementModal/permissionsAndManagementModal.html','md',permission)"
+                    <button ng-click="openManagerPermissionsModal('app/pages/settings/permissionsAndManagement/permissionsAndManagementModal/permissionsAndManagementModal.html','md',permissionGroup)"
                             class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
-                    <button ng-click="editPermissionToggle(permission)" class="btn btn-primary pull-right rehive-settings-buttons">Edit</button>
+                    <button ng-click="editPermissionToggle(permissionGroup)" class="btn btn-primary pull-right rehive-settings-buttons">Edit</button>
+                    <button ng-click="goToGroupPermissions(permissionGroup.name)" class="btn btn-primary pull-right rehive-settings-buttons">View</button>
                 </td>
             </tr>
         </table>
@@ -27,9 +28,9 @@
         </form>
     </div>
 </div>
-<div ng-show="editingPermissions && !loadingPermissions">
+<div ng-show="editingPermissionGroups && !loadingPermissionGroups">
     <edit-permission-and-management></edit-permission-and-management>
 </div>
-<div ba-panel ng-show="loadingPermissions">
+<div ba-panel ng-show="loadingPermissionGroups">
     <loading-image></loading-image>
 </div>

@@ -26,16 +26,9 @@
             <label><strong>Currency</strong></label>
             <br>
             <select class="form-control pointer" ng-model="usersSearchParams.searchCurrency"
-                    ng-options="currency.code for currency in currencyOptions track by currency.code" disabled>
+                    ng-options="currency.code for currency in currencyOptions track by currency.code">
             </select>
         </div>
-
-        <!--<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">-->
-            <!--<label><strong>Select Country</strong></label>-->
-            <!--<country-select class="form-control pointer" data-ng-model="usersSearchParams.searchCountry"></country-select>-->
-        <!--</div>-->
-
-
     </div>
 
     <div class="row">
