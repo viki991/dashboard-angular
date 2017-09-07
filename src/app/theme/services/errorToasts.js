@@ -24,7 +24,7 @@
                   if(errors && errors.message){
                       toastr.error(errors.message, 'Message');
                   } else {
-                      toastr.error(errors, 'Message');
+                      toastr.error('Something went wrong, please check your internet connection or try again', 'Message');
                   }
               }
             }
