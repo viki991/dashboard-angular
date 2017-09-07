@@ -12,6 +12,7 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.uuid = $stateParams.uuid;
         vm.updatedUserCryptoAccount = {};
+        $scope.userCryptoAccountsList = [];
         $scope.loadingUserCryptoAccounts = true;
         $scope.addingUserCryptoAccounts = false;
         $scope.editingUserCryptoAccounts = false;

@@ -1,19 +1,19 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.settings.permissions')
-        .controller('PermissionsCtrl', PermissionsCtrl);
+    angular.module('BlurAdmin.pages.userDetails')
+        .controller('UserPermissionsCtrl', UserPermissionsCtrl);
 
     /** @ngInject */
-    function PermissionsCtrl($scope,$stateParams,environmentConfig,$http,cookieManagement,errorToasts,toastr,$uibModal,$location) {
+    function UserPermissionsCtrl($scope,environmentConfig,$stateParams,$http,
+                              cookieManagement,errorToasts,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
-        vm.permissionGroupName = $stateParams.permissionGroupName;
+        vm.uuid = $stateParams.uuid;
         vm.checkedLevels = [];
-        $scope.loadingPermissions = true;
-        $scope.editingPermissions = false;
-        $scope.viewingPermissions = false;
+        $scope.loadingUserPermissions = true;
+        $scope.addingUserPermission = false;
         $scope.permissionParams = {
             type: 'Account'
         };
@@ -55,11 +55,15 @@
             USER_WEBHOOK : 'userwebhook'
         };
         $scope.typeOptions = ['Account','Account Currency','Account Currency Fee','Account Currency Limit','Account Currency Switch',
-        'Bank Account','Bitcoin Account','Company','Company Address','Company Bank Account','Company Transaction Switch','Currency',
-        'Currency Tier','Currency Tier Fee','Currency Tier Limit','Currency Tier Requirement','Currency Tier Switch','Document',
-        'Email Address','Global Switch','Limit','Mobile','Notification','Permission','Permission Group','Token','Transaction',
-        'Transaction Fee','Transaction Subtype','Transaction Switch','Transaction Webhook','User','User Address','User Transaction Switch',
-        'User Webhook'];
+            'Bank Account','Bitcoin Account','Company','Company Address','Company Bank Account','Company Transaction Switch','Currency',
+            'Currency Tier','Currency Tier Fee','Currency Tier Limit','Currency Tier Requirement','Currency Tier Switch','Document',
+            'Email Address','Global Switch','Limit','Mobile','Notification','Permission','Permission Group','Token','Transaction',
+            'Transaction Fee','Transaction Subtype','Transaction Switch','Transaction Webhook','User','User Address','User Transaction Switch',
+            'User Webhook'];
+
+        $scope.toggleAddUserPermissionView = function(){
+            $scope.addingUserPermission = !$scope.addingUserPermission;
+        };
 
         $scope.levelChanged = function(level){
             if(vm.checkedLevels.indexOf(level) > -1){
@@ -70,29 +74,13 @@
             }
         };
 
-        vm.getPermissions = function () {
-            if(vm.token) {
-                $scope.loadingPermissions = true;
-                $http.get(environmentConfig.API + '/admin/permission-groups/' + vm.permissionGroupName + '/permissions/', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': vm.token
-                    }
-                }).then(function (res) {
-                    $scope.loadingPermissions = false;
-                    if (res.status === 200) {
-                        $scope.permissions = res.data.data.results;
-                    }
-                }).catch(function (error) {
-                    $scope.loadingPermissions = false;
-                    errorToasts.evaluateErrors(error.data);
-                });
-            }
-        };
-        vm.getPermissions();
-
         $scope.addPermissionProcess = function(){
+            if(vm.checkedLevels.length == 0){
+                toastr.error('None of the levels are selected');
+                return false;
+            }
             vm.checkedLevels.forEach(function(element,idx,array){
+                $scope.loadingPermissions = true;
                 var type;
                 type = $scope.permissionParams.type.toUpperCase();
                 type = type.replace(/ /g, '_');
@@ -105,10 +93,9 @@
         };
 
         vm.addPermissions = function (newPermissionObj,last) {
-            console.log(newPermissionObj)
             if(vm.token) {
                 $scope.loadingPermissions = true;
-                $http.post(environmentConfig.API + '/admin/permission-groups/' + vm.permissionGroupName + '/permissions/', newPermissionObj, {
+                $http.post(environmentConfig.API + '/admin/users/' + vm.uuid + '/permissions/', newPermissionObj, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -122,7 +109,8 @@
                             };
                             vm.checkedLevels = [];
                             toastr.success('Permissions successfully added');
-                            vm.getPermissions();
+                            vm.getUserPermissions();
+                            $scope.toggleAddUserPermissionView();
                         }
                     }
                 }).catch(function (error) {
@@ -136,30 +124,54 @@
             }
         };
 
+        vm.getUserPermissions = function () {
+            $scope.loadingUserPermissions = true;
+            $http.get(environmentConfig.API + '/admin/users/' + vm.uuid + '/permissions/', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': vm.token
+                }
+            }).then(function (res) {
+                $scope.loadingUserPermissions = false;
+                if (res.status === 200) {
+                    $scope.userPermissionsList = res.data.data.results;
+                }
+            }).catch(function (error) {
+                $scope.loadingUserPermissions = false;
+                if(error.status == 403){
+                    errorHandler.handle403();
+                    return
+                }
+                errorToasts.evaluateErrors(error.data);
+            });
+        };
+        vm.getUserPermissions();
 
-        $scope.openPermissionsModal = function (page, size,permission) {
+        $scope.openUserPermissionModal = function (page, size, userPermission) {
             vm.theModal = $uibModal.open({
                 animation: true,
                 templateUrl: page,
                 size: size,
-                controller: 'PermissionsModalCtrl',
+                controller: 'UserPermissionModalCtrl',
+                scope: $scope,
                 resolve: {
-                    permission: function () {
-                        return permission;
+                    userPermission: function () {
+                        return userPermission;
                     },
-                    permissionGroupName: function(){
-                        return vm.permissionGroupName;
+                    uuid: function () {
+                        return vm.uuid;
                     }
                 }
             });
 
-            vm.theModal.result.then(function(permission){
-                if(permission){
-                    vm.getPermissions();
+            vm.theModal.result.then(function(userPermission){
+                if(userPermission){
+                    vm.getUserPermissions();
                 }
             }, function(){
             });
         };
+
 
     }
 })();

@@ -1,0 +1,34 @@
+<div ba-panel ba-panel-title="Add permission" ba-panel-class="light-text with-scroll">
+    <form name="permissionGroupForm" class="custom-form">
+        <div class="form-group">
+            <label><strong>Type</strong> <span class="required-icon">*</span></label>
+            <br>
+            <select class="form-control pointer" ng-model="permissionParams.type" ng-options="type for type in typeOptions" required>
+            </select>
+        </div>
+        <div class="form-group">
+            <div>
+                <label  class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-change="levelChanged('view')"  ng-model="permissionParams.view">
+                    <span>View</span>
+                </label>
+                <label  class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-change="levelChanged('add')" ng-model="permissionParams.add">
+                    <span>Add</span>
+                </label>
+                <label  class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-change="levelChanged('change')" ng-model="permissionParams.change">
+                    <span>Change</span>
+                </label>
+                <label  class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-change="levelChanged('delete')" ng-model="permissionParams.delete">
+                    <span>Delete</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <button ng-click="addPermissionProcess()" ng-disabled="!permissionGroupForm.$valid" class="btn btn-primary pull-right">Add</button>
+            <button ng-click="toggleAddUserPermissionView()" class="btn btn-primary user-accounts-btn pull-right margin-right-10">Back</button>
+        </div>
+    </form>
+</div>
