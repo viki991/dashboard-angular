@@ -48,7 +48,10 @@
 
         $scope.updateNotification = function () {
             $scope.loadingNotifications =  true;
-            vm.updatedNotification.enabled = vm.updatedNotification.enabled == 'True' ? true : false;
+            if(vm.updatedNotification.enabled){
+                vm.updatedNotification.enabled = vm.updatedNotification.enabled == 'True' ? true : false;
+            }
+
             if(vm.token) {
                 $http.patch(vm.baseUrl + 'admin/notifications/' + $scope.editNotification.id + '/',vm.updatedNotification, {
                     headers: {
