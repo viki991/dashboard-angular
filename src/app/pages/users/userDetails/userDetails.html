@@ -1,4 +1,4 @@
-<div ng-hide="updatingProfilePic">
+<div class="user-details-view" ng-hide="updatingProfilePic">
     <div class="row divider">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
             <img class="pointer" ng-click="toggleProfilePictureView()"
@@ -16,9 +16,10 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <user-activity></user-activity>
             <user-accounts></user-accounts>
-            <user-switches></user-switches>
-            <user-permissions></user-permissions>
             <user-crypto-accounts></user-crypto-accounts>
+            <user-switches></user-switches>
+            <user-permission-groups></user-permission-groups>
+            <user-permissions></user-permissions>
         </div>
     </div>
 </div>

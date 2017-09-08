@@ -1,5 +1,5 @@
 <div ng-hide="loadingUserPermissions || addingUserPermission" ba-panel class="setting-bank-accounts" ba-panel-title="User permissions">
-    <button ng-click="toggleAddUserPermissionView()" class="btn btn-primary pull-right user-accounts-btn panel-header-button">Add</button>
+    <button ng-click="toggleAddUserPermissionView()" class="btn btn-primary pull-right user-accounts-btn panel-header-button">Create</button>
     <table ng-show="userPermissionsList.length > 0" class="table fees-table table-striped setting-bank-accounts-table">
         <tr class="black-muted-bg divider">
             <th><strong>Type</strong></th>
@@ -15,7 +15,7 @@
         </tr>
     </table>
     <div ng-show="userPermissionsList.length == 0 && !loadingUserPermissions">
-        <i>No user permissions are available</i>
+        <i>No user permissions have been created</i>
     </div>
 </div>
 <div ng-show="addingUserPermission">
