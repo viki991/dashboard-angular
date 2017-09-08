@@ -11,7 +11,7 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.uuid = $stateParams.uuid;
         vm.updatedUserBankAccount = {};
-        $scope.userBankAccountParams = {};
+        $scope.userBankAccountParams = {status: 'pending'};
         $scope.editUserBankAccount = {};
         $scope.loadingUserBankAccount = true;
         $scope.addingUserBankAccount = false;
@@ -55,7 +55,7 @@
                 }).then(function (res) {
                     $scope.loadingUserBankAccount = false;
                     if (res.status === 201) {
-                        $scope.userBankAccountParams = {};
+                        $scope.userBankAccountParams = {status: 'pending'};
                         toastr.success('Successfully added user bank account!');
                         vm.getUserBankAccounts();
                     }
