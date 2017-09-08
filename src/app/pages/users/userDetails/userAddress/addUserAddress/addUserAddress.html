@@ -25,6 +25,11 @@
             <input type="text" class="form-control" ng-model="userAddressParams.postal_code" placeholder="Enter postal code"/>
         </div>
         <div class="form-group">
+            <label><strong>Status</strong></label>
+            <select class="form-control pointer" ng-model="userAddressParams.status" ng-options="statusOption for statusOption in statusOptions">
+            </select>
+        </div>
+        <div class="form-group">
             <button ng-click="addUserAddress(userAddressParams)" ng-disabled="!userAddressForm.$valid" class="btn btn-primary user-accounts-btn pull-right">Add</button>
             <button ng-click="toggleAddUserAddressView()" class="btn btn-primary user-accounts-btn pull-right margin-right-10">Back</button>
         </div>

@@ -26,6 +26,10 @@
                 <th width="50%"><strong>Postal code</strong></th>
                 <th>{{address.postal_code || 'None'}}</th>
             </tr>
+            <tr>
+                <th width="50%"><strong>Status</strong></th>
+                <th>{{address.status}}</th>
+            </tr>
         </table>
         <button ng-click="openUserAddressModal('app/pages/users/userDetails/userAddress/userAddressModal/userAddressModal.html','md',address)" class="btn btn-danger pull-right user-accounts-btn divider">Delete</button>
         <button ng-click="toggleEditUserAddressView(address)" class="btn btn-primary pull-right user-accounts-btn divider margin-right-10">Edit</button>

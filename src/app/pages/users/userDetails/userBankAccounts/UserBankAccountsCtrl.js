@@ -15,6 +15,7 @@
         $scope.editUserBankAccount = {};
         $scope.loadingUserBankAccount = true;
         $scope.addingUserBankAccount = false;
+        $scope.statusOptions = ['pending', 'incomplete', 'declined', 'verified'];
 
         vm.getUserBankAccounts = function(){
             if(vm.token) {

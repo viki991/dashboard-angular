@@ -11,13 +11,15 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.uuid = $stateParams.uuid;
         $scope.userAddressParams = {
-            country: 'US'
+            country: 'US',
+            status: 'pending'
         };
         vm.updatedUserAddress = {};
         $scope.loadingUserAddress = true;
         $scope.addingUserAddress = false;
         $scope.editingUserAddress = false;
         $scope.editUserAddress = {};
+        $scope.statusOptions = ['pending', 'incomplete', 'declined', 'verified'];
 
         vm.getUserAddress = function(){
             if(vm.token) {
@@ -57,7 +59,7 @@
                 }).then(function (res) {
                     $scope.loadingUserAddress = false;
                     if (res.status === 201) {
-                        $scope.userAddressParams = {country: 'US'};
+                        $scope.userAddressParams = {country: 'US', status: 'pending'};
                         toastr.success('Successfully added user address!');
                         vm.getUserAddress()
                     }
