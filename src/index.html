@@ -26,7 +26,7 @@
 </head>
 <body>
 <div  ui-view="admin" ></div>
-<div ng-hide="securityConfigured" ui-view="securityViews" ></div>
+<div ng-hide="securityConfigured" ui-view="securityViews"></div>
 <div class="body-bg"></div>
 <main ng-if="$pageFinishedLoading" ng-class="{ 'menu-collapsed': $baSidebarService.isMenuCollapsed() }">
 

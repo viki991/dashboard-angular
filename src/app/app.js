@@ -112,13 +112,13 @@ angular.module('BlurAdmin', [
                 $rootScope.securityConfigured = true;
                 $location.path('/login');
             } else{
-                if(token) {
-                    $rootScope.gotToken = true;
-                    $rootScope.securityConfigured = true;
+                if(newUrl.indexOf('password/reset/confirm') > 0 || newUrl.indexOf('email/verify') > 0) {
+                    $rootScope.securityConfigured = false;
                 } else if(newUrlLastElement == 'register' || newUrlLastElement == 'reset'
                     || newUrlLastElement == 'verification' || newUrlLastElement == 'name_request'){
-                    $rootScope.securityConfigured = true;
-                } else if(newUrl.indexOf('reset/confirm') > 0 || newUrl.indexOf('email/verify') > 0){
+                    $rootScope.securityConfigured = false;
+                } else if(token){
+                    $rootScope.gotToken = true;
                     $rootScope.securityConfigured = true;
                 } else {
                     $rootScope.securityConfigured = true;
