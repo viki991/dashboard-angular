@@ -94,7 +94,10 @@
 
         $scope.updateUserBasicInfo = function(){
             $scope.editingUserBasicInfo = !$scope.editingUserBasicInfo;
-            vm.updatedUserBasicInfo.birth_date = $scope.birthDate.year + '-' + $scope.birthDate.month + '-' + $scope.birthDate.day;
+            if(vm.updatedUserBasicInfo.birth_date){
+                vm.updatedUserBasicInfo.birth_date = $scope.birthDate.year + '-' + $scope.birthDate.month + '-' + $scope.birthDate.day;
+            }
+
             if(vm.token) {
                 $scope.loadingUserBasicInfo = true;
                 $http.patch(environmentConfig.API + '/admin/users/' + vm.uuid + '/',vm.updatedUserBasicInfo, {

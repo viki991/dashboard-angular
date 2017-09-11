@@ -4,11 +4,13 @@
         <tr class="black-muted-bg divider">
             <th><strong>Address</strong></th>
             <th><strong>Type</strong></th>
+            <th><strong>Status</strong></th>
             <th></th>
         </tr>
         <tr ng-repeat="cryptoAccount in userCryptoAccountsList">
             <td class="table-row-center transactions-list-element" title="{{cryptoAccount.address}}" ng-bind="cryptoAccount.address"></td>
             <td class="table-row-center transactions-list-element" title="{{cryptoAccount.crypto_type}}" ng-bind="cryptoAccount.crypto_type"></td>
+            <td class="table-row-center transactions-list-element" title="{{cryptoAccount.status}}" ng-bind="cryptoAccount.status"></td>
             <td class="rehive-table-row-last-child">
                 <button ng-click="openUserCryptoAccountsModal('app/pages/users/userDetails/userCryptoAccounts/userCryptoAccountsModal/userCryptoAccountsModal.html','md',cryptoAccount)" class="btn btn-danger pull-right user-accounts-btn">Delete</button>
                 <button ng-click="toggleUserCryptoAccountsEditView(cryptoAccount)" class="btn btn-primary pull-right user-accounts-btn margin-right-10" disabled>Edit</button>

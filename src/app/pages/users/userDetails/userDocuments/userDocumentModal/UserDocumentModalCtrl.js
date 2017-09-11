@@ -16,7 +16,7 @@
         $scope.editDocument = {
             file: {},
             document_type: document.document_type,
-            verified: document.verified,
+            status: document.status,
             note: document.note,
             metadata: document.metadata
         };
@@ -40,7 +40,7 @@
             'ID Confirmation Photo': 'id_confirmation',
             'Other': 'other'
         };
-        $scope.statusTypeOptions = ['Verified','Incomplete','Pending','Declined'];
+        $scope.statusTypeOptions = ['verified','incomplete','pending','declined'];
 
         $scope.kycDocumentSelected = function (field) {
             $scope.showingDocumentFile = false;

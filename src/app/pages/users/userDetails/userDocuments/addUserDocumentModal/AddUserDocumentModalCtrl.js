@@ -14,7 +14,7 @@
         $scope.userDocumentParams = {
             file: {},
             document_type: 'Utility Bill',
-            verified: 'Verified'
+            status: 'verified'
         };
         $scope.documentSelected = false;
         $scope.documentTypeOptions = ['Utility Bill','Bank Statement','Lease Or Rental Agreement',
@@ -36,7 +36,7 @@
             'ID Confirmation Photo': 'id_confirmation',
             'Other': 'other'
         };
-        $scope.statusTypeOptions = ['Verified','Incomplete','Pending','Declined'];
+        $scope.statusTypeOptions = ['verified','incomplete','pending','declined'];
 
 
         $scope.addDocument = function () {
