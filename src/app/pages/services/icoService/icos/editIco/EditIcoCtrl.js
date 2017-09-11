@@ -5,21 +5,13 @@
         .controller('EditIcoCtrl', EditIcoCtrl);
 
     /** @ngInject */
-    function EditIcoCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$stateParams,$filter) {
+    function EditIcoCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$stateParams,$filter,currencyModifiers) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.serviceUrl = cookieManagement.getCookie('SERVICEURL');
         $scope.editIcoObj = {};
         $scope.editingIco = false;
-
-        $scope.$watch('editIcoObj.min_purchase_amount', function() {
-            $scope.editIcoObj.min_purchase_amount = $filter('preciseRound',$filter('currencyModifiersFilter',$scope.editIcoObj.min_purchase_amount));
-        });
-
-        $scope.$watch('editIcoObj.max_purchase_amount', function() {
-            $scope.editIcoObj.max_purchase_amount = $filter('preciseRound',$filter('currencyModifiersFilter',$scope.editIcoObj.max_purchase_amount));
-        });
 
         vm.getIco =  function () {
             $scope.editingIco = true;
@@ -33,6 +25,8 @@
                     $scope.editingIco =  false;
                     if (res.status === 200) {
                         $scope.editIcoObj = res.data.data;
+                        $scope.editIcoObj.min_purchase_amount = $filter('preciseRound')($filter('currencyModifiersFilter')($scope.editIcoObj.min_purchase_amount,$scope.editIcoObj.currency.divisibility),$scope.editIcoObj.currency.divisibility);
+                        $scope.editIcoObj.max_purchase_amount = $filter('preciseRound')($filter('currencyModifiersFilter')($scope.editIcoObj.max_purchase_amount,$scope.editIcoObj.currency.divisibility),$scope.editIcoObj.currency.divisibility);
                     }
                 }).catch(function (error) {
                     $scope.editingIco =  false;
@@ -43,7 +37,7 @@
         vm.getIco();
 
         $scope.editIco = function () {
-
+            $scope.editingIco = true;
             var editIcoObj = {
                 exchange_provider: $scope.editIcoObj.exchange_provider,
                 min_purchase_amount: '',
@@ -78,9 +72,9 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.editingIco =  false;
                     if (res.status === 200) {
                         toastr.success('Ico updated successfully');
+                        $scope.editingIco =  false;
                         $location.path('/services/ico/list');
                     }
                 }).catch(function (error) {
