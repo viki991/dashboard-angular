@@ -18,7 +18,7 @@
             document_type: document.document_type,
             status: document.status,
             note: document.note,
-            metadata: document.metadata
+            metadata: JSON.parse(document.metadata)
         };
 
         $scope.documentTypeOptions = ['Utility Bill','Bank Statement','Lease Or Rental Agreement',

@@ -17,7 +17,7 @@
             $scope.editIcoObj.min_purchase_amount = $filter('preciseRound',$filter('currencyModifiersFilter',$scope.editIcoObj.min_purchase_amount));
         });
 
-        $scope.$watch('editIcoObj.min_purchase_amount', function() {
+        $scope.$watch('editIcoObj.max_purchase_amount', function() {
             $scope.editIcoObj.max_purchase_amount = $filter('preciseRound',$filter('currencyModifiersFilter',$scope.editIcoObj.max_purchase_amount));
         });
 
