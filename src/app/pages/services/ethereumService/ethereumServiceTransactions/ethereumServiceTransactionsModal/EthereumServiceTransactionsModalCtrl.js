@@ -5,7 +5,7 @@
         .controller('EthereumServiceTransactionsModalCtrl', EthereumServiceTransactionsModalCtrl);
 
     function EthereumServiceTransactionsModalCtrl($uibModalInstance,$scope,transaction,metadataTextService,$state,$location) {
-        $scope.metadata = metadataTextService.convertToText(transaction.metadata);
+        $scope.rehive_response = metadataTextService.convertToText(transaction.rehive_response);
         $scope.transaction = transaction;
 
         $scope.goToUser = function () {

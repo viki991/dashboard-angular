@@ -19,6 +19,7 @@
             month: '',
             day: ''
         };
+        $scope.statusOptions = ['pending', 'incomplete', 'declined', 'verified'];
 
         vm.getUser = function(){
             if(vm.token) {
