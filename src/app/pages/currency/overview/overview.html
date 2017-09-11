@@ -1,4 +1,4 @@
-<div>
+<div ng-hide="loadingCurrencies">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="pull-left">
@@ -26,4 +26,7 @@
             <overview-content-middle-bottom></overview-content-middle-bottom>
         </div>
     </div>
+</div>
+<div ng-show="loadingCurrencies" ba-panel>
+    <loading-image></loading-image>
 </div>

@@ -8,7 +8,7 @@
     function overviewContentTop() {
         return {
             restrict: 'E',
-            controller: 'OverviewContentTopCtrl',
+            require: '^parent',
             templateUrl: 'app/pages/currency/overview/overviewContentTop/overviewContentTop.html'
         };
     }

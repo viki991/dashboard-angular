@@ -8,7 +8,7 @@
     function overviewContentMiddle() {
         return {
             restrict: 'E',
-            controller: 'OverviewContentMiddleCtrl',
+            require: '^parent',
             templateUrl: 'app/pages/currency/overview/overviewContentMiddle/overviewContentMiddle.html'
         };
     }
