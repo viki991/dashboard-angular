@@ -55,6 +55,7 @@
                     if (res.status === 200) {
                         if(res.data.data.results.length > 0){
                             $scope.userPermissionGroupParams = res.data.data.results[0];
+                            res.data.data.results.push({name: 'admin'});
                             $scope.permissionGroups = res.data.data.results;
                         }
                     }
