@@ -5,7 +5,7 @@
         .controller('CurrenciesCtrl', CurrenciesCtrl);
 
     /** @ngInject */
-    function CurrenciesCtrl($rootScope,$scope,$location,cookieManagement,environmentConfig,$http,errorToasts,errorHandler,$window) {
+    function CurrenciesCtrl($rootScope,$scope,$location,cookieManagement,environmentConfig,$http,errorToasts,errorHandler,$window,_) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -20,9 +20,15 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                  $scope.loadingCurrencies = false;
                     if (res.status === 200) {
                         $scope.currencies = res.data.data.results;
+                        $scope.currencies.forEach(function(element,idx,array){
+                            if(idx === array.length - 1){
+                                vm.getCurrencyOverview(element,'last');
+                                return false;
+                            }
+                            vm.getCurrencyOverview(element);
+                        })
                     }
                 }).catch(function (error) {
                   $scope.loadingCurrencies = false;
@@ -35,6 +41,36 @@
             }
         };
         vm.getCompanyCurrencies();
+
+        vm.getCurrencyOverview = function (currency,last) {
+            if(vm.token) {
+                $scope.loadingCurrencies = true;
+                $http.get(environmentConfig.API + '/admin/currencies/' + currency.code + '/overview/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        $scope.currencies.forEach(function (element,index) {
+                            if(element.code == currency.code){
+                                _.extendOwn(element,res.data.data);
+                            }
+                        });
+                        if(last){
+                            $scope.loadingCurrencies = false;
+                        }
+                    }
+                }).catch(function (error) {
+                    $scope.loadingCurrencies = false;
+                    if(error.status == 403){
+                        errorHandler.handle403();
+                        return;
+                    }
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
 
         $scope.goToView = function(currency,path){
             $rootScope.selectedCurrency = currency;
