@@ -18,8 +18,30 @@
             <p type="text" ng-bind="editIcoObj.base_goal_amount | currencyModifiersFilter: editIcoObj.base_currency.divisibility | preciseRound: editIcoObj.base_currency.divisibility" class="form-control"  placeholder="Enter amount" disabled></p>
         </div>
         <div class="form-group">
+            <label><strong>Min purchase amount</strong> <span class="required-icon">*</span></label>
+            <input type="text" ng-model="editIcoObj.min_purchase_amount"
+                   class="form-control"  placeholder="Enter amount" required>
+        </div>
+        <div class="form-group">
+            <label><strong>Max purchase amount</strong> <span class="required-icon">*</span></label>
+            <input type="text" ng-model="editIcoObj.max_purchase_amount"
+                   class="form-control"  placeholder="Enter amount" required>
+        </div>
+        <div class="form-group">
+            <label><strong>Max purchases</strong> <span class="required-icon">*</span></label>
+            <input type="text" ng-model="editIcoObj.max_purchases" class="form-control"  placeholder="Enter number" required>
+        </div>
+        <div class="form-group">
             <label><strong>Exchange provider</strong></label>
             <input type="text" ng-model="editIcoObj.exchange_provider" class="form-control"  placeholder="Enter exchange provider url">
+        </div>
+        <div class="form-group">
+            <label><strong>Public</strong></label>
+            <br>
+            <label  class="checkbox-inline custom-checkbox nowrap">
+                <input type="checkbox" ng-model="editIcoObj.public" ng-checked="editIcoObj.public">
+                <span></span>
+            </label>
         </div>
         <div class="form-group">
             <label><strong>Enabled</strong> (Only one ico can be enabled at a time)</label>
