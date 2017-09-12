@@ -128,8 +128,9 @@ angular.module('BlurAdmin', [
 
             }
 
-            //checking if changing password or setting up 2 factor authentication
-            if(newUrlLastElement == 'change' || newUrlLastElement == 'two-factor'){
+            //checking if changing password or setting up multi factor authentication
+            if(newUrlLastElement == 'change' || newUrlLastElement == 'multi-factor'
+            || newUrl.indexOf('/multi-factor/sms') > 0 || newUrl.indexOf('/multi-factor/verify') > 0){
                 $rootScope.securityConfigured = false;
             }
         }

@@ -13,12 +13,15 @@
         $scope.showingDocumentFile = true;
         vm.updatedDocument = {};
         $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
+        if(typeof document.metadata == 'string'){
+            document.metadata = JSON.parse(document.metadata)
+        }
         $scope.editDocument = {
             file: {},
             document_type: document.document_type,
             status: document.status,
             note: document.note,
-            metadata: JSON.parse(document.metadata)
+            metadata: document.metadata
         };
 
         $scope.documentTypeOptions = ['Utility Bill','Bank Statement','Lease Or Rental Agreement',

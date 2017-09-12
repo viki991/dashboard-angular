@@ -99,8 +99,8 @@
             $location.path('/password/change');
         };
 
-        $scope.enableTwoFactorAuth = function(){
-            $location.path('/authentication/two-factor');
+        $scope.enableMultiFactorAuth = function(){
+            $location.path('/authentication/multi-factor');
         };
 
     }

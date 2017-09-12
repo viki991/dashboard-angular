@@ -8,7 +8,9 @@
   angular.module('BlurAdmin.pages', [
       'ui.router',
       'BlurAdmin.pages.changePassword',
-      'BlurAdmin.pages.twoFactorAuth',
+      'BlurAdmin.pages.multiFactorAuth',
+      'BlurAdmin.pages.smsAuth',
+      'BlurAdmin.pages.multiFactorAuthVerify',
       'BlurAdmin.pages.settings',
       'BlurAdmin.pages.addCurrency',
       'BlurAdmin.pages.home',
