@@ -5,13 +5,14 @@
         .controller('MultiFactorAuthVerifyCtrl', MultiFactorAuthVerifyCtrl);
 
     /** @ngInject */
-    function MultiFactorAuthVerifyCtrl($scope,$http,environmentConfig,cookieManagement,errorToasts,toastr,$stateParams,$location) {
+    function MultiFactorAuthVerifyCtrl($scope,$http,environmentConfig,userVerification,cookieManagement,errorToasts,toastr,$stateParams,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.authType = $stateParams.authType;
         $scope.verifyTokenObj = {token: ''};
         $scope.tokenAuthenticationEnabled = false;
+        $scope.prevLocation = $location.search().prevUrl;
 
         vm.getTokenAuthenticationDetails = function(){
             if(vm.token) {
@@ -36,10 +37,6 @@
             }
         };
 
-        if($scope.authType == 'token'){
-            vm.getTokenAuthenticationDetails();
-        }
-
         vm.checkIfTokenAuthenticationEnabled = function(){
             if(vm.token) {
                 $scope.loadingVerifyAuth = true;
@@ -53,15 +50,17 @@
                         if(res.data.data && res.data.data.confirmed){
                             $scope.tokenAuthenticationEnabled = true;
                         }
-
-                        $scope.loadingVerifyAuth = false;
                     }
                 }).catch(function (error) {
                     $scope.loadingVerifyAuth = false;
                 });
             }
         };
-        vm.checkIfTokenAuthenticationEnabled();
+
+        if(($scope.prevLocation != 'login') && $scope.authType == 'token'){
+            vm.getTokenAuthenticationDetails();
+            vm.checkIfTokenAuthenticationEnabled();
+        }
 
         $scope.deleteTokenAuth = function(){
             if(vm.token) {
@@ -114,9 +113,14 @@
                     }
                 }).then(function (res) {
                     if(res.status === 201) {
+                        $location.search('prevUrl', null);
                         toastr.success('Token successfully verified');
-                        $location.path('/settings/security');
-                        $scope.loadingVerifyAuth = false;
+                        if($scope.prevLocation == 'login'){
+                            $location.path('/verification');
+                        } else {
+                            $scope.loadingVerifyAuth = false;
+                            $location.path('/settings/security');
+                        }
                     }
                 }).catch(function (error) {
                     $scope.loadingVerifyAuth = false;
@@ -124,7 +128,6 @@
                 });
             }
         };
-
 
     }
 })();

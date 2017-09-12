@@ -30,6 +30,9 @@ angular.module('BlurAdmin', [
 
         var locationChangeStart = $rootScope.$on('$locationChangeStart', function (event,newUrl) {
 
+            var newUrlArray = newUrl.split('/'),
+                newUrlLastElement = _.last(newUrlArray);
+
             //using to check if user has a verified email address
             var verifyUser = function (){
                 userVerification.verify(function(err,verified){
@@ -41,7 +44,10 @@ angular.module('BlurAdmin', [
                     }
                 });
             };
-            verifyUser();
+            if(newUrlLastElement != 'change' && newUrlLastElement != 'multi-factor'
+                && newUrl.indexOf('/multi-factor/sms') < 0 && newUrl.indexOf('/multi-factor/verify') < 0){
+                verifyUser();
+            }
 
             //using to check if user has a company name
             var getCompanyInfo = function () {
