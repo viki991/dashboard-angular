@@ -5,17 +5,17 @@
         .controller('UserBankAccountsCtrl', UserBankAccountsCtrl);
 
     /** @ngInject */
-    function UserBankAccountsCtrl($scope,environmentConfig,$stateParams,$uibModal,$http,cookieManagement,errorToasts,toastr) {
+    function UserBankAccountsCtrl($scope,environmentConfig,$stateParams,$uibModal,$http,cookieManagement,errorToasts,toastr,$filter) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.uuid = $stateParams.uuid;
         vm.updatedUserBankAccount = {};
-        $scope.userBankAccountParams = {status: 'pending'};
+        $scope.userBankAccountParams = {status: 'Pending'};
         $scope.editUserBankAccount = {};
         $scope.loadingUserBankAccount = true;
         $scope.addingUserBankAccount = false;
-        $scope.statusOptions = ['pending', 'incomplete', 'declined', 'verified'];
+        $scope.statusOptions = ['Pending', 'Incomplete', 'Declined', 'Verified'];
 
         vm.getUserBankAccounts = function(){
             if(vm.token) {
@@ -47,6 +47,7 @@
                 userBankAccountParams.user = vm.uuid;
                 $scope.loadingUserBankAccount = true;
                 $scope.toggleAddUserBankAccountView();
+                userBankAccountParams.status = userBankAccountParams.status.toLowerCase();
                 $http.post(environmentConfig.API + '/admin/users/bank-accounts/',userBankAccountParams,{
                     headers: {
                         'Content-Type': 'application/json',
@@ -73,7 +74,6 @@
                 $scope.editUserBankAccount = {};
                 vm.getUserBankAccounts();
             }
-
             $scope.editingUserBankAccount = !$scope.editingUserBankAccount;
         };
 
@@ -88,6 +88,7 @@
                 $scope.loadingUserBankAccount = false;
                 if (res.status === 200) {
                     $scope.editUserBankAccount = res.data.data;
+                    $scope.editUserBankAccount.status = $filter('capitalizeWord')(res.data.data.status);
                 }
             }).catch(function (error) {
                 $scope.loadingUserBankAccount = false;
@@ -107,6 +108,7 @@
             if(vm.token) {
                 $scope.loadingUserBankAccount = true;
                 $scope.editingUserBankAccount = !$scope.editingUserBankAccount;
+                vm.updatedUserBankAccount.status ? vm.updatedUserBankAccount.status = vm.updatedUserBankAccount.status.toLowerCase() : '';
                 $http.patch(environmentConfig.API + '/admin/users/bank-accounts/' + $scope.editUserBankAccount.id + '/',vm.updatedUserBankAccount,{
                     headers: {
                         'Content-Type': 'application/json',

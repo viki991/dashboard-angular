@@ -5,7 +5,7 @@
         .controller('UserDocumentsCtrl', UserDocumentsCtrl);
 
     /** @ngInject */
-    function UserDocumentsCtrl($scope,environmentConfig,$uibModal,$stateParams,$http,cookieManagement,errorToasts,toastr) {
+    function UserDocumentsCtrl($scope,environmentConfig,$uibModal,$stateParams,$http,cookieManagement,errorToasts,toastr,$window) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -43,6 +43,9 @@
                 resolve: {
                     document: function () {
                         return document;
+                    },
+                    uuid: function () {
+                        return vm.uuid;
                     }
                 }
             });
@@ -51,6 +54,7 @@
                 if(document){
                     vm.getUserDocuments();
                 }
+                $window.location.reload();
             }, function(){
             });
         };

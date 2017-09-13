@@ -4,14 +4,17 @@
     angular.module('BlurAdmin.pages.userDetails')
         .controller('UserDocumentModalCtrl', UserDocumentModalCtrl);
 
-    function UserDocumentModalCtrl($scope,$uibModalInstance,document,Upload,toastr,$http,$ngConfirm,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+    function UserDocumentModalCtrl($scope,$uibModalInstance,document,Upload,toastr,$http,$filter,uuid,
+                                   $ngConfirm,environmentConfig,cookieManagement,errorToasts,errorHandler) {
 
         var vm = this;
+        vm.uuid = uuid;
+        vm.updatedDocument = {};
+        vm.addressTracking = {};
+        vm.token = cookieManagement.getCookie('TOKEN');
         $scope.document = document;
         $scope.updatingDocument = false;
-        vm.token = cookieManagement.getCookie('TOKEN');
         $scope.showingDocumentFile = true;
-        vm.updatedDocument = {};
         $scope.defaultImageUrl = "/assets/img/app/placeholders/hex_grey.svg";
         if(typeof document.metadata == 'string'){
             document.metadata = JSON.parse(document.metadata)
@@ -19,10 +22,16 @@
         $scope.editDocument = {
             file: {},
             document_type: document.document_type,
-            status: document.status,
+            status: $filter('capitalizeWord')(document.status),
             note: document.note,
             metadata: document.metadata
         };
+        $scope.userInfo = {
+            status: $filter('capitalizeWord')($scope.user.status)
+        };
+        $scope.userAddresses.forEach(function (element,index) {
+            $scope.userAddresses[index].status = $filter('capitalizeWord')($scope.userAddresses[index].status)
+        });
 
         $scope.documentTypeOptions = ['Utility Bill','Bank Statement','Lease Or Rental Agreement',
             'Municipal Rate and Taxes Invoice','Mortgage Statement','Telephone or Cellular Account','Insurance Policy Document',
@@ -43,7 +52,7 @@
             'ID Confirmation Photo': 'id_confirmation',
             'Other': 'other'
         };
-        $scope.statusTypeOptions = ['verified','incomplete','pending','declined'];
+        $scope.statusTypeOptions = ['Verified','Incomplete','Pending','Declined'];
 
         $scope.kycDocumentSelected = function (field) {
             $scope.showingDocumentFile = false;
@@ -59,11 +68,12 @@
         };
 
         $scope.documentChanged = function (field) {
-            vm.updatedDocument[field] = $scope.editDocument[field]
+            vm.updatedDocument[field] = $scope.editDocument[field];
         };
 
         $scope.updateDocument = function () {
             $scope.updatingDocument = true;
+            vm.updatedDocument.status ? vm.updatedDocument.status = vm.updatedDocument.status.toLowerCase() : '';
             vm.updatedDocument['document_type'] = vm.documentTypeOptionsObj[vm.updatedDocument['document_type']];
             Upload.upload({
                 url: environmentConfig.API + '/admin/users/documents/' + $scope.document.id + '/',
@@ -76,7 +86,14 @@
                 $scope.updatingDocument = false;
                 if (res.status === 200) {
                     toastr.success('Document successfully updated');
-                    $uibModalInstance.close($scope.document);
+                    if($scope.document.document_category == 'Proof Of Address'){
+                        $scope.executeUpdateUserAddressFromDocumentModal();
+                    } else if((document.document_category == 'Proof Of Identity')
+                        || (document.document_category == 'Advanced Proof Of Identity')) {
+                        $scope.updateUserBasicInfoFromDocumentModal();
+                    } else {
+                        $uibModalInstance.close($scope.document);
+                    }
                 }
             }).catch(function (error) {
                 $scope.updatingDocument = false;
@@ -135,6 +152,58 @@
             });
         };
 
+        $scope.updateUserBasicInfoFromDocumentModal = function(){
+            if(vm.token) {
+                $http.patch(environmentConfig.API + '/admin/users/' + vm.uuid + '/',{status: $scope.userInfo.status.toLowerCase()}, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        $uibModalInstance.close($scope.document);
+                    }
+                }).catch(function (error) {
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+
+        $scope.addressStatusTracking = function (address) {
+            vm.addressTracking[address.id] = address.status;
+        };
+
+        $scope.executeUpdateUserAddressFromDocumentModal = function () {
+            var objectLength = Object.keys(vm.addressTracking).length,
+            count = 0;
+            for(var key in vm.addressTracking){
+                count = count + 1;
+                if((count + 1) == objectLength){
+                    $scope.updateUserAddressFromDocumentModal(key,vm.addressTracking[key],'last');
+                } else {
+                    $scope.updateUserAddressFromDocumentModal(key,vm.addressTracking[key]);
+                }
+            }
+        };
+
+        $scope.updateUserAddressFromDocumentModal = function(id,status,last){
+            if(vm.token) {
+                $http.patch(environmentConfig.API + '/admin/users/addresses/' + id + '/',{status: status.toLowerCase()},{
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        if(last){
+                            $uibModalInstance.close($scope.document);
+                        }
+                    }
+                }).catch(function (error) {
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
 
 
 

@@ -46,6 +46,14 @@
             }
         };
 
+        if(vm.currentLocation != '/login' && vm.currentLocation != '/verification' &&
+            vm.currentLocation != '/company/name_request' && vm.currentLocation != '/register' &&
+            vm.currentLocation != '/password/reset' && vm.currentLocation != '/authentication/multi-factor/verify/sms' &&
+            vm.currentLocation != '/authentication/multi-factor/verify/token'
+        ){
+            vm.getCompanyInfo();
+        }
+
 
         vm.getCompanyCurrencies = function(){
             if(vm.token){
@@ -65,11 +73,6 @@
                         }
                         $scope.currencies = res.data.data.results;
                         $window.sessionStorage.currenciesList = JSON.stringify(res.data.data.results);
-                        if(res.data.data.results.length == 0){
-                            // $rootScope.newUser = true;
-                        } else {
-                            // $rootScope.newUser = false;
-                        }
                     }
                 }).catch(function (error) {
                     if(error.status == 403){
@@ -80,14 +83,6 @@
                 });
             }
         };
-
-        if(vm.currentLocation != '/login' && vm.currentLocation != '/verification' &&
-            vm.currentLocation != '/company/name_request' && vm.currentLocation != '/register' &&
-            vm.currentLocation != '/password/reset' && vm.currentLocation != '/authentication/multi-factor/verify/sms' &&
-            vm.currentLocation != '/authentication/multi-factor/verify/token'
-           ){
-            vm.getCompanyInfo();
-        }
 
         $scope.selectCurrency = function(selectedCurrency){
             $rootScope.selectedCurrency = selectedCurrency;

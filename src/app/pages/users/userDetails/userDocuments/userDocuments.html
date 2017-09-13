@@ -10,7 +10,7 @@
         <tr class="pointer" ng-repeat="document in userDocuments" ng-click="openUserDocumentModal('app/pages/users/userDetails/userDocuments/userDocumentModal/userDocumentModal.html',document)">
             <th width="30%">{{document.document_category}}</th>
             <th width="30%">{{document.document_type}}</th>
-            <th width="30%">{{document.status}}</th>
+            <th width="30%">{{document.status | capitalizeWord}}</th>
         </tr>
     </table>
 </div>

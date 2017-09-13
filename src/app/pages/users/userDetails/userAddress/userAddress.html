@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <th width="50%"><strong>Status</strong></th>
-                <th>{{address.status}}</th>
+                <th>{{address.status | capitalizeWord}}</th>
             </tr>
         </table>
         <button ng-click="openUserAddressModal('app/pages/users/userDetails/userAddress/userAddressModal/userAddressModal.html','md',address)" class="btn btn-danger pull-right user-accounts-btn divider">Delete</button>

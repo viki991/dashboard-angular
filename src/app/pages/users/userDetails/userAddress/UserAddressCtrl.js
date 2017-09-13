@@ -5,21 +5,21 @@
         .controller('UserAddressCtrl', UserAddressCtrl);
 
     /** @ngInject */
-    function UserAddressCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorToasts,$uibModal,toastr) {
+    function UserAddressCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorToasts,$uibModal,toastr,$filter) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.uuid = $stateParams.uuid;
         $scope.userAddressParams = {
             country: 'US',
-            status: 'pending'
+            status: 'Pending'
         };
         vm.updatedUserAddress = {};
         $scope.loadingUserAddress = true;
         $scope.addingUserAddress = false;
         $scope.editingUserAddress = false;
         $scope.editUserAddress = {};
-        $scope.statusOptions = ['pending', 'incomplete', 'declined', 'verified'];
+        $scope.statusOptions = ['Pending', 'Incomplete', 'Declined', 'Verified'];
 
         vm.getUserAddress = function(){
             if(vm.token) {
@@ -49,6 +49,7 @@
         $scope.addUserAddress = function(userAddressParams){
             if(vm.token) {
                 userAddressParams.user = vm.uuid;
+                userAddressParams.status = userAddressParams.status.toLowerCase();
                 $scope.loadingUserAddress = true;
                 $scope.toggleAddUserAddressView();
                 $http.post(environmentConfig.API + '/admin/users/addresses/',userAddressParams,{
@@ -92,6 +93,7 @@
                 $scope.loadingUserAddress = false;
                 if (res.status === 200) {
                     $scope.editUserAddress = res.data.data;
+                    $scope.editUserAddress.status = $filter('capitalizeWord')(res.data.data.status);
                 }
             }).catch(function (error) {
                 $scope.loadingUserAddress = false;
@@ -111,6 +113,7 @@
             if(vm.token) {
                 $scope.loadingUserAddress = true;
                 $scope.editingUserAddress = !$scope.editingUserAddress;
+                vm.updatedUserAddress.status ? vm.updatedUserAddress.status = vm.updatedUserAddress.status.toLowerCase() : '';
                 $http.patch(environmentConfig.API + '/admin/users/addresses/' + $scope.editUserAddress.id + '/',vm.updatedUserAddress,{
                     headers: {
                         'Content-Type': 'application/json',

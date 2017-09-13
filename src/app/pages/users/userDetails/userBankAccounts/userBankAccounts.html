@@ -44,7 +44,7 @@
             </tr>
             <tr>
                 <th width="50%"><strong>Status</strong></th>
-                <th>{{bank.status}}</th>
+                <th>{{bank.status | capitalizeWord}}</th>
             </tr>
         </table>
         <button ng-click="openUserBankAccountModal('app/pages/users/userDetails/userBankAccounts/userBankAccountModal/userBankAccountModal.html','md',bank)" class="btn btn-danger pull-right user-accounts-btn divider">Delete</button>

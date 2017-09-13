@@ -5,7 +5,7 @@
         .controller('UserBasicInfoCtrl', UserBasicInfoCtrl);
 
     /** @ngInject */
-    function UserBasicInfoCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorToasts,toastr) {
+    function UserBasicInfoCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorToasts,toastr,$filter) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -19,7 +19,7 @@
             month: '',
             day: ''
         };
-        $scope.statusOptions = ['pending', 'incomplete', 'declined', 'verified'];
+        $scope.statusOptions = ['Pending', 'Incomplete', 'Declined', 'Verified'];
 
         vm.getUser = function(){
             if(vm.token) {
@@ -80,6 +80,7 @@
                             };
                         }
                         $scope.editUserBasicInfo = res.data.data;
+                        $scope.editUserBasicInfo.status = $filter('capitalizeWord')(res.data.data.status);
                     }
                 }).catch(function (error) {
                     $scope.loadingUserBasicInfo = false;
@@ -98,6 +99,7 @@
                 vm.updatedUserBasicInfo.birth_date = $scope.birthDate.year + '-' + $scope.birthDate.month + '-' + $scope.birthDate.day;
             }
 
+            vm.updatedUserBasicInfo.status ? vm.updatedUserBasicInfo.status = vm.updatedUserBasicInfo.status.toLowerCase() : '';
             if(vm.token) {
                 $scope.loadingUserBasicInfo = true;
                 $http.patch(environmentConfig.API + '/admin/users/' + vm.uuid + '/',vm.updatedUserBasicInfo, {
