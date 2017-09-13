@@ -175,14 +175,20 @@
 
         $scope.executeUpdateUserAddressFromDocumentModal = function () {
             var objectLength = Object.keys(vm.addressTracking).length,
-            count = 0;
-            for(var key in vm.addressTracking){
-                count = count + 1;
-                if((count + 1) == objectLength){
-                    $scope.updateUserAddressFromDocumentModal(key,vm.addressTracking[key],'last');
-                } else {
-                    $scope.updateUserAddressFromDocumentModal(key,vm.addressTracking[key]);
+                count = 0;
+
+            console.log(objectLength)
+            if(objectLength > 0){
+                for(var key in vm.addressTracking){
+                    if((count + 1) == objectLength){
+                        $scope.updateUserAddressFromDocumentModal(key,vm.addressTracking[key],'last');
+                    } else {
+                        $scope.updateUserAddressFromDocumentModal(key,vm.addressTracking[key]);
+                    }
+                    count = count + 1;
                 }
+            } else {
+                $uibModalInstance.close($scope.document);
             }
         };
 

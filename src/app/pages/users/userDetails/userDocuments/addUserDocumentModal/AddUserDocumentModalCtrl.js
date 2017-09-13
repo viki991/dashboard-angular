@@ -14,7 +14,7 @@
         $scope.userDocumentParams = {
             file: {},
             document_type: 'Utility Bill',
-            status: 'verified'
+            status: 'Verified'
         };
         $scope.documentSelected = false;
         $scope.documentTypeOptions = ['Utility Bill','Bank Statement','Lease Or Rental Agreement',
@@ -36,12 +36,13 @@
             'ID Confirmation Photo': 'id_confirmation',
             'Other': 'other'
         };
-        $scope.statusTypeOptions = ['verified','incomplete','pending','declined'];
+        $scope.statusTypeOptions = ['Verified','Incomplete','Pending','Declined'];
 
 
         $scope.addDocument = function () {
             $scope.addingDocument = true;
             $scope.userDocumentParams.user = vm.uuid;
+            $scope.userDocumentParams.status = $scope.userDocumentParams.status.toLowerCase();
             $scope.userDocumentParams['document_type'] = vm.documentTypeOptionsObj[$scope.userDocumentParams['document_type']];
             Upload.upload({
                 url: environmentConfig.API + '/admin/users/documents/',

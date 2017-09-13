@@ -54,6 +54,7 @@
                 if(document){
                     vm.getUserDocuments();
                 }
+                console.log('hello');
                 $window.location.reload();
             }, function(){
             });
