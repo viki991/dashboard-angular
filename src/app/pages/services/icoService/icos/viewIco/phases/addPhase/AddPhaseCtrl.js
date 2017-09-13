@@ -47,7 +47,7 @@
 
             if($scope.createPhaseParams.base_rate){
                 if(currencyModifiers.validateCurrency($scope.createPhaseParams.base_rate,$scope.icoObj.base_currency.divisibility)){
-                    createPhaseParams.base_rate = parseInt(currencyModifiers.convertToCents($scope.createPhaseParams.base_rate,$scope.icoObj.base_currency.divisibility));
+                    createPhaseParams.base_rate = currencyModifiers.convertToCents($scope.createPhaseParams.base_rate,$scope.icoObj.base_currency.divisibility);
                 } else {
                     toastr.error('Please input base rate to ' + $scope.icoObj.base_currency.divisibility + ' decimal places');
                     return;

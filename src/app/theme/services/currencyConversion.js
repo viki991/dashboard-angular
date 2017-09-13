@@ -7,14 +7,24 @@
         .filter('preciseRound',preciseRound);
 
     /** @ngInject */
-    function currencyModifiers() {
+    function currencyModifiers(Big) {
 
         return {
             convertToCents: function (amount,divisibility) {
-                return  (+amount * Math.pow(10,divisibility)).toFixed(2);
+                var x = new Big(amount);
+                var z = new Big(10);
+                z = z.pow(divisibility);
+                z = z.toFixed(0);
+                var m = x.times(z);
+                return  m.toFixed(0);
             },
             convertFromCents: function (amount,divisibility) {
-                return  (amount / Math.pow(10,divisibility)).toFixed(divisibility);
+                var j = new Big(amount);
+                var l = new Big(10);
+                l = l.pow(divisibility);
+                l = l.toFixed(0);
+                var n = j.div(l);
+                return n.toFixed(divisibility);
             },
             validateCurrency: function (amount,divisibility) {
                 var amountInArray = amount.toString().split('.');

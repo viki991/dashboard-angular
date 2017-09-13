@@ -11,7 +11,7 @@
     /** @ngInject */
     function capitalizeWord() {
         return function(text) {
-            if(!text){
+            if(text == undefined || text == null){
                 return;
             }
             text = text.toString();

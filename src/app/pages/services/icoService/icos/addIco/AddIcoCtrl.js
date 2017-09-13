@@ -55,9 +55,9 @@
                 exchange_provider: $scope.icoParams.exchange_provider,
                 base_currency: $scope.icoParams.base_currency.code,
                 base_goal_amount: '',
-                min_purchase_amount: '',
-                max_purchase_amount: '',
-                max_purchases: $scope.icoParams.max_purchases,
+                min_purchase_amount: 0,
+                max_purchase_amount: 0,
+                max_purchases: $scope.icoParams.max_purchases || 10,
                 public: $scope.icoParams.public,
                 enabled: $scope.icoParams.enabled
             };
@@ -65,7 +65,7 @@
 
             if($scope.icoParams.amount){
                 if(currencyModifiers.validateCurrency($scope.icoParams.amount,$scope.icoParams.currency.divisibility)){
-                    addIcoObj.amount = parseInt(currencyModifiers.convertToCents($scope.icoParams.amount,$scope.icoParams.currency.divisibility));
+                    addIcoObj.amount = currencyModifiers.convertToCents($scope.icoParams.amount,$scope.icoParams.currency.divisibility);
                 } else {
                     toastr.error('Please input amount to ' + $scope.icoParams.currency.divisibility + ' decimal places');
                     return;
@@ -74,7 +74,7 @@
 
             if($scope.icoParams.min_purchase_amount){
                 if(currencyModifiers.validateCurrency($scope.icoParams.min_purchase_amount,$scope.icoParams.currency.divisibility)){
-                    addIcoObj.min_purchase_amount = parseInt(currencyModifiers.convertToCents($scope.icoParams.min_purchase_amount,$scope.icoParams.currency.divisibility));
+                    addIcoObj.min_purchase_amount = currencyModifiers.convertToCents($scope.icoParams.min_purchase_amount,$scope.icoParams.currency.divisibility);
                 } else {
                     toastr.error('Please input min purchase amount to ' + $scope.icoParams.currency.divisibility + ' decimal places');
                     return;
@@ -83,7 +83,7 @@
 
             if($scope.icoParams.max_purchase_amount){
                 if(currencyModifiers.validateCurrency($scope.icoParams.max_purchase_amount,$scope.icoParams.currency.divisibility)){
-                    addIcoObj.max_purchase_amount = parseInt(currencyModifiers.convertToCents($scope.icoParams.max_purchase_amount,$scope.icoParams.currency.divisibility));
+                    addIcoObj.max_purchase_amount = currencyModifiers.convertToCents($scope.icoParams.max_purchase_amount,$scope.icoParams.currency.divisibility);
                 } else {
                     toastr.error('Please input max purchase amount to ' + $scope.icoParams.currency.divisibility + ' decimal places');
                     return;
@@ -92,7 +92,7 @@
 
             if($scope.icoParams.base_goal_amount){
                 if(currencyModifiers.validateCurrency($scope.icoParams.base_goal_amount,$scope.icoParams.base_currency.divisibility)){
-                    addIcoObj.base_goal_amount = parseInt(currencyModifiers.convertToCents($scope.icoParams.base_goal_amount,$scope.icoParams.base_currency.divisibility));
+                    addIcoObj.base_goal_amount = currencyModifiers.convertToCents($scope.icoParams.base_goal_amount,$scope.icoParams.base_currency.divisibility);
                 } else {
                     toastr.error('Please input base goal amount to ' + $scope.icoParams.base_currency.divisibility + ' decimal places');
                     return;

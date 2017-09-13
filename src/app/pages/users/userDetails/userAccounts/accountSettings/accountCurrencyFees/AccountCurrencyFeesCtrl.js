@@ -107,7 +107,7 @@
         $scope.addAccountCurrencyFee = function(accountCurrencyFeesParams){
             if(accountCurrencyFeesParams.value) {
                 if (currencyModifiers.validateCurrency(accountCurrencyFeesParams.value, $scope.currencyObj.divisibility)) {
-                    accountCurrencyFeesParams.value = parseInt(currencyModifiers.convertToCents(accountCurrencyFeesParams.value, $scope.currencyObj.divisibility));
+                    accountCurrencyFeesParams.value = currencyModifiers.convertToCents(accountCurrencyFeesParams.value, $scope.currencyObj.divisibility);
                 } else {
                     toastr.error('Please input amount to ' + $scope.currencyObj.divisibility + ' decimal places');
                     return;
@@ -160,7 +160,7 @@
 
             if($scope.editAccountCurrencyFee.value){
                 if(currencyModifiers.validateCurrency($scope.editAccountCurrencyFee.value,$scope.currencyObj.divisibility)){
-                    vm.updatedAccountCurrencyFee.value = parseInt(currencyModifiers.convertToCents($scope.editAccountCurrencyFee.value,$scope.currencyObj.divisibility));
+                    vm.updatedAccountCurrencyFee.value = currencyModifiers.convertToCents($scope.editAccountCurrencyFee.value,$scope.currencyObj.divisibility);
                 } else {
                     toastr.error('Please input amount to ' + $scope.currencyObj.divisibility + ' decimal places');
                     return;
