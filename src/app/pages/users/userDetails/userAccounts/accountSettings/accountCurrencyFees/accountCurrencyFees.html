@@ -9,8 +9,8 @@
         </tr>
         <tr ng-repeat="accountCurrencyFee in accountCurrencyFeesList">
             <td class="table-row-center transactions-list-element" title="{{accountCurrencyFee.tx_type | capitalizeWord}}" ng-bind="accountCurrencyFee.tx_type | capitalizeWord | limitTo: '35'"></td>
-            <td class="table-row-center transactions-list-element" title="{{accountCurrencyFee.value | currencyModifiersFilter: currencyObj.divisibility | preciseRound: currencyObj.divisibility}}"
-                ng-bind="accountCurrencyFee.value | currencyModifiersFilter: currencyObj.divisibility | preciseRound: currencyObj.divisibility"></td>
+            <td class="table-row-center transactions-list-element" title="{{accountCurrencyFee.value | currencyModifiersFilter: currencyObj.divisibility}}"
+                ng-bind="accountCurrencyFee.value | currencyModifiersFilter: currencyObj.divisibility"></td>
             <td class="table-row-center transactions-list-element" title="{{accountCurrencyFee.percentage}}" ng-bind="accountCurrencyFee.percentage ? accountCurrencyFee.percentage + '%' : 'None'"></td>
             <td class="table-row-center transactions-list-element" title="{{accountCurrencyFee.subtype ? accountCurrencyFee.subtype : 'None'}}" ng-bind="accountCurrencyFee.subtype ? accountCurrencyFee.subtype : 'None'| limitTo: '35'"></td>
             <td class="rehive-table-row-last-child">

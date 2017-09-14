@@ -51,7 +51,7 @@
                 <p><strong>Deposit amount: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="purchase.quote.deposit_amount  | currencyModifiersFilter: purchase.quote.deposit_currency.divisibility | preciseRound: purchase.quote.deposit_currency.divisibility">
+                <p ng-bind="purchase.quote.deposit_amount  | currencyModifiersFilter: purchase.quote.deposit_currency.divisibility">
             </div>
         </div>
         <div class="row">
@@ -67,7 +67,7 @@
                 <p><strong>Token amount: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="purchase.quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility"></p>
+                <p ng-bind="purchase.quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility"></p>
             </div>
         </div>
         <div class="row">
@@ -75,7 +75,7 @@
                 <p><strong>Rate: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="purchase.quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility"></p>
+                <p ng-bind="purchase.quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility"></p>
             </div>
         </div>
         <div class="row">

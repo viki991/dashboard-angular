@@ -25,8 +25,8 @@
                     $scope.editingIco =  false;
                     if (res.status === 200) {
                         $scope.editIcoObj = res.data.data;
-                        $scope.editIcoObj.min_purchase_amount = $filter('preciseRound')($filter('currencyModifiersFilter')($scope.editIcoObj.min_purchase_amount,$scope.editIcoObj.currency.divisibility),$scope.editIcoObj.currency.divisibility);
-                        $scope.editIcoObj.max_purchase_amount = $filter('preciseRound')($filter('currencyModifiersFilter')($scope.editIcoObj.max_purchase_amount,$scope.editIcoObj.currency.divisibility),$scope.editIcoObj.currency.divisibility);
+                        $scope.editIcoObj.min_purchase_amount = $filter('currencyModifiersFilter')($scope.editIcoObj.min_purchase_amount,$scope.editIcoObj.currency.divisibility);
+                        $scope.editIcoObj.max_purchase_amount = $filter('currencyModifiersFilter')($scope.editIcoObj.max_purchase_amount,$scope.editIcoObj.currency.divisibility);
                     }
                 }).catch(function (error) {
                     $scope.editingIco =  false;

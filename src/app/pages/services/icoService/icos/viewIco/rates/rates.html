@@ -9,8 +9,8 @@
             class="editable-row center">
             <td><div title="{{rate.currency.code}}"
                      ng-bind="rate.currency.code"></div></td>
-            <td><div title="{{rate.rate  | currencyModifiersFilter: rate.currency.divisibility | preciseRound: rate.currency.divisibility}}"
-                     ng-bind="rate.rate  | currencyModifiersFilter: rate.currency.divisibility | preciseRound: rate.currency.divisibility"></div></td>
+            <td><div title="{{rate.rate  | currencyModifiersFilter: rate.currency.divisibility}}"
+                     ng-bind="rate.rate  | currencyModifiersFilter: rate.currency.divisibility"></div></td>
             <td><div title="{{rate.created | date:'mediumDate'}} {{rate.created | date:'shortTime'}}">
                 {{rate.created | date:'mediumDate'}} {{rate.created | date:'shortTime'}}</div></td>
         </tr>

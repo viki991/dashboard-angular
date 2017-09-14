@@ -11,8 +11,8 @@
 
             <tr ng-repeat="acc in account.currencies">
                 <td class="user-accounts-list-element" ng-bind="acc.currency.code"></td>
-                <td class="user-accounts-list-element" title="{{acc.balance  | currencyModifiersFilter: acc.currency.divisibility | preciseRound: acc.currency.divisibility}}"
-                    ng-bind="acc.balance  | currencyModifiersFilter: acc.currency.divisibility | preciseRound: acc.currency.divisibility">
+                <td class="user-accounts-list-element" title="{{acc.balance  | currencyModifiersFilter: acc.currency.divisibility}}"
+                    ng-bind="acc.balance  | currencyModifiersFilter: acc.currency.divisibility">
                 </td>
                 <td class="rehive-table-row-last-child">
                     <button ng-click="goToSettings(acc.currency.code,account.reference)"

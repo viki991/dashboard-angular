@@ -54,7 +54,7 @@
                 <p><strong>Amount: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="transaction.amount  | currencyModifiersFilter: transaction.currency.divisibility | preciseRound: transaction.currency.divisibility"></p>
+                <p ng-bind="transaction.amount  | currencyModifiersFilter: transaction.currency.divisibility"></p>
             </div>
         </div>
         <div class="row">
@@ -62,7 +62,7 @@
                 <p><strong>Fee: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="transaction.fee | currencyModifiersFilter: transaction.currency.divisibility | preciseRound: transaction.currency.divisibility"></p>
+                <p ng-bind="transaction.fee | currencyModifiersFilter: transaction.currency.divisibility"></p>
             </div>
         </div>
         <div class="row">
@@ -86,7 +86,7 @@
                 <p><strong>Balance: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="transaction.balance | currencyModifiersFilter: transaction.currency.divisibility | preciseRound: transaction.currency.divisibility"></p>
+                <p ng-bind="transaction.balance | currencyModifiersFilter: transaction.currency.divisibility"></p>
             </div>
         </div>
         <div class="row">

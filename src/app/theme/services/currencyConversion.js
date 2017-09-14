@@ -3,8 +3,7 @@
 
     angular.module('BlurAdmin.theme')
         .service('currencyModifiers', currencyModifiers)
-        .filter('currencyModifiersFilter', currencyModifiersFilter)
-        .filter('preciseRound',preciseRound);
+        .filter('currencyModifiersFilter', currencyModifiersFilter);
 
     /** @ngInject */
     function currencyModifiers(Big) {
@@ -42,29 +41,15 @@
             if(!amount){
                 amount = 0;
             }
-            return  amount / Math.pow(10,divisibility);
-        }
-    }
-
-
-    function preciseRound(){
-        return function (num,decimals){
-            if(!num){
-                num = 0;
+            if(!divisibility){
+                return;
             }
-            var numString,numStringAfterDecimal,finalString,indexOfDot,diff;
-            num = num.toFixed(decimals);
-            numString = num.toString();
-            indexOfDot = numString.indexOf('.');
-            if(indexOfDot > 0) {
-                numStringAfterDecimal = numString.slice(indexOfDot + 1);
-                diff = decimals - numStringAfterDecimal.length;
-                finalString = numString + '0'.repeat(diff);
-            } else {
-                finalString = numString + '.' + '0'.repeat(decimals);
-            }
-
-            return finalString;
+            var q = new Big(amount);
+            var w = new Big(10);
+            w = w.pow(divisibility);
+            w = w.toFixed(0);
+            var e = q.div(w)
+            return e.toFixed(divisibility);
         }
     }
 

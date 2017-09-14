@@ -18,11 +18,11 @@
             class="editable-row center pointer">
             <td><div title="{{ico.currency.code}}"
                      ng-bind="ico.currency.code"></div></td>
-            <td><div title="{{ico.amount  | currencyModifiersFilter: ico.currency.divisibility | preciseRound: ico.currency.divisibility}}"
-                     ng-bind="ico.amount  | currencyModifiersFilter: ico.currency.divisibility | preciseRound: ico.currency.divisibility"></div></td>
+            <td><div title="{{ico.amount  | currencyModifiersFilter: ico.currency.divisibility}}"
+                     ng-bind="ico.amount  | currencyModifiersFilter: ico.currency.divisibility"></div></td>
             <td><div title="{{ico.base_currency.code}}" ng-bind="ico.base_currency.code"></div></td>
-            <td><div title="{{ico.base_goal_amount  | currencyModifiersFilter: ico.base_currency.divisibility | preciseRound: ico.base_currency.divisibility}}"
-                     ng-bind="ico.base_goal_amount  | currencyModifiersFilter: ico.base_currency.divisibility | preciseRound: ico.base_currency.divisibility"></div></td>
+            <td><div title="{{ico.base_goal_amount  | currencyModifiersFilter: ico.base_currency.divisibility}}"
+                     ng-bind="ico.base_goal_amount  | currencyModifiersFilter: ico.base_currency.divisibility"></div></td>
             <td><div title="{{ico.exchange_provider || 'None'}}"
                      ng-bind="ico.exchange_provider || 'None' | limitTo: 18"></div></td>
             <td><div title="{{ico.enabled}}"

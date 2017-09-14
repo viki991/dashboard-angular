@@ -22,7 +22,6 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingPhases =  false;
                     if (res.status === 200) {
                         $scope.ico = res.data.data;
                     }

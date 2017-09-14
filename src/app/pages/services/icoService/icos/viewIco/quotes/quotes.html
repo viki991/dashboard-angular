@@ -15,14 +15,14 @@
             class="editable-row center pointer">
             <td class="table-row-center transactions-list-element" title="{{quote.user}}" ng-bind="quote.user"></td>
             <td class="table-row-center transactions-list-element"  title="{{quote.phase}}" ng-bind="quote.phase"></td>
-            <td class="table-row-center transactions-list-element" title="{{quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility | preciseRound: quote.deposit_currency.divisibility}}"
-                ng-bind="quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility | preciseRound: quote.deposit_currency.divisibility"></td>
+            <td class="table-row-center transactions-list-element" title="{{quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility}}"
+                ng-bind="quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility"></td>
             <td class="table-row-center transactions-list-element" title="{{quote.deposit_currency.code}}"
                 ng-bind="quote.deposit_currency.code"></td>
-            <td class="table-row-center transactions-list-element" title="{{quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility}}"
-                ng-bind="quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility"></td>
-            <td class="table-row-center transactions-list-element" title="{{quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility}}"
-                ng-bind="quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility | preciseRound: icoObj.currency.divisibility"></td>
+            <td class="table-row-center transactions-list-element" title="{{quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility}}"
+                ng-bind="quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility"></td>
+            <td class="table-row-center transactions-list-element" title="{{quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility}}"
+                ng-bind="quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility"></td>
             <td class="table-row-center transactions-list-element" title="{{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}">
                 {{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}</td>
         </tr>

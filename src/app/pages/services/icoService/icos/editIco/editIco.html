@@ -7,7 +7,7 @@
         </div>
         <div class="form-group">
             <label><strong>Amount</strong> <span class="required-icon">*</span></label>
-            <p type="text" ng-bind="editIcoObj.amount | currencyModifiersFilter: editIcoObj.currency.divisibility | preciseRound: editIcoObj.currency.divisibility" class="form-control"  placeholder="Enter amount" disabled>
+            <p type="text" ng-bind="editIcoObj.amount | currencyModifiersFilter: editIcoObj.currency.divisibility" class="form-control"  placeholder="Enter amount" disabled>
         </div>
         <div class="form-group">
             <label><strong>Base currency</strong> <span class="required-icon">*</span></label>
@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
             <label><strong>Base goal amount</strong> <span class="required-icon">*</span></label>
-            <p type="text" ng-bind="editIcoObj.base_goal_amount | currencyModifiersFilter: editIcoObj.base_currency.divisibility | preciseRound: editIcoObj.base_currency.divisibility" class="form-control"  placeholder="Enter amount" disabled></p>
+            <p type="text" ng-bind="editIcoObj.base_goal_amount | currencyModifiersFilter: editIcoObj.base_currency.divisibility" class="form-control"  placeholder="Enter amount" disabled></p>
         </div>
         <div class="form-group">
             <label><strong>Min purchase amount</strong></label>
