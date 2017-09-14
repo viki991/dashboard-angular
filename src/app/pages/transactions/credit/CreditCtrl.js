@@ -5,8 +5,8 @@
         .controller('CreditCtrl', CreditCtrl);
 
     /** @ngInject */
-    function CreditCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,toastr,
-                        errorToasts,errorHandler,sharedResources,$location,$state,currencyModifiers,typeaheadService) {
+    function CreditCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,toastr,_,
+                        errorToasts,sharedResources,$location,$state,currencyModifiers,typeaheadService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -124,10 +124,6 @@
                 }
             }).catch(function (error) {
                 $scope.onGoingTransaction = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         }

@@ -119,16 +119,13 @@
                         if(res.data.data.results.length == 0){
                             $location.path('currency/add/initial');
                         } else {
-                            $rootScope.intialCurrency = true
+                            $rootScope.intialCurrency = true;
                             $location.path('/home');
                         }
                         $rootScope.$pageFinishedLoading = true;
                     }
                 }).catch(function (error) {
-                    if(error.status == 403){
-                        errorHandler.handle403();
-                        return
-                    }
+                    $rootScope.$pageFinishedLoading = true;
                     errorToasts.evaluateErrors(error.data);
                 });
             }

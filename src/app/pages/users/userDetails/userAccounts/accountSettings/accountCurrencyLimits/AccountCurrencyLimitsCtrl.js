@@ -5,7 +5,7 @@
         .controller('AccountCurrencyLimitsCtrl', AccountCurrencyLimitsCtrl);
 
     /** @ngInject */
-    function AccountCurrencyLimitsCtrl($window,$scope,$stateParams,$http,$uibModal,environmentConfig,
+    function AccountCurrencyLimitsCtrl($window,$scope,$stateParams,$http,$uibModal,environmentConfig,_,
                                        sharedResources,cookieManagement,errorToasts,currencyModifiers,toastr) {
 
         var vm = this;
@@ -77,10 +77,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingAccountCurrencyLimits = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

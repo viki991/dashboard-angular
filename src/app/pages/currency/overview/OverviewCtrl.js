@@ -5,7 +5,7 @@
         .controller('OverviewCtrl', OverviewCtrl);
 
     /** @ngInject */
-    function OverviewCtrl($rootScope,$scope,$location,cookieManagement,environmentConfig,$http,errorToasts,errorHandler) {
+    function OverviewCtrl($rootScope,$scope,$location,cookieManagement,environmentConfig,$http,errorToasts) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -35,10 +35,6 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingCurrencies = false;
-                    if(error.status == 403){
-                        errorHandler.handle403();
-                        return;
-                    }
                     errorToasts.evaluateErrors(error.data);
                 });
             }
@@ -59,10 +55,6 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingCurrencies = false;
-                    if(error.status == 403){
-                        errorHandler.handle403();
-                        return;
-                    }
                     errorToasts.evaluateErrors(error.data);
                 });
             }

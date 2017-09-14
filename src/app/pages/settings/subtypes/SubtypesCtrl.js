@@ -5,7 +5,7 @@
         .controller('SubtypesCtrl', SubtypesCtrl);
 
     /** @ngInject */
-    function SubtypesCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorToasts,$window,errorHandler) {
+    function SubtypesCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorToasts,$window) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -42,10 +42,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingSubtypes = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };
@@ -89,10 +85,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingSubtypes = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };
@@ -120,10 +112,6 @@
             }).catch(function (error) {
                 $scope.loadingSubtypes = false;
                 vm.updatedSubtype = {};
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

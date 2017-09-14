@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.currency.settings.tierSwitches')
         .controller('TierSwitchesModalCtrl', TierSwitchesModalCtrl);
 
-    function TierSwitchesModalCtrl($scope,$uibModalInstance,tierSwitch,selectedTier,toastr,$http,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+    function TierSwitchesModalCtrl($scope,$uibModalInstance,tierSwitch,selectedTier,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
 
         var vm = this;
 
@@ -28,10 +28,6 @@
                 }
             }).catch(function (error) {
                 $scope.deletingTierSwitches = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

@@ -5,7 +5,7 @@
         .controller('TierSwitchesCtrl', TierSwitchesCtrl);
 
     /** @ngInject */
-    function TierSwitchesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,
+    function TierSwitchesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,_,
                               sharedResources,$timeout,errorToasts,toastr,$uibModal) {
 
         var vm = this;
@@ -75,10 +75,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingTierSwitches = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

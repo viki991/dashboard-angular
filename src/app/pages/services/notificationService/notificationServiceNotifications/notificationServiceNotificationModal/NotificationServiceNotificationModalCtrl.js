@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.services.notificationService.listNotificationServiceNotifications')
         .controller('NotificationServiceNotificationModalCtrl', NotificationServiceNotificationModalCtrl);
 
-    function NotificationServiceNotificationModalCtrl($scope,$uibModalInstance,notification,toastr,$http,cookieManagement,errorToasts,errorHandler) {
+    function NotificationServiceNotificationModalCtrl($scope,$uibModalInstance,notification,toastr,$http,cookieManagement,errorToasts) {
 
         var vm = this;
 
@@ -29,10 +29,6 @@
                 }
             }).catch(function (error) {
                 $scope.deletingNotification = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

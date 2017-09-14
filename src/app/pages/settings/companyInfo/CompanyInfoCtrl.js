@@ -5,7 +5,7 @@
         .controller('CompanyInfoCtrl', CompanyInfoCtrl);
 
     /** @ngInject */
-    function CompanyInfoCtrl($scope,environmentConfig,$rootScope,toastr,$http,cookieManagement,errorToasts,_,errorHandler) {
+    function CompanyInfoCtrl($scope,environmentConfig,$rootScope,toastr,$http,cookieManagement,errorToasts,_) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -77,10 +77,6 @@
             }).catch(function (error) {
                 $scope.loadingCompanyInfo = false;
                 vm.updatedCompanyInfo = {};
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

@@ -74,7 +74,7 @@
         vm.getPermissions = function () {
             if(vm.token) {
                 $scope.loadingPermissions = true;
-                $http.get(environmentConfig.API + '/admin/permission-groups/' + vm.permissionGroupName + '/permissions/', {
+                $http.get(environmentConfig.API + '/admin/permission-groups/' + vm.permissionGroupName + '/permissions/?page_size=200', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token

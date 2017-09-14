@@ -5,7 +5,7 @@
         .controller('HistoryCtrl', HistoryCtrl);
 
     /** @ngInject */
-    function HistoryCtrl($scope,environmentConfig,$http,cookieManagement,$uibModal,errorToasts,$state,$window,errorHandler,typeaheadService) {
+    function HistoryCtrl($scope,environmentConfig,$http,cookieManagement,$uibModal,errorToasts,$state,$window,typeaheadService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -96,10 +96,6 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTransactions = false;
-                    if (error.status == 403) {
-                        errorHandler.handle403();
-                        return
-                    }
                     $scope.transactionsStateMessage = 'Failed to load data';
                     errorToasts.evaluateErrors(error.data);
                 });

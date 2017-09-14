@@ -5,7 +5,7 @@
         .controller('AccountInfoCtrl', AccountInfoCtrl);
 
     /** @ngInject */
-    function AccountInfoCtrl($scope,environmentConfig,errorHandler,$http,cookieManagement,errorToasts,toastr,$location) {
+    function AccountInfoCtrl($scope,environmentConfig,$http,cookieManagement,errorToasts,toastr,$location) {
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.loadingAccountInfo = true;
@@ -53,10 +53,6 @@
             }).catch(function (error) {
                 vm.updatedAdministrator = {};
                 $scope.loadingAccountInfo = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

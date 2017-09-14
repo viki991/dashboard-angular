@@ -39,6 +39,9 @@
 
     function currencyModifiersFilter(){
         return function (amount,divisibility){
+            if(!amount){
+                amount = 0;
+            }
             return  amount / Math.pow(10,divisibility);
         }
     }
@@ -46,6 +49,9 @@
 
     function preciseRound(){
         return function (num,decimals){
+            if(!num){
+                num = 0;
+            }
             var numString,numStringAfterDecimal,finalString,indexOfDot,diff;
             num = num.toFixed(decimals);
             numString = num.toString();

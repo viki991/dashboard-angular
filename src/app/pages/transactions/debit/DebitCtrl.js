@@ -5,8 +5,8 @@
         .controller('DebitCtrl', DebitCtrl);
 
     /** @ngInject */
-    function DebitCtrl($rootScope, $scope, $http, environmentConfig,
-                       cookieManagement, toastr, errorToasts, errorHandler,
+    function DebitCtrl($rootScope, $scope, $http, environmentConfig,_,
+                       cookieManagement, toastr, errorToasts,
                        $location, $state,sharedResources,currencyModifiers,typeaheadService) {
 
         var vm = this;
@@ -122,10 +122,6 @@
                 }
             }).catch(function (error) {
                 $scope.onGoingTransaction = false;
-                if (error.status == 403) {
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         }

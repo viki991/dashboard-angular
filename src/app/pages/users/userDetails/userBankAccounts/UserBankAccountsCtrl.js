@@ -92,10 +92,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserBankAccount = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

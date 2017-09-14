@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.webhooks.transactionWebhooks')
         .controller('TransactionWebhooksModalCtrl', TransactionWebhooksModalCtrl);
 
-    function TransactionWebhooksModalCtrl($scope,$uibModalInstance,transactionWebhook,toastr,$http,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+    function TransactionWebhooksModalCtrl($scope,$uibModalInstance,transactionWebhook,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
 
         var vm = this;
 
@@ -27,10 +27,6 @@
                 }
             }).catch(function (error) {
                 $scope.deletingTransactionWebhook = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

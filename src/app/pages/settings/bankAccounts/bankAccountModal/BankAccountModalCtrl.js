@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.settings.bankAccounts')
         .controller('BankAccountModalCtrl', BankAccountModalCtrl);
 
-    function BankAccountModalCtrl($scope,$uibModalInstance,bankAccount,toastr,$http,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+    function BankAccountModalCtrl($scope,$uibModalInstance,bankAccount,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
 
         var vm= this;
 
@@ -28,10 +28,6 @@
                 }
             }).catch(function (error) {
                 $scope.deletingBankAccount = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

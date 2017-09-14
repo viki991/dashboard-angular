@@ -5,7 +5,7 @@
         .controller('TierFeesCtrl', TierFeesCtrl);
 
     /** @ngInject */
-    function TierFeesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,
+    function TierFeesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,_,
                           sharedResources,$timeout,errorToasts,toastr,$uibModal,currencyModifiers) {
 
         var vm = this;
@@ -72,10 +72,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingTierFees = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

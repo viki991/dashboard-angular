@@ -5,7 +5,7 @@
         .controller('NotificationsCtrl', NotificationsCtrl);
 
     /** @ngInject */
-    function NotificationsCtrl($scope,environmentConfig,toastr,$http,cookieManagement,errorToasts,errorHandler) {
+    function NotificationsCtrl($scope,environmentConfig,toastr,$http,cookieManagement,errorToasts) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -46,10 +46,6 @@
                 }
             }).catch(function (error) {
               $scope.loadingCompanyNotifications = false;
-                if (error.status == 403) {
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         }

@@ -5,7 +5,7 @@
         .controller('TierLimitsCtrl', TierLimitsCtrl);
 
     /** @ngInject */
-    function TierLimitsCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,
+    function TierLimitsCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,_,
                             sharedResources,$timeout,errorToasts,toastr,$uibModal,currencyModifiers) {
 
         var vm = this;
@@ -74,10 +74,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingTierLimits = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

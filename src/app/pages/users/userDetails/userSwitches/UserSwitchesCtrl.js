@@ -5,7 +5,7 @@
         .controller('UserSwitchesCtrl', UserSwitchesCtrl);
 
     /** @ngInject */
-    function UserSwitchesCtrl($scope,environmentConfig,$stateParams,$http,
+    function UserSwitchesCtrl($scope,environmentConfig,$stateParams,$http,_,
                               sharedResources,cookieManagement,errorToasts,toastr,$uibModal) {
 
         var vm = this;
@@ -130,10 +130,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserSwitches = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

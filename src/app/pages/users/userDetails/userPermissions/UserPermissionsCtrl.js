@@ -135,10 +135,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserPermissions = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.accountSettings.accountCurrencyLimits')
         .controller('AccountCurrencyLimitsModalCtrl', AccountCurrencyLimitsModalCtrl);
 
-    function AccountCurrencyLimitsModalCtrl($scope,$uibModalInstance,accountCurrencyLimit,currencyCode,reference,toastr,$http,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+    function AccountCurrencyLimitsModalCtrl($scope,$uibModalInstance,accountCurrencyLimit,currencyCode,reference,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
 
         var vm = this;
         vm.currencyCode = currencyCode;
@@ -28,10 +28,6 @@
                 }
             }).catch(function (error) {
                 $scope.deletingAccountCurrencyLimits = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

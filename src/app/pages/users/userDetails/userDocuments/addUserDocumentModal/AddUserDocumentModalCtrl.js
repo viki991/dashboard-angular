@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.userDetails')
         .controller('AddUserDocumentModalCtrl', AddUserDocumentModalCtrl);
 
-    function AddUserDocumentModalCtrl($scope,uuid,$uibModalInstance,toastr,Upload,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+    function AddUserDocumentModalCtrl($scope,uuid,$uibModalInstance,toastr,Upload,environmentConfig,cookieManagement,errorToasts) {
 
         var vm = this;
 
@@ -59,10 +59,6 @@
                 }
             }).catch(function (error) {
                 $scope.addingDocument = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

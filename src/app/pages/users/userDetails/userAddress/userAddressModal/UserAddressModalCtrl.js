@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.userDetails')
         .controller('UserAddressModalCtrl', UserAddressModalCtrl);
 
-    function UserAddressModalCtrl($scope,$uibModalInstance,address,toastr,$http,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+    function UserAddressModalCtrl($scope,$uibModalInstance,address,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
 
         var vm = this;
 
@@ -27,10 +27,6 @@
                 }
             }).catch(function (error) {
                 $scope.deletingUserAddress = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

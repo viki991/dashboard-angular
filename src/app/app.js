@@ -16,7 +16,7 @@ angular.module('BlurAdmin', [
     'BlurAdmin.pages'
 ])
 
-    .run(function($cookies,$rootScope,cookieManagement,$state,$stateParams,errorHandler,errorToasts,
+    .run(function($cookies,$rootScope,cookieManagement,$state,$stateParams,errorToasts,
                   userVerification,$http,environmentConfig,$window,$location,_){
 
         $window.onload = function(){
@@ -93,10 +93,6 @@ angular.module('BlurAdmin', [
                             }
                         }
                     }).catch(function (error) {
-                        if(error.status == 403){
-                            errorHandler.handle403();
-                            return
-                        }
                         errorToasts.evaluateErrors(error.data);
                     });
                 }

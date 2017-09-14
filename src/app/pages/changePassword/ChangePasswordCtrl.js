@@ -31,10 +31,6 @@
                 }
             }).catch(function (error) {
                 $scope.changingPassword = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

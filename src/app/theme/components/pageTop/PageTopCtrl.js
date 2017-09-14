@@ -5,7 +5,7 @@
         .controller('PageTopCtrl', PageTopCtrl);
 
     /** @ngInject */
-    function PageTopCtrl($rootScope,$scope,$http,cookieManagement,environmentConfig,$location,errorToasts,$window,errorHandler,_) {
+    function PageTopCtrl($rootScope,$scope,$http,cookieManagement,environmentConfig,$location,errorToasts,$window,_) {
         var vm = this;
 
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -75,10 +75,6 @@
                         $window.sessionStorage.currenciesList = JSON.stringify(res.data.data.results);
                     }
                 }).catch(function (error) {
-                    if(error.status == 403){
-                        errorHandler.handle403();
-                        return
-                    }
                     errorToasts.evaluateErrors(error.data);
                 });
             }

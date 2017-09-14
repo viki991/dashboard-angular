@@ -4,8 +4,8 @@
     angular.module('BlurAdmin.pages.settings.transactionsSwitches')
         .controller('TransactionsSwitchesCtrl', TransactionsSwitchesCtrl);
 
-    function TransactionsSwitchesCtrl($scope,environmentConfig,$uibModal,$rootScope,toastr,$http,
-                                      sharedResources,cookieManagement,errorToasts,$window,errorHandler) {
+    function TransactionsSwitchesCtrl($scope,environmentConfig,$uibModal,$rootScope,toastr,$http,_,
+                                      sharedResources,cookieManagement,errorToasts,$window) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -67,10 +67,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingTransactionsSwitches = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

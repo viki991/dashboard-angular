@@ -129,10 +129,6 @@
             }).catch(function (error) {
                 $scope.newUserEmail = {primary: 'False', verified: 'False'};
                 $scope.loadingUserAccountInfo = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };
@@ -151,10 +147,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserAccountInfo = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };
@@ -197,10 +189,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserAccountInfo = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };
@@ -229,10 +217,6 @@
             }).catch(function (error) {
                 $scope.newUserNumber = {primary: 'False', verified: 'False'};
                 $scope.loadingUserAccountInfo = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };
@@ -251,10 +235,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserAccountInfo = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };
@@ -297,10 +277,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserAccountInfo = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

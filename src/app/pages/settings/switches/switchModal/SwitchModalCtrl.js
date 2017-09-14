@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.settings.switches')
         .controller('SwitchModalCtrl', SwitchModalCtrl);
 
-    function SwitchModalCtrl($scope,$uibModalInstance,switches,toastr,$http,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+    function SwitchModalCtrl($scope,$uibModalInstance,switches,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
 
         var vm = this;
 
@@ -27,10 +27,6 @@
                 }
             }).catch(function (error) {
                 $scope.deletingSwitches = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

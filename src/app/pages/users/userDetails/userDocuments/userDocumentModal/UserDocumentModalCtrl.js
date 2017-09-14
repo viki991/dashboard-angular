@@ -5,7 +5,7 @@
         .controller('UserDocumentModalCtrl', UserDocumentModalCtrl);
 
     function UserDocumentModalCtrl($scope,$uibModalInstance,document,Upload,toastr,$http,$filter,uuid,
-                                   $ngConfirm,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+                                   $ngConfirm,environmentConfig,cookieManagement,errorToasts) {
 
         var vm = this;
         vm.uuid = uuid;
@@ -97,10 +97,6 @@
                 }
             }).catch(function (error) {
                 $scope.updatingDocument = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };
@@ -144,10 +140,6 @@
                 }
             }).catch(function (error) {
                 $scope.updatingDocument = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

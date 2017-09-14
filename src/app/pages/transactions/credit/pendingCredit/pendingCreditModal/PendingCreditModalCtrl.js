@@ -5,7 +5,7 @@
         .controller('PendingCreditModalCtrl', PendingCreditModalCtrl);
 
     /** @ngInject */
-    function PendingCreditModalCtrl($uibModalInstance,$scope,$http,environmentConfig,cookieManagement,toastr,transaction,errorToasts,errorHandler,metadataTextService,$location) {
+    function PendingCreditModalCtrl($uibModalInstance,$scope,$http,environmentConfig,cookieManagement,toastr,transaction,errorToasts,metadataTextService,$location) {
 
         var vm = this;
         $scope.transaction = transaction;
@@ -52,10 +52,6 @@
                     }
                 }).catch(function (error) {
                     $uibModalInstance.close();
-                    if(error.status == 403){
-                        errorHandler.handle403();
-                        return
-                    }
                     errorToasts.evaluateErrors(error.data);
                 });
             }
@@ -109,10 +105,6 @@
                     $uibModalInstance.close($scope.transaction);
                 }
             }).catch(function (error) {
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

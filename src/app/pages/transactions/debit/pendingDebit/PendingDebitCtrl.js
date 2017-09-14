@@ -5,7 +5,7 @@
         .controller('PendingDebitCtrl', PendingDebitCtrl);
 
     /** @ngInject */
-    function PendingDebitCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,$uibModal,errorToasts,errorHandler) {
+    function PendingDebitCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,$uibModal,errorToasts) {
 
         var vm = this;
         $scope.transactions = {};
@@ -37,10 +37,6 @@
                     $scope.transactionsStateMessage = '';
                 }
             }).catch(function (error) {
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 $scope.transactionsStateMessage = 'Failed to load data';
                 errorToasts.evaluateErrors(error.data);
             });

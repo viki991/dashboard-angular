@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.settings.transactionsSwitches')
         .controller('TransactionsSwitchModalCtrl', TransactionsSwitchModalCtrl);
 
-    function TransactionsSwitchModalCtrl($scope,$uibModalInstance,transactionsSwitches,toastr,$http,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+    function TransactionsSwitchModalCtrl($scope,$uibModalInstance,transactionsSwitches,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
 
         var vm = this;
 
@@ -27,10 +27,6 @@
                 }
             }).catch(function (error) {
                 $scope.deletingTransactionsSwitches = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

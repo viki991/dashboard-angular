@@ -5,7 +5,7 @@
         .controller('BankAccountsCtrl', BankAccountsCtrl);
 
     /** @ngInject */
-    function BankAccountsCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorToasts,$window,errorHandler) {
+    function BankAccountsCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorToasts,$window) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -40,10 +40,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingBankAccounts = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };
@@ -85,10 +81,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingBankAccounts = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };
@@ -116,10 +108,6 @@
             }).catch(function (error) {
                 $scope.loadingBankAccounts = false;
                 vm.updatedBankAccount = {};
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

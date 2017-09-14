@@ -5,7 +5,7 @@
         .controller('AccountCurrencyFeesCtrl', AccountCurrencyFeesCtrl);
 
     /** @ngInject */
-    function AccountCurrencyFeesCtrl($scope,$window,$stateParams,$http,$uibModal,environmentConfig,
+    function AccountCurrencyFeesCtrl($scope,$window,$stateParams,$http,$uibModal,environmentConfig,_,
                                      sharedResources,cookieManagement,errorToasts,currencyModifiers,toastr) {
 
         var vm = this;
@@ -75,10 +75,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingAccountCurrencyFees = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

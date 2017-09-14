@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function AccountCurrencySwitchesCtrl($rootScope,$scope,$stateParams,$http,$uibModal,environmentConfig,cookieManagement,
-                                         sharedResources,errorToasts,currencyModifiers,toastr) {
+                                         sharedResources,errorToasts,currencyModifiers,toastr,_) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -70,10 +70,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingAccountCurrencySwitches = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

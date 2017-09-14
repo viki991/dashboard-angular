@@ -53,10 +53,6 @@
                     }
                 }).catch(function (error) {
                     $uibModalInstance.close();
-                    if(error.status == 403){
-                        errorHandler.handle403();
-                        return
-                    }
                     errorToasts.evaluateErrors(error.data);
                 });
             }
@@ -129,10 +125,6 @@
                 }
             }).catch(function (error) {
                 $scope.updatingTransaction = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

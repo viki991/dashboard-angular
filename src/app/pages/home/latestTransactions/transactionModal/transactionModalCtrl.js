@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function transactionModalCtrl($uibModalInstance,toastr,$scope,transaction,environmentConfig,
-                                  cookieManagement,errorHandler,errorToasts,$http,metadataTextService,$location) {
+                                  cookieManagement,errorToasts,$http,metadataTextService,$location) {
 
         var vm = this;
         $scope.transaction = transaction;
@@ -53,10 +53,6 @@
                     }
                 }).catch(function (error) {
                     $uibModalInstance.close();
-                    if(error.status == 403){
-                        errorHandler.handle403();
-                        return
-                    }
                     errorToasts.evaluateErrors(error.data);
                 });
             }

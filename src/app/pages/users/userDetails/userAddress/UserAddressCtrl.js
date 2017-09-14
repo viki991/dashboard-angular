@@ -97,10 +97,6 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserAddress = false;
-                if(error.status == 403){
-                    errorHandler.handle403();
-                    return
-                }
                 errorToasts.evaluateErrors(error.data);
             });
         };

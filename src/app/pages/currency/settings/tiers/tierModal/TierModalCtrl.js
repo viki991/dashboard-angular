@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.currency.settings.tiers')
         .controller('TierModalCtrl', TierModalCtrl);
 
-    function TierModalCtrl($scope,tier,$uibModalInstance,toastr,$http,environmentConfig,cookieManagement,errorToasts,errorHandler) {
+    function TierModalCtrl($scope,tier,$uibModalInstance,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
 
         var vm = this;
 

@@ -5,7 +5,7 @@
         .controller('LatestTransactionsCtrl', LatestTransactionsCtrl);
 
     /** @ngInject */
-    function LatestTransactionsCtrl($scope,$uibModal,$http,environmentConfig,cookieManagement,errorToasts,errorHandler,$window,$location) {
+    function LatestTransactionsCtrl($scope,$uibModal,$http,environmentConfig,cookieManagement,errorToasts,$window,$location) {
 
         var vm = this;
         $scope.transactions = [];
@@ -29,10 +29,6 @@
                         $scope.transactionsStateMessage = '';
                     }
                 }).catch(function (error) {
-                    if(error.status == 403){
-                        errorHandler.handle403();
-                        return
-                    }
                     $scope.transactionsStateMessage = 'Failed to load data';
                     errorToasts.evaluateErrors(error.data);
                 });
