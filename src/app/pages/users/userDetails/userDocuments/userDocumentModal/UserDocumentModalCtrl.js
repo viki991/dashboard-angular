@@ -169,7 +169,6 @@
             var objectLength = Object.keys(vm.addressTracking).length,
                 count = 0;
 
-            console.log(objectLength)
             if(objectLength > 0){
                 for(var key in vm.addressTracking){
                     if((count + 1) == objectLength){

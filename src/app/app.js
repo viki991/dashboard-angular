@@ -68,6 +68,7 @@ angular.module('BlurAdmin', [
                         }
                     }).catch(function (error) {
                         $rootScope.haveCompanyName = false;
+                        errorToasts.handleErrors(error);
                     });
                 } else {
                     $location.path('/login');
@@ -92,6 +93,7 @@ angular.module('BlurAdmin', [
                         }
                     }).catch(function (error) {
                         errorToasts.evaluateErrors(error.data);
+                        errorToasts.handleErrors(error);
                     });
                 }
             };

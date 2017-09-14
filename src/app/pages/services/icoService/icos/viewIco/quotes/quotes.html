@@ -13,17 +13,17 @@
         <tr ng-repeat="quote in icoQuotes | orderBy: '-created'"
             ng-click="openQuotesModal('app/pages/services/icoService/icos/viewIco/quotes/quotesModal/quotesModal.html', 'md',quote)"
             class="editable-row center pointer">
-            <td class="table-row-center transactions-list-element" title="{{quote.user}}" ng-bind="quote.user"></td>
-            <td class="table-row-center transactions-list-element"  title="{{quote.phase}}" ng-bind="quote.phase"></td>
-            <td class="table-row-center transactions-list-element" title="{{quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility}}"
+            <td class="ico-service-list-element" title="{{quote.user}}" ng-bind="quote.user | limitTo: 10"></td>
+            <td class="ico-service-list-element"  title="{{quote.phase}}" ng-bind="quote.phase"></td>
+            <td class="ico-service-list-element" title="{{quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility}}"
                 ng-bind="quote.deposit_amount  | currencyModifiersFilter: quote.deposit_currency.divisibility"></td>
-            <td class="table-row-center transactions-list-element" title="{{quote.deposit_currency.code}}"
+            <td class="ico-service-list-element" title="{{quote.deposit_currency.code}}"
                 ng-bind="quote.deposit_currency.code"></td>
-            <td class="table-row-center transactions-list-element" title="{{quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility}}"
+            <td class="ico-service-list-element" title="{{quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility}}"
                 ng-bind="quote.token_amount  | currencyModifiersFilter: icoObj.currency.divisibility"></td>
-            <td class="table-row-center transactions-list-element" title="{{quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility}}"
+            <td class="ico-service-list-element" title="{{quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility}}"
                 ng-bind="quote.rate  | currencyModifiersFilter: icoObj.currency.divisibility"></td>
-            <td class="table-row-center transactions-list-element" title="{{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}">
+            <td class="ico-service-list-element" title="{{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}">
                 {{quote.created | date:'mediumDate'}} {{quote.created | date:'shortTime'}}</td>
         </tr>
     </table>

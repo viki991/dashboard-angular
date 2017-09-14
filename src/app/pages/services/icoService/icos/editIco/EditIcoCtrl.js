@@ -12,6 +12,7 @@
         vm.serviceUrl = cookieManagement.getCookie('SERVICEURL');
         $scope.editIcoObj = {};
         $scope.editingIco = false;
+        $scope.icoStatusOptions = ['Hidden','Open','Closed'];
 
         vm.getIco =  function () {
             $scope.editingIco = true;
@@ -27,6 +28,7 @@
                         $scope.editIcoObj = res.data.data;
                         $scope.editIcoObj.min_purchase_amount = $filter('currencyModifiersFilter')($scope.editIcoObj.min_purchase_amount,$scope.editIcoObj.currency.divisibility);
                         $scope.editIcoObj.max_purchase_amount = $filter('currencyModifiersFilter')($scope.editIcoObj.max_purchase_amount,$scope.editIcoObj.currency.divisibility);
+                        $scope.editIcoObj.status = $filter('capitalizeWord')(res.data.data.status);
                     }
                 }).catch(function (error) {
                     $scope.editingIco =  false;
@@ -43,7 +45,7 @@
                 min_purchase_amount: 0,
                 max_purchase_amount: 0,
                 max_purchases: $scope.editIcoObj.max_purchases || 10,
-                enabled: $scope.editIcoObj.enabled,
+                status: $scope.editIcoObj.status.toLowerCase(),
                 public: $scope.editIcoObj.public
             };
 

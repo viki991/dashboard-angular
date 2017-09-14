@@ -73,7 +73,6 @@
                         $scope.loadingSmsAuth = false;
                     }
                 }).catch(function (error) {
-                    console.log(error)
                     $scope.loadingSmsAuth = false;
                     errorToasts.evaluateErrors(error.data);
                 });

@@ -20,13 +20,13 @@
                 token: $stateParams.token
             }).then(function (res) {
                 if (res.status === 200) {
-                    $scope.resettingPassword = true;
+                    $scope.resettingPassword = false;
                     $scope.passwordResetDone = true;
                     toastr.success(res.data.message);
                     $location.path('/login');
                 }
             }).catch(function (error) {
-                toastr.error("Password reset failed");
+                $scope.resettingPassword = false;
                 errorToasts.evaluateErrors(error.data);
             });
         };

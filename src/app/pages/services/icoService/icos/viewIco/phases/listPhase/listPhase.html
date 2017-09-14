@@ -2,7 +2,7 @@
     <div>
         <button class="btn btn-success pull-right panel-header-button" ng-click="goToAddPhaseView()">Add</button>
     </div>
-    <table ng-hide="icoPhases.length == 0 || loadingPhases" class="table table-condensed table-striped table-hover ">
+    <table ng-hide="icoPhases.length == 0 || loadingPhases" class="table table-condensed table-striped">
         <tr class="black-muted-bg">
             <td><strong>Level</strong></td>
             <td><strong>Percentage</strong></td>
@@ -10,16 +10,16 @@
             <td></td>
         </tr>
         <tr ng-repeat="phase in icoPhases"
-            ng-click="goToRateListView(phase)"
-            class="editable-row center pointer">
-            <td><div title="{{phase.level}}"
-                     ng-bind="phase.level"></div></td>
-            <td><div title="{{phase.percentage}}"
-                     ng-bind="phase.percentage"></div></td>
-            <td><div title="{{phase.base_rate  | currencyModifiersFilter: ico.base_currency.divisibility}}"
-                     ng-bind="phase.base_rate  | currencyModifiersFilter: ico.base_currency.divisibility"></div></td>
-            <td ng-click="$event.stopPropagation()" class="rehive-table-row-last-child">
+            class="editable-row center">
+            <td class="ico-service-list-element" title="{{phase.level}}"
+                ng-bind="phase.level"></td>
+            <td class="ico-service-list-element" title="{{phase.percentage}}"
+                ng-bind="phase.percentage"></td>
+            <td class="ico-service-list-element" title="{{phase.base_rate  | currencyModifiersFilter: ico.base_currency.divisibility}}"
+                ng-bind="phase.base_rate  | currencyModifiersFilter: ico.base_currency.divisibility"></td>
+            <td class="rehive-table-row-last-child">
                 <button ng-click="deletePhasePrompt(phase)" class="btn btn-danger pull-right rehive-button-no-right-margin">Delete</button>
+                <button ng-click="goToRateListView(phase)" class="btn btn-primary pull-right rehive-button-no-right-margin">View</button>
             </td>
         </tr>
     </table>

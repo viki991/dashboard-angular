@@ -31,7 +31,6 @@
                     if (res.status === 200) {
                         $scope.currencyOverviewData = res.data.data;
                         $scope.loadingCurrencies = false;
-                        console.log($scope.currencyOverviewData)
                     }
                 }).catch(function (error) {
                     $scope.loadingCurrencies = false;
@@ -51,7 +50,6 @@
                 }).then(function (res) {
                     if (res.status === 200) {
                         $scope.currencyOverviewUsersData = res.data.data;
-                        console.log($scope.currencyOverviewUsersData)
                     }
                 }).catch(function (error) {
                     $scope.loadingCurrencies = false;

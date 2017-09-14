@@ -106,7 +106,6 @@
         };
 
         vm.addPermissions = function (newPermissionObj,last) {
-            console.log(newPermissionObj)
             if(vm.token) {
                 $scope.loadingPermissions = true;
                 $http.post(environmentConfig.API + '/admin/permission-groups/' + vm.permissionGroupName + '/permissions/', newPermissionObj, {

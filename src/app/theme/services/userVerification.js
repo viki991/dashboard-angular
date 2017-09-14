@@ -5,7 +5,7 @@
         .factory('userVerification', userVerification);
 
     /** @ngInject */
-    function userVerification($http,cookieManagement,environmentConfig,$location) {
+    function userVerification($http,cookieManagement,environmentConfig,$location,errorToasts) {
 
         return {
             verify: function (cb) {
@@ -31,6 +31,7 @@
                         }
                     }).catch(function (error) {
                         cb(error,null);
+                        errorToasts.handleErrors(error);
                     });
                 } else {
                     cb(null,false);

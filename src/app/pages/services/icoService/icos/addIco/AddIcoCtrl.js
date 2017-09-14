@@ -21,8 +21,9 @@
             max_purchase_amount: '',
             max_purchases: '',
             public: false,
-            enabled: false
+            status: 'Hidden'
         };
+        $scope.icoStatusOptions = ['Hidden','Open','Closed'];
 
         $scope.getCurrenciesList = function () {
             $scope.creatingIco =  true;
@@ -59,7 +60,7 @@
                 max_purchase_amount: 0,
                 max_purchases: $scope.icoParams.max_purchases || 10,
                 public: $scope.icoParams.public,
-                enabled: $scope.icoParams.enabled
+                status: $scope.icoParams.status.toLowerCase()
             };
 
 

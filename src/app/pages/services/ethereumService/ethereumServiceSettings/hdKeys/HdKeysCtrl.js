@@ -34,7 +34,6 @@
                         $scope.hdKeysList = res.data.data.results;
                     }
                 }).catch(function (error) {
-                    console.log(error);
                     $scope.loadingHdkeys =  false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -80,7 +79,6 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    console.log(res.data.data);
                     $scope.loadingHdkeys =  false;
                     if (res.status === 200) {
                         if(status == 'Active'){
@@ -91,7 +89,6 @@
                         vm.getHdkeys();
                     }
                 }).catch(function (error) {
-                    console.log(error);
                     $scope.loadingHdkeys =  false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -108,14 +105,12 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    console.log(res.data.data);
                     $scope.loadingHdkeys =  false;
                     if (res.status === 200) {
                         toastr.success('Public key primary status successfully changed');
                         vm.getHdkeys();
                     }
                 }).catch(function (error) {
-                    console.log(error);
                     $scope.loadingHdkeys =  false;
                     errorToasts.evaluateErrors(error.data);
                 });
@@ -133,7 +128,6 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    console.log(res);
                     $scope.toggleAddHdkeyView();
                     $scope.loadingHdkeys =  false;
                     if (res.status === 201) {
@@ -145,7 +139,6 @@
                         vm.getHdkeys();
                     }
                 }).catch(function (error) {
-                    console.log(error);
                     $scope.newHdKey = {
                         primary: 'False',
                         key_type: 'xpub'

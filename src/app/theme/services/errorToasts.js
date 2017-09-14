@@ -5,7 +5,7 @@
         .factory('errorToasts', errorToasts);
 
     /** @ngInject */
-    function errorToasts(toastr) {
+    function errorToasts(toastr,$location) {
 
         return {
             evaluateErrors: function (errors) {
@@ -27,6 +27,13 @@
                       toastr.error('Something went wrong, please check your internet connection or try again', 'Message');
                   }
               }
+            },
+            handleErrors: function(errors){
+                if(errors && errors.status){
+                    if(errors.status == 401){
+                        $location.path('/login');
+                    }
+                }
             }
         }
     }
