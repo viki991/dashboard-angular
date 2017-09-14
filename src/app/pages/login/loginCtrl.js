@@ -46,7 +46,7 @@
                             $rootScope.$pageFinishedLoading = true;
                             $location.path('/authentication/multi-factor/verify/' + enabledObj.key).search({prevUrl: 'login'});
                         } else {
-                            vm.checkUserVerification(token);
+                            $location.path('/verification');
                         }
 
                     }
@@ -71,64 +71,5 @@
             return enabledObj;
         };
 
-        vm.checkUserVerification = function (token) {
-            userVerification.verify(function(err,verified){
-                if(verified){
-                    $rootScope.userVerified = true;
-                    vm.getCompanyInfo(token);
-                } else {
-                    $rootScope.$pageFinishedLoading = true;
-                    $rootScope.userVerified = false;
-                    $location.path('/verification');
-                }
-            });
-        };
-
-        vm.getCompanyInfo = function (token) {
-            if(token) {
-                $http.get(environmentConfig.API + '/admin/company/', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Token ' + token
-                    }
-                }).then(function (res) {
-                    if(res.data.data && res.data.data.name){
-                        $rootScope.companyName = res.data.data.name;
-                        $rootScope.haveCompanyName = true;
-                        vm.getCompanyCurrencies(token);
-                    } else {
-                        $rootScope.$pageFinishedLoading = true;
-                        $location.path('/company/name_request');
-                    }
-                }).catch(function (error) {
-                    $rootScope.$pageFinishedLoading = true;
-                    errorToasts.evaluateErrors(error.data);
-                });
-            }
-        };
-
-        vm.getCompanyCurrencies = function(token){
-            if(token){
-                $http.get(environmentConfig.API + '/admin/currencies/?enabled=true', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Token ' + token
-                    }
-                }).then(function (res) {
-                    if (res.status === 200) {
-                        if(res.data.data.results.length == 0){
-                            $location.path('currency/add/initial');
-                        } else {
-                            $rootScope.intialCurrency = true;
-                            $location.path('/home');
-                        }
-                        $rootScope.$pageFinishedLoading = true;
-                    }
-                }).catch(function (error) {
-                    $rootScope.$pageFinishedLoading = true;
-                    errorToasts.evaluateErrors(error.data);
-                });
-            }
-        };
     }
 })();

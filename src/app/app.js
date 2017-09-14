@@ -16,17 +16,15 @@ angular.module('BlurAdmin', [
     'BlurAdmin.pages'
 ])
 
-    .run(function($cookies,$rootScope,cookieManagement,$state,$stateParams,errorToasts,
+    .run(function($rootScope,cookieManagement,errorToasts,
                   userVerification,$http,environmentConfig,$window,$location,_){
 
         $window.onload = function(){
             $rootScope.$pageFinishedLoading = true;
         };
 
-
         //using to check if user is in changing password or setting up 2 factor authentication
         $rootScope.securityConfigured = true;
-
 
         var locationChangeStart = $rootScope.$on('$locationChangeStart', function (event,newUrl) {
 
@@ -100,8 +98,6 @@ angular.module('BlurAdmin', [
 
             routeManagement(event,newUrl);
         });
-
-
 
         function routeManagement(event,newUrl){
             var token = cookieManagement.getCookie('TOKEN'),
