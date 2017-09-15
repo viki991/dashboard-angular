@@ -6,8 +6,28 @@
         <h4 class="modal-title" id="myModalLabel">Delete user crypto account</h4>
     </div>
     <div class="modal-body">
-        <p>Address: {{userCryptoAccount.address}}</p>
-        <p>Type: {{userCryptoAccount.crypto_type}}</p>
+        <div class="row">
+            <div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <p>Address: </p>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <p ng-bind="userCryptoAccount.address"></p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <p>Type: </p>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <p ng-bind="userCryptoAccount.crypto_type | capitalizeWord"></p>
+                </div>
+                <div ng-show="userCryptoAccount.metadata" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <p>Metadata: </p>
+                </div>
+                <div ng-show="userCryptoAccount.metadata" class="metadata col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <pre ng-bind="userCryptoAccount.metadata"></pre>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary pull-left" ng-click="$dismiss()">Close</button>

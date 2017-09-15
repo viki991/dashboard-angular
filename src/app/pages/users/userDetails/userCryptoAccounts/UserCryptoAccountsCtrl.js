@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function UserCryptoAccountsCtrl($scope,environmentConfig,$stateParams,$http,
-                              sharedResources,cookieManagement,errorToasts,toastr,$uibModal) {
+                              $filter,cookieManagement,errorToasts,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -16,6 +16,16 @@
         $scope.loadingUserCryptoAccounts = true;
         $scope.addingUserCryptoAccounts = false;
         $scope.editingUserCryptoAccounts = false;
+        $scope.userCryptoAccountParams = {
+            crypto_type: 'Bitcoin',
+            user: vm.uuid,
+            address: '',
+            metadata: '',
+            status: 'Pending'
+        };
+        $scope.editUserCryptoAccountParams = {};
+        $scope.userCryptoTypeOptions = ['Bitcoin','Ethereum','Other'];
+        $scope.statusOptions = ['Pending', 'Incomplete', 'Declined', 'Verified'];
 
         vm.getUserCryptoAccounts = function(){
             if(vm.token) {
@@ -37,6 +47,110 @@
             }
         };
         vm.getUserCryptoAccounts();
+
+        $scope.toggleAddUserCryptoAccountsView = function () {
+            $scope.addingUserCryptoAccounts = !$scope.addingUserCryptoAccounts;
+        };
+
+        $scope.addUserCryptoAccount = function(userCryptoAccountParams){
+            if(vm.token) {
+                $scope.loadingUserCryptoAccounts = true;
+                userCryptoAccountParams.crypto_type = userCryptoAccountParams.crypto_type.toLowerCase();
+                userCryptoAccountParams.status = userCryptoAccountParams.status.toLowerCase();
+                $http.post(environmentConfig.API + '/admin/users/crypto-accounts/',userCryptoAccountParams, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 201) {
+                        toastr.success('Crypto account successfully added');
+                        $scope.userCryptoAccountParams = {
+                            crypto_type: 'Bitcoin',
+                            user: vm.uuid,
+                            address: '',
+                            metadata: '',
+                            status: 'Pending'
+                        };
+                        $scope.toggleAddUserCryptoAccountsView();
+                        vm.getUserCryptoAccounts();
+                    }
+                }).catch(function (error) {
+                    $scope.userCryptoAccountParams = {
+                        user: vm.uuid,
+                        address: '',
+                        metadata: '',
+                        status: 'Pending'
+                    };
+                    $scope.loadingUserCryptoAccounts = false;
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+
+        $scope.toggleUserCryptoAccountsEditView = function (cryptoAccount) {
+            if(cryptoAccount){
+                $scope.editingUserCryptoAccounts = !$scope.editingUserCryptoAccounts;
+                vm.getUserCryptoAccount(cryptoAccount);
+            } else {
+                $scope.editingUserCryptoAccounts = !$scope.editingUserCryptoAccounts;
+                $scope.editUserCryptoAccountParams = {};
+                vm.getUserCryptoAccounts();
+            }
+        };
+
+        vm.getUserCryptoAccount =  function (cryptoAccount) {
+            if(vm.token) {
+                $scope.loadingUserCryptoAccounts = true;
+                $http.get(environmentConfig.API + '/admin/users/crypto-accounts/' + cryptoAccount.id + '/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    $scope.loadingUserCryptoAccounts = false;
+                    if (res.status === 200) {
+                        $scope.editUserCryptoAccountParams = res.data.data;
+                        if(typeof $scope.editUserCryptoAccountParams.metadata == 'object'){
+                            if(Object.keys($scope.editUserCryptoAccountParams.metadata).length == 0){
+                                $scope.editUserCryptoAccountParams.metadata = '';
+                            } else {
+                                $scope.editUserCryptoAccountParams.metadata = JSON.stringify($scope.editUserCryptoAccountParams.metadata);
+                            }
+                        }
+                        $scope.editUserCryptoAccountParams.status = $filter('capitalizeWord')($scope.editUserCryptoAccountParams.status);
+                        $scope.editUserCryptoAccountParams.crypto_type = $filter('capitalizeWord')($scope.editUserCryptoAccountParams.crypto_type);
+                    }
+                }).catch(function (error) {
+                    $scope.loadingUserCryptoAccounts = false;
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
+
+        $scope.editUserCryptoAccount =  function (cryptoAccount) {
+            cryptoAccount.status = cryptoAccount.status.toLowerCase();
+            cryptoAccount.crypto_type = cryptoAccount.crypto_type.toLowerCase();
+            if(vm.token) {
+                $scope.loadingUserCryptoAccounts = true;
+                $http.patch(environmentConfig.API + '/admin/users/crypto-accounts/' + cryptoAccount.id + '/',cryptoAccount, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    $scope.loadingUserCryptoAccounts = false;
+                    if (res.status === 200) {
+                        toastr.success('Crypto account successfully updated');
+                        $scope.editingUserCryptoAccounts = !$scope.editingUserCryptoAccounts;
+                        vm.getUserCryptoAccounts();
+                    }
+                }).catch(function (error) {
+                    $scope.loadingUserCryptoAccounts = false;
+                    errorToasts.evaluateErrors(error.data);
+                });
+            }
+        };
 
         vm.findIndexOfUserCryptoAccount = function (element) {
             return this.id == element.id;
