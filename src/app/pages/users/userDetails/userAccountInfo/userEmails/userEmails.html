@@ -1,5 +1,5 @@
-<div ng-hide="loadingUserAccountInfo" ba-panel ba-panel-title="User emails" class="divider admin-emails">
-    <table class="table table-striped admin-emails-table divider">
+<div ng-hide="loadingUserAccountInfo" class="divider admin-emails">
+    <table class="table table-striped admin-emails-table fees-table divider user-details-table">
         <tr class="black-muted-bg divider">
             <th>Primary</th>
             <th>Email</th>
@@ -7,22 +7,24 @@
             <th></th>
         </tr>
         <tr ng-repeat="email in emailsList">
-            <th><label  class="checkbox-inline custom-checkbox nowrap">
+            <td width="10%"><label  class="checkbox-inline custom-checkbox nowrap">
                 <input type="checkbox" ng-change="updateUserEmail(email)" ng-model="email.primary" ng-checked="email.primary">
                 <span></span>
             </label>
-            </th>
-            <th title="{{email.email}}" ng-bind="email.email | limitTo: '24'"></th>
-            <th ng-bind="email.verified ? 'True': 'False'"></th>
-            <th class="rehive-table-row-last-child">
+            </td>
+            <td width="30%" title="{{email.email}}" ng-bind="email.email | limitTo: '24'"></td>
+            <td width="30%" ng-bind="email.verified ? 'True': 'False'"></td>
+            <td class="rehive-table-row-last-child">
                 <button ng-click="deleteUserEmailConfirm(email)" class="btn btn-danger pull-right user-accounts-btn">Delete</button>
                 <button ng-hide="email.verified" class="btn btn-primary pull-right user-accounts-btn margin-right-10"
                         ng-click="openUserEmailModal('app/pages/users/userDetails/userAccountInfo/userEmailModal/userEmailModal.html','md',email)">Verify</button>
-            </th>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><button ng-click="toggleAddUserEmailsView()" class="btn btn-primary pull-right user-accounts-btn">Add</button></td>
         </tr>
     </table>
-    <div>
-        <button ng-click="toggleAddUserEmailsView()" class="btn btn-primary pull-right user-accounts-btn divider">Add</button>
-        <button ng-click="toggleUserEmailsView()" class="btn btn-primary pull-right user-accounts-btn margin-right-10">Back</button>
-    </div>
 </div>

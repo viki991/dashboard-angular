@@ -11,9 +11,7 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.uuid = $stateParams.uuid;
         $scope.loadingUserAccountInfo = true;
-        $scope.showUserEmails = false;
         $scope.showAddUserEmail = false;
-        $scope.showUserNumbers = false;
         $scope.showAddUserNumber = false;
         $scope.booleanOptions = ['False','True'];
         $scope.newUserEmail = {
@@ -25,21 +23,12 @@
             verified: 'False'
         };
 
-        $scope.toggleUserEmailsView = function () {
-            $scope.showUserEmails = !$scope.showUserEmails;
-        };
 
         $scope.toggleAddUserEmailsView = function () {
-            $scope.showUserEmails = !$scope.showUserEmails;
             $scope.showAddUserEmail = !$scope.showAddUserEmail;
         };
 
-        $scope.toggleUserNumbersView = function () {
-            $scope.showUserNumbers = !$scope.showUserNumbers;
-        };
-
         $scope.toggleAddUserNumbersView = function () {
-            $scope.showUserNumbers = !$scope.showUserNumbers;
             $scope.showAddUserNumber = !$scope.showAddUserNumber;
         };
 

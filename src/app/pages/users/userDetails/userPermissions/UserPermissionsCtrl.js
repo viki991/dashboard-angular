@@ -123,7 +123,7 @@
 
         vm.getUserPermissions = function () {
             $scope.loadingUserPermissions = true;
-            $http.get(environmentConfig.API + '/admin/users/' + vm.uuid + '/permissions/', {
+            $http.get(environmentConfig.API + '/admin/users/' + vm.uuid + '/permissions/?page_size=200', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': vm.token

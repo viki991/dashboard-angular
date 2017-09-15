@@ -1,5 +1,5 @@
-<div ng-hide="loadingUserAccountInfo" ba-panel ba-panel-title="User mobile numbers" class="divider admin-emails">
-    <table class="table table-striped admin-emails-table divider">
+<div ng-hide="loadingUserAccountInfo" class="divider admin-emails">
+    <table class="table table-striped admin-emails-table fees-table divider user-details-table">
         <tr class="black-muted-bg divider">
             <th>Primary</th>
             <th>Number</th>
@@ -7,22 +7,25 @@
             <th></th>
         </tr>
         <tr ng-repeat="mobile in mobilesList">
-            <th><label  class="checkbox-inline custom-checkbox nowrap">
+            <td width="10%"><label  class="checkbox-inline custom-checkbox nowrap">
                 <input type="checkbox" ng-change="updateUserMobile(mobile)" ng-model="mobile.primary" ng-checked="mobile.primary">
                 <span></span>
             </label>
-            </th>
-            <th title="{{mobile.number}}" ng-bind="mobile.number | limitTo: '24'"></th>
-            <th ng-bind="mobile.verified ? 'True': 'False'"></th>
-            <th class="rehive-table-row-last-child">
+            </td>
+            <td width="30%" title="{{mobile.number}}" ng-bind="mobile.number | limitTo: '24'"></td>
+            <td width="30%" ng-bind="mobile.verified ? 'True': 'False'"></td>
+            <td class="rehive-table-row-last-child">
                 <button ng-click="deleteUserNumberConfirm(mobile)" class="btn btn-danger pull-right user-accounts-btn">Delete</button>
                 <button ng-hide="mobile.verified" class="btn btn-primary pull-right user-accounts-btn margin-right-10"
                         ng-click="openUserMobileModal('app/pages/users/userDetails/userAccountInfo/userMobileModal/userMobileModal.html','md',mobile)">Verify</button>
-            </th>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><button ng-click="toggleAddUserNumbersView()" class="btn btn-primary pull-right user-accounts-btn">Add</button></td>
         </tr>
     </table>
-    <div>
-        <button ng-click="toggleAddUserNumbersView()" class="btn btn-primary pull-right user-accounts-btn divider">Add</button>
-        <button ng-click="toggleUserNumbersView()" class="btn btn-primary pull-right user-accounts-btn margin-right-10">Back</button>
-    </div>
 </div>
+
