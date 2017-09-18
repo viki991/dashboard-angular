@@ -36,6 +36,19 @@
         $scope.statusOptions = ['Status','Pending','Confirmed','Complete','Failed'];
         $scope.orderByOptions = ['Largest','Latest','Smallest'];
 
+        //for angular datepicker
+        $scope.dateObj = {};
+        $scope.dateObj.format = 'MM/dd/yyyy';
+        $scope.popup1 = {};
+        $scope.open1 = function() {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.popup2 = {};
+        $scope.open2 = function() {
+            $scope.popup2.opened = true;
+        };
+
         vm.getTransactionUrl = function(){
             vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
                 + '&email=' + ($scope.searchParams.searchEmail? encodeURIComponent($scope.searchParams.searchEmail) : '')

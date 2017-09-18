@@ -41,6 +41,29 @@
         $scope.statusOptions = ['Status','True','False'];
         $scope.currencyOptions = [];
 
+        //for angular datepicker
+        $scope.dateObj = {};
+        $scope.dateObj.format = 'MM/dd/yyyy';
+        $scope.popup1 = {};
+        $scope.open1 = function() {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.popup2 = {};
+        $scope.open2 = function() {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.popup3 = {};
+        $scope.open3 = function() {
+            $scope.popup3.opened = true;
+        };
+
+        $scope.popup4 = {};
+        $scope.open4 = function() {
+            $scope.popup4.opened = true;
+        };
+
         $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
 
         $rootScope.$watch('selectedCurrency',function(){

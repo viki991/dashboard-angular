@@ -37,11 +37,18 @@
         $scope.statusOptions = ['Status','Initiating','Processing','Pending','Complete','Failed'];
         $scope.currencyOptions = [];
         $scope.orderByOptions = ['Largest','Latest','Smallest'];
-        $scope.popup1 = {};
+
+        //for angular datepicker
         $scope.dateObj = {};
         $scope.dateObj.format = 'MM/dd/yyyy';
+        $scope.popup1 = {};
         $scope.open1 = function() {
             $scope.popup1.opened = true;
+        };
+
+        $scope.popup2 = {};
+        $scope.open2 = function() {
+            $scope.popup2.opened = true;
         };
 
         vm.getCompanyCurrencies = function(){
@@ -54,8 +61,6 @@
 
         vm.getTransactionUrl = function(){
 
-
-            console.log($scope.searchParams.searchDateTo)
             vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
                 + '&created__gt=' + ($scope.searchParams.searchDateFrom? Date.parse($scope.searchParams.searchDateFrom) : '')
                 + '&created__lt=' + ($scope.searchParams.searchDateTo? Date.parse($scope.searchParams.searchDateTo) : '')

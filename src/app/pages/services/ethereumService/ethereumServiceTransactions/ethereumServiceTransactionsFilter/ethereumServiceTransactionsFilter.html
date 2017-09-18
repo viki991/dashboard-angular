@@ -20,11 +20,23 @@
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>From date</strong></label>
-            <input type="date" ng-model="searchParams.searchDateFrom" class="form-control" id="date_from"  placeholder="Date from">
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{dateObj.format}}" ng-model="searchParams.searchDateFrom"
+                       placeholder="mm/dd/yyyy" is-open="popup1.opened" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>To date</strong></label>
-            <input type="date" ng-model="searchParams.searchDateTo" class="form-control" id="date_to"  placeholder="Date to">
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{dateObj.format}}" ng-model="searchParams.searchDateTo"
+                       placeholder="mm/dd/yyyy" is-open="popup2.opened" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
         </div>
     </div>
 
