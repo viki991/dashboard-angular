@@ -8,7 +8,7 @@
             <label><strong>From email</strong></label>
             <input type="email" class="form-control divider" ng-change="companyDetailsChanged('email')" ng-model="company.email" placeholder="Enter from_email" required/>
         </div>
-        <button ng-disabled="!companyEmailForm.$valid" ng-click="updateCompanyDetails()" class="btn btn-primary pull-right">Save</button>
+        <button ng-disabled="!companyEmailForm.$valid" ng-click="updateCompanyDetails()" class="btn btn-primary dashboard-btn pull-right">Save</button>
     </form>
 </div>
 <div ba-panel ng-show="updatingCompanyDetails" class="service-header">

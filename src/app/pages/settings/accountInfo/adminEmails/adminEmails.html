@@ -17,14 +17,14 @@
                     <th title="{{email.email}}" ng-bind="email.email | limitTo: '24'"></th>
                     <th ng-bind="email.verified ? 'True': 'False'"></th>
                     <th class="rehive-table-row-last-child">
-                        <button ng-click="deleteEmail(email)" class="btn btn-danger pull-right">Delete</button>
+                        <button ng-click="deleteEmail(email)" class="btn btn-danger dashboard-btn pull-right">Delete</button>
                     </th>
                 </tr>
             </table>
         </div>
         <div>
-            <button ng-click="toggleAddEmailView()" class="btn btn-primary pull-right divider">Add</button>
-            <button ng-click="goToAccountInfo()" class="btn btn-primary pull-right margin-right-10">Back</button>
+            <button ng-click="toggleAddEmailView()" class="btn btn-primary dashboard-btn pull-right divider">Add</button>
+            <button ng-click="goToAccountInfo()" class="btn btn-primary dashboard-btn pull-right margin-right-10">Back</button>
         </div>
     </div>
 </div>

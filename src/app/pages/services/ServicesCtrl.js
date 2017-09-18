@@ -42,11 +42,11 @@
                 buttons: {
                     close: {
                         text: "Cancel",
-                        btnClass: 'btn-default'
+                        btnClass: 'btn-default dashboard-btn'
                     },
                     Add: {
                         text: "Deactivate",
-                        btnClass: 'btn-danger',
+                        btnClass: 'btn-danger dashboard-btn',
                         keys: ['enter'], // will trigger when enter is pressed
                         action: function(scope){
                             if(!scope.password){

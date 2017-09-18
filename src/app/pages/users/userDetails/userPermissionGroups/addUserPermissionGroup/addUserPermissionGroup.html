@@ -1,5 +1,5 @@
 <div ng-hide="loadingUserPermissionGroups" ba-panel ba-panel-title="Add permission group" ba-panel-class="light-text with-scroll">
-    <p  class="divider"><i>Create more permission groups from
+    <p ng-hide="permissionGroups.length == 0"  class="divider"><i>Create more permission groups from
         <a href="/#/settings/permissions-and-management">permissions and management</a></i></p>
     <form name="userPermissionGroupForm" class="custom-form">
         <div ng-show="permissionGroups.length > 0" class="form-group">

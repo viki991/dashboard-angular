@@ -155,11 +155,11 @@
                 buttons: {
                     close: {
                         text: "No",
-                        btnClass: 'btn-default'
+                        btnClass: 'btn-default dashboard-btn'
                     },
                     ok: {
                         text: "Yes",
-                        btnClass: 'btn-primary',
+                        btnClass: 'btn-primary dashboard-btn',
                         keys: ['enter'], // will trigger when enter is pressed
                         action: function(scope){
                             $scope.deleteUserEmail(email);
@@ -246,11 +246,11 @@
                 buttons: {
                     close: {
                         text: "No",
-                        btnClass: 'btn-default'
+                        btnClass: 'btn-default dashboard-btn'
                     },
                     ok: {
                         text: "Yes",
-                        btnClass: 'btn-primary',
+                        btnClass: 'btn-primary dashboard-btn',
                         keys: ['enter'], // will trigger when enter is pressed
                         action: function(scope){
                             $scope.deleteUserNumber(mobile);

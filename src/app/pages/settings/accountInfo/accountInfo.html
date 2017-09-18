@@ -2,7 +2,7 @@
     <div ba-panel ba-panel-title="Administrator info">
         <div>
             <div class="form-group">
-                <button ng-click="viewAllEmails()" class="btn btn-primary pull-right">View emails</button>
+                <button ng-click="viewAllEmails()" class="btn btn-primary dashboard-btn pull-right">View emails</button>
                 <label><strong>Primary email</strong></label>
                 <p class="text-muted" ng-bind="administrator.email"></p>
             </div>
@@ -23,7 +23,7 @@
                 <input type="text" ng-change="accountInfoChanged('id_number')" ng-model="administrator.id_number" class="form-control" placeholder="e.g. 891218666987">
             </div>
             <div class="form-group">
-                <button ng-click="updateAdministratorAccount()" class="btn btn-primary pull-right">Save</button>
+                <button ng-click="updateAdministratorAccount()" class="btn btn-primary dashboard-btn pull-right">Save</button>
             </div>
         </div>
     </div>

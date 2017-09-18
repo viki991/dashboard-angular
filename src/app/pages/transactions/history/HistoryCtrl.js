@@ -37,6 +37,12 @@
         $scope.statusOptions = ['Status','Initiating','Processing','Pending','Complete','Failed'];
         $scope.currencyOptions = [];
         $scope.orderByOptions = ['Largest','Latest','Smallest'];
+        $scope.popup1 = {};
+        $scope.dateObj = {};
+        $scope.dateObj.format = 'MM/dd/yyyy';
+        $scope.open1 = function() {
+            $scope.popup1.opened = true;
+        };
 
         vm.getCompanyCurrencies = function(){
             //adding currency as default value in both results array and ng-model of currency
@@ -47,6 +53,9 @@
         vm.getCompanyCurrencies();
 
         vm.getTransactionUrl = function(){
+
+
+            console.log($scope.searchParams.searchDateTo)
             vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
                 + '&created__gt=' + ($scope.searchParams.searchDateFrom? Date.parse($scope.searchParams.searchDateFrom) : '')
                 + '&created__lt=' + ($scope.searchParams.searchDateTo? Date.parse($scope.searchParams.searchDateTo) : '')

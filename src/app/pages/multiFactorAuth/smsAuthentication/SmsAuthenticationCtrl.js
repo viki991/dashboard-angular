@@ -30,6 +30,9 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingSmsAuth = false;
+                    if(error.status == 404){
+                        return;
+                    }
                     errorHandler.evaluateErrors(error.data);
                     errorHandler.handleErrors(error);
                 });

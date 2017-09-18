@@ -1,10 +1,10 @@
 <div>
     <div ng-hide="loadingHdkeys || addingHdkey" class="service-header" ba-panel ba-panel-title="Public keys">
         <div>
-            <button class="btn btn-success pull-right panel-header-button" ng-click="toggleAddHdkeyView()">Add</button>
+            <button class="btn btn-success dashboard-btn pull-right panel-header-button" ng-click="toggleAddHdkeyView()">Add</button>
         </div>
         <div class="divider admin-emails">
-            <table class="table table-striped admin-emails-table">
+            <table class="table fees-table table-striped admin-emails-table">
                 <tr class="black-muted-bg divider">
                     <th>Primary</th>
                     <th>Address</th>
@@ -22,8 +22,8 @@
                     <td class="transactions-list-element" title="{{hdKey.key_type}}" ng-bind="hdKey.key_type"></td>
                     <td class="transactions-list-element" title="{{hdKey.status}}" ng-bind="hdKey.status"></td>
                     <td class="rehive-table-row-last-child">
-                        <button ng-show="hdKey.status == 'Active'" ng-click="toggleHdKeyStatusPrompt(hdKey,'Disabled')" class="btn btn-danger pull-right">Disable</button>
-                        <button ng-hide="hdKey.status == 'Active'" ng-click="toggleHdKeyStatus(hdKey,'Active')" class="btn btn-primary pull-right">Activate</button>
+                        <button ng-show="hdKey.status == 'Active'" ng-click="toggleHdKeyStatusPrompt(hdKey,'Disabled')" class="btn btn-danger dashboard-btn pull-right">Disable</button>
+                        <button ng-hide="hdKey.status == 'Active'" ng-click="toggleHdKeyStatus(hdKey,'Active')" class="btn btn-primary dashboard-btn pull-right">Activate</button>
                     </td>
                 </tr>
             </table>

@@ -12,7 +12,8 @@
         <p>Value: {{tierLimit.value | currencyModifiersFilter: selectedCurrency.divisibility}}</p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary pull-left" ng-click="$dismiss()">Close</button>
-        <button ng-click="deleteTierLimit()" ng-disabled="deletingTierLimits" type="button" class="btn btn-danger pull-right">Delete</button>
+        <button type="button" class="btn btn-primary dashboard-btn pull-left" ng-click="$dismiss()">Close</button>
+        <button ng-click="deleteTierLimit()" ng-disabled="deletingTierLimits" type="button"
+                class="btn btn-danger dashboard-btn pull-right">Delete</button>
     </div>
 </div>
