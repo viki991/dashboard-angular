@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.currency.settings.tiers')
         .controller('TiersCtrl', TiersCtrl);
 
-    function TiersCtrl($rootScope,$scope,$uibModal,$http,cookieManagement,environmentConfig,toastr,errorToasts,$window) {
+    function TiersCtrl($rootScope,$scope,$uibModal,$http,cookieManagement,environmentConfig,toastr,errorHandler,$window) {
 
       var vm = this;
       vm.token = cookieManagement.getCookie('TOKEN');
@@ -45,7 +45,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTiers = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -65,7 +66,8 @@
                   }
               }).catch(function (error) {
                   $scope.loadingTiers = false;
-                  errorToasts.evaluateErrors(error.data);
+                  errorHandler.evaluateErrors(error.data);
+                  errorHandler.handleErrors(error);
               });
           }
       };
@@ -87,7 +89,8 @@
                   }
               }).catch(function (error) {
                   $scope.loadingTiers = false;
-                  errorToasts.evaluateErrors(error.data);
+                  errorHandler.evaluateErrors(error.data);
+                  errorHandler.handleErrors(error);
               });
           }
       };
@@ -117,7 +120,8 @@
               }).catch(function (error) {
                   vm.updatedTier = {};
                   vm.getTiers();
-                  errorToasts.evaluateErrors(error.data);
+                  errorHandler.evaluateErrors(error.data);
+                  errorHandler.handleErrors(error);
               });
           }
       };

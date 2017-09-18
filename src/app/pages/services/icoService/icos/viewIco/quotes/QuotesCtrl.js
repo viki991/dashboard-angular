@@ -5,7 +5,7 @@
         .controller('QuotesCtrl', QuotesCtrl);
 
     /** @ngInject */
-    function QuotesCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$uibModal,$stateParams) {
+    function QuotesCtrl($scope,$http,cookieManagement,errorHandler,$location,toastr,$uibModal,$stateParams) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -36,7 +36,8 @@
                         $scope.currencyOptions.splice(0,0,{code: 'Currency'});
                     }
                 }).catch(function (error) {
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -54,7 +55,8 @@
                         $scope.icoObj = res.data.data;
                     }
                 }).catch(function (error) {
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -98,7 +100,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingQuotes =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

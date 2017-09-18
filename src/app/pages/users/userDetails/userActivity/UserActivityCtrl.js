@@ -5,7 +5,7 @@
         .controller('UserActivityCtrl', UserActivityCtrl);
 
     /** @ngInject */
-    function UserActivityCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorToasts,$state) {
+    function UserActivityCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorHandler,$state) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -27,7 +27,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUser = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

@@ -5,7 +5,7 @@
         .controller('AddIcoCtrl', AddIcoCtrl);
 
     /** @ngInject */
-    function AddIcoCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,currencyModifiers) {
+    function AddIcoCtrl($scope,$http,cookieManagement,errorHandler,$location,toastr,currencyModifiers) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -42,7 +42,8 @@
                     }
                 }).catch(function (error) {
                     $scope.creatingIco =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -115,7 +116,8 @@
                     }
                 }).catch(function (error) {
                     $scope.creatingIco =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

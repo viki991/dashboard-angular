@@ -5,7 +5,7 @@
         .controller('RatesCtrl', RatesCtrl);
 
     /** @ngInject */
-    function RatesCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$stateParams,$ngConfirm) {
+    function RatesCtrl($scope,$http,cookieManagement,errorHandler,$location,toastr,$stateParams,$ngConfirm) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -27,7 +27,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingRates =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

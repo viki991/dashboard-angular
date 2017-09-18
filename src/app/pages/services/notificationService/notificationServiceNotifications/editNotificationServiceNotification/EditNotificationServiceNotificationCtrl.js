@@ -5,7 +5,7 @@
         .controller('EditNotificationServiceNotificationCtrl', EditNotificationServiceNotificationCtrl);
 
     /** @ngInject */
-    function EditNotificationServiceNotificationCtrl($scope,$http,cookieManagement,$uibModal,errorToasts,$location,$stateParams,toastr) {
+    function EditNotificationServiceNotificationCtrl($scope,$http,cookieManagement,$uibModal,errorHandler,$location,$stateParams,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -31,7 +31,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingNotifications =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -65,7 +66,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingNotifications =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.userDetails')
         .controller('UserEmailModalCtrl', UserEmailModalCtrl);
 
-    function UserEmailModalCtrl($scope,$uibModalInstance,email,user,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function UserEmailModalCtrl($scope,$uibModalInstance,email,user,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm= this;
 
@@ -29,7 +29,8 @@
                 }
             }).catch(function (error) {
                 $scope.verifyingEmail = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

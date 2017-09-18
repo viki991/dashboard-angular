@@ -5,7 +5,7 @@
         .controller('IcoServiceSettingsCtrl', IcoServiceSettingsCtrl);
 
     /** @ngInject */
-    function IcoServiceSettingsCtrl($scope,$http,cookieManagement,errorToasts,$state,toastr) {
+    function IcoServiceSettingsCtrl($scope,$http,cookieManagement,errorHandler,$state,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -35,7 +35,8 @@
                     }
                 }).catch(function (error) {
                     $scope.updatingCompanyInfo =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -57,7 +58,8 @@
                     }
                 }).catch(function (error) {
                     $scope.updatingCompanyInfo =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

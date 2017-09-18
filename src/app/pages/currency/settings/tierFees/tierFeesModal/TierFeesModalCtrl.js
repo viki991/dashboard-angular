@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.currency.settings.tierFees')
         .controller('TierFeesModalCtrl', TierFeesModalCtrl);
 
-    function TierFeesModalCtrl($scope,$uibModalInstance,tierFee,selectedTier,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function TierFeesModalCtrl($scope,$uibModalInstance,tierFee,selectedTier,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
         $scope.tierFee = tierFee;
@@ -27,7 +27,8 @@
                 }
             }).catch(function (error) {
                 $scope.deletingTierFees = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

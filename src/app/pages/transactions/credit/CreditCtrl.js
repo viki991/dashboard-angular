@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function CreditCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,toastr,_,
-                        errorToasts,sharedResources,$location,$state,currencyModifiers,typeaheadService) {
+                        errorHandler,sharedResources,$location,$state,currencyModifiers,typeaheadService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -124,7 +124,8 @@
                 }
             }).catch(function (error) {
                 $scope.onGoingTransaction = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         }
 

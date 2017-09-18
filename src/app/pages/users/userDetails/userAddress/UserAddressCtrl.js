@@ -5,7 +5,7 @@
         .controller('UserAddressCtrl', UserAddressCtrl);
 
     /** @ngInject */
-    function UserAddressCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorToasts,$uibModal,toastr,$filter) {
+    function UserAddressCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorHandler,$uibModal,toastr,$filter) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -36,7 +36,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserAddress = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -66,7 +67,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserAddress = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -97,7 +99,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserAddress = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -125,7 +128,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserAddress = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

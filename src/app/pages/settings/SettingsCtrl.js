@@ -5,7 +5,7 @@
         .controller('SettingsCtrl', SettingsCtrl);
 
     /** @ngInject */
-    function SettingsCtrl($scope,environmentConfig,Upload,$http,cookieManagement,errorToasts,$window,$timeout,$location) {
+    function SettingsCtrl($scope,environmentConfig,Upload,$http,cookieManagement,errorHandler,$window,$timeout,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -29,7 +29,8 @@
                         $scope.companyImageUrl = res.data.data.logo;
                     }
                 }).catch(function (error) {
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
           };
@@ -66,7 +67,8 @@
                 }
             }).catch(function (error) {
                 $scope.updatingLogo = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             })
         };
 

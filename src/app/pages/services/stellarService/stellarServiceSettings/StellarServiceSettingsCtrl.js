@@ -5,7 +5,7 @@
         .controller('StellarServiceSettingsCtrl', StellarServiceSettingsCtrl);
 
     /** @ngInject */
-    function StellarServiceSettingsCtrl($scope,$http,cookieManagement,errorToasts,$state) {
+    function StellarServiceSettingsCtrl($scope,$http,cookieManagement,errorHandler,$state) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -33,7 +33,8 @@
                     }
                 }).catch(function (error) {
                     $scope.updatingCompanyDetails =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

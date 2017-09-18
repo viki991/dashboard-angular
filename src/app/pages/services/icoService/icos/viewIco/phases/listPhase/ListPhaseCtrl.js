@@ -5,7 +5,7 @@
         .controller('ListPhaseCtrl', ListPhaseCtrl);
 
     /** @ngInject */
-    function ListPhaseCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$stateParams,$ngConfirm) {
+    function ListPhaseCtrl($scope,$http,cookieManagement,errorHandler,$location,toastr,$stateParams,$ngConfirm) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -27,7 +27,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingPhases =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -48,7 +49,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingPhases =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -97,7 +99,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingPhases =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

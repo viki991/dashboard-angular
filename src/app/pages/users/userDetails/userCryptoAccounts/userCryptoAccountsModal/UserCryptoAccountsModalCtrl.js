@@ -5,7 +5,7 @@
         .controller('UserCryptoAccountsModalCtrl', UserCryptoAccountsModalCtrl);
 
     function UserCryptoAccountsModalCtrl($scope,$uibModalInstance,userCryptoAccount,uuid,metadataTextService,
-                                         toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+                                         toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
 
@@ -30,7 +30,8 @@
                 }
             }).catch(function (error) {
                 $scope.deletingUserCryptoAccount = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

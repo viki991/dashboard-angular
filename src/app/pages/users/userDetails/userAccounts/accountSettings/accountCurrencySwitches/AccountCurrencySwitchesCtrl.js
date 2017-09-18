@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function AccountCurrencySwitchesCtrl($rootScope,$scope,$stateParams,$http,$uibModal,environmentConfig,cookieManagement,
-                                         sharedResources,errorToasts,currencyModifiers,toastr,_) {
+                                         sharedResources,errorHandler,currencyModifiers,toastr,_) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -70,7 +70,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingAccountCurrencySwitches = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -89,7 +90,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingAccountCurrencySwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -125,7 +127,8 @@
                     };
                     $scope.getSubtypesArray($scope.accountCurrencySwitchesParams);
                     $scope.loadingAccountCurrencySwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -171,7 +174,8 @@
                     };
                     vm.updatedAccountCurrencySwitch = {};
                     $scope.getAccountCurrencySwitches();
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

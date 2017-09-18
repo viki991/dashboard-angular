@@ -5,7 +5,7 @@
         .controller('VerificationCtrl', VerificationCtrl);
 
     /** @ngInject */
-    function VerificationCtrl($rootScope,$scope,$http,toastr,cookieManagement,environmentConfig,$location,errorToasts,userVerification,_) {
+    function VerificationCtrl($rootScope,$scope,$http,toastr,cookieManagement,environmentConfig,$location,errorHandler,userVerification,_) {
 
         var vm = this;
         vm.user = {};
@@ -51,7 +51,8 @@
                     vm.user = res.data.data;
                 }
             }).catch(function (error) {
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
         vm.getUserInfo();
@@ -67,7 +68,8 @@
                     toastr.success('Verification email has been re-sent');
                 }
             }).catch(function (error) {
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

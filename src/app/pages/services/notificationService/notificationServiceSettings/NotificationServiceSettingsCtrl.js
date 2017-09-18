@@ -5,7 +5,7 @@
         .controller('NotificationServiceSettingsCtrl', NotificationServiceSettingsCtrl);
 
     /** @ngInject */
-    function NotificationServiceSettingsCtrl($scope,$http,cookieManagement,toastr,errorToasts,$state) {
+    function NotificationServiceSettingsCtrl($scope,$http,cookieManagement,toastr,errorHandler,$state) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -34,7 +34,8 @@
                     }
                 }).catch(function (error) {
                     $scope.updatingCompanyDetails =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -61,7 +62,8 @@
                     }
                 }).catch(function (error) {
                     $scope.updatingCompanyDetails =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

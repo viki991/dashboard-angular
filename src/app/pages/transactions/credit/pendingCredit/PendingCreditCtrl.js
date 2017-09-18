@@ -5,7 +5,7 @@
         .controller('PendingCreditCtrl', PendingCreditCtrl);
 
     /** @ngInject */
-    function PendingCreditCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,$uibModal,errorToasts) {
+    function PendingCreditCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,$uibModal,errorHandler) {
 
         var vm = this;
         $scope.transactions = {};
@@ -40,7 +40,8 @@
                     }
                 }).catch(function (error) {
                     $scope.transactionsStateMessage = 'Failed to load data';
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

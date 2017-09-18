@@ -5,7 +5,7 @@
         .controller('TransactionWebhooksCtrl', TransactionWebhooksCtrl);
 
     /** @ngInject */
-    function TransactionWebhooksCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,$state,errorToasts,$window) {
+    function TransactionWebhooksCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,$state,errorHandler,$window) {
 
         var vm = this;
         vm.updatedTransactionWebhook = {};
@@ -51,7 +51,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingTransactionWebhooks = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -72,7 +73,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTransactionWebhooks = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -107,7 +109,8 @@
             }).catch(function (error) {
                 $scope.transactionWebhooksParams = {tx_type: 'All',event: 'Transaction Create'};
                 $scope.loadingTransactionWebhooks = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -148,7 +151,8 @@
             }).catch(function (error) {
                 $scope.loadingTransactionWebhooks = false;
                 vm.updatedTransactionWebhook = {};
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

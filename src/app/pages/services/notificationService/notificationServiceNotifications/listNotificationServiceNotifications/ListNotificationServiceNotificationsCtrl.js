@@ -5,7 +5,7 @@
         .controller('ListNotificationServiceNotificationsCtrl', ListNotificationServiceNotificationsCtrl);
 
     /** @ngInject */
-    function ListNotificationServiceNotificationsCtrl($scope,$http,cookieManagement,$uibModal,errorToasts,$location,toastr) {
+    function ListNotificationServiceNotificationsCtrl($scope,$http,cookieManagement,$uibModal,errorHandler,$location,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -28,7 +28,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingNotifications =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

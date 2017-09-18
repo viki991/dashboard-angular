@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function TierSwitchesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,_,
-                              sharedResources,$timeout,errorToasts,toastr,$uibModal) {
+                              sharedResources,$timeout,errorHandler,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -75,7 +75,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingTierSwitches = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -109,7 +110,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTierSwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -142,7 +144,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTierSwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -177,7 +180,8 @@
                     };
                     $scope.getSubtypesArray($scope.tierSwitchesParams);
                     $scope.loadingTierSwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -223,7 +227,8 @@
                     };
                     vm.updatedTierSwitch = {};
                     $scope.getAllTiers($scope.selectedTier.level);
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

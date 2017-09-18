@@ -5,7 +5,7 @@
         .controller('TransfersCtrl', TransfersCtrl);
 
     /** @ngInject */
-    function TransfersCtrl($rootScope,$scope,typeaheadService,$http,environmentConfig,cookieManagement,toastr,errorToasts,currencyModifiers) {
+    function TransfersCtrl($rootScope,$scope,typeaheadService,$http,environmentConfig,cookieManagement,toastr,errorHandler,currencyModifiers) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -75,7 +75,8 @@
                 }
             }).catch(function (error) {
                 $scope.onGoingTransaction = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         }
 

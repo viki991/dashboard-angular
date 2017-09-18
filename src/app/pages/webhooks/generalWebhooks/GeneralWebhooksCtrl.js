@@ -5,7 +5,7 @@
         .controller('GeneralWebhooksCtrl', GeneralWebhooksCtrl);
 
     /** @ngInject */
-    function GeneralWebhooksCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorToasts,$window,$state) {
+    function GeneralWebhooksCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorHandler,$window,$state) {
 
         var vm = this;
         vm.updatedGeneralWebhook = {};
@@ -47,7 +47,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingGeneralWebhooks = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -67,7 +68,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingGeneralWebhooks = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -94,7 +96,8 @@
             }).catch(function (error) {
                 $scope.generalWebhooksParams = {event: 'User Create'};
                 $scope.loadingGeneralWebhooks = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -126,7 +129,8 @@
             }).catch(function (error) {
                 $scope.loadingGeneralWebhooks = false;
                 vm.updatedGeneralWebhook = {};
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

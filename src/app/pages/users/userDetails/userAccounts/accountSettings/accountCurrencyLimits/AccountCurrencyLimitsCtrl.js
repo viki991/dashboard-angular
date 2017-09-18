@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function AccountCurrencyLimitsCtrl($window,$scope,$stateParams,$http,$uibModal,environmentConfig,_,
-                                       sharedResources,cookieManagement,errorToasts,currencyModifiers,toastr) {
+                                       sharedResources,cookieManagement,errorHandler,currencyModifiers,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -77,7 +77,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingAccountCurrencyLimits = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -96,7 +97,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingAccountCurrencyLimits = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -144,7 +146,8 @@
                     };
                     $scope.getSubtypesArray($scope.accountCurrencyLimitsParams);
                     $scope.loadingAccountCurrencyLimits = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -203,7 +206,8 @@
                     };
                     vm.updatedAccountCurrencyLimit = {};
                     $scope.getAccountCurrencyLimits();
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

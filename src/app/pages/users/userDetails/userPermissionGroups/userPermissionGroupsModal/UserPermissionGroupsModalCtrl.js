@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.userDetails')
         .controller('UserPermissionGroupsModalCtrl', UserPermissionGroupsModalCtrl);
 
-    function UserPermissionGroupsModalCtrl($scope,$uibModalInstance,userPermissionGroup,uuid,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function UserPermissionGroupsModalCtrl($scope,$uibModalInstance,userPermissionGroup,uuid,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
 
@@ -28,7 +28,8 @@
                 }
             }).catch(function (error) {
                 $scope.deletingUserPermissionGroup = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

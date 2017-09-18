@@ -5,7 +5,7 @@
         .controller('ListIcosCtrl', ListIcosCtrl);
 
     /** @ngInject */
-    function ListIcosCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$ngConfirm) {
+    function ListIcosCtrl($scope,$http,cookieManagement,errorHandler,$location,toastr,$ngConfirm) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -42,7 +42,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingIcos =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -92,7 +93,8 @@
                         searchCurrency: {code: 'Currency'}
                     };
                     $scope.loadingIcos =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -155,7 +157,8 @@
                         searchCurrency: {code: 'Currency'}
                     };
                     $scope.loadingIcos =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

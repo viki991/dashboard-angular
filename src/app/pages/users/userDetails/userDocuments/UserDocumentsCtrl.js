@@ -5,7 +5,7 @@
         .controller('UserDocumentsCtrl', UserDocumentsCtrl);
 
     /** @ngInject */
-    function UserDocumentsCtrl($scope,environmentConfig,$uibModal,$stateParams,$http,cookieManagement,errorToasts,toastr,$window) {
+    function UserDocumentsCtrl($scope,environmentConfig,$uibModal,$stateParams,$http,cookieManagement,errorHandler,toastr,$window) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -27,7 +27,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserDocuments = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

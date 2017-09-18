@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function UserPermissionGroupsCtrl($scope,environmentConfig,$stateParams,$http,
-                                 cookieManagement,errorToasts,toastr,$uibModal) {
+                                 cookieManagement,errorHandler,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -38,7 +38,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserPermissionGroups = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -61,7 +62,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserPermissionGroups = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -82,7 +84,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserPermissionGroups = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

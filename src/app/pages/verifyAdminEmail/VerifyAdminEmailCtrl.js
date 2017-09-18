@@ -5,7 +5,7 @@
         .controller('VerifyAdminEmailCtrl', VerifyAdminEmailCtrl);
 
     /** @ngInject */
-    function VerifyAdminEmailCtrl($scope,$stateParams,$http,toastr,$location,environmentConfig,errorToasts) {
+    function VerifyAdminEmailCtrl($scope,$stateParams,$http,toastr,$location,environmentConfig,errorHandler) {
 
         $scope.verifyAdminEmail = function(){
             $http.post(environmentConfig.API + '/auth/email/verify/', {
@@ -16,7 +16,8 @@
                     $location.path('/home');
                 }
             }).catch(function (error) {
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
                 $location.path('/home');
             });
         };

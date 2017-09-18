@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.userDetails')
         .controller('UserPermissionModalCtrl', UserPermissionModalCtrl);
 
-    function UserPermissionModalCtrl($scope,$uibModalInstance,userPermission,uuid,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function UserPermissionModalCtrl($scope,$uibModalInstance,userPermission,uuid,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
 
@@ -28,7 +28,8 @@
                 }
             }).catch(function (error) {
                 $scope.deletingUserPermission = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

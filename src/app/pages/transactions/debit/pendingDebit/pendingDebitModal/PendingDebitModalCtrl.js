@@ -5,7 +5,7 @@
         .controller('PendingDebitModalCtrl', PendingDebitModalCtrl);
 
     /** @ngInject */
-    function PendingDebitModalCtrl($uibModalInstance,$scope,$http,environmentConfig,cookieManagement,toastr,transaction,errorToasts,metadataTextService,$location) {
+    function PendingDebitModalCtrl($uibModalInstance,$scope,$http,environmentConfig,cookieManagement,toastr,transaction,errorHandler,metadataTextService,$location) {
 
         var vm = this;
         $scope.transaction = transaction;
@@ -52,7 +52,8 @@
                     }
                 }).catch(function (error) {
                     $uibModalInstance.close();
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -105,7 +106,8 @@
                     $uibModalInstance.close($scope.transaction);
                 }
             }).catch(function (error) {
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
     }

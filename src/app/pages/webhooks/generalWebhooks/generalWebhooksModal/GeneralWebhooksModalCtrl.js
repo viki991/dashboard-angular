@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.webhooks.generalWebhooks')
         .controller('GeneralWebhooksModalCtrl', GeneralWebhooksModalCtrl);
 
-    function GeneralWebhooksModalCtrl($scope,$uibModalInstance,generalWebhook,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function GeneralWebhooksModalCtrl($scope,$uibModalInstance,generalWebhook,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
 
@@ -27,7 +27,8 @@
                 }
             }).catch(function (error) {
                 $scope.deletingGeneralWebhook = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

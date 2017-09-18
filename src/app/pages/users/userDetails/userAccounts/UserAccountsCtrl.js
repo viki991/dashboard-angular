@@ -5,7 +5,7 @@
         .controller('UserAccountsCtrl', UserAccountsCtrl);
 
     /** @ngInject */
-    function UserAccountsCtrl($rootScope,$scope,environmentConfig,$stateParams,$http,cookieManagement,errorToasts,$location,$state) {
+    function UserAccountsCtrl($rootScope,$scope,environmentConfig,$stateParams,$http,cookieManagement,errorHandler,$location,$state) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -31,7 +31,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserAccounts = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

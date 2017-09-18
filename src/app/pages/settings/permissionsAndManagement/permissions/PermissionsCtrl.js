@@ -5,7 +5,7 @@
         .controller('PermissionsCtrl', PermissionsCtrl);
 
     /** @ngInject */
-    function PermissionsCtrl($scope,$stateParams,environmentConfig,$http,cookieManagement,errorToasts,toastr,$uibModal,$location) {
+    function PermissionsCtrl($scope,$stateParams,environmentConfig,$http,cookieManagement,errorHandler,toastr,$uibModal,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -86,7 +86,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingPermissions = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -131,7 +132,8 @@
                         type: 'Account'
                     };
                     $scope.loadingPermissions = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

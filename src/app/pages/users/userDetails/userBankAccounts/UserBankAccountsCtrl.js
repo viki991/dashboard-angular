@@ -5,7 +5,7 @@
         .controller('UserBankAccountsCtrl', UserBankAccountsCtrl);
 
     /** @ngInject */
-    function UserBankAccountsCtrl($scope,environmentConfig,$stateParams,$uibModal,$http,cookieManagement,errorToasts,toastr,$filter) {
+    function UserBankAccountsCtrl($scope,environmentConfig,$stateParams,$uibModal,$http,cookieManagement,errorHandler,toastr,$filter) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -32,7 +32,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserBankAccount = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -62,7 +63,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserBankAccount = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -92,7 +94,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserBankAccount = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -120,7 +123,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserBankAccount = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

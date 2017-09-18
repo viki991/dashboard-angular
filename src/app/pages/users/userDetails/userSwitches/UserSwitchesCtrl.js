@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function UserSwitchesCtrl($scope,environmentConfig,$stateParams,$http,_,
-                              sharedResources,cookieManagement,errorToasts,toastr,$uibModal) {
+                              sharedResources,cookieManagement,errorHandler,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -57,7 +57,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserSwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -93,7 +94,8 @@
                     };
                     $scope.getSubtypesArray($scope.userSwitchParams);
                     $scope.loadingUserSwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -130,7 +132,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserSwitches = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -164,7 +167,8 @@
                 }).catch(function (error) {
                     vm.updatedUserSwitch = {};
                     $scope.loadingUserSwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

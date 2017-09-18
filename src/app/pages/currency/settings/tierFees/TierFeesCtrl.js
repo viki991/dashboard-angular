@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function TierFeesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,_,
-                          sharedResources,$timeout,errorToasts,toastr,$uibModal,currencyModifiers) {
+                          sharedResources,$timeout,errorHandler,toastr,$uibModal,currencyModifiers) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -72,7 +72,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingTierFees = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -106,7 +107,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTierFees = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -139,7 +141,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTierFees = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -183,7 +186,8 @@
                     };
                     $scope.getSubtypesArray($scope.tierFeesParams);
                     $scope.loadingTierFees = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -241,7 +245,8 @@
                     };
                     vm.updatedTierFee = {};
                     $scope.getAllTiers($scope.selectedTier.level);
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

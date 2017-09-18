@@ -5,7 +5,7 @@
         .controller('SecurityCtrl', SecurityCtrl);
 
     /** @ngInject */
-    function SecurityCtrl($scope,$uibModal,$location,environmentConfig,$http,cookieManagement,errorToasts) {
+    function SecurityCtrl($scope,$uibModal,$location,environmentConfig,$http,cookieManagement,errorHandler) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -29,7 +29,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingAPITokens = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -52,7 +53,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingAPITokens = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

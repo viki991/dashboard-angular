@@ -5,7 +5,7 @@
         .controller('EthereumServiceUsersCtrl', EthereumServiceUsersCtrl);
 
     /** @ngInject */
-    function EthereumServiceUsersCtrl($scope,$http,cookieManagement,$uibModal,errorToasts,$location) {
+    function EthereumServiceUsersCtrl($scope,$http,cookieManagement,$uibModal,errorHandler,$location) {
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
 
@@ -70,7 +70,8 @@
                     return
                 }
                 $scope.usersStateMessage = 'Failed to load data';
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
         $scope.getAllUsers();

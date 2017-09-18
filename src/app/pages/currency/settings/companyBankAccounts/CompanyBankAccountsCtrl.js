@@ -5,7 +5,7 @@
         .controller('CompanyBankAccountsCtrl', CompanyBankAccountsCtrl);
 
     /** @ngInject */
-    function CompanyBankAccountsCtrl($rootScope,$scope,environmentConfig,$http,cookieManagement,errorToasts,toastr,_) {
+    function CompanyBankAccountsCtrl($rootScope,$scope,environmentConfig,$http,cookieManagement,errorHandler,toastr,_) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -31,7 +31,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingCompanyBankAccounts = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -55,7 +56,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingCompanyBankAccounts = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -93,7 +95,8 @@
                     toastr.success('Bank successfully added');
                 }).catch(function (error) {
                     $scope.loadingCompanyBankAccounts = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -111,7 +114,8 @@
                     toastr.success('Bank successfully removed');
                 }).catch(function (error) {
                     $scope.loadingCompanyBankAccounts = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

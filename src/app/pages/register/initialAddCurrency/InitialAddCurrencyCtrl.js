@@ -5,7 +5,7 @@
         .controller('InitialAddCurrencyCtrl', InitialAddCurrencyCtrl);
 
     /** @ngInject */
-    function InitialAddCurrencyCtrl($rootScope,$scope,$http,toastr,cookieManagement,environmentConfig,$location,errorToasts) {
+    function InitialAddCurrencyCtrl($rootScope,$scope,$http,toastr,cookieManagement,environmentConfig,$location,errorHandler) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -32,7 +32,8 @@
                         $rootScope.$pageFinishedLoading = true;
                     }
                 }).catch(function (error) {
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -57,7 +58,8 @@
                     }
                 }).catch(function (error) {
                     $rootScope.$pageFinishedLoading = true;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -83,7 +85,8 @@
                 }
             }).catch(function (error) {
                 $rootScope.$pageFinishedLoading = true;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -104,7 +107,8 @@
                 }
             }).catch(function (error) {
                 $rootScope.$pageFinishedLoading = true;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

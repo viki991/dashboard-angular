@@ -5,7 +5,7 @@
         .controller('TransactionsSwitchesCtrl', TransactionsSwitchesCtrl);
 
     function TransactionsSwitchesCtrl($scope,environmentConfig,$uibModal,$rootScope,toastr,$http,_,
-                                      sharedResources,cookieManagement,errorToasts,$window) {
+                                      sharedResources,cookieManagement,errorHandler,$window) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -67,7 +67,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingTransactionsSwitches = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -86,7 +87,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTransactionsSwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -123,7 +125,8 @@
                     };
                     $scope.getSubtypesArray($scope.transactionsSwitchParams);
                     $scope.loadingTransactionsSwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -158,7 +161,8 @@
                 }).catch(function (error) {
                     vm.updatedTransactionsSwitch = {};
                     $scope.loadingTransactionsSwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.settings.security')
         .controller('DeleteTokenModalCtrl', DeleteTokenModalCtrl);
 
-    function DeleteTokenModalCtrl($scope,token,$http,environmentConfig,cookieManagement,errorToasts,toastr) {
+    function DeleteTokenModalCtrl($scope,token,$http,environmentConfig,cookieManagement,errorHandler,toastr) {
 
         var vm = this;
 
@@ -34,7 +34,8 @@
                     }
                 }).catch(function (error) {
                     $scope.deletingToken = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

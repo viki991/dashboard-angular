@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.settings.permissionsAndManagement')
         .controller('PermissionsAndManagementModalCtrl', PermissionsAndManagementModalCtrl);
 
-    function PermissionsAndManagementModalCtrl($scope,permissionGroup,$uibModalInstance,cookieManagement,environmentConfig,toastr,errorToasts,$http) {
+    function PermissionsAndManagementModalCtrl($scope,permissionGroup,$uibModalInstance,cookieManagement,environmentConfig,toastr,errorHandler,$http) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -28,7 +28,8 @@
                 }).catch(function (error) {
                     $scope.permissionGroupsParams = {};
                     $scope.deletingPermissionGroups = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data)
+                    errorHandler.handleErrors(error);
                 });
             }
         };

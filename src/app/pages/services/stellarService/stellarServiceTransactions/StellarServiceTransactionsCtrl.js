@@ -5,7 +5,7 @@
         .controller('StellarServiceTransactionsCtrl', StellarServiceTransactionsCtrl);
 
     /** @ngInject */
-    function StellarServiceTransactionsCtrl($scope,$http,cookieManagement,$uibModal,errorToasts,$window,$location,environmentConfig) {
+    function StellarServiceTransactionsCtrl($scope,$http,cookieManagement,$uibModal,errorHandler,$window,$location,environmentConfig) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -91,7 +91,8 @@
                         return
                     }
                     $scope.transactionsStateMessage = 'Failed to load data';
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

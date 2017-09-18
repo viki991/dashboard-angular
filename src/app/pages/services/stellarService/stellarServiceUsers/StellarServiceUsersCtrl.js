@@ -5,7 +5,7 @@
         .controller('StellarServiceUsersCtrl', StellarServiceUsersCtrl);
 
     /** @ngInject */
-    function StellarServiceUsersCtrl($scope,$http,cookieManagement,errorToasts,$location,environmentConfig) {
+    function StellarServiceUsersCtrl($scope,$http,cookieManagement,errorHandler,$location,environmentConfig) {
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.serviceUrl = cookieManagement.getCookie('SERVICEURL');
@@ -71,7 +71,8 @@
                     return
                 }
                 $scope.usersStateMessage = 'Failed to load data';
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
         $scope.getAllUsers();

@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.transactions.history')
         .controller('historyModalCtrl', historyModalCtrl);
 
-    function historyModalCtrl($uibModalInstance,$http,$scope,errorToasts,toastr,transaction,metadataTextService,$location,environmentConfig,cookieManagement,$ngConfirm) {
+    function historyModalCtrl($uibModalInstance,$http,$scope,errorHandler,toastr,transaction,metadataTextService,$location,environmentConfig,cookieManagement,$ngConfirm) {
 
         $scope.transaction = transaction;
         $scope.updateTransactionObj = {};
@@ -53,7 +53,8 @@
                     }
                 }).catch(function (error) {
                     $uibModalInstance.close();
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -125,7 +126,8 @@
                 }
             }).catch(function (error) {
                 $scope.updatingTransaction = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

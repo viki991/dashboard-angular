@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function DebitCtrl($rootScope, $scope, $http, environmentConfig,_,
-                       cookieManagement, toastr, errorToasts,
+                       cookieManagement, toastr, errorHandler,
                        $location, $state,sharedResources,currencyModifiers,typeaheadService) {
 
         var vm = this;
@@ -122,7 +122,8 @@
                 }
             }).catch(function (error) {
                 $scope.onGoingTransaction = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         }
 

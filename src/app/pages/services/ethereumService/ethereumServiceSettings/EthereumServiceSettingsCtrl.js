@@ -5,7 +5,7 @@
         .controller('EthereumServiceSettingsCtrl', EthereumServiceSettingsCtrl);
 
     /** @ngInject */
-    function EthereumServiceSettingsCtrl($scope,$http,cookieManagement,toastr,errorToasts,$state) {
+    function EthereumServiceSettingsCtrl($scope,$http,cookieManagement,toastr,errorHandler,$state) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');

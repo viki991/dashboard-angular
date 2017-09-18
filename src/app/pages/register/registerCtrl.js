@@ -5,7 +5,7 @@
         .controller('RegisterCtrl', RegisterCtrl);
 
     /** @ngInject */
-    function RegisterCtrl($rootScope,$scope,$http,toastr,environmentConfig,errorToasts,$location,cookieManagement) {
+    function RegisterCtrl($rootScope,$scope,$http,toastr,environmentConfig,errorHandler,$location,cookieManagement) {
 
         //var vm = this;
         $scope.path = $location.path();
@@ -32,7 +32,8 @@
                     }
             }).catch(function (error) {
                 $rootScope.$pageFinishedLoading = true;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

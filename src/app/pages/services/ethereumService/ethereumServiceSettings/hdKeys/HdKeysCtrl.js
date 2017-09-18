@@ -5,7 +5,7 @@
         .controller('HdKeysCtrl', HdKeysCtrl);
 
     /** @ngInject */
-    function HdKeysCtrl($scope,$http,cookieManagement,toastr,errorToasts,$ngConfirm) {
+    function HdKeysCtrl($scope,$http,cookieManagement,toastr,errorHandler,$ngConfirm) {
 
 
         var vm = this;
@@ -35,7 +35,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingHdkeys =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -90,7 +91,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingHdkeys =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -112,7 +114,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingHdkeys =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -144,7 +147,8 @@
                         key_type: 'xpub'
                     };
                     $scope.loadingHdkeys =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         }

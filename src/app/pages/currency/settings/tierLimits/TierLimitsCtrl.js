@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function TierLimitsCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,_,
-                            sharedResources,$timeout,errorToasts,toastr,$uibModal,currencyModifiers) {
+                            sharedResources,$timeout,errorHandler,toastr,$uibModal,currencyModifiers) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -74,7 +74,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingTierLimits = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -108,7 +109,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTierLimits = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -141,7 +143,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTierLimits = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -189,7 +192,8 @@
 
                     $scope.getSubtypesArray($scope.tierLimitsParams);
                     $scope.loadingTierLimits = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -248,7 +252,8 @@
                     };
                     vm.updatedTierLimit = {};
                     $scope.getAllTiers($scope.selectedTier.level);
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

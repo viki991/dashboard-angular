@@ -5,7 +5,7 @@
         .controller('SwitchesCtrl', SwitchesCtrl);
 
     /** @ngInject */
-    function SwitchesCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorToasts,$window,stringService) {
+    function SwitchesCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorHandler,$window,stringService) {
 
         var vm = this;
         vm.updatedSwitches = {};
@@ -48,7 +48,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingSwitches = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -68,7 +69,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingSwitches = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -114,7 +116,8 @@
              }).catch(function (error) {
                  $scope.switchesParams = {switch_type: 'Allow transactions', enabled: 'False'};
                  $scope.loadingSwitches = false;
-                 errorToasts.evaluateErrors(error.data);
+                 errorHandler.evaluateErrors(error.data);
+                 errorHandler.handleErrors(error);
              });
          };
 
@@ -142,7 +145,8 @@
              }).catch(function (error) {
                  $scope.loadingSwitches = false;
                  vm.updatedSwitches = {};
-                 errorToasts.evaluateErrors(error.data);
+                 errorHandler.evaluateErrors(error.data);
+                 errorHandler.handleErrors(error);
              });
          };
 

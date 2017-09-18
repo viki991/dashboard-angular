@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.userDetails')
         .controller('UserMobileModalCtrl', UserMobileModalCtrl);
 
-    function UserMobileModalCtrl($scope,$uibModalInstance,mobile,user,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function UserMobileModalCtrl($scope,$uibModalInstance,mobile,user,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm= this;
 
@@ -28,7 +28,8 @@
                 }
             }).catch(function (error) {
                 $scope.verifyingMobile = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
     }

@@ -5,7 +5,7 @@
         .controller('SmsAuthenticationCtrl', SmsAuthenticationCtrl);
 
     /** @ngInject */
-    function SmsAuthenticationCtrl($scope,$http,environmentConfig,cookieManagement,errorToasts,toastr,$location) {
+    function SmsAuthenticationCtrl($scope,$http,environmentConfig,cookieManagement,errorHandler,toastr,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -30,7 +30,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingSmsAuth = false;
-                    //errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -53,7 +54,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingSmsAuth = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -74,7 +76,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingSmsAuth = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

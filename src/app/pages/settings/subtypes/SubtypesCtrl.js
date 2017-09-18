@@ -5,7 +5,7 @@
         .controller('SubtypesCtrl', SubtypesCtrl);
 
     /** @ngInject */
-    function SubtypesCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorToasts,$window) {
+    function SubtypesCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorHandler,$window) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -42,7 +42,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingSubtypes = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -61,7 +62,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingSubtypes = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -85,7 +87,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingSubtypes = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -112,7 +115,8 @@
             }).catch(function (error) {
                 $scope.loadingSubtypes = false;
                 vm.updatedSubtype = {};
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

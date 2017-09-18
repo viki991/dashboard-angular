@@ -5,7 +5,7 @@
         .controller('MultiFactorAuthCtrl', MultiFactorAuthCtrl);
 
     /** @ngInject */
-    function MultiFactorAuthCtrl($scope,$http,environmentConfig,cookieManagement,errorToasts,$location) {
+    function MultiFactorAuthCtrl($scope,$http,environmentConfig,cookieManagement,errorHandler,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -25,7 +25,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingMfa = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

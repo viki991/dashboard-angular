@@ -16,7 +16,7 @@ angular.module('BlurAdmin', [
     'BlurAdmin.pages'
 ])
 
-    .run(function($rootScope,cookieManagement,errorToasts,
+    .run(function($rootScope,cookieManagement,errorHandler,
                   userVerification,$http,environmentConfig,$window,$location,_){
 
         $window.onload = function(){
@@ -68,7 +68,7 @@ angular.module('BlurAdmin', [
                         }
                     }).catch(function (error) {
                         $rootScope.haveCompanyName = false;
-                        errorToasts.handleErrors(error);
+                        errorHandler.handleErrors(error);
                     });
                 } else {
                     $location.path('/login');
@@ -92,8 +92,8 @@ angular.module('BlurAdmin', [
                             }
                         }
                     }).catch(function (error) {
-                        errorToasts.evaluateErrors(error.data);
-                        errorToasts.handleErrors(error);
+                        errorHandler.evaluateErrors(error.data);
+                        errorHandler.handleErrors(error);
                     });
                 }
             };

@@ -5,7 +5,7 @@
         .controller('UserDetailsCtrl', UserDetailsCtrl);
 
     /** @ngInject */
-    function UserDetailsCtrl($scope,environmentConfig,$http,cookieManagement,Upload,$timeout,errorToasts,$stateParams,toastr) {
+    function UserDetailsCtrl($scope,environmentConfig,$http,cookieManagement,Upload,$timeout,errorHandler,$stateParams,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -33,7 +33,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUser = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -64,7 +65,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUser = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             })
         };
 

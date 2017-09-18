@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.settings.subtypes')
         .controller('SubtypeModalCtrl', SubtypeModalCtrl);
 
-    function SubtypeModalCtrl($scope,$uibModalInstance,subtype,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function SubtypeModalCtrl($scope,$uibModalInstance,subtype,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
 
@@ -27,7 +27,8 @@
                 }
             }).catch(function (error) {
                 $scope.deletingSubtype = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

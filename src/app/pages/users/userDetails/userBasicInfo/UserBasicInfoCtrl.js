@@ -5,7 +5,7 @@
         .controller('UserBasicInfoCtrl', UserBasicInfoCtrl);
 
     /** @ngInject */
-    function UserBasicInfoCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorToasts,toastr,$filter) {
+    function UserBasicInfoCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorHandler,toastr,$filter) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -44,7 +44,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserBasicInfo = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -84,7 +85,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserBasicInfo = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -115,7 +117,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserBasicInfo = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

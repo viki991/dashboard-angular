@@ -5,7 +5,7 @@
         .controller('ViewIcoCtrl', ViewIcoCtrl);
 
     /** @ngInject */
-    function ViewIcoCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$stateParams,$ngConfirm) {
+    function ViewIcoCtrl($scope,$http,cookieManagement,errorHandler,$location,toastr,$stateParams,$ngConfirm) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');

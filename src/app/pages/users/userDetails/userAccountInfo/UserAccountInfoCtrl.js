@@ -5,7 +5,7 @@
         .controller('UserAccountInfoCtrl', UserAccountInfoCtrl);
 
     /** @ngInject */
-    function UserAccountInfoCtrl($scope,environmentConfig,$stateParams,$uibModal,$http,$ngConfirm,cookieManagement,errorToasts,toastr) {
+    function UserAccountInfoCtrl($scope,environmentConfig,$stateParams,$uibModal,$http,$ngConfirm,cookieManagement,errorHandler,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -49,7 +49,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserAccountInfo = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -69,7 +70,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserAccountInfo = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -89,7 +91,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserAccountInfo = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -118,7 +121,8 @@
             }).catch(function (error) {
                 $scope.newUserEmail = {primary: 'False', verified: 'False'};
                 $scope.loadingUserAccountInfo = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -136,7 +140,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserAccountInfo = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -178,7 +183,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserAccountInfo = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -206,7 +212,8 @@
             }).catch(function (error) {
                 $scope.newUserNumber = {primary: 'False', verified: 'False'};
                 $scope.loadingUserAccountInfo = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -224,7 +231,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserAccountInfo = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -266,7 +274,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserAccountInfo = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

@@ -5,7 +5,7 @@
         .controller('StellarServiceSetupCtrl', StellarServiceSetupCtrl);
 
     /** @ngInject */
-    function StellarServiceSetupCtrl($scope,$http,environmentConfig,cookieManagement,$uibModal,toastr,errorToasts,$window,$location) {
+    function StellarServiceSetupCtrl($scope,$http,environmentConfig,cookieManagement,$uibModal,toastr,errorHandler,$window,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -30,7 +30,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingStellarService = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
         $scope.getReceiveAccounts();
@@ -52,7 +53,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingStellarService = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
         $scope.getSendAccounts();
@@ -75,7 +77,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingStellarService = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -94,7 +97,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingStellarService = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

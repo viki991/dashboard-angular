@@ -5,7 +5,7 @@
         .controller('PageTopCtrl', PageTopCtrl);
 
     /** @ngInject */
-    function PageTopCtrl($rootScope,$scope,$http,cookieManagement,environmentConfig,$location,errorToasts,$window,_) {
+    function PageTopCtrl($rootScope,$scope,$http,cookieManagement,environmentConfig,$location,errorHandler,$window,_) {
         var vm = this;
 
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -41,7 +41,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingCompanyInfo = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -75,7 +76,8 @@
                         $window.sessionStorage.currenciesList = JSON.stringify(res.data.data.results);
                     }
                 }).catch(function (error) {
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

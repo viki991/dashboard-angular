@@ -5,7 +5,7 @@
         .controller('CompanyInfoCtrl', CompanyInfoCtrl);
 
     /** @ngInject */
-    function CompanyInfoCtrl($scope,environmentConfig,$rootScope,toastr,$http,cookieManagement,errorToasts,_) {
+    function CompanyInfoCtrl($scope,environmentConfig,$rootScope,toastr,$http,cookieManagement,errorHandler,_) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -34,7 +34,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingCompanyInfo = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -55,7 +56,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingCompanyInfo = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -77,7 +79,8 @@
             }).catch(function (error) {
                 $scope.loadingCompanyInfo = false;
                 vm.updatedCompanyInfo = {};
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

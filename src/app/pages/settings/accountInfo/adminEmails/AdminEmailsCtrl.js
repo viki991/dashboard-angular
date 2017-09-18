@@ -5,7 +5,7 @@
         .controller('AdminEmailsCtrl', AdminEmailsCtrl);
 
     /** @ngInject */
-    function AdminEmailsCtrl($scope,environmentConfig,$location,$http,cookieManagement,errorToasts,toastr) {
+    function AdminEmailsCtrl($scope,environmentConfig,$location,$http,cookieManagement,errorHandler,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -30,7 +30,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingAdminEmails = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -51,7 +52,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingAdminEmails = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -75,7 +77,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingAdminEmails = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -95,7 +98,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingAdminEmails = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

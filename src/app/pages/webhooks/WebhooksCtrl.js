@@ -5,7 +5,7 @@
         .controller('WebhooksCtrl', WebhooksCtrl);
 
     /** @ngInject */
-    function WebhooksCtrl($scope,environmentConfig,Upload,$http,cookieManagement,errorToasts,$window,$timeout,$location) {
+    function WebhooksCtrl($scope,environmentConfig,Upload,$http,cookieManagement,errorHandler,$window,$timeout,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');

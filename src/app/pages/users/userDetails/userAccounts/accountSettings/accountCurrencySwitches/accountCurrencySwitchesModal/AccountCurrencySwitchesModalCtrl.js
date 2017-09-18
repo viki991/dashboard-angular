@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.accountSettings.accountCurrencySwitches')
         .controller('AccountCurrencySwitchesModalCtrl', AccountCurrencySwitchesModalCtrl);
 
-    function AccountCurrencySwitchesModalCtrl($scope,$uibModalInstance,accountCurrencySwitch,currencyCode,reference,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function AccountCurrencySwitchesModalCtrl($scope,$uibModalInstance,accountCurrencySwitch,currencyCode,reference,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
         vm.currencyCode = currencyCode;
@@ -28,7 +28,8 @@
                 }
             }).catch(function (error) {
                 $scope.deletingAccountCurrencySwitches = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

@@ -5,7 +5,7 @@
         .controller('BankAccountsCtrl', BankAccountsCtrl);
 
     /** @ngInject */
-    function BankAccountsCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorToasts,$window) {
+    function BankAccountsCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorHandler,$window) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -40,7 +40,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingBankAccounts = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -59,7 +60,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingBankAccounts = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -81,7 +83,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingBankAccounts = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -108,7 +111,8 @@
             }).catch(function (error) {
                 $scope.loadingBankAccounts = false;
                 vm.updatedBankAccount = {};
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

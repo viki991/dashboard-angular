@@ -5,7 +5,7 @@
         .controller('CreateNotificationServiceNotificationsCtrl', CreateNotificationServiceNotificationsCtrl);
 
     /** @ngInject */
-    function CreateNotificationServiceNotificationsCtrl($scope,$http,cookieManagement,$location,errorToasts,$window,toastr) {
+    function CreateNotificationServiceNotificationsCtrl($scope,$http,cookieManagement,$location,errorHandler,$window,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -34,7 +34,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingNotifications =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

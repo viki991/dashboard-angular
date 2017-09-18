@@ -5,7 +5,7 @@
         .controller('AddPhaseCtrl', AddPhaseCtrl);
 
     /** @ngInject */
-    function AddPhaseCtrl($scope,$http,cookieManagement,errorToasts,$location,toastr,$stateParams,currencyModifiers) {
+    function AddPhaseCtrl($scope,$http,cookieManagement,errorHandler,$location,toastr,$stateParams,currencyModifiers) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -31,7 +31,8 @@
                     }
                 }).catch(function (error) {
                     $scope.creatingPhase =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -69,7 +70,8 @@
                     }
                 }).catch(function (error) {
                     $scope.creatingPhase =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

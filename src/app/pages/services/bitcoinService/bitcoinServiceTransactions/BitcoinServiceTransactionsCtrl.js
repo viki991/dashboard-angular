@@ -5,7 +5,7 @@
         .controller('BitcoinServiceTransactionsCtrl', BitcoinServiceTransactionsCtrl);
 
     /** @ngInject */
-    function BitcoinServiceTransactionsCtrl($scope,$http,cookieManagement,$uibModal,errorToasts,$window,$location) {
+    function BitcoinServiceTransactionsCtrl($scope,$http,cookieManagement,$uibModal,errorHandler,$window,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -90,7 +90,8 @@
                         return
                     }
                     $scope.transactionsStateMessage = 'Failed to load data';
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

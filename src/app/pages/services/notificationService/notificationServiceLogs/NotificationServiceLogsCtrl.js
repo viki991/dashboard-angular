@@ -5,7 +5,7 @@
         .controller('NotificationServiceLogsCtrl', NotificationServiceLogsCtrl);
 
     /** @ngInject */
-    function NotificationServiceLogsCtrl($scope,$http,cookieManagement,$uibModal,errorToasts) {
+    function NotificationServiceLogsCtrl($scope,$http,cookieManagement,$uibModal,errorHandler) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -28,7 +28,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingLogs =  false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

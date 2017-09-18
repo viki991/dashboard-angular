@@ -5,7 +5,7 @@
         .controller('PermissionsAndManagementCtrl', PermissionsAndManagementCtrl);
 
     /** @ngInject */
-    function PermissionsAndManagementCtrl($scope,environmentConfig,$http,cookieManagement,errorToasts,toastr,$uibModal,$location) {
+    function PermissionsAndManagementCtrl($scope,environmentConfig,$http,cookieManagement,errorHandler,toastr,$uibModal,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -45,7 +45,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingPermissionGroups = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -66,7 +67,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingPermissionGroups = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -86,7 +88,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingPermissionGroups = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -110,7 +113,8 @@
                 }).catch(function (error) {
                     $scope.permissionGroupsParams = {};
                     $scope.loadingPermissionGroups = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

@@ -5,7 +5,7 @@
         .controller('UserDocumentModalCtrl', UserDocumentModalCtrl);
 
     function UserDocumentModalCtrl($scope,$uibModalInstance,document,Upload,toastr,$http,$filter,uuid,
-                                   $ngConfirm,environmentConfig,cookieManagement,errorToasts) {
+                                   $ngConfirm,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
         vm.uuid = uuid;
@@ -97,7 +97,8 @@
                 }
             }).catch(function (error) {
                 $scope.updatingDocument = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -140,7 +141,8 @@
                 }
             }).catch(function (error) {
                 $scope.updatingDocument = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -156,7 +158,8 @@
                         $uibModalInstance.close($scope.document);
                     }
                 }).catch(function (error) {
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -197,7 +200,8 @@
                         }
                     }
                 }).catch(function (error) {
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

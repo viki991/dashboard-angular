@@ -5,7 +5,7 @@
         .controller('CompanyNameRequestCtrl', CompanyNameRequestCtrl);
 
     /** @ngInject */
-    function CompanyNameRequestCtrl($rootScope,$scope,$http,toastr,cookieManagement,environmentConfig,$location,errorToasts,userVerification) {
+    function CompanyNameRequestCtrl($rootScope,$scope,$http,toastr,cookieManagement,environmentConfig,$location,errorHandler,userVerification) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -42,7 +42,8 @@
                     }
                 }).catch(function (error) {
                     $rootScope.$pageFinishedLoading = true;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -73,7 +74,8 @@
                 }
             }).catch(function (error) {
                 $rootScope.$pageFinishedLoading = true;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

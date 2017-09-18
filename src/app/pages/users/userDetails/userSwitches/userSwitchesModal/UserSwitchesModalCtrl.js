@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.userDetails')
         .controller('UserSwitchModalCtrl', UserSwitchModalCtrl);
 
-    function UserSwitchModalCtrl($scope,$uibModalInstance,userSwitches,uuid,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function UserSwitchModalCtrl($scope,$uibModalInstance,userSwitches,uuid,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
 
@@ -28,7 +28,8 @@
                 }
             }).catch(function (error) {
                 $scope.deletingUserSwitches = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

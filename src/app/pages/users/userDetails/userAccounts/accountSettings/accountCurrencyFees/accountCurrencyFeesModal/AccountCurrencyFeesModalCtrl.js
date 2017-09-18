@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.accountSettings.accountCurrencyFees')
         .controller('AccountCurrencyFeesModalCtrl', AccountCurrencyFeesModalCtrl);
 
-    function AccountCurrencyFeesModalCtrl($scope,$uibModalInstance,accountCurrencyFee,currencyCode,reference,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function AccountCurrencyFeesModalCtrl($scope,$uibModalInstance,accountCurrencyFee,currencyCode,reference,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
         vm.currencyCode = currencyCode;
@@ -28,7 +28,8 @@
                 }
             }).catch(function (error) {
                 $scope.deletingAccountCurrencyFees = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

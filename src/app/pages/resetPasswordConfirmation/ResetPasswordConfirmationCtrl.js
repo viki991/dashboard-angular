@@ -5,7 +5,7 @@
         .controller('ResetPasswordConfirmationCtrl', ResetPasswordConfirmationCtrl);
 
     /** @ngInject */
-    function ResetPasswordConfirmationCtrl($scope,$stateParams,$http,toastr,$location,environmentConfig,errorToasts) {
+    function ResetPasswordConfirmationCtrl($scope,$stateParams,$http,toastr,$location,environmentConfig,errorHandler) {
 
         $scope.passwordResetDone = false;
         $scope.resettingPassword = false;
@@ -27,7 +27,8 @@
                 }
             }).catch(function (error) {
                 $scope.resettingPassword = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

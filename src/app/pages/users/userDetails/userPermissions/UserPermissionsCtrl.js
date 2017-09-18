@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function UserPermissionsCtrl($scope,environmentConfig,$stateParams,$http,
-                              cookieManagement,errorToasts,toastr,$uibModal) {
+                              cookieManagement,errorHandler,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -116,7 +116,8 @@
                         type: 'Account'
                     };
                     $scope.loadingPermissions = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -135,7 +136,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUserPermissions = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
         vm.getUserPermissions();

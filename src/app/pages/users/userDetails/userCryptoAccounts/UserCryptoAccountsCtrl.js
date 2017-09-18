@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function UserCryptoAccountsCtrl($scope,environmentConfig,$stateParams,$http,
-                              $filter,cookieManagement,errorToasts,toastr,$uibModal) {
+                              $filter,cookieManagement,errorHandler,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -42,7 +42,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserCryptoAccounts = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -83,7 +84,8 @@
                         status: 'Pending'
                     };
                     $scope.loadingUserCryptoAccounts = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -123,7 +125,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserCryptoAccounts = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -147,7 +150,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingUserCryptoAccounts = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

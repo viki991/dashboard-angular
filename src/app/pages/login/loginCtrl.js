@@ -5,7 +5,7 @@
         .controller('LoginCtrl', LoginCtrl);
 
     /** @ngInject */
-    function LoginCtrl($rootScope,$scope,$http,cookieManagement,environmentConfig,$location,errorToasts,userVerification,$timeout) {
+    function LoginCtrl($rootScope,$scope,$http,cookieManagement,environmentConfig,$location,errorHandler,userVerification,$timeout) {
 
         var vm = this;
         cookieManagement.deleteCookie('TOKEN');
@@ -28,7 +28,8 @@
             }).catch(function (error) {
                 $scope.gotCompanyName = false;
                 $rootScope.$pageFinishedLoading = true;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 
@@ -52,7 +53,8 @@
                     }
                 }).catch(function (error) {
                     $rootScope.$pageFinishedLoading = true;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

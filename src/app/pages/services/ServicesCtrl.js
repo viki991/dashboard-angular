@@ -5,7 +5,7 @@
         .controller('ServicesCtrl', ServicesCtrl);
 
     /** @ngInject */
-    function ServicesCtrl($scope,$location,$http,environmentConfig,errorToasts,$ngConfirm,$timeout,cookieManagement,toastr) {
+    function ServicesCtrl($scope,$location,$http,environmentConfig,errorHandler,$ngConfirm,$timeout,cookieManagement,toastr) {
 
         $scope.loadingServices = true;
 
@@ -26,7 +26,8 @@
                 }
             }).catch(function (error) {
               $scope.loadingServices = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
         $scope.getServices();
@@ -76,7 +77,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingServices = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

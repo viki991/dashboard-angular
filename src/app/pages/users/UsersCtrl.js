@@ -5,7 +5,7 @@
         .controller('UsersCtrl', UsersCtrl);
 
     /** @ngInject */
-    function UsersCtrl($rootScope,$scope,environmentConfig,$http,typeaheadService,cookieManagement,errorToasts,Upload,$window,toastr) {
+    function UsersCtrl($rootScope,$scope,environmentConfig,$http,typeaheadService,cookieManagement,errorHandler,Upload,$window,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -106,7 +106,8 @@
             }).catch(function (error) {
                 $scope.loadingUsers = false;
                 $scope.usersStateMessage = 'Failed to load data';
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
         $scope.getAllUsers();
@@ -131,7 +132,8 @@
                 }
             }).catch(function (error) {
                 $scope.loadingUsers = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

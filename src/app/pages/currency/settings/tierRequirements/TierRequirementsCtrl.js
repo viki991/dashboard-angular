@@ -5,7 +5,7 @@
         .controller('TierRequirementsCtrl', TierRequirementsCtrl);
 
     /** @ngInject */
-    function TierRequirementsCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,errorToasts,_,toastr,$window,$timeout) {
+    function TierRequirementsCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,errorHandler,_,toastr,$window,$timeout) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -50,7 +50,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTierRequirements = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -82,7 +83,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingTierRequirements = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -141,7 +143,8 @@
                         }
                     }
                 }).catch(function (error) {
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -174,7 +177,8 @@
                         }
                     }
                 }).catch(function (error) {
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };

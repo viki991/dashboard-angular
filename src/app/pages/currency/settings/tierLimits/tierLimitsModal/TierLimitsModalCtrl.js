@@ -4,7 +4,7 @@
     angular.module('BlurAdmin.pages.currency.settings.tierLimits')
         .controller('TierLimitsModalCtrl', TierLimitsModalCtrl);
 
-    function TierLimitsModalCtrl($scope,$uibModalInstance,tierLimit,selectedTier,toastr,$http,environmentConfig,cookieManagement,errorToasts) {
+    function TierLimitsModalCtrl($scope,$uibModalInstance,tierLimit,selectedTier,toastr,$http,environmentConfig,cookieManagement,errorHandler) {
 
         var vm = this;
 
@@ -28,7 +28,8 @@
                 }
             }).catch(function (error) {
                 $scope.deletingTierLimits = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         };
 

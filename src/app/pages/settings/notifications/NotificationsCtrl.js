@@ -5,7 +5,7 @@
         .controller('NotificationsCtrl', NotificationsCtrl);
 
     /** @ngInject */
-    function NotificationsCtrl($scope,environmentConfig,toastr,$http,cookieManagement,errorToasts) {
+    function NotificationsCtrl($scope,environmentConfig,toastr,$http,cookieManagement,errorHandler) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -26,7 +26,8 @@
                     }
                 }).catch(function (error) {
                     $scope.loadingCompanyNotifications = false;
-                    errorToasts.evaluateErrors(error.data);
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
                 });
             }
         };
@@ -46,7 +47,8 @@
                 }
             }).catch(function (error) {
               $scope.loadingCompanyNotifications = false;
-                errorToasts.evaluateErrors(error.data);
+                errorHandler.evaluateErrors(error.data);
+                errorHandler.handleErrors(error);
             });
         }
 

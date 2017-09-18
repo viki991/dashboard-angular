@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('BlurAdmin.theme')
-        .factory('errorToasts', errorToasts);
+        .factory('errorHandler', errorHandler);
 
     /** @ngInject */
-    function errorToasts(toastr,$location) {
+    function errorHandler(toastr,$location) {
 
         return {
             evaluateErrors: function (errors) {
