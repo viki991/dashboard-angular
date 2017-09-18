@@ -15,7 +15,8 @@
             email: '',
             company: '',
             password1: '',
-            password2: ''
+            password2: '',
+            terms_and_conditions: false
         };
 
         $scope.registerUser = function() {
