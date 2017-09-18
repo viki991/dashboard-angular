@@ -12,8 +12,8 @@
                 <span></span>
             </label>
             </td>
-            <td width="30%" title="{{mobile.number}}" ng-bind="mobile.number | limitTo: '24'"></td>
-            <td width="30%" ng-bind="mobile.verified ? 'True': 'False'"></td>
+            <td class="transactions-list-element" title="{{mobile.number}}" ng-bind="mobile.number | limitTo: '24'"></td>
+            <td class="transactions-list-element" ng-bind="mobile.verified ? 'True': 'False'"></td>
             <td class="rehive-table-row-last-child">
                 <button ng-click="deleteUserNumberConfirm(mobile)" class="btn btn-danger pull-right user-accounts-btn">Delete</button>
                 <button ng-hide="mobile.verified" class="btn btn-primary pull-right user-accounts-btn margin-right-10"

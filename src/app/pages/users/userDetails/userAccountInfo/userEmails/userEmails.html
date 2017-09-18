@@ -12,8 +12,8 @@
                 <span></span>
             </label>
             </td>
-            <td width="30%" title="{{email.email}}" ng-bind="email.email | limitTo: '24'"></td>
-            <td width="20%" ng-bind="email.verified ? 'True': 'False'"></td>
+            <td class="transactions-list-element"  title="{{email.email}}" ng-bind="email.email"></td>
+            <td class="transactions-list-element"  ng-bind="email.verified ? 'True': 'False'"></td>
             <td class="rehive-table-row-last-child">
                 <button ng-click="deleteUserEmailConfirm(email)" class="btn btn-danger pull-right user-accounts-btn">Delete</button>
                 <button ng-hide="email.verified" class="btn btn-primary pull-right user-accounts-btn margin-right-10"
