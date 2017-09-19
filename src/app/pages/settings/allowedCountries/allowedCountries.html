@@ -1,0 +1,19 @@
+<div ng-hide="loadingAllowedCountries" ba-panel ba-panel-title="Allowed countries">
+    <div>
+        <button ng-click="saveAllowedCountries()" class="btn btn-primary dashboard-btn panel-header-button">Save</button>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-repeat="country in countries">
+            <div class="divider">
+                <label  class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-change="trackAllowedCountries(country)" ng-model="country.enabled"
+                           ng-checked="country.enabled">
+                    <span>{{country.name}}</span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div ba-panel ng-show="loadingAllowedCountries">
+    <loading-image></loading-image>
+</div>
