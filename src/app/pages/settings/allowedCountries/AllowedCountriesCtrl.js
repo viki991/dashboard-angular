@@ -283,6 +283,7 @@
                 $scope.countries.forEach(function (country,index) {
                     if(country.code == element){
                         $scope.countries[index].enabled = true;
+                        $scope.trackedCountries.push($scope.countries[index].code);
                     }
                 })
             });
@@ -291,12 +292,11 @@
 
         $scope.trackAllowedCountries = function (country) {
             var index = $scope.trackedCountries.indexOf(country.code);
-            if(index > 0){
-                $scope.trackedCountries.slice(index,1);
+            if(index > -1){
+                $scope.trackedCountries.splice(index,1);
             } else {
                 $scope.trackedCountries.push(country.code);
             }
-            console.log($scope.trackedCountries)
         };
 
         $scope.saveAllowedCountries = function () {
@@ -308,11 +308,10 @@
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    console.log(res);
-                    $scope.loadingAllowedCountries = false;
                     if (res.status === 200) {
                         $scope.trackedCountries = [];
                         toastr.success('List of allowed countries have been saved');
+                        $scope.getAllowedCountries();
                     }
                 }).catch(function (error) {
                     $scope.loadingAllowedCountries = false;
