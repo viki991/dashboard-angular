@@ -257,8 +257,46 @@
             {name: 'Zimbabwe', code: 'ZW'}
         ];
 
+        $scope.getAllowedCountries = function () {
+            if(vm.token) {
+                $scope.loadingAllowedCountries = true;
+                $http.get(environmentConfig.API + '/admin/company/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        vm.checkForAllowedCountries(res.data.data.nationalities);
+                    }
+                }).catch(function (error) {
+                    $scope.loadingAllowedCountries = false;
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
+                });
+            }
+        };
+        $scope.getAllowedCountries();
+
+        vm.checkForAllowedCountries = function (nationalities) {
+            nationalities.forEach(function (element) {
+                $scope.countries.forEach(function (country,index) {
+                    if(country.code == element){
+                        $scope.countries[index].enabled = true;
+                    }
+                })
+            });
+            $scope.loadingAllowedCountries = false;
+        };
+
         $scope.trackAllowedCountries = function (country) {
-            $scope.trackedCountries.push(country.code);
+            var index = $scope.trackedCountries.indexOf(country.code);
+            if(index > 0){
+                $scope.trackedCountries.slice(index,1);
+            } else {
+                $scope.trackedCountries.push(country.code);
+            }
+            console.log($scope.trackedCountries)
         };
 
         $scope.saveAllowedCountries = function () {
@@ -282,31 +320,6 @@
                     errorHandler.handleErrors(error);
                 });
             }
-        };
-
-        $scope.getAllowedCountries = function () {
-            if(vm.token) {
-                $scope.loadingAllowedCountries = true;
-                $http.get(environmentConfig.API + '/admin/company/', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': vm.token
-                    }
-                }).then(function (res) {
-                    if (res.status === 200) {
-                        vm.checkForAllowedCountries(res.data.data.nationalities);
-                    }
-                }).catch(function (error) {
-                    $scope.loadingAllowedCountries = false;
-                    errorHandler.evaluateErrors(error.data);
-                    errorHandler.handleErrors(error);
-                });
-            }
-        };
-
-        vm.checkForAllowedCountries = function (nationalities) {
-            console.log(nationalities)
-            $scope.loadingAllowedCountries = false;
         };
 
     }
