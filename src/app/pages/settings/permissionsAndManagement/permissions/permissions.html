@@ -1,54 +1,28 @@
 <div ng-hide="loadingPermissions">
-    <div ng-show="permissions.length > 0" ba-panel ba-panel-title="Permission groups" ba-panel-class="light-text with-scroll">
-        <table class="table fees-table table-striped ">
-            <tr class="black-muted-bg divider">
-                <th><strong>Type</strong></th>
-                <th><strong>Level</strong></th>
-                <th></th>
-            </tr>
-            <tr ng-repeat="permission in permissions">
-                <td class="transactions-list-element" ng-bind="permission.type"></td>
-                <td class="transactions-list-element" ng-bind="permission.level"></td>
-                <td class="rehive-table-row-last-child">
-                    <button ng-click="openPermissionsModal('app/pages/settings/permissionsAndManagement/permissions/permissionsModal/permissionsModal.html','md',permission)"
-                            class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div ba-panel ba-panel-title="Create permission" ba-panel-class="light-text with-scroll">
-        <form name="permissionGroupForm" class="custom-form">
-            <div class="form-group">
-                <label><strong>Type</strong> <span class="required-icon">*</span></label>
-                <br>
-                <select class="form-control pointer" ng-model="permissionParams.type" ng-options="type for type in typeOptions" required>
-                </select>
-            </div>
-            <div class="form-group">
-                <div>
-                    <label  class="checkbox-inline custom-checkbox nowrap">
-                        <input type="checkbox" ng-change="levelChanged('view')"  ng-model="permissionParams.view">
-                        <span>View</span>
-                    </label>
-                    <label  class="checkbox-inline custom-checkbox nowrap">
-                        <input type="checkbox" ng-change="levelChanged('add')" ng-model="permissionParams.add">
-                        <span>Add</span>
-                    </label>
-                    <label  class="checkbox-inline custom-checkbox nowrap">
-                        <input type="checkbox" ng-change="levelChanged('change')" ng-model="permissionParams.change">
-                        <span>Change</span>
-                    </label>
-                    <label  class="checkbox-inline custom-checkbox nowrap">
-                        <input type="checkbox" ng-change="levelChanged('delete')" ng-model="permissionParams.delete">
-                        <span>Delete</span>
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <button ng-click="addPermissionProcess()" ng-disabled="!permissionGroupForm.$valid" class="btn btn-primary dashboard-btn pull-right">Add</button>
-                <button ng-click="backToPermissionsAndManagement()" class="btn btn-primary dashboard-btn pull-right margin-right-10">Back</button>
-            </div>
-        </form>
+    <div class="row" ba-panel ba-panel-title="Permissions" ba-panel-class="light-text with-scroll">
+        <div>
+            <button ng-click="savePermissionsProcess()" class="btn btn-primary dashboard-btn panel-header-button">Save</button>
+        </div>
+        <div class="permissions-table" ng-repeat="typeOption in typeOptions">
+            <table class="table table-striped">
+                <tr>
+                    <td><strong>{{typeOption.type}}</strong></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" ng-repeat="level in typeOption.levels">
+                                <label  class="checkbox-inline custom-checkbox nowrap">
+                                    <input type="checkbox" ng-change="trackPermissions(typeOption,level)" ng-model="level.enabled"
+                                           ng-checked="level.enabled">
+                                    <span>{{level.name}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 <div ba-panel ng-show="loadingPermissions">
