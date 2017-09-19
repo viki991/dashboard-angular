@@ -24,6 +24,7 @@
             status: 'Pending'
         };
         $scope.editUserCryptoAccountParams = {};
+        vm.updatedUserCryptoAccount = {};
         $scope.userCryptoTypeOptions = ['Bitcoin','Ethereum','Other'];
         $scope.statusOptions = ['Pending', 'Incomplete', 'Declined', 'Verified'];
 
@@ -131,12 +132,21 @@
             }
         };
 
-        $scope.editUserCryptoAccount =  function (cryptoAccount) {
-            cryptoAccount.status = cryptoAccount.status.toLowerCase();
-            cryptoAccount.crypto_type = cryptoAccount.crypto_type.toLowerCase();
+        $scope.userCryptoAccountChanged =  function (field) {
+            vm.updatedUserCryptoAccount[field] = $scope.editUserCryptoAccountParams[field];
+        };
+
+        $scope.editUserCryptoAccount =  function () {
+            if(vm.updatedUserCryptoAccount.status){
+                vm.updatedUserCryptoAccount.status = vm.updatedUserCryptoAccount.status.toLowerCase();
+            }
+
+            if(vm.updatedUserCryptoAccount.crypto_type){
+                vm.updatedUserCryptoAccount.crypto_type = vm.updatedUserCryptoAccount.crypto_type.toLowerCase();
+            }
             if(vm.token) {
                 $scope.loadingUserCryptoAccounts = true;
-                $http.patch(environmentConfig.API + '/admin/users/crypto-accounts/' + cryptoAccount.id + '/',cryptoAccount, {
+                $http.patch(environmentConfig.API + '/admin/users/crypto-accounts/' + $scope.editUserCryptoAccountParams.id + '/',vm.updatedUserCryptoAccount, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -149,6 +159,7 @@
                         vm.getUserCryptoAccounts();
                     }
                 }).catch(function (error) {
+                    vm.getUserCryptoAccount($scope.editUserCryptoAccountParams);
                     $scope.loadingUserCryptoAccounts = false;
                     errorHandler.evaluateErrors(error.data);
                     errorHandler.handleErrors(error);
