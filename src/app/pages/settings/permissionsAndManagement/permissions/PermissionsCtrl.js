@@ -189,20 +189,6 @@
                 }
 
                 if(element.id){
-
-
-
-
-
-
-                    //delete the id somehow
-
-
-
-
-
-
-
                     vm.deletePermission(element)
                 } else {
                     vm.addPermissions({type: $scope.typeOptionsObj[type],level: element.level});
@@ -222,10 +208,7 @@
                 }).then(function (res) {
                     if (res.status === 201) {
                         if(last){
-                            $scope.loadingPermissions = false;
-                            vm.checkedLevels = [];
-                            toastr.success('Permissions successfully saved');
-                            vm.getPermissions();
+                            vm.resetTypeOptions();
                         }
                     }
                 }).catch(function (error) {
@@ -251,10 +234,7 @@
                 }).then(function (res) {
                     if (res.status === 200) {
                         if(last){
-                            $scope.loadingPermissions = false;
-                            vm.checkedLevels = [];
-                            toastr.success('Permissions successfully saved');
-                            vm.getPermissions();
+                            vm.resetTypeOptions();
                         }
                     }
                 }).catch(function (error) {
@@ -264,5 +244,26 @@
                 });
             }
         };
+
+        vm.resetTypeOptions = function () {
+            $scope.typeOptions.forEach(function (element,idx,array) {
+                if(idx === array.length - 1){
+                    element.levels = [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}];
+                    vm.finishSavingPermissionsProcess();
+                    return false;
+                }
+
+                element.levels = [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}];
+            });
+        };
+
+        vm.finishSavingPermissionsProcess = function () {
+            $scope.loadingPermissions = false;
+            vm.checkedLevels = [];
+            toastr.success('Permissions successfully saved');
+            vm.getPermissions();
+        };
+
+
     }
 })();
