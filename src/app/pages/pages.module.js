@@ -26,6 +26,7 @@
       'BlurAdmin.pages.resetPasswordConfirmation',
       'BlurAdmin.pages.verifyAdminEmail',
       'BlurAdmin.pages.accountSettings',
+      'BlurAdmin.pages.switchesAndPermissions',
       'BlurAdmin.pages.verification',
       'BlurAdmin.pages.companyNameRequest',
       'BlurAdmin.pages.initialAddCurrency'

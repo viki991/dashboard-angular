@@ -44,8 +44,7 @@
         };
 
         $scope.goToSettings = function(currencyCode, account){
-            $location.path('account/'+account+'/settings/'+ currencyCode);
-
+            $location.path('user/' + vm.uuid + '/account/'+account+'/settings/'+ currencyCode);
         }
 
     }

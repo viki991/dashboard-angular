@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.userDetails')
+    angular.module('BlurAdmin.pages.switchesAndPermissions.permissionGroups')
         .controller('UserPermissionGroupsCtrl', UserPermissionGroupsCtrl);
 
     /** @ngInject */
@@ -54,10 +54,12 @@
                     }
                 }).then(function (res) {
                     if (res.status === 200) {
+                        res.data.data.results.push({name: 'admin'});
+                        $scope.permissionGroups = res.data.data.results;
                         if(res.data.data.results.length > 0){
                             $scope.userPermissionGroupParams = res.data.data.results[0];
-                            res.data.data.results.push({name: 'admin'});
-                            $scope.permissionGroups = res.data.data.results;
+                        } else {
+                            $scope.userPermissionGroupParams = {name: 'admin'};
                         }
                     }
                 }).catch(function (error) {

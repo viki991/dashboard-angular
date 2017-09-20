@@ -5,7 +5,7 @@
         .controller('UserDetailsCtrl', UserDetailsCtrl);
 
     /** @ngInject */
-    function UserDetailsCtrl($scope,environmentConfig,$http,cookieManagement,Upload,$timeout,errorHandler,$stateParams,toastr) {
+    function UserDetailsCtrl($scope,environmentConfig,$http,cookieManagement,Upload,$timeout,errorHandler,$stateParams,toastr,$location) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -70,5 +70,8 @@
             })
         };
 
+        $scope.goToSwitchesAndPermissions = function () {
+          $location.path('user/' + vm.uuid + '/switches-and-permissions');
+        };
     }
 })();

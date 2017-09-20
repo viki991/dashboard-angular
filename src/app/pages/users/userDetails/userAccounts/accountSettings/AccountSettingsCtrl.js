@@ -11,10 +11,15 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.reference = $stateParams.reference;
         $scope.currencyCode = $stateParams.currencyCode;
+        vm.uuid = $stateParams.uuid;
         $scope.settingView = 'controls';
 
         $scope.goToSetting = function(path){
-            $location.path('/account/'+ $scope.reference +'/settings/' + $scope.currencyCode + '/' + path);
+            $location.path('user/' + vm.uuid + '/account/'+ $scope.reference +'/settings/' + $scope.currencyCode + '/' + path);
+        };
+
+        $scope.goBackToUser = function () {
+            $location.path('user/' + vm.uuid);
         };
 
     }
