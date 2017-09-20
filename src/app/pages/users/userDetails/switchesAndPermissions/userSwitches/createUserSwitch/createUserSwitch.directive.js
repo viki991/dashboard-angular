@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.userDetails')
+    angular.module('BlurAdmin.pages.switchesAndPermissions.userSwitches')
         .directive('createUserSwitch', createUserSwitch);
 
     /** @ngInject */
@@ -9,7 +9,7 @@
         return {
             restrict: 'E',
             require: '^parent',
-            templateUrl: 'app/pages/users/userDetails/userSwitches/createUserSwitch/createUserSwitch.html'
+            templateUrl: 'app/pages/users/userDetails/switchesAndPermissions/userSwitches/createUserSwitch/createUserSwitch.html'
         };
     }
 })();

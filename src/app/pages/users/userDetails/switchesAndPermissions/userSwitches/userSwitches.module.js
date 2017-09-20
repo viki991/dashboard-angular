@@ -1,15 +1,22 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.userDetails')
-        .directive('userSwitches', userSwitches);
+    angular.module('BlurAdmin.pages.switchesAndPermissions.userSwitches', [])
+        .config(routeConfig);
 
     /** @ngInject */
-    function userSwitches() {
-        return {
-            restrict: 'E',
-            controller: 'UserSwitchesCtrl',
-            templateUrl: 'app/pages/users/userDetails/userSwitches/userSwitches.html'
-        };
+    function routeConfig($stateProvider) {
+        $stateProvider
+            .state('switchesAndPermissions.userSwitches', {
+                url: '/user-switches',
+                title: 'Switches',
+                views:{
+                    'switchesAndPermissionsView':{
+                        templateUrl: 'app/pages/users/userDetails/switchesAndPermissions/userSwitches/userSwitches.html',
+                        controller: "UserSwitchesCtrl"
+                    }
+                }
+            });
     }
+
 })();
