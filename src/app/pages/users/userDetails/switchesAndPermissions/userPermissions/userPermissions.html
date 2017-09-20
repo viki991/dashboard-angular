@@ -1,26 +1,30 @@
-<div ng-hide="loadingUserPermissions || addingUserPermission" ba-panel class="setting-bank-accounts" ba-panel-title="User permissions">
-    <button ng-click="toggleAddUserPermissionView()" class="btn btn-primary pull-right user-accounts-btn panel-header-button">Create</button>
-    <table ng-show="userPermissionsList.length > 0" class="table fees-table table-striped setting-bank-accounts-table">
-        <tr class="black-muted-bg divider">
-            <th><strong>Type</strong></th>
-            <th><strong>Level</strong></th>
-            <th></th>
-        </tr>
-        <tr ng-repeat="permission in userPermissionsList">
-            <td class="table-row-center transactions-list-element" title="{{permission.type}}" ng-bind="permission.type"></td>
-            <td class="table-row-center transactions-list-element" title="{{permission.level}}" ng-bind="permission.level"></td>
-            <td class="rehive-table-row-last-child">
-                <button ng-click="openUserPermissionModal('app/pages/users/userDetails/userPermissions/userPermissionModal/userPermissionModal.html','md',permission)" class="btn btn-danger pull-right user-accounts-btn">Delete</button>
-            </td>
-        </tr>
-    </table>
-    <div ng-show="userPermissionsList.length == 0 && !loadingUserPermissions">
-        <i>No user permissions have been created</i>
+<div ng-hide="loadingPermissions">
+    <div class="row" ba-panel ba-panel-title="User permissions" class="setting-bank-accounts" ba-panel-class="light-text with-scroll">
+        <div>
+            <button ng-click="savePermissionsProcess()" class="btn btn-primary dashboard-btn panel-header-button">Save</button>
+        </div>
+        <div class="permissions-table" ng-repeat="typeOption in typeOptions">
+            <table class="table table-striped">
+                <tr>
+                    <td><strong>{{typeOption.type}}</strong></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" ng-repeat="level in typeOption.levels">
+                                <label  class="checkbox-inline custom-checkbox nowrap">
+                                    <input type="checkbox" ng-change="trackPermissions(typeOption,level)" ng-model="level.enabled"
+                                           ng-checked="level.enabled">
+                                    <span>{{level.name}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
-<div ng-show="addingUserPermission">
-    <add-user-permission></add-user-permission>
-</div>
-<div ba-panel ng-show="loadingUserPermissions">
+<div ba-panel ng-show="loadingPermissions">
     <loading-image></loading-image>
 </div>

@@ -82,10 +82,6 @@
                 {type:'User transaction switch',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]}
             ];
 
-        $scope.backToPermissionsAndManagement = function(){
-            $location.path('/settings/permissions-and-management');
-        };
-
         vm.getPermissions = function () {
             if(vm.token) {
                 $scope.loadingPermissions = true;
