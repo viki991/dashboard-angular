@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.switchesAndPermissions.permissionGroups')
+    angular.module('BlurAdmin.pages.permissions.permissionGroups')
         .controller('UserPermissionGroupsCtrl', UserPermissionGroupsCtrl);
 
     /** @ngInject */

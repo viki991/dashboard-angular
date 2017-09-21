@@ -11,7 +11,7 @@
                 url: '/permissions-and-management/:permissionGroupName/permissions',
                 views: {
                     'generalSettings': {
-                        controller: 'PermissionsCtrl',
+                        controller: 'GeneralPermissionsCtrl',
                         templateUrl: 'app/pages/settings/permissionsAndManagement/permissions/permissions.html'
                     }
                 },

@@ -1,18 +1,18 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.switchesAndPermissions.permissionGroups', [])
+    angular.module('BlurAdmin.pages.permissions.permissionGroups', [])
         .config(routeConfig);
 
     /** @ngInject */
     function routeConfig($stateProvider) {
         $stateProvider
-            .state('switchesAndPermissions.permissionGroups', {
+            .state('permissions.permissionGroups', {
                 url: '/permission-groups',
                 title: 'Permission groups',
                 views:{
-                    'switchesAndPermissionsView':{
-                        templateUrl: 'app/pages/users/userDetails/switchesAndPermissions/userPermissionGroups/userPermissionGroups.html',
+                    'permissionsView':{
+                        templateUrl: 'app/pages/users/userDetails/permissions/userPermissionGroups/userPermissionGroups.html',
                         controller: "UserPermissionGroupsCtrl"
                     }
                 }

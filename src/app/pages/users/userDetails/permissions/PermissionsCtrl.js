@@ -1,11 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.switchesAndPermissions')
-        .controller('SwitchesAndPermissionsCtrl', SwitchesAndPermissionsCtrl);
+    angular.module('BlurAdmin.pages.permissions')
+        .controller('PermissionsCtrl', PermissionsCtrl);
 
     /** @ngInject */
-    function SwitchesAndPermissionsCtrl($scope,$location,$stateParams) {
+    function PermissionsCtrl($scope,$location,$stateParams) {
 
         var vm = this;
         vm.uuid = $stateParams.uuid;

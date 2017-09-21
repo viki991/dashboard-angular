@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.switchesAndPermissions.permissionGroups')
+    angular.module('BlurAdmin.pages.permissions.permissionGroups')
         .controller('UserPermissionGroupsModalCtrl', UserPermissionGroupsModalCtrl);
 
     function UserPermissionGroupsModalCtrl($scope,$uibModalInstance,userPermissionGroup,uuid,toastr,$http,environmentConfig,cookieManagement,errorHandler) {

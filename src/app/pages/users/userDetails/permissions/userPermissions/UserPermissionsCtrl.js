@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.switchesAndPermissions.permissions')
+    angular.module('BlurAdmin.pages.permissions.userPermissions')
         .controller('UserPermissionsCtrl', UserPermissionsCtrl);
 
     /** @ngInject */
@@ -23,7 +23,7 @@
             COMPANY_ADDRESS : 'companyaddress',
             COMPANY_BANK_ACCOUNT : 'companybankaccount',
             COMPANY_TRANSACTION_SWITCH : 'companytransactionswitch',
-            USER_CRYPTO_ACCOUNT : 'cryptoaccount',
+            CRYPTO_ACCOUNT : 'cryptoaccount',
             CURRENCY : 'currency',
             CURRENCY_TIER : 'currencytier',
             CURRENCY_TIER_LIMIT : 'currencytierlimit',
@@ -58,7 +58,7 @@
             {type:'Company address',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]},
             {type:'Company bank account',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]},
             {type:'Company transaction switch',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]},
-            {type:'User crypto account',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]},
+            {type:'Crypto account',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]},
             {type:'Currency',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]},
             {type:'Currency tier',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]},
             {type:'Currency tier limit',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]},

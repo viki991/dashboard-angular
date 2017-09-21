@@ -9,7 +9,7 @@
         return {
             restrict: 'E',
             require: '^parent',
-            templateUrl: 'app/pages/users/userDetails/switchesAndPermissions/userPermissionGroups/addUserPermissionGroup/addUserPermissionGroup.html'
+            templateUrl: 'app/pages/users/userDetails/permissions/userPermissionGroups/addUserPermissionGroup/addUserPermissionGroup.html'
         };
     }
 })();
