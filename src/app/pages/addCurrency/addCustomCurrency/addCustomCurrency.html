@@ -30,8 +30,9 @@
                 <input type="number" ng-model="newCurrencyParams.divisibility" class="form-control" placeholder="e.g. 2" required>
             </div>
         </div>
-        <button ng-disabled="!customCurrencyForm.$valid" class="btn btn-primary pull-right" ng-click="addCustomCompanyCurrency(newCurrencyParams)">Add</button>
-        <button class="btn btn-primary pull-right margin-right-10" ng-click="toggleCustomCurrencyView()">Back</button>
+        <button ng-disabled="!customCurrencyForm.$valid" class="btn btn-primary dashboard-btn pull-right"
+                ng-click="addCustomCompanyCurrency(newCurrencyParams)">Add</button>
+        <button class="btn btn-primary pull-right dashboard-btn margin-right-10" ng-click="toggleCustomCurrencyView()">Back</button>
     </form>
 </div>
 <div ba-panel ng-show="loadingCurrencies">
