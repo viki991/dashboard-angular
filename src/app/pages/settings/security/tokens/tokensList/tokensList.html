@@ -15,19 +15,22 @@
             <tr class="black-muted-bg">
                 <th><strong>Token</strong></th>
                 <th><strong>Expires</strong></th>
+                <th><strong>Service</strong></th>
                 <th></th>
             </tr>
             <tr ng-repeat="token in tokensList" class="editable-row">
                 <td><div title="{{token.token_key}}" class="transactions-list-element" ng-bind="token.token_key"></div></td>
                 <td><div title="{{token.expires | date:'mediumDate'}} {{token.expires | date:'shortTime'}}"
                          class="transactions-list-element">
-                    <div ng-show="token.expires">
+                        <div ng-show="token.expires">
                         {{token.expires | date:'mediumDate'}} {{token.expires | date:'shortTime'}}
-                    </div>
-                    <div ng-show="!token.expires">
+                        </div>
+                        <div ng-show="!token.expires">
                         Permanent Key
+                        </div>
                     </div>
-                </div></td>
+                </td>
+                <td><div title="{{token.service}}" class="transactions-list-element" ng-bind="token.service"></div></td>
                 <td class="rehive-table-row-last-child">
                     <button ng-click="openDeleteTokenModal('app/pages/settings/security/tokens/deleteTokenModal/deleteTokenModal.html','md',token)" class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
                 </td>

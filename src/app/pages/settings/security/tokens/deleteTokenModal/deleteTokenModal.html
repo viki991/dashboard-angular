@@ -7,6 +7,8 @@
     </div>
     <div class="modal-body">
         <p><strong>Token:</strong> {{token.token_key}}, <strong>Expires:</strong> {{token.expires || 'Permanent' | date:'mediumDate'}} {{token.expires || 'Key' | date:'shortTime'}}</p>
+        <p ng-show="token.service">This API token is attached to the <strong>{{token.service}}</strong>, deleting it may impact the service's functionality.
+            Instead of deleting the token try deactivating the <a href="/#/services">service</a> first</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary dashboard-btn pull-left" ng-click="$dismiss()">Close</button>
