@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.switchesAndPermissions.userSwitches')
+    angular.module('BlurAdmin.pages.userDetails')
         .controller('UserSwitchesCtrl', UserSwitchesCtrl);
 
     /** @ngInject */

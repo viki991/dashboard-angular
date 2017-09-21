@@ -3,8 +3,7 @@
 
     angular.module('BlurAdmin.pages.switchesAndPermissions', [
         'BlurAdmin.pages.switchesAndPermissions.permissionGroups',
-        'BlurAdmin.pages.switchesAndPermissions.permissions',
-        'BlurAdmin.pages.switchesAndPermissions.userSwitches'
+        'BlurAdmin.pages.switchesAndPermissions.permissions'
     ])
         .config(routeConfig);
 

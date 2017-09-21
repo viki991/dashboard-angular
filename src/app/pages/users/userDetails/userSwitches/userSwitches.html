@@ -12,7 +12,7 @@
             <td class="table-row-center transactions-list-element" title="{{switches.subtype}}" ng-bind="switches.subtype ? switches.subtype: 'None' | limitTo: '35'"></td>
             <td class="table-row-center transactions-list-element" title="{{switches.enabled}}" ng-bind="switches.enabled | capitalizeWord"></td>
             <td class="rehive-table-row-last-child">
-                <button ng-click="openUserSwitchesModal('app/pages/users/userDetails/switchesAndPermissions/userSwitches/userSwitchesModal/userSwitchesModal.html','md',switches)" class="btn btn-danger pull-right user-accounts-btn">Delete</button>
+                <button ng-click="openUserSwitchesModal('app/pages/users/userDetails/userSwitches/userSwitchesModal/userSwitchesModal.html','md',switches)" class="btn btn-danger pull-right user-accounts-btn">Delete</button>
                 <button ng-click="toggleUserSwitchesEditView(switches)" class="btn btn-primary pull-right user-accounts-btn margin-right-10">Edit</button>
             </td>
         </tr>
