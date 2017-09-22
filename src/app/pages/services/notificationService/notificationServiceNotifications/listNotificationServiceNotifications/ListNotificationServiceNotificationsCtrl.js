@@ -12,11 +12,27 @@
         vm.baseUrl = cookieManagement.getCookie('SERVICEURL');
         $scope.loadingNotifications =  false;
 
-        vm.getNotificationsList = function () {
+        $scope.pagination = {
+            itemsPerPage: 20,
+            pageNo: 1,
+            maxSize: 5
+        };
+
+        vm.getNotificationListUrl = function(){
+
+            vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage; // all the params of the filtering
+
+            return vm.baseUrl + 'admin/notifications/' + vm.filterParams;
+        };
+
+        $scope.getNotificationsList = function () {
             $scope.loadingNotifications =  true;
             $scope.notificationsList = [];
+
+            var notificationListUrl = vm.getNotificationListUrl();
+
             if(vm.token) {
-                $http.get(vm.baseUrl + 'admin/notifications/', {
+                $http.get(notificationListUrl, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -24,7 +40,8 @@
                 }).then(function (res) {
                     $scope.loadingNotifications =  false;
                     if (res.status === 200) {
-                        $scope.notificationsList = res.data.data;
+                        $scope.notificationsListData = res.data.data;
+                        $scope.notificationsList = res.data.data.results;
                     }
                 }).catch(function (error) {
                     $scope.loadingNotifications =  false;
@@ -33,7 +50,7 @@
                 });
             }
         };
-        vm.getNotificationsList();
+        $scope.getNotificationsList();
 
         $scope.goToAddNotificationView = function () {
             $location.path('/services/notifications/create');

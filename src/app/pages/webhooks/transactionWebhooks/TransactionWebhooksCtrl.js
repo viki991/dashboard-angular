@@ -123,6 +123,7 @@
             $scope.editingTransactionWebhooks = !$scope.editingTransactionWebhooks;
             $scope.loadingTransactionWebhooks = true;
 
+            vm.updatedTransactionWebhook.tx_type = $scope.editTransactionWebhook.tx_type;
 
             if(vm.updatedTransactionWebhook.tx_type == 'All' || !vm.updatedTransactionWebhook.tx_type){
                 vm.updatedTransactionWebhook.tx_type = null;
