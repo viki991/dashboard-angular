@@ -12,7 +12,7 @@
             <tr ng-repeat="log in notificationLogs | orderBy: '-created'" ng-click="openNotificationServiceLogsModal('app/pages/services/notificationService/notificationServiceLogs/notificationServiceLogsModal/notificationServiceLogsModal.html', 'md',log)"
                 class="editable-row pointer">
                 <td class="transactions-list-element" title="{{log.recipient}}" ng-bind="log.recipient"></td>
-                <td class="transactions-list-element" title="{{log.notification}}" ng-bind="log.notificatio"></td>
+                <td class="transactions-list-element" title="{{log.notification}}" ng-bind="log.notification"></td>
                 <td class="transactions-list-element" title="{{log.sent | capitalizeWord}}" ng-bind="log.sent |capitalizeWord"></td>
                 <td class="transactions-list-element" title="{{log.created | date:'mediumDate'}} {{log.created | date:'shortTime'}}">
                     {{log.created | date:'mediumDate'}} {{log.created | date:'shortTime'}}</td>

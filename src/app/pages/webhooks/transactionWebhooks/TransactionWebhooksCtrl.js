@@ -102,7 +102,7 @@
                 $scope.loadingTransactionWebhooks = false;
                 if (res.status === 201) {
                     vm.getTransactionWebhooks();
-                    toastr.success('You have successfully added the Webhook!');
+                    toastr.success('You have successfully added the webhook');
                     $scope.transactionWebhooksParams = {tx_type: 'All',event: 'Transaction Create'};
                     $window.scrollTo(0, 0);
                 }
@@ -122,7 +122,9 @@
             $window.scrollTo(0, 0);
             $scope.editingTransactionWebhooks = !$scope.editingTransactionWebhooks;
             $scope.loadingTransactionWebhooks = true;
-            if(vm.updatedTransactionWebhook.tx_type == 'All'){
+
+
+            if(vm.updatedTransactionWebhook.tx_type == 'All' || !vm.updatedTransactionWebhook.tx_type){
                 vm.updatedTransactionWebhook.tx_type = null;
             } else {
               vm.updatedTransactionWebhook.tx_type = $scope.editTransactionWebhook.tx_type.toLowerCase();
@@ -146,7 +148,7 @@
                     vm.updatedTransactionWebhook = {};
                     vm.getTransactionWebhooks();
                     $scope.toggleTransactionWebhooksEditView();
-                    toastr.success('You have successfully updated the Webhook!');
+                    toastr.success('You have successfully updated the webhook');
                 }
             }).catch(function (error) {
                 $scope.loadingTransactionWebhooks = false;

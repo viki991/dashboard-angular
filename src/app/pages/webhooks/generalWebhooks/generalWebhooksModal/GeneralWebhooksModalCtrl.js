@@ -22,7 +22,7 @@
             }).then(function (res) {
                 $scope.deletingGeneralWebhook = false;
                 if (res.status === 200) {
-                    toastr.success('General Webhook successfully deleted');
+                    toastr.success('General webhook successfully deleted');
                     $uibModalInstance.close($scope.generalWebhook);
                 }
             }).catch(function (error) {

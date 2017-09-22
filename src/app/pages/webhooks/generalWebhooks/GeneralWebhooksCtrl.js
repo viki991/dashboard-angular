@@ -89,7 +89,7 @@
                 $scope.loadingGeneralWebhooks = false;
                 if (res.status === 201) {
                     vm.getGeneralWebhooks();
-                    toastr.success('You have successfully added the webhook!');
+                    toastr.success('You have successfully added the webhook');
                     $scope.generalWebhooksParams = {event: 'User Create'};
                     $window.scrollTo(0, 0);
                 }
@@ -124,7 +124,7 @@
                 if (res.status === 200) {
                     vm.updatedGeneralWebhook = {};
                     vm.getGeneralWebhooks();
-                    toastr.success('You have successfully updated the webhook!');
+                    toastr.success('You have successfully updated the webhook');
                 }
             }).catch(function (error) {
                 $scope.loadingGeneralWebhooks = false;

@@ -22,7 +22,7 @@
             }).then(function (res) {
                 $scope.deletingTransactionWebhook = false;
                 if (res.status === 200) {
-                    toastr.success('Transaction Webhook successfully deleted');
+                    toastr.success('Transaction webhook successfully deleted');
                     $uibModalInstance.close($scope.transactionWebhook);
                 }
             }).catch(function (error) {

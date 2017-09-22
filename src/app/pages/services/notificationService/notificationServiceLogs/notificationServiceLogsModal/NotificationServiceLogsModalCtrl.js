@@ -7,7 +7,7 @@
     /** @ngInject */
     function NotificationServiceLogsModalCtrl($scope,log,$sce) {
         $scope.log = log;
-        $scope.log.html_message = $sce.trustAsHtml($scope.log.html_message);
+        $scope.html_message = $sce.trustAsHtml($scope.log.html_message);
 
     }
 })();
