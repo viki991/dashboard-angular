@@ -10,6 +10,9 @@
 
         return {
             convertToCents: function (amount,divisibility) {
+                if(!amount){
+                    amount = 0;
+                }
                 var x = new Big(amount);
                 var z = new Big(10);
                 z = z.pow(divisibility);
@@ -18,6 +21,9 @@
                 return  m.toFixed(0);
             },
             convertFromCents: function (amount,divisibility) {
+                if(!amount){
+                    amount = 0;
+                }
                 var j = new Big(amount);
                 var l = new Big(10);
                 l = l.pow(divisibility);
@@ -26,6 +32,9 @@
                 return n.toFixed(divisibility);
             },
             validateCurrency: function (amount,divisibility) {
+                if(!amount){
+                    amount = 0;
+                }
                 var amountInArray = amount.toString().split('.');
                 var afterDecimalValue = amountInArray[1];
                 if(afterDecimalValue == undefined){

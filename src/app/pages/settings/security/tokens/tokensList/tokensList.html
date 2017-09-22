@@ -4,7 +4,8 @@
             <tbody>
             <tr>
                 <td>This is the company's list of authentication tokens</td>
-                <td class="rehive-table-row-last-child"><button ng-click="goToAddTokenView()" class="btn btn-success rehive-settings-buttons pull-right">Add</button></td>
+                <td><button ng-click="goToAddTokenView()"
+                     class="btn btn-success dashboard-btn pull-right">Add</button></td>
             </tr>
             </tbody>
         </table>
@@ -32,7 +33,8 @@
                 </td>
                 <td><div title="{{token.service}}" class="transactions-list-element" ng-bind="token.service"></div></td>
                 <td class="rehive-table-row-last-child">
-                    <button ng-click="openDeleteTokenModal('app/pages/settings/security/tokens/deleteTokenModal/deleteTokenModal.html','md',token)" class="btn btn-danger pull-right rehive-settings-buttons">Delete</button>
+                    <button ng-click="openDeleteTokenModal('app/pages/settings/security/tokens/deleteTokenModal/deleteTokenModal.html','md',token)"
+                            class="btn btn-danger pull-right dashboard-btn">Delete</button>
                 </td>
             </tr>
             </tbody>

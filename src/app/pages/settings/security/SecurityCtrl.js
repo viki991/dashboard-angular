@@ -26,7 +26,6 @@
                     $scope.loadingAPITokens = false;
                     if (res.status === 200) {
                         $scope.tokensList = res.data.data;
-                        console.log($scope.tokensList)
                     }
                 }).catch(function (error) {
                     $scope.loadingAPITokens = false;

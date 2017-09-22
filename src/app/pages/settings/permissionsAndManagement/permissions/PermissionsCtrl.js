@@ -47,6 +47,10 @@
             USER_TRANSACTION_SWITCH : 'usertransactionswitch'
         };
 
+        $scope.goBackToPermissionGroups = function () {
+            $location.path('/settings/permissions-and-management');
+        };
+
         $scope.typeOptions = [
                 {type:'Account',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]},
                 {type:'Account currency',levels: [{name: 'view',enabled: false},{name: 'add',enabled: false},{name: 'change',enabled: false},{name: 'delete',enabled: false}]},

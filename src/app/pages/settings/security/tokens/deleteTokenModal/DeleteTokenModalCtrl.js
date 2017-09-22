@@ -19,7 +19,7 @@
         $scope.deleteToken = function (tokenKey) {
             if(vm.token) {
                 $scope.deletingToken = true;
-                $http.delete(environmentConfig.API + '/auth/tokens/' + tokenKey, {
+                $http.delete(environmentConfig.API + '/auth/tokens/' + tokenKey + '/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
