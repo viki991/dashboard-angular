@@ -18,7 +18,7 @@
                 url: '/services',
                 templateUrl: 'app/pages/services/services.html',
                 controller: "ServicesCtrl",
-                title: 'Services',
+                title: 'Marketplace',
                 sidebarMeta: {
                     order: 500
                 }
