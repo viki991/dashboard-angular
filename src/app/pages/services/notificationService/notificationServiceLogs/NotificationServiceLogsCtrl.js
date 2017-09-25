@@ -52,50 +52,25 @@
         };
         $scope.getNotificationLogs();
 
-        $scope.resendNotificationPrompt = function (log) {
-            $ngConfirm({
-                title: 'Resend notification',
-                content: "Resend the notification to the following recipient: <strong>" + log.recipient + "</strong> ?",
-                animationBounce: 1,
-                animationSpeed: 100,
-                scope: $scope,
-                buttons: {
-                    close: {
-                        text: "No",
-                        btnClass: 'btn-default dashboard-btn'
-                    },
-                    Add: {
-                        text: "Yes",
-                        btnClass: 'btn-primary dashboard-btn',
-                        keys: ['enter'], // will trigger when enter is pressed
-                        action: function(scope,button){
-                            $scope.resendNotification(log);
-                        }
+        $scope.openNotificationServiceLogsResendModal = function (page, size,log) {
+            vm.theModal = $uibModal.open({
+                animation: true,
+                templateUrl: page,
+                size: size,
+                controller: 'NotificationServiceLogsResendModalCtrl',
+                resolve: {
+                    log: function () {
+                        return log;
                     }
                 }
             });
-        };
 
-        $scope.resendNotification = function (notificationLog) {
-            $scope.loadingLogs =  true;
-            if(vm.token) {
-                $http.post(vm.baseUrl + 'admin/logs/' + notificationLog.id + /send/,{recipient: notificationLog.recipient}, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': vm.token
-                    }
-                }).then(function (res) {
-                    $scope.loadingLogs =  false;
-                    if (res.status === 200) {
-                        toastr.success('Notification successfully resent');
-                        $scope.getNotificationLogs();
-                    }
-                }).catch(function (error) {
-                    $scope.loadingLogs =  false;
-                    errorHandler.evaluateErrors(error.data);
-                    errorHandler.handleErrors(error);
-                });
-            }
+            vm.theModal.result.then(function(log){
+                if(log){
+                    $scope.getNotificationLogs();
+                }
+            }, function(){
+            });
         };
 
         $scope.openNotificationServiceLogsModal = function (page, size,log) {

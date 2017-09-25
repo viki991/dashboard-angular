@@ -20,7 +20,7 @@
                 <td class="transactions-list-element" title="{{log.created | date:'mediumDate'}} {{log.created | date:'shortTime'}}">
                     {{log.created | date:'mediumDate'}} {{log.created | date:'shortTime'}}</td>
                 <td ng-click="$event.stopPropagation()" class="rehive-table-row-last-child">
-                    <button ng-click="resendNotificationPrompt(log)" class="btn btn-primary pull-right rehive-button-no-right-margin">Resend</button>
+                    <button ng-click="openNotificationServiceLogsResendModal('app/pages/services/notificationService/notificationServiceLogs/notificationServiceLogsResendModal/notificationServiceLogsResendModal.html','md',log)" class="btn btn-primary pull-right rehive-button-no-right-margin">Resend</button>
                 </td>
             </tr>
         </table>
