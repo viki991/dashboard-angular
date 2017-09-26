@@ -7,7 +7,7 @@
                 <td><strong>Recipient</strong></td>
                 <td><strong>Notification</strong></td>
                 <td><strong>Sent</strong></td>
-                <td><strong>Subject</strong></td>
+                <!--<td><strong>Subject</strong></td>-->
                 <td><strong>Created</strong></td>
                 <td></td>
             </tr>
@@ -16,7 +16,7 @@
                 <td class="transactions-list-element" title="{{log.recipient}}" ng-bind="log.recipient"></td>
                 <td class="transactions-list-element" title="{{log.notification}}" ng-bind="log.notification"></td>
                 <td class="transactions-list-element" title="{{log.sent | capitalizeWord}}" ng-bind="log.sent |capitalizeWord"></td>
-                <td class="transactions-list-element" title="{{log.subject}}" ng-bind="log.subject"></td>
+                <!--<td class="transactions-list-element" title="{{log.subject}}" ng-bind="log.subject"></td>-->
                 <td class="transactions-list-element" title="{{log.created | date:'mediumDate'}} {{log.created | date:'shortTime'}}">
                     {{log.created | date:'mediumDate'}} {{log.created | date:'shortTime'}}</td>
                 <td ng-click="$event.stopPropagation()" class="rehive-table-row-last-child">
