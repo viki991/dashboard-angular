@@ -10,6 +10,10 @@
             <input type="text" ng-model="notificationParams.subject" class="form-control"  placeholder="Enter subject" required>
         </div>
         <div class="form-group">
+            <label><strong>Description</strong></label>
+            <textarea rows="4" type="text" ng-model="notificationParams.description" class="form-control"  placeholder='Enter description'></textarea>
+        </div>
+        <div class="form-group">
             <label><strong>Html message</strong></label>
             <textarea rows="4" type="text" ng-model="notificationParams.html_message" class="form-control"  placeholder='Enter html message'></textarea>
         </div>
@@ -28,7 +32,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label><strong>Event</strong></label>
+            <label><strong>Event <span class="required-icon">*</span></strong></label>
             <input type="text" ng-model="notificationParams.event" class="form-control"  placeholder="Enter event name" required>
         </div>
         <div class="form-group">
@@ -42,6 +46,14 @@
         <div class="form-group">
             <label><strong>Expression</strong></label>
             <input type="text" ng-model="notificationParams.expression" class="form-control"  placeholder="Enter expression">
+        </div>
+        <div class="form-group">
+            <label><strong>Preference enabled</strong></label>
+            <br>
+            <label  class="checkbox-inline custom-checkbox nowrap">
+                <input type="checkbox" ng-model="notificationParams.preference_enabled" ng-checked="notificationParams.preference_enabled">
+                <span></span>
+            </label>
         </div>
         <div class="form-group">
             <button ng-disabled="!notificationForm.$valid" ng-click="addNotification(notificationParams)" class="btn btn-primary dashboard-btn pull-right">Add</button>

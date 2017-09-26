@@ -13,7 +13,8 @@
         vm.updatedNotification = {};
         $scope.loadingNotifications =  false;
         $scope.notificationParams = {
-            enabled: 'False'
+            enabled: 'False',
+            preference_enabled: false
         };
 
         $scope.boolOptions = ['True','False'];

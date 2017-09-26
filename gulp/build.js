@@ -6,7 +6,7 @@ var conf = require('./conf');
 var gulpNgConfig = require('gulp-ng-config');
 
 var $ = require('gulp-load-plugins')({
-  pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
+  pattern: ['gulp-*','gulp-rev','gulp-rev-replace','main-bower-files', 'uglify-save-license', 'del']
 });
 
 gulp.task('partials', function () {
