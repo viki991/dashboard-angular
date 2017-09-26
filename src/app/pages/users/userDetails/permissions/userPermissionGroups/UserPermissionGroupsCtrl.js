@@ -24,7 +24,7 @@
         $scope.addUserPermissionGroup = function(userPermissionGroupParams){
             if(vm.token) {
                 $scope.loadingUserPermissionGroups = true;
-                $http.post(environmentConfig.API + '/admin/users/' + vm.uuid + '/permission-groups/', {group: userPermissionGroupParams.name}, {
+                $http.post(environmentConfig.API + '/admin/users/' + vm.uuid + '/permission-groups/', {permission_groups: userPermissionGroupParams.name}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
