@@ -5,7 +5,7 @@
         .controller('GeneralWebhooksCtrl', GeneralWebhooksCtrl);
 
     /** @ngInject */
-    function GeneralWebhooksCtrl($scope,environmentConfig,$uibModal,toastr,$http,cookieManagement,errorHandler,$window,$state) {
+    function GeneralWebhooksCtrl($scope,environmentConfig,$uibModal,toastr,$filter,$http,cookieManagement,errorHandler,$window,$state) {
 
         var vm = this;
         vm.updatedGeneralWebhook = {};
@@ -18,7 +18,25 @@
             secret: $state.params.secret || ''
         };
 
-        $scope.eventOptions = ['User Create','User Update','User Password Reset','User Email Verify','User Mobile Verify'];
+        vm.eventOptionsObj = {
+            USER_CREATE: 'user.create',
+            USER_UPDATE: 'user.update',
+            USER_PASSWORD_RESET: 'user.password.reset',
+            USER_EMAIL_VERIFY: 'user.email.verify',
+            USER_MOBILE_VERIFY: 'user.mobile.verify',
+            ADDRESS_CREATE: 'address.create',
+            ADDRESS_UPDATE: 'address.update',
+            DOCUMENT_CREATE: 'document.create',
+            DOCUMENT_UPDATE: 'document.update',
+            BANK_ACCOUNT_CREATE: 'bank_account.create',
+            BANK_ACCOUNT_UPDATE: 'bank_account.update',
+            CRYPTO_ACCOUNT_CREATE: 'crypto_account.create',
+            CRYPTO_ACCOUNT_UPDATE: 'crypto_account.update'
+        };
+
+        $scope.eventOptions = ['User Create','User Update','User Password Reset','User Email Verify','User Mobile Verify',
+            'Address Create','Address Update','Document Create','Document Update',
+            'Bank Account Create','Bank Account Update','Crypto Account Create','Crypto Account Update'];
 
         $scope.toggleGeneralWebhooksEditView = function(webhook){
             if(webhook){
@@ -41,9 +59,8 @@
                 $scope.loadingGeneralWebhooks = false;
                 if (res.status === 200) {
                     $scope.editGeneralWebhook = res.data.data;
-                    $scope.editGeneralWebhook.event = $scope.editGeneralWebhook.event == 'user.create' ?
-                        'User Create' : $scope.editGeneralWebhook.event == 'user.update' ? 'User Update' : $scope.editGeneralWebhook.event == 'user.password.reset' ? 'User Password Reset': $scope.editGeneralWebhook.event == 'user.email.verify' ?
-                                'User Email Verify': $scope.editGeneralWebhook.event == 'user.mobile.verify' ? 'User Mobile Verify': '';
+                    $scope.editGeneralWebhook.event = $filter('capitalizeDottedSentence')(res.data.data.event);
+                    $scope.editGeneralWebhook.event = $filter('capitalizeUnderscoredSentence')($scope.editGeneralWebhook.event);
                 }
             }).catch(function (error) {
                 $scope.loadingGeneralWebhooks = false;
@@ -77,9 +94,12 @@
 
         $scope.addGeneralWebhooks = function (generalWebhooksParams) {
             $scope.loadingGeneralWebhooks = true;
-            generalWebhooksParams.event = generalWebhooksParams.event == 'User Create' ?
-             'user.create' : generalWebhooksParams.event == 'User Update' ? 'user.update' : generalWebhooksParams.event == 'User Password Reset' ? 'user.password.reset' : generalWebhooksParams.event == 'User Email Verify' ?
-             'user.email.verify' : generalWebhooksParams.event == 'User Mobile Verify' ? 'user.mobile.verify' : '';
+
+            var event;
+            event = generalWebhooksParams.event.toUpperCase();
+            event = event.replace(/ /g, '_');
+            generalWebhooksParams.event = vm.eventOptionsObj[event];
+
             $http.post(environmentConfig.API + '/admin/webhooks/', generalWebhooksParams, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -110,9 +130,9 @@
             $scope.editingGeneralWebhook = !$scope.editingGeneralWebhook;
             $scope.loadingGeneralWebhooks = true;
             if(vm.updatedGeneralWebhook.event){
-            vm.updatedGeneralWebhook.event = vm.updatedGeneralWebhook.event == 'User Create' ?
-               'user.create' : vm.updatedGeneralWebhook.event == 'User Update' ? 'user.update' : vm.updatedGeneralWebhook.event == 'User Password Reset' ? 'user.password.reset' : vm.updatedGeneralWebhook.event == 'User Email Verify' ?
-               'user.email.verify' : vm.updatedGeneralWebhook.event == 'User Mobile Verify' ? 'user.mobile.verify' : '';
+                var event = vm.updatedGeneralWebhook.event.toUpperCase();
+                event = event.replace(/ /g, '_');
+                vm.updatedGeneralWebhook.event = vm.eventOptionsObj[event];
            }
             $http.patch(environmentConfig.API + '/admin/webhooks/' + $scope.editGeneralWebhook.id + '/', vm.updatedGeneralWebhook, {
                 headers: {

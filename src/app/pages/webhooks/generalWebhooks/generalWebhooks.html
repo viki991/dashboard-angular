@@ -8,7 +8,7 @@
                 <th></th>
             </tr>
             <tr ng-repeat="webhook in generalWebhooks">
-                <td class="table-row-center transactions-list-element" title="{{webhook.event}}" ng-bind="webhook.event | capitalizeDottedSentence"></td>
+                <td class="table-row-center transactions-list-element" title="{{webhook.event}}" ng-bind="webhook.event | capitalizeDottedSentence | capitalizeUnderscoredSentence"></td>
                 <td class="table-row-center transactions-list-element" title="{{webhook.url}}" ng-bind="webhook.url"></td>
                 <td class="table-row-center transactions-list-element" title="{{webhook.secret}}" ng-bind="webhook.secret"></td>
                 <td class="rehive-table-row-last-child">

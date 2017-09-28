@@ -39,7 +39,7 @@
             TRANSACTION_DELETE: 'transaction.delete',
             TRANSACTION_INITIATE: 'transaction.initiate',
             TRANSACTION_EXECUTE: 'transaction.execute'
-    };
+        };
 
         $scope.eventOptions = ['User Create','User Update','User Password Reset','User Email Verify','User Mobile Verify',
             'Address Create','Address Update','Document Create','Document Update',
