@@ -34,7 +34,7 @@
             $scope.subtypeOptions.unshift('');
         });
 
-        $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
+        $scope.getUsersEmailTypeahead = typeaheadService.getUsersEmailTypeahead();
 
         if ($location.path() === '/transactions/debit/pending') {
             $scope.showView = 'pendingDebit';

@@ -122,7 +122,7 @@
         };
         $scope.getLatestTransactions();
 
-        $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
+        $scope.getUsersEmailTypeahead = typeaheadService.getUsersEmailTypeahead();
 
         $scope.openModal = function (page, size,transaction) {
             vm.theModal = $uibModal.open({

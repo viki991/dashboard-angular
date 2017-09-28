@@ -8,7 +8,7 @@
     function typeaheadService($http,environmentConfig,_,cookieManagement) {
 
         return {
-                getUsersTypeahead : function () {
+            getUsersEmailTypeahead : function () {
                     return function (email) {
                         if(email.length > 0){
                             var token = cookieManagement.getCookie('TOKEN');
@@ -22,7 +22,22 @@
                             });
                         }
                     }
+                },
+            getUsersMobileTypeahead : function () {
+                return function (mobile) {
+                    if(mobile.length > 0){
+                        var token = cookieManagement.getCookie('TOKEN');
+                        return $http.get(environmentConfig.API + '/admin/users/?page_size=10&mobile_number__contains=' + encodeURIComponent(mobile), {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': token
+                            }
+                        }).then(function (res) {
+                            return _.pluck(res.data.data.results,'mobile_number');
+                        });
+                    }
                 }
+            }
         }
     }
 

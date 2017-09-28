@@ -3,13 +3,13 @@
         <div class="form-group">
             <label><strong>User</strong> <span class="required-icon">*</span></label>
             <input type="email" ng-model="transferData.user" placeholder="e.g. email@domain.com"
-                   uib-typeahead="email for email in getUsersTypeahead($viewValue)"
+                   uib-typeahead="email for email in getUsersEmailTypeahead($viewValue)"
                    class="form-control" size="12" required>
         </div>
         <div class="form-group">
             <label><strong>Recipient</strong> <span class="required-icon">*</span></label>
             <input type="email" ng-model="transferData.recipient" placeholder="e.g. email@domain.com"
-                   uib-typeahead="email for email in getUsersTypeahead($viewValue)"
+                   uib-typeahead="email for email in getUsersEmailTypeahead($viewValue)"
                    class="form-control" size="12" required>
         </div>
         <div class="form-group">

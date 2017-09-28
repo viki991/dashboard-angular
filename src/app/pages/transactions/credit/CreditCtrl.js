@@ -30,7 +30,7 @@
             $scope.subtypeOptions.unshift('');
         });
 
-        $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
+        $scope.getUsersEmailTypeahead = typeaheadService.getUsersEmailTypeahead();
 
         if($state.params.email){
           $scope.creditData.user = $state.params.email;

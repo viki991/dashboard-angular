@@ -64,7 +64,8 @@
             $scope.popup4.opened = true;
         };
 
-        $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
+        $scope.getUsersEmailTypeahead = typeaheadService.getUsersEmailTypeahead();
+        $scope.getUsersMobileTypeahead = typeaheadService.getUsersMobileTypeahead();
 
         $rootScope.$watch('selectedCurrency',function(){
             if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {

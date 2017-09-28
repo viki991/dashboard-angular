@@ -17,7 +17,7 @@
             currency: null
         };
 
-        $scope.getUsersTypeahead = typeaheadService.getUsersTypeahead();
+        $scope.getUsersEmailTypeahead = typeaheadService.getUsersEmailTypeahead();
 
         $scope.onGoingTransaction = false;
         $scope.showView = 'createTransfer';
