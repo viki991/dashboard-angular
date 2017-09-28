@@ -16,7 +16,8 @@
                 <td class="transactions-list-element" title="{{notification.name}}" ng-bind="notification.name"></td>
                 <td class="transactions-list-element" title="{{notification.subject || 'None'}}" ng-bind="notification.subject || 'None'"></td>
                 <td class="transactions-list-element" title="{{notification.enabled | capitalizeWord}}" ng-bind="notification.enabled | capitalizeWord"></td>
-                <td class="transactions-list-element" title="{{notification.event | capitalizeDottedSentence}}" ng-bind="notification.event | capitalizeDottedSentence"></td>
+                <td class="transactions-list-element" title="{{notification.event | capitalizeDottedSentence | capitalizeUnderscoredSentence}}"
+                    ng-bind="notification.event | capitalizeDottedSentence | capitalizeUnderscoredSentence"></td>
                 <td class="rehive-table-row-last-child">
                     <button ng-click="openNotificationModal('app/pages/services/notificationService/notificationServiceNotifications/notificationServiceNotificationModal/notificationServiceNotificationModal.html','md',notification)"
                             class="btn btn-danger pull-right rehive-button-no-right-margin">Delete</button>
