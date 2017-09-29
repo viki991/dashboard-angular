@@ -8,6 +8,7 @@
     function historyFilters() {
         return {
             restrict: 'E',
+            require: '^parent',
             templateUrl: 'app/pages/transactions/history/filters/filters.html'
         };
     }

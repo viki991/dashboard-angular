@@ -63,6 +63,12 @@
         };
         vm.getCompanyCurrencies();
 
+        $scope.pageSizeChanged =  function () {
+            if($scope.pagination.itemsPerPage > 250){
+                $scope.pagination.itemsPerPage = 250;
+            }
+        };
+
         vm.getTransactionUrl = function(){
 
             vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage

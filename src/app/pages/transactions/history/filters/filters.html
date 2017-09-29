@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>Id</strong></label>
-            <input type="text"  class="form-control" id="id"  placeholder="Enter transaction Id" ng-model="searchParams.searchId" size="12">
+            <input type="text"  class="form-control" id="id"  placeholder="Enter transaction id" ng-model="searchParams.searchId" size="12">
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>User</strong></label>
@@ -55,6 +55,11 @@
             <br>
             <select class="form-control pointer" ng-model="searchParams.searchStatus" ng-options="status for status in statusOptions">
             </select>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
+            <label><strong>Page size</strong></label>
+            <input type="number"  class="form-control" ng-change="pageSizeChanged()"
+                   placeholder="Enter page size" ng-model="pagination.itemsPerPage" min="1" size="12">
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
             <label><strong>Order by</strong></label>
