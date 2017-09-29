@@ -76,15 +76,15 @@ a.refresh-data {
 }
 
 a.collapse-menu-link {
+  display: none;
   font-size: 31px;
   cursor: pointer;
-  display: block;
   text-decoration: none;
-  line-height: 46.5px;
+  line-height: 30px;
   color: $sidebar-text;
   padding: 0;
   float: left;
-  margin: 11px 0 0 25px;
+  margin: 10px 0 0 17px;
 
   &:hover {
     text-decoration: none;
@@ -155,6 +155,13 @@ a.collapse-menu-link {
 @media screen and (max-width: $resXS) {
   .page-top {
     padding: 0 20px;
+  }
+}
+
+@media (max-width: 1200px) {
+  a.collapse-menu-link {
+    display: block;
+    margin-left: 10px;
   }
 }
 
