@@ -4,7 +4,8 @@
     angular.module('BlurAdmin.pages.userDetails')
         .controller('LastTransactionsModalCtrl', LastTransactionsModalCtrl);
 
-    function LastTransactionsModalCtrl($uibModalInstance,$http,$scope,errorHandler,toastr,transaction,metadataTextService,$location,environmentConfig,cookieManagement,$ngConfirm) {
+    function LastTransactionsModalCtrl($uibModalInstance,$http,$scope,errorHandler,$state,
+                                       toastr,transaction,metadataTextService,$location,environmentConfig,cookieManagement,$ngConfirm) {
 
         $scope.transaction = transaction;
         $scope.updateTransactionObj = {};
@@ -135,6 +136,11 @@
             $uibModalInstance.close();
             $location.path('/user/' + $scope.transaction.user.identifier);
         }
-    }
 
+
+        $scope.goToTransactions = function(rehiveCode){
+            $uibModalInstance.close();
+            $state.go('transactions.history',{"transactionId": rehiveCode});
+        }
+    }
 })();

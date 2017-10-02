@@ -77,8 +77,8 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <p><strong>Code: </strong></p>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="transaction.id"></p>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pointer">
+                <a ng-click="goToTransactions(transaction.id)" ng-bind="transaction.id"></a>
             </div>
         </div>
         <div class="row">
