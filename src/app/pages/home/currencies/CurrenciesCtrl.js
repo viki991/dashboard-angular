@@ -71,12 +71,6 @@
             $location.path(path);
         };
 
-        $scope.openViewInNewTab =  function(event,path){
-            if(event.button == 1){
-                $window.open(path, "_blank");
-            }
-        };
-
         $scope.goToAddCurrency = function(){
             $location.path('/currency/add');
         }

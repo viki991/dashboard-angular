@@ -11,13 +11,9 @@
     function routeConfig($stateProvider) {
         $stateProvider
             .state('currency', {
-                url: '/currency',
+                url: '/currency/:currencyCode',
                 template : '<ui-view  autoscroll="true" autoscroll-body-top></ui-view>',
-                abstract: true,
-                title: 'Currency',
-                sidebarMeta: {
-                    order: 200
-                }
+                abstract: true
             });
     }
 

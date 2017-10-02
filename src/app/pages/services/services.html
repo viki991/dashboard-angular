@@ -1,3 +1,4 @@
+<content-top></content-top>
 <div ng-hide="loadingServices" ba-panel ba-panel-title="Services" ba-panel-class=" with-scroll" >
     <div>
         <button class="btn btn-success pull-right dashboard-btn panel-header-button" ng-click="addService()">Add</button>
@@ -21,8 +22,8 @@
                 <td  width="15%" ng-bind="service.name"></td>
                 <td width="50%" ng-bind="service.description"></td>
                 <td class="rehive-table-row-last-child">
-                    <button ng-click="goToService(service)" class="btn btn-primary pull-right rehive-button-no-right-margin">Manage</button>
-                    <button ng-click="deactivateServicePrompt(service)" class="btn btn-danger pull-right rehive-button-no-right-margin">Deactivate</button>
+                    <button ng-click="goToService(service)" class="btn btn-primary pull-right dashboard-btn rehive-button-no-right-margin">Manage</button>
+                    <button ng-click="deactivateServicePrompt(service)" class="btn btn-danger pull-right dashboard-btn rehive-button-no-right-margin">Deactivate</button>
                 </td>
             </tr>
         </table>

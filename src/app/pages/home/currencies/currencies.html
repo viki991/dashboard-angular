@@ -1,6 +1,6 @@
 <div ng-hide="loadingCurrencies" ba-panel ba-panel-title="Currencies" ba-panel-class=" with-scroll" >
     <div>
-        <button class="btn btn-success pull-right panel-header-button" ng-mousedown="openViewInNewTab($event,'/#/currency/add')" ng-click="goToAddCurrency()">Add currency</button>
+        <button class="btn btn-success pull-right panel-header-button home-page-buttons" ng-mousedown="openViewInNewTab($event,'/#/currency/add')" ng-click="goToAddCurrency()">Add</button>
     </div>
     <table class="table">
         <tr class="black-muted-bg">
@@ -24,14 +24,16 @@
             <td class="transactions-list-element" width="12%" ng-bind="currency.sum_credits_pending | currencyModifiersFilter: currency.divisibility"></td>
             <td class="transactions-list-element" width="12%" ng-bind="currency.balance_24h | currencyModifiersFilter: currency.divisibility"></td>
             <td class="rehive-table-row-last-child">
-                <button ng-mousedown="openViewInNewTab($event,'/#/currency/overview')"
-                        ng-click="goToView(currency,'/currency/overview')" class="btn btn-primary pull-right rehive-button-no-right-margin">Overview</button>
-                <button ng-mousedown="openViewInNewTab($event,'/#/users')"
-                        ng-click="goToView(currency,'/users')" class="btn btn-primary pull-right rehive-button-no-right-margin">Users</button>
-                <button ng-mousedown="openViewInNewTab($event,'/#/transactions/credit')"
-                        ng-click="goToView(currency,'/transactions/credit')" class="btn btn-primary pull-right rehive-button-no-right-margin">Credits</button>
-                <button ng-mousedown="openViewInNewTab($event,'/#/transactions/debit')"
-                        ng-click="goToView(currency,'/transactions/debit')" class="btn btn-primary pull-right rehive-button-no-right-margin">Debits</button>
+                <button ng-click="goToView(currency,'/currency/settings')"
+                        class="btn btn-primary pull-right home-page-buttons rehive-button-no-right-margin">Settings</button>
+                <button ng-click="goToView(currency,'/currency/overview')"
+                        class="btn btn-primary pull-right home-page-buttons rehive-button-no-right-margin">Overview</button>
+                <button ng-click="goToView(currency,'/users')"
+                        class="btn btn-primary pull-right home-page-buttons rehive-button-no-right-margin">Users</button>
+                <button ng-click="goToView(currency,'/transactions/credit')"
+                        class="btn btn-primary pull-right home-page-buttons rehive-button-no-right-margin">Credits</button>
+                <button ng-click="goToView(currency,'/transactions/debit')"
+                        class="btn btn-primary pull-right home-page-buttons rehive-button-no-right-margin">Debits</button>
             </td>
         </tr>
     </table>

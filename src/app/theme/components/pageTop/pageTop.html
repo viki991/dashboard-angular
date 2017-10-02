@@ -16,23 +16,23 @@
         </div>
       </div>
 
-      <div class="user-currency clearfix">
-        <div class="al-user-currency" uib-dropdown>
-          <a uib-dropdown-toggle class="profile-toggle-link text-center">
-            <strong>{{selectedCurrency.symbol}}</strong> ({{selectedCurrency.code}}) <i class="ion-arrow-down-b"></i>
-          </a>
-          <ul  class="top-dropdown-menu user-currency-dropdown" uib-dropdown-menu>
-            <li ><i class="dropdown-arr"></i></li>
-            <li class="user-currency-dropdown-label">Switch to a different currency</li>
-            <hr class="no-margin">
-            <li class="user-currency-item-list" ng-repeat="currency in currencies">
-              <a class="user-currency-item pointer" ng-click="selectCurrency(currency)" ><span >{{currency.symbol}} ({{currency.code}})</span></a>
-              <hr class="no-margin">
-            </li>
-            <a href="#/currency/add" class="user-currency-dropdown-last-item">Add Currency</a>
-          </ul>
-        </div>
-      </div>
+      <!--<div class="user-currency clearfix">-->
+        <!--<div class="al-user-currency" uib-dropdown>-->
+          <!--<a uib-dropdown-toggle class="profile-toggle-link text-center">-->
+            <!--<strong>{{selectedCurrency.symbol}}</strong> ({{selectedCurrency.code}}) <i class="ion-arrow-down-b"></i>-->
+          <!--</a>-->
+          <!--<ul  class="top-dropdown-menu user-currency-dropdown" uib-dropdown-menu>-->
+            <!--<li ><i class="dropdown-arr"></i></li>-->
+            <!--<li class="user-currency-dropdown-label">Switch to a different currency</li>-->
+            <!--<hr class="no-margin">-->
+            <!--<li class="user-currency-item-list" ng-repeat="currency in currencies">-->
+              <!--<a class="user-currency-item pointer" ng-click="selectCurrency(currency)" ><span >{{currency.symbol}} ({{currency.code}})</span></a>-->
+              <!--<hr class="no-margin">-->
+            <!--</li>-->
+            <!--<a href="#/currency/add" class="user-currency-dropdown-last-item">Add Currency</a>-->
+          <!--</ul>-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
   </div>
 </div>
