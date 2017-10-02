@@ -13,6 +13,11 @@
                 if(!amount){
                     amount = 0;
                 }
+
+                if(!divisibility || (divisibility == 0)){
+                    return amount;
+                }
+
                 var x = new Big(amount);
                 var z = new Big(10);
                 z = z.pow(divisibility);
@@ -24,6 +29,11 @@
                 if(!amount){
                     amount = 0;
                 }
+
+                if(!divisibility || (divisibility == 0)){
+                    return amount;
+                }
+
                 var j = new Big(amount);
                 var l = new Big(10);
                 l = l.pow(divisibility);
@@ -35,6 +45,11 @@
                 if(!amount){
                     amount = 0;
                 }
+
+                if(!divisibility || (divisibility == 0)){
+                    return true;
+                }
+
                 var amountInArray = amount.toString().split('.');
                 var afterDecimalValue = amountInArray[1];
                 if(afterDecimalValue == undefined){
@@ -50,9 +65,11 @@
             if(!amount){
                 amount = 0;
             }
-            if(!divisibility){
-                return;
+
+            if(!divisibility || (divisibility == 0)){
+                return amount;
             }
+
             var q = new Big(amount);
             var w = new Big(10);
             w = w.pow(divisibility);
