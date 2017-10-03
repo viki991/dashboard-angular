@@ -40,6 +40,27 @@
         };
         vm.getCurrencyOverview();
 
+        vm.getCurrencyOverviewUsersData = function () {
+            if(vm.token) {
+                $scope.loadingUsers = true;
+                $http.get(environmentConfig.API + '/admin/users/overview/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        $scope.currencyOverviewUsersData = res.data.data;
+                    }
+                }).catch(function (error) {
+                    $scope.loadingUsers = false;
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
+                });
+            }
+        };
+        vm.getCurrencyOverviewUsersData();
+
         $scope.goToPath = function (path) {
           $location.path(path);
         };
