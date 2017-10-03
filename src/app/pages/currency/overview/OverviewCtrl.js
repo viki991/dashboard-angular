@@ -5,24 +5,17 @@
         .controller('OverviewCtrl', OverviewCtrl);
 
     /** @ngInject */
-    function OverviewCtrl($rootScope,$scope,$location,cookieManagement,environmentConfig,$http,errorHandler) {
+    function OverviewCtrl($scope,$location,$stateParams,cookieManagement,environmentConfig,$http,errorHandler) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
+        $scope.currencyCode = $stateParams.currencyCode;
         $scope.loadingCurrencies = true;
-
-        $rootScope.$watch('selectedCurrency',function(){
-            if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
-                vm.token = cookieManagement.getCookie('TOKEN');
-                vm.getCurrencyOverview();
-                vm.getCurrencyOverviewUsersData();
-            }
-        });
 
         vm.getCurrencyOverview = function () {
             if(vm.token) {
                 $scope.loadingCurrencies = true;
-                $http.get(environmentConfig.API + '/admin/currencies/' + $rootScope.selectedCurrency.code + '/overview/', {
+                $http.get(environmentConfig.API + '/admin/currencies/' + $scope.currencyCode + '/overview/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -39,26 +32,7 @@
                 });
             }
         };
-
-        vm.getCurrencyOverviewUsersData = function () {
-            if(vm.token) {
-                $scope.loadingCurrencies = true;
-                $http.get(environmentConfig.API + '/admin/users/overview/', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': vm.token
-                    }
-                }).then(function (res) {
-                    if (res.status === 200) {
-                        $scope.currencyOverviewUsersData = res.data.data;
-                    }
-                }).catch(function (error) {
-                    $scope.loadingCurrencies = false;
-                    errorHandler.evaluateErrors(error.data);
-                    errorHandler.handleErrors(error);
-                });
-            }
-        };
+        vm.getCurrencyOverview();
 
         $scope.goToPath = function (path) {
           $location.path(path);

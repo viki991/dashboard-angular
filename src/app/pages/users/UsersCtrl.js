@@ -73,6 +73,27 @@
             }
         });
 
+        vm.getCurrencyOverviewUsersData = function () {
+            if(vm.token) {
+                $scope.loadingUsers = true;
+                $http.get(environmentConfig.API + '/admin/users/overview/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        $scope.currencyOverviewUsersData = res.data.data;
+                    }
+                }).catch(function (error) {
+                    $scope.loadingUsers = false;
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
+                });
+            }
+        };
+        vm.getCurrencyOverviewUsersData();
+
         vm.getCompanyCurrencies = function(){
             //adding currency as default value in both results array and ng-model of currency
             vm.currenciesList.splice(0,0,{code: 'Currency'});

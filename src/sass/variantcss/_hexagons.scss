@@ -81,7 +81,7 @@
   @include hexagon-after(42.15px solid #F8CF51);
 }
 .overview-hex-over{
-  @include hexagon-hex-over(77px,40px,-92px);
+  @include hexagon-hex-over(146px,40px,-92px);
 }
 
 .dashboard-currencies-hexagon-container {
@@ -117,6 +117,14 @@
 
 .very-long-text{
   font-size: 9px;
+}
+
+.long-text-overview{
+  font-size: 28px;
+}
+
+.very-long-text-overview{
+  font-size: 22px;
 }
 
 .hexagon-logo{

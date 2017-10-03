@@ -1,5 +1,24 @@
 <content-top></content-top>
 <div ng-hide="creatingUser">
+    <div class="row">
+        <div ba-panel class="col-lg-6 col-md-6 col-sm-6 col-xs-6 users-overview-table">
+            <table class="table table-condensed">
+                <tr>
+                    <td width="50%"><strong>Total Users</strong></td>
+                    <td class="pull-right">{{currencyOverviewUsersData.total}}</td>
+                </tr>
+            </table>
+        </div>
+        <div ba-panel class="col-lg-6 col-md-6 col-sm-6 col-xs-6 users-overview-table">
+            <table class="table table-condensed">
+                <tr>
+                    <td width="50%"><strong>Active Users</strong></td>
+                    <td class="pull-right">{{currencyOverviewUsersData.active}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
     <div ba-panel ba-panel-title="Filters">
         <user-filters></user-filters>
     </div>
@@ -9,9 +28,9 @@
             <div>
                 <button ng-click="getAllUsers('applyFilter')" class="btn btn-primary dashboard-btn panel-header-user-icon">Refresh</button>
                 <!--<i class="fa fa-refresh panel-header-user-icon refresh-icon pointer" aria-hidden="true"></i>-->
-            </div>
-            <user-table></user-table>
         </div>
+        <user-table></user-table>
+    </div>
     </div>
 </div>
 <div ng-show="creatingUser">
