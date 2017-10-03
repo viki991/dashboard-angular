@@ -17,14 +17,6 @@
             vm.currentLocation = newUrlLastElement;
         });
 
-
-        $rootScope.$watch('selectedCurrency',function(){
-            if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
-              vm.token = cookieManagement.getCookie('TOKEN');
-                vm.getCompanyInfo();
-            }
-        });
-
         vm.getCompanyInfo = function () {
             if(vm.token) {
                 $scope.loadingCompanyInfo = true;
@@ -46,6 +38,7 @@
                 });
             }
         };
+        vm.getCompanyInfo();
 
         if(vm.currentLocation != '/login' && vm.currentLocation != '/verification' &&
             vm.currentLocation != '/company/name_request' && vm.currentLocation != '/register' &&

@@ -1,12 +1,12 @@
 <div ba-panel ba-panel-title="Debit successful">
     <div class="menu-hex-container">
         <div class="hexagon"></div>
-        <div class="hex-over">{{selectedCurrency.code}}</div>
+        <div class="hex-over">{{debitData.currency.code}}</div>
     </div>
     <div class="text-center">
-        <h3>{{companyName}} {{selectedCurrency.code}}</h3>
+        <h3>{{companyName}} {{debitData.currency.code}}</h3>
     </div>
     <div class="text-center">
-        <p>Congratulations {{selectedCurrency.symbol}} {{debitData.amount}} has been debited from {{debitData.user}}</p>
+        <p>Congratulations {{debitData.currency.symbol}} {{debitData.amount}} has been debited from {{debitData.user}}</p>
     </div>
 </div>

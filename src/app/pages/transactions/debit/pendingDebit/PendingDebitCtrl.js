@@ -9,26 +9,47 @@
 
         var vm = this;
         $scope.transactions = {};
-        $scope.transactions.list = {};
+        $scope.transactions.list = [];
         $scope.transactionsStateMessage = '';
+        $scope.pendingTransactionData = {currency: {}};
+        $scope.loadingPendingTransactions = false;
         vm.token = cookieManagement.getCookie('TOKEN');
 
-        $rootScope.$watch('selectedCurrency',function(){
-            if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
-              $scope.transactionsStateMessage = '';
-              $scope.transactions.list.length = 0;
-              vm.getPendingTransactions();
+        vm.getCompanyCurrencies = function(){
+            if(vm.token){
+                $http.get(environmentConfig.API + '/admin/currencies/?enabled=true', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        $scope.currencyOptions = res.data.data.results;
+                    }
+                }).catch(function (error) {
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
+                });
             }
-        });
+        };
+        vm.getCompanyCurrencies();
 
-        vm.getPendingTransactions = function(){
-            $http.get(environmentConfig.API + '/admin/transactions/?tx_type=debit&status=Pending&orderby=-created&currency=' + $rootScope.selectedCurrency.code, {
+        $scope.getPendingTransactions = function(){
+            $scope.loadingPendingTransactions = true;
+            $scope.transactionsStateMessage = '';
+
+            if($scope.transactions.list.length > 0){
+                $scope.transactions.list.length = 0;
+            }
+
+            $http.get(environmentConfig.API + '/admin/transactions/?tx_type=debit&status=Pending&orderby=-created&currency=' + $scope.pendingTransactionData.currency.code, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': vm.token
                 }
             }).then(function (res) {
                 if (res.status === 200) {
+                    $scope.loadingPendingTransactions = false;
                     if(res.data.data.results.length == 0){
                         $scope.transactionsStateMessage = 'No pending transactions';
                         return;
@@ -37,6 +58,7 @@
                     $scope.transactionsStateMessage = '';
                 }
             }).catch(function (error) {
+                $scope.loadingPendingTransactions = false;
                 $scope.transactionsStateMessage = 'Failed to load data';
                 errorHandler.evaluateErrors(error.data);
                 errorHandler.handleErrors(error);

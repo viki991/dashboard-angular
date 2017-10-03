@@ -5,7 +5,7 @@
         .controller('DebitCtrl', DebitCtrl);
 
     /** @ngInject */
-    function DebitCtrl($rootScope, $scope, $http, environmentConfig,_,
+    function DebitCtrl($scope, $http, environmentConfig,_,
                        cookieManagement, toastr, errorHandler,
                        $location, $state,sharedResources,currencyModifiers,typeaheadService) {
 
@@ -34,6 +34,25 @@
             $scope.subtypeOptions.unshift('');
         });
 
+        vm.getCompanyCurrencies = function(){
+            if(vm.token){
+                $http.get(environmentConfig.API + '/admin/currencies/?enabled=true', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        $scope.currencyOptions = res.data.data.results;
+                    }
+                }).catch(function (error) {
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
+                });
+            }
+        };
+        vm.getCompanyCurrencies();
+
         $scope.getUsersEmailTypeahead = typeaheadService.getUsersEmailTypeahead();
 
         if ($location.path() === '/transactions/debit/pending') {
@@ -48,19 +67,13 @@
             $scope.debitData.account = $state.params.account;
         }
 
-        $rootScope.$watch('selectedCurrency', function () {
-            if ($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
-                $scope.debitData.currency = $rootScope.selectedCurrency.code;
-            }
-        });
-
         $scope.goToView = function (view) {
             if ($scope.debitData.amount) {
-                var validAmount = currencyModifiers.validateCurrency($scope.debitData.amount, $rootScope.selectedCurrency.divisibility);
+                var validAmount = currencyModifiers.validateCurrency($scope.debitData.amount, $scope.debitData.currency.divisibility);
                 if (validAmount) {
                     $scope.showView = view;
                 } else {
-                    toastr.error('Please input amount to ' + $rootScope.selectedCurrency.divisibility + ' decimal places');
+                    toastr.error('Please input amount to ' + $scope.debitData.currency.divisibility + ' decimal places');
                 }
             } else {
                 $scope.showView = view;
@@ -79,7 +92,7 @@
                 reference: "",
                 confirm_on_create: true,
                 metadata: "",
-                currency: $rootScope.selectedCurrency.code,
+                currency: null,
                 subtype: "",
                 note: "",
                 account: ""
@@ -98,11 +111,11 @@
 
             var sendTransactionData = {
                 user: $scope.debitData.user,
-                amount: currencyModifiers.convertToCents($scope.debitData.amount, $rootScope.selectedCurrency.divisibility),
+                amount: currencyModifiers.convertToCents($scope.debitData.amount, $scope.debitData.currency.divisibility),
                 reference: $scope.debitData.reference,
                 confirm_on_create: $scope.debitData.confirm_on_create,
                 metadata: $scope.debitData.metadata,
-                currency: $scope.debitData.currency,
+                currency: $scope.debitData.currency.code,
                 subtype: $scope.debitData.subtype,
                 note: $scope.debitData.note,
                 account: $scope.debitData.account
