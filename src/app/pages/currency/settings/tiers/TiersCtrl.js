@@ -4,31 +4,25 @@
     angular.module('BlurAdmin.pages.currency.settings.tiers')
         .controller('TiersCtrl', TiersCtrl);
 
-    function TiersCtrl($rootScope,$scope,$uibModal,$http,cookieManagement,environmentConfig,toastr,errorHandler,$window) {
+    function TiersCtrl($scope,$stateParams,$uibModal,$http,cookieManagement,environmentConfig,toastr,errorHandler,$window) {
 
-      var vm = this;
-      vm.token = cookieManagement.getCookie('TOKEN');
+        var vm = this;
+        vm.token = cookieManagement.getCookie('TOKEN');
+        $scope.currencyCode = $stateParams.currencyCode;
         $scope.loadingTiers = true;
-        $scope.newTier = {level: 1};
+        $scope.newTier = {currency: $scope.currencyCode,level: 1};
         $scope.tierLevels = [1,2,3,4,5,6,7];
         vm.updatedTier = {};
 
-      $rootScope.$watch('selectedCurrency',function(){
-          if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
-            $scope.newTier.currency = $rootScope.selectedCurrency.code;
-              vm.getTiers();
-          }
-      });
-
-      $scope.toggleTierEditView = function(tier){
-          if(tier){
-              vm.getTier(tier)
-          } else {
-              $scope.editTier = {};
-              vm.getTiers();
-          }
-          $scope.editingTiers = !$scope.editingTiers;
-      };
+          $scope.toggleTierEditView = function(tier){
+              if(tier){
+                  vm.getTier(tier)
+              } else {
+                  $scope.editTier = {};
+                  vm.getTiers();
+              }
+              $scope.editingTiers = !$scope.editingTiers;
+          };
 
         vm.getTier = function(tier){
             if(vm.token) {
@@ -51,10 +45,11 @@
             }
         };
 
+
       vm.getTiers = function(){
           if(vm.token) {
               $scope.loadingTiers = true;
-              $http.get(environmentConfig.API + '/admin/tiers/?currency=' + $rootScope.selectedCurrency.code, {
+              $http.get(environmentConfig.API + '/admin/tiers/?currency=' + $scope.currencyCode, {
                   headers: {
                       'Content-Type': 'application/json',
                       'Authorization': vm.token
@@ -71,6 +66,7 @@
               });
           }
       };
+      vm.getTiers();
 
       $scope.addTier = function(){
           if(vm.token) {
@@ -83,7 +79,7 @@
               }).then(function (res) {
                 $scope.loadingTiers = false;
                   if (res.status === 201) {
-                    $scope.newTier = {currency: $rootScope.selectedCurrency.code,level: 1};
+                    $scope.newTier = {currency: $scope.currencyCode,level: 1};
                     toastr.success('You have successfully added a tier!');
                       vm.getTiers();
                   }
@@ -113,7 +109,7 @@
                 $scope.loadingTiers = false;
                   if (res.status === 200) {
                       vm.updatedTier = {};
-                      $scope.newTier = {currency: $rootScope.selectedCurrency.code};
+                      $scope.newTier = {currency: $scope.currencyCode,level: 1};
                       toastr.success('You have successfully updated a tier!');
                       vm.getTiers();
                   }

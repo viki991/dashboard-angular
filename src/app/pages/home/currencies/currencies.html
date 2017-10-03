@@ -24,15 +24,15 @@
             <td class="transactions-list-element" width="12%" ng-bind="currency.sum_credits_pending | currencyModifiersFilter: currency.divisibility"></td>
             <td class="transactions-list-element" width="12%" ng-bind="currency.balance_24h | currencyModifiersFilter: currency.divisibility"></td>
             <td class="rehive-table-row-last-child">
-                <button ng-click="goToView(currency,'/currency/' + currency.code + '/settings')"
+                <button ng-click="goToView('/currency/' + currency.code + '/settings')"
                         class="btn btn-primary pull-right home-page-buttons rehive-button-no-right-margin">Settings</button>
-                <button ng-click="goToView(currency,'/currency/' + currency.code + '/overview')"
+                <button ng-click="goToView('/currency/' + currency.code + '/overview')"
                         class="btn btn-primary pull-right home-page-buttons rehive-button-no-right-margin">Overview</button>
-                <button ng-click="goToView(currency,'/users')"
+                <button ng-click="goToView('/users')"
                         class="btn btn-primary pull-right home-page-buttons rehive-button-no-right-margin">Users</button>
-                <button ng-click="goToView(currency,'/transactions/credit')"
+                <button ng-click="goToView('/transactions/credit')"
                         class="btn btn-primary pull-right home-page-buttons rehive-button-no-right-margin">Credits</button>
-                <button ng-click="goToView(currency,'/transactions/debit')"
+                <button ng-click="goToView('/transactions/debit')"
                         class="btn btn-primary pull-right home-page-buttons rehive-button-no-right-margin">Debits</button>
             </td>
         </tr>

@@ -5,25 +5,20 @@
         .controller('TierRequirementsCtrl', TierRequirementsCtrl);
 
     /** @ngInject */
-    function TierRequirementsCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,errorHandler,_,toastr,$window,$timeout) {
+    function TierRequirementsCtrl($scope,$stateParams,cookieManagement,$http,environmentConfig,errorHandler,_,toastr,$window,$timeout) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
+        $scope.currencyCode = $stateParams.currencyCode;
         $scope.activeTabIndex = 0;
         $scope.loadingTierRequirements = true;
         $scope.tierRequirementFields = {};
         vm.updatedTierRequirements = {};
 
-        $rootScope.$watch('selectedCurrency',function(){
-            if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
-                $scope.getAllTiers();
-            }
-        });
-
         $scope.getAllTiers = function(tierLevel){
             if(vm.token) {
                 $scope.loadingTierRequirements = true;
-                $http.get(environmentConfig.API + '/admin/tiers/?currency=' + $rootScope.selectedCurrency.code, {
+                $http.get(environmentConfig.API + '/admin/tiers/?currency=' + $scope.currencyCode, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -55,6 +50,7 @@
                 });
             }
         };
+        $scope.getAllTiers();
 
         vm.findIndexOfTier = function(element){
             return this == element.level;

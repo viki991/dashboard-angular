@@ -66,8 +66,7 @@
             }
         };
 
-        $scope.goToView = function(currency,path){
-            $rootScope.selectedCurrency = currency;
+        $scope.goToView = function(path){
             $location.path(path);
         };
 

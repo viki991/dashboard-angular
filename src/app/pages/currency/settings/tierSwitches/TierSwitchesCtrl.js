@@ -5,11 +5,12 @@
         .controller('TierSwitchesCtrl', TierSwitchesCtrl);
 
     /** @ngInject */
-    function TierSwitchesCtrl($rootScope,$scope,cookieManagement,$http,environmentConfig,_,
+    function TierSwitchesCtrl($scope,$stateParams,cookieManagement,$http,environmentConfig,_,
                               sharedResources,$timeout,errorHandler,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
+        $scope.currencyCode = $stateParams.currencyCode;
         $scope.activeTabIndex = 0;
         $scope.loadingTierSwitches = true;
         $scope.loadingSubtypes = false;
@@ -40,12 +41,6 @@
             });
         };
         $scope.getSubtypesArray($scope.tierSwitchesParams);
-
-        $rootScope.$watch('selectedCurrency',function(){
-            if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
-                $scope.getAllTiers();
-            }
-        });
 
         $scope.toggleTierSwitchEditView = function(tierSwitch){
             if(tierSwitch) {
@@ -83,7 +78,7 @@
         $scope.getAllTiers = function(tierLevel){
             if(vm.token) {
                 $scope.loadingTierSwitches = true;
-                $http.get(environmentConfig.API + '/admin/tiers/?currency=' + $rootScope.selectedCurrency.code, {
+                $http.get(environmentConfig.API + '/admin/tiers/?currency=' + $scope.currencyCode, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -115,6 +110,7 @@
                 });
             }
         };
+        $scope.getAllTiers();
 
         vm.findIndexOfTier = function(element){
             return this == element.level;

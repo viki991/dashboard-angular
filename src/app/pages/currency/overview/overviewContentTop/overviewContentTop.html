@@ -4,7 +4,7 @@
             <tr>
                 <td width="50%"><strong>Users Balances</strong></td>
                 <td class="pull-right">
-                    <strong>{{selectedCurrency.symbol}}</strong> {{currencyOverviewData.balance_total | currencyModifiersFilter: selectedCurrency.divisibility}}
+                    <strong>{{currencyObj.symbol}}</strong> {{currencyOverviewData.balance_total | currencyModifiersFilter: currencyObj.divisibility}}
                 </td>
             </tr>
         </table>
@@ -14,7 +14,7 @@
             <tr>
                 <td width="50%"><strong>24h Volume</strong></td>
                 <td class="pull-right">
-                    <strong>{{selectedCurrency.symbol}}</strong> {{currencyOverviewData.balance_24h | currencyModifiersFilter: selectedCurrency.divisibility}}
+                    <strong>{{currencyObj.symbol}}</strong> {{currencyOverviewData.balance_24h | currencyModifiersFilter: currencyObj.divisibility}}
                 </td>
             </tr>
         </table>
