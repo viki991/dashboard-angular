@@ -5,7 +5,7 @@
         .controller('UserAccountsCtrl', UserAccountsCtrl);
 
     /** @ngInject */
-    function UserAccountsCtrl($rootScope,$scope,environmentConfig,$stateParams,_,
+    function UserAccountsCtrl($rootScope,$scope,environmentConfig,$stateParams,toastr,
                               $http,cookieManagement,errorHandler,$location,$state) {
 
         var vm = this;
@@ -61,7 +61,11 @@
 
         $scope.addAccountCurrency = function(listOfCurrencies){
 
-            var arrayOfCurrencies = _.pluck(listOfCurrencies,'code');
+            var arrayOfCurrencies = [];
+
+            listOfCurrencies.forEach(function (element) {
+                arrayOfCurrencies.push({currency: element.code});
+            });
 
             if(vm.token) {
                 $scope.loadingUserAccounts = true;
@@ -76,7 +80,7 @@
                         $scope.newAccountCurrencies = {list: []};
                         toastr.success('New currencies have been added to the account');
                         $scope.toggleAddAccountCurrency();
-                        $scope.loadingUserAccounts = false;
+                        vm.getUser();
                     }
                 }).catch(function (error) {
                     $scope.newAccountCurrencies = {list: []};
