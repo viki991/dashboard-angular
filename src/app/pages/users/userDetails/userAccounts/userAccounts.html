@@ -1,8 +1,7 @@
 <div ng-hide="addingCurrencies" ng-repeat="account in accounts">
-    <div ng-if="account.currencies.length > 0" ng-hide="loadingUserAccounts" ba-panel
-         ba-panel-title="Account: {{account.name}}">
+    <div ng-hide="loadingUserAccounts" ba-panel ba-panel-title="Account: {{account.name}}">
         <button ng-click="toggleAddAccountCurrency(account)" class="btn btn-success panel-header-button user-accounts-btn">Add</button>
-        <table class="table fees-table table-condensed table-striped user-details-table">
+        <table ng-if="account.currencies.length > 0" class="table fees-table table-condensed table-striped user-details-table">
             <tr>
                 <th><strong>Currency</strong></th>
                 <th><strong>Balance</strong></th>
@@ -28,10 +27,9 @@
                 </td>
             </tr>
         </table>
-    </div>
-    <div ng-if="account.currencies.length == 0" ng-hide="loadingUserAccounts" ba-panel
-         ba-panel-title="Account: {{account.name}}">
-        <i style="margin-top: 10px">No currencies associated with this account yet.</i>
+        <div ng-if="account.currencies.length == 0" ng-hide="loadingUserAccounts">
+            <i style="margin-top: 10px">No currencies associated with this account yet.</i>
+        </div>
     </div>
 </div>
 <div ng-show="addingCurrencies">
