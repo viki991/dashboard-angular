@@ -38,6 +38,11 @@
             <td class="table-row-center transactions-list-element" ng-bind="transaction.status"></td>
         </tr>
     </table>
+    <div ng-show="transactions.list.length > 0">
+        <p uib-pagination boundary-links="true" items-per-page="pagination.itemsPerPage"  total-items="transactions.data.count" ng-model="pagination.pageNo"
+           max-size="pagination.maxSize" class="pagination-sm pull-right transaction-history-pagination" force-ellipses="true" ng-change="getPendingTransactions()"
+           previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></p>
+    </div>
     <div ng-show="transactions.list.length == 0">
         <i ng-hide="transactionsStateMessage == ''" ng-bind="transactionsStateMessage"></i>
         <i ng-hide="pendingTransactionData.currency.code">Please select a currency and press <strong>Apply</strong></i>

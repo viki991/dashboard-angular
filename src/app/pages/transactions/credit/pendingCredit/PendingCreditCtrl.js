@@ -15,6 +15,12 @@
         $scope.loadingPendingTransactions = false;
         vm.token = cookieManagement.getCookie('TOKEN');
 
+        $scope.pagination = {
+            itemsPerPage: 12,
+            pageNo: 1,
+            maxSize: 5
+        };
+
         vm.getCompanyCurrencies = function(){
             if(vm.token){
                 $http.get(environmentConfig.API + '/admin/currencies/?enabled=true', {
@@ -34,6 +40,17 @@
         };
         vm.getCompanyCurrencies();
 
+        vm.getTransactionUrl = function(){
+
+            vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
+                + '&currency=' + $scope.pendingTransactionData.currency.code
+                + '&orderby=-created'
+                + '&tx_type=credit'
+                + '&status=Pending'; // all the params of the filtering
+
+            return environmentConfig.API + '/admin/transactions/' + vm.filterParams;
+        };
+
         $scope.getPendingTransactions = function(){
             $scope.loadingPendingTransactions = true;
             $scope.transactionsStateMessage = '';
@@ -42,8 +59,10 @@
                 $scope.transactions.list.length = 0;
             }
 
+            var transactionsUrl = vm.getTransactionUrl();
+
             if(vm.token) {
-                $http.get(environmentConfig.API + '/admin/transactions/?tx_type=credit&status=Pending&orderby=-created&currency=' + $scope.pendingTransactionData.currency.code, {
+                $http.get(transactionsUrl, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -55,6 +74,7 @@
                             $scope.transactionsStateMessage = 'No pending transactions';
                             return;
                         }
+                        $scope.transactions.data = res.data.data;
                         $scope.transactions.list = res.data.data.results;
                         $scope.transactionsStateMessage = '';
                     }
