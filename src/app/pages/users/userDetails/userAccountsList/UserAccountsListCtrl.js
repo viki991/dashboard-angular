@@ -16,6 +16,7 @@
         $scope.newAccountCurrencies = {list: []};
         $scope.loadingUserAccountsList = true;
         $scope.addingAccount = false;
+        $scope.editingAccount = false;
 
         vm.getUser = function(){
             if(vm.token) {
@@ -40,7 +41,6 @@
         vm.getUser();
 
         $scope.addNewUserAccount = function(newUserAccountParams){
-
             if(vm.token) {
                 newUserAccountParams.user = vm.uuid;
                 $scope.loadingUserAccountsList = true;
@@ -64,8 +64,68 @@
             }
         };
 
+        vm.getAccount = function(account){
+            if(vm.token) {
+                $scope.loadingUserAccountsList = true;
+                $http.get(environmentConfig.API + '/admin/accounts/' + account.reference + '/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    $scope.loadingUserAccountsList = false;
+                    if (res.status === 200) {
+                        $scope.editUserAccountParams = res.data.data;
+                    }
+                }).catch(function (error) {
+                    $scope.loadingUserAccountsList = false;
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
+                });
+            }
+        };
+
+        $scope.editUserAccountFunction = function (editUserAccountParams) {
+
+            var updateUserAccount = {
+                name: editUserAccountParams.name,
+                primary: editUserAccountParams.primary
+            };
+
+            if(vm.token) {
+                $scope.loadingUserAccountsList = true;
+                $http.patch(environmentConfig.API + '/admin/accounts/' + editUserAccountParams.reference + '/',updateUserAccount , {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        toastr.success('Account updated successfully');
+                        $scope.toggleEditAccount();
+                        $scope.loadingUserAccountsList = false;
+                    }
+                }).catch(function (error) {
+                    $scope.loadingUserAccountsList = false;
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
+                });
+            }
+        };
+
         $scope.toggleAddAccount = function () {
             $scope.addingAccount = !$scope.addingAccount;
+        };
+
+        $scope.toggleEditAccount = function (account) {
+            if(account){
+                vm.getAccount(account)
+            } else {
+                $scope.editUserAccountParams = {};
+                vm.getUser();
+            }
+
+            $scope.editingAccount = !$scope.editingAccount;
         };
 
     }

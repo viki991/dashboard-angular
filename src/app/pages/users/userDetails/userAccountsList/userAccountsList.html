@@ -1,4 +1,4 @@
-<div ng-hide="addingAccount">
+<div ng-hide="addingAccount || editingAccount">
     <div ng-hide="loadingUserAccountsList" ba-panel ba-panel-title="Accounts list">
         <button ng-click="toggleAddAccount()" class="btn btn-success panel-header-button user-accounts-btn">Add</button>
         <table  ng-if="accounts.length > 0" class="table fees-table table-condensed table-striped user-details-table">
@@ -17,7 +17,7 @@
                     ng-bind="account.primary">
                 </td>
                 <td class="rehive-table-row-last-child">
-                    <button ng-click="goToEditAccount()"
+                    <button ng-click="toggleEditAccount(account)"
                             class="btn btn-primary pull-right user-accounts-btn">Edit
                     </button>
                 </td>
@@ -30,6 +30,9 @@
 </div>
 <div ng-show="addingAccount">
     <add-user-account></add-user-account>
+</div>
+<div ng-show="editingAccount">
+    <edit-user-account></edit-user-account>
 </div>
 <div ba-panel ng-show="loadingUserAccountsList">
     <loading-image></loading-image>
