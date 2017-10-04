@@ -58,14 +58,14 @@
                     }
                 }).then(function (res) {
                     if (res.status === 200) {
-                        if(!$rootScope.selectedCurrency){
-                            var selectedCurrencyObj;
-                            selectedCurrencyObj = res.data.data.results.find(function(element){
-                                return element.code == $scope.company.default_currency;
-                            });
-                            $rootScope.selectedCurrency = selectedCurrencyObj || res.data.data.results[0];
-                        }
-                        $scope.currencies = res.data.data.results;
+                        // if(!$rootScope.selectedCurrency){
+                        //     var selectedCurrencyObj;
+                        //     selectedCurrencyObj = res.data.data.results.find(function(element){
+                        //         return element.code == $scope.company.default_currency;
+                        //     });
+                        //     $rootScope.selectedCurrency = selectedCurrencyObj || res.data.data.results[0];
+                        // }
+                        // $scope.currencies = res.data.data.results;
                         $window.sessionStorage.currenciesList = JSON.stringify(res.data.data.results);
                     }
                 }).catch(function (error) {
@@ -75,12 +75,12 @@
             }
         };
 
-        $scope.selectCurrency = function(selectedCurrency){
-            $rootScope.selectedCurrency = selectedCurrency;
-        };
+        // $scope.selectCurrency = function(selectedCurrency){
+        //     $rootScope.selectedCurrency = selectedCurrency;
+        // };
 
         $scope.logout = function(){
-            $rootScope.selectedCurrency = null;
+            //$rootScope.selectedCurrency = null;
             $rootScope.gotToken = false;
             $rootScope.securityConfigured = true;
             $rootScope.companyName = null;

@@ -67,18 +67,13 @@
         $scope.getUsersEmailTypeahead = typeaheadService.getUsersEmailTypeahead();
         $scope.getUsersMobileTypeahead = typeaheadService.getUsersMobileTypeahead();
 
-        $rootScope.$watch('selectedCurrency',function(){
-            if($rootScope.selectedCurrency && $rootScope.selectedCurrency.code) {
-                vm.getCompanyCurrencies();
-            }
-        });
-
         vm.getCompanyCurrencies = function(){
             //adding currency as default value in both results array and ng-model of currency
             vm.currenciesList.splice(0,0,{code: 'Currency'});
             $scope.usersSearchParams.searchCurrency.code = 'Currency';
             $scope.currencyOptions = vm.currenciesList;
         };
+        vm.getCompanyCurrencies();
 
         vm.getUsersUrl = function(){
             vm.filterParams = '?page=' + $scope.usersPagination.pageNo + '&page_size=' + $scope.usersPagination.itemsPerPage

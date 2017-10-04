@@ -101,7 +101,6 @@
         };
 
         $scope.goToView = function(state,currency,email,account){
-          $rootScope.selectedCurrency = currency;
           $state.go(state,{"email": email, "account": account});
         };
 

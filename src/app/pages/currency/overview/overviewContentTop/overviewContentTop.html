@@ -1,8 +1,8 @@
 <div ba-panel ba-panel-title="Users Balances" class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-    <strong>{{selectedCurrency.symbol}} {{currencyOverviewData.balance_total | currencyModifiersFilter: selectedCurrency.divisibility}}</strong>
+    <strong>{{currencyObj.symbol}} {{currencyOverviewData.balance_total | currencyModifiersFilter: currencyObj.divisibility}}</strong>
 </div>
 <div ba-panel ba-panel-title="24h Volume" class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-    <strong>{{selectedCurrency.symbol}} {{currencyOverviewData.balance_24h | currencyModifiersFilter: selectedCurrency.divisibility}}</strong>
+    <strong>{{currencyObj.symbol}} {{currencyOverviewData.balance_24h | currencyModifiersFilter: currencyObj.divisibility}}</strong>
 </div>
 <div ba-panel ba-panel-title="Total Users" class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
     <strong ng-bind="currencyOverviewUsersData.total"></strong>
