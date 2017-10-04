@@ -88,6 +88,7 @@ angular.module('BlurAdmin', [
                             if(res.data.data.results.length == 0){
                                 $location.path('currency/add/initial');
                             } else {
+                                $window.sessionStorage.currenciesList = JSON.stringify(res.data.data.results);
                                 $rootScope.intialCurrency = true
                             }
                         }

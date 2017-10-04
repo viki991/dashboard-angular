@@ -5,7 +5,7 @@
         .controller('AddCurrencyCtrl', AddCurrencyCtrl);
 
     /** @ngInject */
-    function AddCurrencyCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,errorHandler,toastr) {
+    function AddCurrencyCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,$window,errorHandler,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -57,7 +57,7 @@
                 if (res.status === 200) {
                     $scope.showConfirmCurrency = false;
                     $scope.showCompleteCurrency = true;
-                    $rootScope.selectedCurrency = res.data.data;
+                    vm.getCompanyCurrencies();
                 }
             }).catch(function (error) {
                 $scope.loadingCurrencies = false;
@@ -87,6 +87,24 @@
                 errorHandler.evaluateErrors(error.data);
                 errorHandler.handleErrors(error);
             });
+        };
+
+        vm.getCompanyCurrencies = function(){
+            if(vm.token){
+                $http.get(environmentConfig.API + '/admin/currencies/?enabled=true', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        $window.sessionStorage.currenciesList = JSON.stringify(res.data.data.results);
+                    }
+                }).catch(function (error) {
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
+                });
+            }
         };
 
         $scope.next = function(){
