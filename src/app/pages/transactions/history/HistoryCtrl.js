@@ -55,6 +55,12 @@
             return ($scope.searchParams.searchOrderBy == 'Latest' ? '-created' : $scope.searchParams.searchOrderBy == 'Largest' ? '-amount' : $scope.searchParams.searchOrderBy == 'Smallest' ? 'amount' : '');
         };
 
+        $scope.pageSizeChanged =  function () {
+            if($scope.pagination.itemsPerPage > 250){
+                $scope.pagination.itemsPerPage = 250;
+            }
+        };
+
         vm.getCompanyCurrencies = function(){
             //adding currency as default value in both results array and ng-model of currency
             vm.currenciesList.splice(0,0,{code: 'Currency'});
@@ -63,11 +69,13 @@
         };
         vm.getCompanyCurrencies();
 
-        $scope.pageSizeChanged =  function () {
-            if($scope.pagination.itemsPerPage > 250){
-                $scope.pagination.itemsPerPage = 250;
-            }
-        };
+        if($state.params.currencyCode){
+            vm.currenciesList.forEach(function (element) {
+                if(element.code ==  $state.params.currencyCode){
+                    $scope.searchParams.searchCurrency = element;
+                }
+            });
+        }
 
         vm.getTransactionUrl = function(){
 

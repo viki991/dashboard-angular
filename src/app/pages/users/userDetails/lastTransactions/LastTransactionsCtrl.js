@@ -38,7 +38,7 @@
         $scope.loadingLastTransactions = false;
         $scope.typeOptions = ['Type','Credit','Debit']; //Transfer
         $scope.statusOptions = ['Status','Initiating','Processing','Pending','Complete','Failed'];
-        $scope.currencyOptions = [];
+        $scope.lastTransactionsCurrencyOptions = [];
         $scope.orderByOptions = ['Largest','Latest','Smallest'];
 
         //for angular datepicker
@@ -62,7 +62,7 @@
             //adding currency as default value in both results array and ng-model of currency
             vm.currenciesList.splice(0,0,{code: 'Currency'});
             $scope.searchParams.searchCurrency.code = 'Currency';
-            $scope.currencyOptions = vm.currenciesList;
+            $scope.lastTransactionsCurrencyOptions = vm.currenciesList;
         };
         vm.getCompanyCurrencies();
 

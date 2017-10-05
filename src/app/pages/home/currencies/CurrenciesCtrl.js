@@ -5,7 +5,7 @@
         .controller('CurrenciesCtrl', CurrenciesCtrl);
 
     /** @ngInject */
-    function CurrenciesCtrl($rootScope,$scope,$location,cookieManagement,environmentConfig,$http,errorHandler,$window,_) {
+    function CurrenciesCtrl($scope,$location,cookieManagement,environmentConfig,$http,errorHandler,$state,_) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -72,6 +72,15 @@
 
         $scope.goToAddCurrency = function(){
             $location.path('/currency/add');
-        }
+        };
+
+        $scope.goToHistoryState = function (code) {
+            $state.go('transactions.history',{"currencyCode": code});
+        };
+
+        $scope.goToUsersState = function (code) {
+            $state.go('users',{"currencyCode": code});
+        };
+
     }
 })();

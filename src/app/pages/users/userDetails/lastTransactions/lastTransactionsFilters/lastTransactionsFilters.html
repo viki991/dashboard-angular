@@ -38,7 +38,7 @@
             <label><strong>Currency</strong></label>
             <br>
             <select class="form-control pointer" ng-model="searchParams.searchCurrency"
-                    ng-options="currency.code for currency in currencyOptions track by currency.code">
+                    ng-options="currency.code for currency in lastTransactionsCurrencyOptions track by currency.code">
             </select>
         </div>
     </div>

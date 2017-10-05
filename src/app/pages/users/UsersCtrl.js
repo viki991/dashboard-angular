@@ -5,7 +5,8 @@
         .controller('UsersCtrl', UsersCtrl);
 
     /** @ngInject */
-    function UsersCtrl($rootScope,$scope,environmentConfig,$http,typeaheadService,cookieManagement,errorHandler,Upload,$window,toastr) {
+    function UsersCtrl($scope,environmentConfig,$http,typeaheadService,$state,
+                       cookieManagement,errorHandler,Upload,$window,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -74,6 +75,14 @@
             $scope.currencyOptions = vm.currenciesList;
         };
         vm.getCompanyCurrencies();
+
+        if($state.params.currencyCode){
+            vm.currenciesList.forEach(function (element) {
+                if(element.code ==  $state.params.currencyCode){
+                    $scope.usersSearchParams.searchCurrency = element;
+                }
+            });
+        }
 
         vm.getUsersUrl = function(){
             vm.filterParams = '?page=' + $scope.usersPagination.pageNo + '&page_size=' + $scope.usersPagination.itemsPerPage

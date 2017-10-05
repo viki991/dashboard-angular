@@ -10,6 +10,9 @@
             .state('users', {
                 url: '/users',
                 templateUrl: 'app/pages/users/users.html',
+                params: {
+                    currencyCode: null
+                },
                 controller: "UsersCtrl",
                 title: 'Users',
                 sidebarMeta: {

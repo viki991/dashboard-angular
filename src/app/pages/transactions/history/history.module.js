@@ -12,7 +12,8 @@
                 templateUrl: 'app/pages/transactions/history/history.html',
                 params: {
                     code: null,
-                    transactionId: null
+                    transactionId: null,
+                    currencyCode: null
                 },
                 controller: "HistoryCtrl",
                 title: 'History',
