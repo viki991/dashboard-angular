@@ -8,18 +8,26 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <p><strong>Email: </strong></p>
+                <p><strong>Transaction hash: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <a class="pointer" ng-click="goToUser()" ng-bind="transaction.user.email"></a>
+                <p ng-bind="transaction.transaction_hash"></p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <p><strong>Amount: </strong></p>
+                <p><strong>Rehive code: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="transaction.amount | currencyModifiersFilter: transaction.currency.divisibility || 7"></p>
+                <p ng-click="goToTransactions(transaction.rehive_code)" class="pointer"><a ng-bind="transaction.rehive_code"></a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <p><strong>Email: </strong></p>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                <a class="pointer" ng-click="goToUser()" ng-bind="transaction.user.email"></a>
             </div>
         </div>
         <div class="row">
@@ -32,10 +40,10 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <p><strong>Transaction hash: </strong></p>
+                <p><strong>Amount: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="transaction.transaction_hash"></p>
+                <p ng-bind="transaction.amount | currencyModifiersFilter: transaction.currency.divisibility || 7"></p>
             </div>
         </div>
         <div class="row">
@@ -44,14 +52,6 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                 <p ng-bind="transaction.confirmations"></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <p><strong>Rehive code: </strong></p>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-click="goToTransactions(transaction.rehive_code)" class="pointer"><a ng-bind="transaction.rehive_code"></a></p>
             </div>
         </div>
         <div class="row">

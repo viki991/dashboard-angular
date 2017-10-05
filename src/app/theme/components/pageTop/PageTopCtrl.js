@@ -38,7 +38,6 @@
                 });
             }
         };
-        vm.getCompanyInfo();
 
         if(vm.currentLocation != '/login' && vm.currentLocation != '/verification' &&
             vm.currentLocation != '/company/name_request' && vm.currentLocation != '/register' &&
