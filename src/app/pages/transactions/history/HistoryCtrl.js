@@ -5,7 +5,8 @@
         .controller('HistoryCtrl', HistoryCtrl);
 
     /** @ngInject */
-    function HistoryCtrl($scope,environmentConfig,$http,cookieManagement,$uibModal,errorHandler,$state,$window,typeaheadService) {
+    function HistoryCtrl($scope,environmentConfig,$http,cookieManagement,$uibModal,sharedResources,
+                         errorHandler,$state,$window,typeaheadService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -37,6 +38,11 @@
         $scope.statusOptions = ['Status','Initiating','Processing','Pending','Complete','Failed'];
         $scope.currencyOptions = [];
         $scope.orderByOptions = ['Latest','Largest','Smallest'];
+
+        sharedResources.getSubtypes().then(function (res) {
+            $scope.subtypeOptions = _.pluck(res.data.data,'name');
+            $scope.subtypeOptions.unshift('');
+        });
 
         //for angular datepicker
         $scope.dateObj = {};
