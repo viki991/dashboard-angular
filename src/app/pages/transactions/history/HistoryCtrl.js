@@ -36,7 +36,7 @@
         $scope.typeOptions = ['Type','Credit','Debit']; //Transfer
         $scope.statusOptions = ['Status','Initiating','Processing','Pending','Complete','Failed'];
         $scope.currencyOptions = [];
-        $scope.orderByOptions = ['Largest','Latest','Smallest'];
+        $scope.orderByOptions = ['Latest','Largest','Smallest'];
 
         //for angular datepicker
         $scope.dateObj = {};
@@ -67,6 +67,20 @@
             if($scope.pagination.itemsPerPage > 250){
                 $scope.pagination.itemsPerPage = 250;
             }
+        };
+        
+        $scope.clearFilters = function () {
+            $scope.searchParams = {
+                searchId: '',
+                searchUser: '',
+                searchDateFrom: '',
+                searchDateTo: '',
+                searchType: 'Type',
+                searchStatus: 'Status',
+                searchCurrency: {code: 'Currency'},
+                searchOrderBy: 'Latest',
+                searchSubType: ''
+            };
         };
 
         vm.getTransactionUrl = function(){

@@ -24,6 +24,14 @@
         $scope.users = [];
         $scope.loadingUsers = true;
 
+        $scope.clearFilters = function () {
+            $scope.usersSearchParams = {
+                searchEmail:'',
+                searchIdentifier: '',
+                searchAddress: ''
+            };
+        };
+
         vm.getUsersUrl = function(){
             vm.filterParams = '?page=' + $scope.usersPagination.pageNo + '&page_size=' + $scope.usersPagination.itemsPerPage
             + '&email=' + ($scope.usersSearchParams.searchEmail? encodeURIComponent($scope.usersSearchParams.searchEmail) : '')
