@@ -1,7 +1,7 @@
 <div class="user-details-view" ng-hide="updatingProfilePic">
     <div class="row divider">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-            <img class="pointer" ng-click="toggleProfilePictureView()"
+            <img class="pointer" ng-click="openUserProfilePictureModal('app/pages/users/userDetails/userProfilePictureModal/userProfilePictureModal.html','lg',user)"
                  ng-src="{{user.profile}}"  width="90" height="90" alt="token Image">
         </div>
     </div>
@@ -26,7 +26,4 @@
             <!--<last-transactions></last-transactions>-->
         </div>
     </div>
-</div>
-<div ng-show="updatingProfilePic">
-    <user-profile-picture></user-profile-picture>
 </div>
