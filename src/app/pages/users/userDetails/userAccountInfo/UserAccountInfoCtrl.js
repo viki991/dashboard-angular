@@ -32,6 +32,10 @@
             $scope.showAddUserNumber = !$scope.showAddUserNumber;
         };
 
+        $scope.copiedSuccessfully= function () {
+            toastr.success('Identifier copied successfully');
+        };
+
         // intial user and email and mobile number list calling functions
 
         vm.getUser = function(){

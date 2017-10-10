@@ -7,7 +7,9 @@
         </tr>
         <tr ng-show="user.identifier">
             <th width="83%" ng-bind="user.identifier"></th>
-            <th></th>
+            <th class="copy-clipboard">
+                <a ngclipboard ngclipboard-success="copiedSuccessfully()" data-clipboard-text="{{user.identifier}}" class="pull-right pointer">Copy</a>
+            </th>
         </tr>
     </table>
     <div>

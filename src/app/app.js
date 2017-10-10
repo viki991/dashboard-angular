@@ -11,7 +11,7 @@ angular.module('BlurAdmin', [
     'toastr',
     'countrySelect',
     'iso-3166-country-codes',
-
+    'ngclipboard',
     'BlurAdmin.theme',
     'BlurAdmin.pages'
 ])
