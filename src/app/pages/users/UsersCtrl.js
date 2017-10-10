@@ -73,6 +73,23 @@
             }
         });
 
+        $scope.clearFilters = function () {
+            $scope.usersSearchParams = {
+                searchIdentifier:'',
+                searchEmail:'',
+                searchMobileNumber: '',
+                searchFirstName:'',
+                searchLastName: '',
+                searchStatus: 'Status',
+                searchCurrency: {code: 'Currency'},
+                searchJoinedDateFrom: '',
+                searchJoinedDateTo: '',
+                searchLastLoginDateFrom: '',
+                searchLastLoginDateTo: '',
+                searchKycVerified: 'Status'
+            };
+        };
+
         vm.getCompanyCurrencies = function(){
             //adding currency as default value in both results array and ng-model of currency
             vm.currenciesList.splice(0,0,{code: 'Currency'});

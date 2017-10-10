@@ -1,4 +1,5 @@
 <div ng-keydown="($event.keyCode === 13)  && getLatestTransactions('applyFilter')">
+    <button ng-click="clearFilters()" class="btn btn-primary panel-header-button dashboard-btn">Clear</button>
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>Id</strong></label>
@@ -38,7 +39,9 @@
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
             <label><strong>Subtype</strong></label>
-            <input type="text"  class="form-control" id="subtype"  placeholder="Enter subtype" ng-model="searchParams.searchSubType" size="12">
+            <select class="form-control pointer" ng-model="searchParams.searchSubType"
+                    ng-options="subtypeOption for subtypeOption in subtypeOptions">
+            </select>
         </div>
     </div>
 

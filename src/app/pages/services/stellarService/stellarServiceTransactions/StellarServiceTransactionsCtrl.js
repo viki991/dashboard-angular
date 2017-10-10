@@ -50,6 +50,19 @@
             $scope.popup2.opened = true;
         };
 
+        $scope.clearFilters = function () {
+            $scope.searchParams = {
+                searchEmail: '',
+                searchType: 'Type',
+                searchTxHash:'',
+                searchRehiveCode:'',
+                searchDateFrom: '',
+                searchDateTo: '',
+                searchStatus: 'Status',
+                searchOrderBy: 'Latest'
+            };
+        };
+
         vm.getTransactionUrl = function(){
             vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
                 + '&email=' + ($scope.searchParams.searchEmail? encodeURIComponent($scope.searchParams.searchEmail) : '')

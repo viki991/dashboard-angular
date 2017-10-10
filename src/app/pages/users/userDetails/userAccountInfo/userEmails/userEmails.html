@@ -1,11 +1,16 @@
 <div ng-hide="loadingUserAccountInfo" class="divider admin-emails">
     <table class="table table-striped admin-emails-table fees-table divider user-details-table">
-        <tr class="black-muted-bg divider">
-            <th>Primary</th>
-            <th>Email</th>
-            <th>Verified</th>
-            <th></th>
-        </tr>
+        <thead>
+            <tr class="black-muted-bg">
+                <th colspan="4"><strong>Email addresses</strong></th>
+            </tr>
+            <tr class="divider">
+                <th>Primary</th>
+                <th>Email</th>
+                <th>Verified</th>
+                <th></th>
+            </tr>
+        </thead>
         <tr ng-repeat="email in emailsList">
             <td width="10%"><label  class="checkbox-inline custom-checkbox nowrap">
                 <input type="checkbox" ng-change="updateUserEmail(email)" ng-model="email.primary" ng-checked="email.primary">
