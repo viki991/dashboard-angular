@@ -13,6 +13,7 @@
         $scope.usersStateMessage = '';
         $scope.users = [];
         $scope.creatingUser = false;
+        $scope.showingFilters = true;
         $scope.newUserParams = {
             nationality: "US"
         };
@@ -72,6 +73,10 @@
                 vm.getCompanyCurrencies();
             }
         });
+
+        $scope.showFilters = function () {
+            $scope.showingFilters = !$scope.showingFilters;
+        };
 
         $scope.clearFilters = function () {
             $scope.usersSearchParams = {

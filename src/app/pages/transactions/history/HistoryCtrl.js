@@ -11,6 +11,7 @@
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.currenciesList = JSON.parse($window.sessionStorage.currenciesList || '[]');
+        $scope.showingFilters = true;
 
         $scope.pagination = {
             itemsPerPage: 26,
@@ -55,6 +56,10 @@
         $scope.popup2 = {};
         $scope.open2 = function() {
             $scope.popup2.opened = true;
+        };
+
+        $scope.showFilters = function () {
+            $scope.showingFilters = !$scope.showingFilters;
         };
 
         $scope.orderByFunction = function () {

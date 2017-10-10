@@ -1,6 +1,11 @@
 <div ng-keydown="($event.keyCode === 13)  && getLatestTransactions('applyFilter')">
-    <button ng-click="clearFilters()" class="btn btn-primary panel-header-button dashboard-btn">Clear</button>
-    <div class="row">
+    <i ng-click="showFilters()" ng-show="showingFilters" class="fa fa-eye-slash panel-header-filter-icon-hide pointer" aria-hidden="true"></i>
+    <i ng-click="showFilters()" ng-hide="showingFilters" class="fa fa-eye panel-header-filter-icon-show pointer" aria-hidden="true"></i>
+    <a ng-click="clearFilters()" class="panel-header-filter-clear pointer">
+        <i class="fa fa-filter"
+           aria-hidden="true"></i> Clear
+    </a>
+    <div ng-show="showingFilters" class="row">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>Id</strong></label>
             <input type="text"  class="form-control" id="id"  placeholder="Enter transaction id" ng-model="searchParams.searchId" size="12">
@@ -45,7 +50,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div ng-show="showingFilters" class="row">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
             <label><strong>Currency</strong></label>
             <br>
