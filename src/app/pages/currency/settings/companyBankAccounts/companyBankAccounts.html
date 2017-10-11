@@ -1,4 +1,5 @@
 <div ng-hide="loadingCompanyBankAccounts" ba-panel class="bank-accounts" ba-panel-title="Bank accounts" ba-panel-class="light-text">
+    <button ng-click="saveBankAccounts()" class="btn btn-primary dashboard-btn pull-right panel-header-button">Save</button>
     <div ng-show="companyBankAccounts.length > 0">
         <div ng-repeat="bank in companyBankAccounts" class="divider">
             <label class="checkbox-inline custom-checkbox nowrap">
