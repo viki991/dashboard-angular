@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function HistoryCtrl($scope,environmentConfig,$http,cookieManagement,$uibModal,sharedResources,
-                         errorHandler,$state,$window,typeaheadService) {
+                         errorHandler,$state,$window,typeaheadService,$filter) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -56,6 +56,43 @@
         $scope.popup2 = {};
         $scope.open2 = function() {
             $scope.popup2.opened = true;
+        };
+
+        $scope.getFileName = $filter('date')(Date.now(),'mediumDate') + ' ' + $filter('date')(Date.now(),'shortTime') + '-transactionsHistory.csv';
+
+        $scope.getHeader = function () {return ["Id", "User","Balance","Type","Currency", "Amount",
+            "Fee","Subtype","Account","Status","Date","Reference","Note","Metadata"]};
+
+        $scope.getCSVArray = function () {
+            var array = [];
+            $scope.transactions.forEach(function (element) {
+                var metadata = '';
+                if(typeof element.metadata === 'object' && element.metadata && Object.keys(element.metadata).length > 0){
+                    metadata = JSON.stringify(element.metadata);
+                } else if (typeof element.metadata === 'string'){
+                    metadata = element.metadata;
+                } else {
+                    metadata = null;
+                }
+                array.push({
+                    Id: element.id,
+                    user: element.user.email,
+                    balance: $filter('currencyModifiersFilter')(element.balance,element.currency.divisibility).toString(),
+                    type: $filter('capitalizeWord')(element.tx_type),
+                    currency: element.currency.code,
+                    amount: $filter('currencyModifiersFilter')(element.amount,element.currency.divisibility).toString(),
+                    fee: $filter('currencyModifiersFilter')(element.fee,element.currency.divisibility).toString(),
+                    subtype: element.subtype,
+                    account: element.account,
+                    status: element.status,
+                    date: $filter('date')(element.created,'mediumDate') + ' ' +$filter('date')(element.created,'shortTime'),
+                    reference: element.reference,
+                    note: element.note,
+                    metadata: metadata
+                })
+            });
+
+            return array;
         };
 
         $scope.showFilters = function () {
