@@ -35,10 +35,10 @@
             searchJoinedDateTo: '',
             searchLastLoginDateFrom: '',
             searchLastLoginDateTo: '',
-            searchKycVerified: 'Status'
+            searchKycStatus: 'Status'
         };
 
-        $scope.statusOptions = ['Status','True','False'];
+        $scope.statusOptions = ['Status','Pending', 'Obsolete', 'Declined', 'Verified', 'Incomplete'];
         $scope.currencyOptions = [];
 
         //for angular datepicker
@@ -91,7 +91,7 @@
                 + '&date_joined__lt=' + ($scope.usersSearchParams.searchJoinedDateTo? Date.parse($scope.usersSearchParams.searchJoinedDateTo) : '')
                 + '&last_login__gt=' + ($scope.usersSearchParams.searchLastLoginDateFrom? Date.parse($scope.usersSearchParams.searchLastLoginDateFrom) : '')
                 + '&last_login__lt=' + ($scope.usersSearchParams.searchLastLoginDateTo? Date.parse($scope.usersSearchParams.searchLastLoginDateTo) : '')
-                + '&kyc_verified=' + ($scope.usersSearchParams.searchKycVerified == 'Status' ? '' : $scope.usersSearchParams.searchKycVerified == 'True' ? true : false)
+                + '&kyc__status=' + ($scope.usersSearchParams.searchKycStatus == 'Status' ? '' : $scope.usersSearchParams.searchKycStatus.toLowerCase())
                 + '&currency__code=' + ($scope.usersSearchParams.searchCurrency.code ? ($scope.usersSearchParams.searchCurrency.code == 'Currency' ? '' : $scope.usersSearchParams.searchCurrency.code) : '');
 
             return environmentConfig.API + '/admin/users/' + vm.filterParams;
