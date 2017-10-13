@@ -23,12 +23,8 @@
             <th width="83%"><strong>KYC status</strong></th>
             <th></th>
         </tr>
-        <tr ng-if="user.kyc_verified">
-            <td width="83%">Fully verified</td>
-            <td></td>
-        </tr>
-        <tr ng-if="!user.kyc_verified">
-            <td width="83%">Not fully verified</td>
+        <tr>
+            <td width="83%" ng-bind="user.kyc.status | capitalizeWord"></td>
             <td></td>
         </tr>
     </table>

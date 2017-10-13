@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function HistoryCtrl($scope,environmentConfig,$http,cookieManagement,$uibModal,sharedResources,
-                         errorHandler,$state,$window,typeaheadService,$filter) {
+                         errorHandler,$state,$window,typeaheadService,$filter,serializeFiltersService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -20,10 +20,10 @@
         };
 
         $scope.searchParams = {
-            searchId: $state.params.transactionId || '',
-            searchUser: $state.params.code || '',
-            searchDateFrom: '',
-            searchDateTo: '',
+            searchId: $state.params.transactionId || null,
+            searchUser: $state.params.code || null,
+            searchDateFrom: null,
+            searchDateTo: null,
             searchType: 'Type',
             searchStatus: 'Status',
             searchCurrency: {},
@@ -119,10 +119,10 @@
         
         $scope.clearFilters = function () {
             $scope.searchParams = {
-                searchId: '',
-                searchUser: '',
-                searchDateFrom: '',
-                searchDateTo: '',
+                searchId: null,
+                searchUser: null,
+                searchDateFrom: null,
+                searchDateTo: null,
                 searchType: 'Type',
                 searchStatus: 'Status',
                 searchCurrency: {code: 'Currency'},
@@ -133,18 +133,21 @@
 
         vm.getTransactionUrl = function(){
 
-            vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
-                + '&created__gt=' + ($scope.searchParams.searchDateFrom? Date.parse($scope.searchParams.searchDateFrom) : '')
-                + '&created__lt=' + ($scope.searchParams.searchDateTo? Date.parse($scope.searchParams.searchDateTo) : '')
-                + '&currency=' + ($scope.searchParams.searchCurrency.code ? ($scope.searchParams.searchCurrency.code == 'Currency' ? '' : $scope.searchParams.searchCurrency.code) : '')
-                + '&user=' + ($scope.searchParams.searchUser ? encodeURIComponent($scope.searchParams.searchUser) : '')
-                + '&orderby=' + ($scope.searchParams.searchOrderBy == 'Latest' ? '-created' : $scope.searchParams.searchOrderBy == 'Largest' ? '-amount' : $scope.searchParams.searchOrderBy == 'Smallest' ? 'amount' : '')
-                + '&id=' + $scope.searchParams.searchId
-                + '&tx_type=' + ($scope.searchParams.searchType == 'Type' ? '' : $scope.searchParams.searchType.toLowerCase())
-                + '&status=' + ($scope.searchParams.searchStatus == 'Status' ? '' : $scope.searchParams.searchStatus)
-                + '&subtype=' + $scope.searchParams.searchSubType; // all the params of the filtering
+            var searchObj = {
+                page: $scope.pagination.pageNo,
+                page_size: $scope.pagination.itemsPerPage || 1,
+                created__gt: $scope.searchParams.searchDateFrom ? Date.parse($scope.searchParams.searchDateFrom): null,
+                created__lt: $scope.searchParams.searchDateTo? Date.parse($scope.searchParams.searchDateTo): null,
+                currency: ($scope.searchParams.searchCurrency.code ? ($scope.searchParams.searchCurrency.code == 'Currency' ? null: $scope.searchParams.searchCurrency.code): null),
+                user: ($scope.searchParams.searchUser ? encodeURIComponent($scope.searchParams.searchUser) : null),
+                orderby: ($scope.searchParams.searchOrderBy == 'Latest' ? '-created' : $scope.searchParams.searchOrderBy == 'Largest' ? '-amount' : $scope.searchParams.searchOrderBy == 'Smallest' ? 'amount' : null),
+                id: $scope.searchParams.searchId ? encodeURIComponent($scope.searchParams.searchId) : null,
+                tx_type: ($scope.searchParams.searchType == 'Type' ? null : $scope.searchParams.searchType.toLowerCase()),
+                status: ($scope.searchParams.searchStatus == 'Status' ? null : $scope.searchParams.searchStatus),
+                subtype: $scope.searchParams.searchSubType ? $scope.searchParams.searchSubType: null
+            };
 
-            return environmentConfig.API + '/admin/transactions/' + vm.filterParams;
+            return environmentConfig.API + '/admin/transactions/?' + serializeFiltersService.serializeFilters(searchObj);
         };
 
         $scope.getLatestTransactions = function(applyFilter){
@@ -208,10 +211,10 @@
             vm.theModal.result.then(function(transaction){
                 if(transaction){
                     $scope.searchParams = {
-                        searchId: '',
-                        searchUser: $state.params.code || '',
-                        searchDateFrom: '',
-                        searchDateTo: '',
+                        searchId: null,
+                        searchUser: $state.params.code || null,
+                        searchDateFrom: null,
+                        searchDateTo: null,
                         searchType: 'Type',
                         searchStatus: 'Status',
                         searchCurrency: {code: 'Currency'},
