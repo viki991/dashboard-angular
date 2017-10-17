@@ -5,7 +5,8 @@
         .controller('UserAccountInfoCtrl', UserAccountInfoCtrl);
 
     /** @ngInject */
-    function UserAccountInfoCtrl($scope,environmentConfig,$stateParams,$uibModal,$http,$ngConfirm,cookieManagement,errorHandler,toastr) {
+    function UserAccountInfoCtrl($scope,environmentConfig,$stateParams,$uibModal,$http,$window,
+                                 $ngConfirm,cookieManagement,errorHandler,toastr) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -70,6 +71,7 @@
                 }).then(function (res) {
                     if (res.status === 200) {
                         $scope.emailsList = res.data.data.results;
+                        $window.sessionStorage.userEmails = JSON.stringify(res.data.data.results);
                         vm.getUserMobileNumbers();
                     }
                 }).catch(function (error) {
@@ -91,6 +93,7 @@
                 }).then(function (res) {
                     if (res.status === 200) {
                         $scope.mobilesList = res.data.data.results;
+                        $window.sessionStorage.userMobiles = JSON.stringify(res.data.data.results);
                         $scope.loadingUserAccountInfo = false;
                     }
                 }).catch(function (error) {

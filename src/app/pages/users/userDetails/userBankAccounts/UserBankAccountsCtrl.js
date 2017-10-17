@@ -5,7 +5,8 @@
         .controller('UserBankAccountsCtrl', UserBankAccountsCtrl);
 
     /** @ngInject */
-    function UserBankAccountsCtrl($scope,environmentConfig,$stateParams,$uibModal,$http,cookieManagement,errorHandler,toastr,$filter) {
+    function UserBankAccountsCtrl($scope,environmentConfig,$stateParams,$uibModal,$http,$window,
+                                  cookieManagement,errorHandler,toastr,$filter) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -28,7 +29,8 @@
                 }).then(function (res) {
                     $scope.loadingUserBankAccount = false;
                     if (res.status === 200) {
-                      $scope.userBanks = res.data.data.results;
+                        $scope.userBanks = res.data.data.results;
+                        $window.sessionStorage.userBanks = JSON.stringify(res.data.data.results);
                     }
                 }).catch(function (error) {
                     $scope.loadingUserBankAccount = false;
