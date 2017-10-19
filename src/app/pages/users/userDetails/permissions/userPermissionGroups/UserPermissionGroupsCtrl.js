@@ -5,12 +5,13 @@
         .controller('UserPermissionGroupsCtrl', UserPermissionGroupsCtrl);
 
     /** @ngInject */
-    function UserPermissionGroupsCtrl($scope,environmentConfig,$stateParams,$http,
+    function UserPermissionGroupsCtrl($scope,environmentConfig,$stateParams,$http,$window,
                                  cookieManagement,errorHandler,toastr,$uibModal) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.uuid = $stateParams.uuid;
+        $scope.userData = JSON.parse($window.sessionStorage.userData);
         $scope.loadingUserPermissionGroups = true;
         $scope.addingUserPermissionGroup = false;
         $scope.userPermissionGroupParams = {};
