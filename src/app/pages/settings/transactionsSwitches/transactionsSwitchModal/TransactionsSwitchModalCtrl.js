@@ -14,7 +14,7 @@
 
         $scope.deleteTransactionsSwitch = function () {
             $scope.deletingTransactionsSwitches = true;
-            $http.delete(environmentConfig.API + '/admin/company/switches/' + $scope.transactionsSwitches.id + '/', {
+            $http.delete(environmentConfig.API + '/admin/transactions/switches/' + $scope.transactionsSwitches.id + '/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': vm.token

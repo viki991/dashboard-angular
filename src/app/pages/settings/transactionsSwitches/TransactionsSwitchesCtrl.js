@@ -52,7 +52,7 @@
 
         vm.getTransactionsSwitch = function (transactionsSwitch) {
             $scope.loadingTransactionsSwitches = true;
-            $http.get(environmentConfig.API + '/admin/company/switches/' + transactionsSwitch.id + '/', {
+            $http.get(environmentConfig.API + '/admin/transactions/switches/' + transactionsSwitch.id + '/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': vm.token
@@ -75,7 +75,7 @@
         vm.getTransactionsSwitches = function () {
             if(vm.token) {
                 $scope.loadingTransactionsSwitches = true;
-                $http.get(environmentConfig.API + '/admin/company/switches/', {
+                $http.get(environmentConfig.API + '/admin/transactions/switches/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -100,7 +100,7 @@
             transactionsSwitchParams.enabled ? transactionsSwitchParams.enabled = transactionsSwitchParams.enabled == 'True' ? true: false : '';
             if(vm.token) {
                 $scope.loadingTransactionsSwitches = true;
-                $http.post(environmentConfig.API + '/admin/company/switches/', transactionsSwitchParams, {
+                $http.post(environmentConfig.API + '/admin/transactions/switches/', transactionsSwitchParams, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -145,7 +145,7 @@
             vm.updatedTransactionsSwitch.enabled ? vm.updatedTransactionsSwitch.enabled = vm.updatedTransactionsSwitch.enabled == 'True' ? true: false : '';
             if(vm.token) {
                 $scope.loadingTransactionsSwitches = true;
-                $http.patch(environmentConfig.API + '/admin/company/switches/' + $scope.editTransactionsSwitch.id + '/', vm.updatedTransactionsSwitch, {
+                $http.patch(environmentConfig.API + '/admin/transactions/switches/' + $scope.editTransactionsSwitch.id + '/', vm.updatedTransactionsSwitch, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
