@@ -5,7 +5,7 @@
             <td><strong>Currency</strong></td>
             <td><strong>Joined</strong></td>
             <td><strong>Last login</strong></td>
-            <td><strong>KYC verified</strong></td>
+            <td><strong>KYC status</strong></td>
         </tr>
         <tr ng-repeat="user in users" class="editable-row center">
             <td><a href="/#/user/{{user.identifier}}"><div title="{{user.email}}" ng-bind="user.email"></div></a></td>
@@ -15,7 +15,7 @@
             </div></td>
             <td><div title="{{user.last_login | date:'mediumDate'}}, {{user.last_login | date:'shortTime'}}" class="transactions-list-element">
                 {{user.last_login | date:'mediumDate'}}, {{user.last_login | date:'shortTime'}}</div></td>
-            <td><div title="{{user.kyc_verified}}" class="transactions-list-element" ng-bind="user.kyc_verified | capitalizeWord"></div></td>
+            <td><div title="{{user.kyc.status | capitalizeWord}}" class="transactions-list-element" ng-bind="user.kyc.status | capitalizeWord"></div></td>
         </tr>
     </table>
     <div >

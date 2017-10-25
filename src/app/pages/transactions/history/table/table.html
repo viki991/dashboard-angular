@@ -20,7 +20,7 @@
             <td><div title="{{transaction.amount  | currencyModifiersFilter: transaction.currency.divisibility}}" class="transactions-list-element" ng-bind="transaction.amount  | currencyModifiersFilter: transaction.currency.divisibility"></div></td>
             <td><div title="{{transaction.fee | currencyModifiersFilter: transaction.currency.divisibility}}"
                      class="transactions-list-element" ng-bind="transaction.fee | currencyModifiersFilter: transaction.currency.divisibility"></div></td>
-            <td><div title="{{transaction.status}}" class="transactions-list-element" ng-bind="transaction.status"></div></td>
+            <td><div title="{{transaction.status | capitalizeWord}}" class="transactions-list-element" ng-bind="transaction.status | capitalizeWord"></div></td>
             <td><div title="{{transaction.created | date:'mediumDate'}} {{transaction.created | date:'shortTime'}}" class="transactions-list-element">
               {{transaction.created | date:'mediumDate'}} {{transaction.created | date:'shortTime'}}</div></td>
         </tr>

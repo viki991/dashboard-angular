@@ -24,7 +24,7 @@
         vm.getPendingTransactions = function(){
             $scope.transactions.list = [];
             if(vm.token) {
-                $http.get(environmentConfig.API + '/admin/transactions/?tx_type=credit&status=Pending&orderby=-created&currency=' + $rootScope.selectedCurrency.code, {
+                $http.get(environmentConfig.API + '/admin/transactions/?tx_type=credit&status=pending&orderby=-created&currency=' + $rootScope.selectedCurrency.code, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token

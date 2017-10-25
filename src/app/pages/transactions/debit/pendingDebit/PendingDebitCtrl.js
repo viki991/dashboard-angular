@@ -22,7 +22,7 @@
         });
 
         vm.getPendingTransactions = function(){
-            $http.get(environmentConfig.API + '/admin/transactions/?tx_type=debit&status=Pending&orderby=-created&currency=' + $rootScope.selectedCurrency.code, {
+            $http.get(environmentConfig.API + '/admin/transactions/?tx_type=debit&status=pending&orderby=-created&currency=' + $rootScope.selectedCurrency.code, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': vm.token

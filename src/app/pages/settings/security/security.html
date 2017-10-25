@@ -8,5 +8,6 @@
     <button ng-click="changePassword()" class="btn btn-primary dashboard-btn pull-right ">Next</button>
 </div>
 <div ba-panel ba-panel-title="Set up multi-factor authentication" ba-panel-class="light-text">
+    <p>2-factor authentication: <a>{{activatedMfa | capitalizeWord}}</a></p>
     <button ng-click="enableMultiFactorAuth()" class="btn btn-primary dashboard-btn pull-right">Next</button>
 </div>

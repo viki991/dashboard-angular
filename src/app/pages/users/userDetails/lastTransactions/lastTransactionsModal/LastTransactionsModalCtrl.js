@@ -118,7 +118,7 @@
                 }).then(function (res) {
                 if (res.status === 200) {
                     $scope.updatingTransaction = false;
-                    if(status == 'Complete'){
+                    if(status == 'complete'){
                         toastr.success('Transaction successfully updated, marked as Complete');
                     } else {
                         toastr.success('Transaction successfully updated, marked as Failed');

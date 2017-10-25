@@ -30,7 +30,7 @@
                 <p><strong>Status: </strong></p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <p ng-bind="transaction.status">
+                <p ng-bind="transaction.status | capitalizeWord">
             </div>
         </div>
         <div class="row">
@@ -126,7 +126,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn transaction-details-button btn-danger pull-left" ng-click="updateTransaction('Failed')">Cancel Credit</button>
-        <button type="button" class="btn transaction-details-button btn-primary pull-right " ng-click="updateTransaction('Complete')">Complete Credit</button>
+        <button type="button" class="btn transaction-details-button btn-danger pull-left" ng-click="updateTransaction('failed')">Cancel Credit</button>
+        <button type="button" class="btn transaction-details-button btn-primary pull-right " ng-click="updateTransaction('complete')">Complete Credit</button>
     </div>
 </div>
