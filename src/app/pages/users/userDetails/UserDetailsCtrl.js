@@ -43,7 +43,7 @@
         vm.getUser();
 
         $scope.goToSwitchesAndPermissions = function () {
-          $location.path('user/' + vm.uuid + '/switches-and-permissions');
+          $location.path('user/' + vm.uuid + '/permissions-settings');
         };
 
         $scope.getFileName = $filter('date')(Date.now(),'mediumDate') + ' ' + $filter('date')(Date.now(),'shortTime') + '-UserInfo.csv';
