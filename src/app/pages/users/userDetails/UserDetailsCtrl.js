@@ -71,7 +71,7 @@
         };
 
         $scope.goToSwitchesAndPermissions = function () {
-          $location.path('user/' + vm.uuid + '/switches-and-permissions');
+          $location.path('user/' + vm.uuid + '/permissions-settings');
         };
     }
 })();

@@ -11,7 +11,7 @@
     function routeConfig($stateProvider) {
         $stateProvider
             .state('permissions', {
-                url: '/user/:uuid/switches-and-permissions',
+                url: '/user/:uuid/permissions-settings',
                 templateUrl: 'app/pages/users/userDetails/permissions/permissions.html',
                 controller: "PermissionsCtrl",
                 title: 'Permissions'
