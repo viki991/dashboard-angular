@@ -5,7 +5,7 @@
         .controller('PendingDebitCtrl', PendingDebitCtrl);
 
     /** @ngInject */
-    function PendingDebitCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,$uibModal,errorHandler) {
+    function PendingDebitCtrl($scope,$http,environmentConfig,cookieManagement,$uibModal,errorHandler) {
 
         var vm = this;
         $scope.transactions = {};

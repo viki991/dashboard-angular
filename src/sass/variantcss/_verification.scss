@@ -37,3 +37,23 @@
 .terms-and-agreement-link{
   font-size: 15px !important;
 }
+
+.register-password-icon{
+  margin-right: 11px;
+  position: relative;
+  top: -29px;
+  color: #979797;
+  &:hover{
+    color: $primary;
+  }
+}
+
+.register-password-icon-show{
+  margin-right: 11px;
+  position: relative;
+  top: -29px;
+  color: #979797;
+  &:hover{
+    color: $primary;
+  }
+}

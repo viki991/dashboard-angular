@@ -11,7 +11,7 @@
         vm.uuid = $stateParams.uuid;
 
         $scope.goToSetting = function(path){
-            $location.path('user/' + vm.uuid + '/switches-and-permissions/' + path);
+            $location.path('user/' + vm.uuid + '/permissions-settings/' + path);
         };
 
         $scope.goBackToUser = function () {

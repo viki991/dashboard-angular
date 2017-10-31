@@ -1,3 +1,30 @@
+.panel-header-filter-icon-hide{
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  color: #979797;
+  &:hover{
+    color: $primary;
+  }
+}
+
+.panel-header-filter-icon-show{
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  color: $primary;
+}
+
+a.panel-header-filter-clear{
+  position: absolute;
+  top: 6px;
+  right: 34px;
+  color: #979797;
+  &.panel-header-filter-clear:hover{
+    color: #c53321;
+  }
+}
+
 .refresh-icon{
   color: $primary;
   font-size: 1.2em;

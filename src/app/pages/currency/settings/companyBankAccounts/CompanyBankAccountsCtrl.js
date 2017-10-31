@@ -11,6 +11,7 @@
         vm.token = cookieManagement.getCookie('TOKEN');
         $scope.currencyCode = $stateParams.currencyCode;
         $scope.loadingCompanyBankAccounts = true;
+        $scope.updatedBankAccounts = [];
 
 
         vm.getCompanyBankAccounts = function(){
@@ -72,11 +73,41 @@
         };
 
         $scope.saveMarkedBankAccounts = function (bank) {
-            if(bank.checked){
-                vm.activateBankAccountForCurrency(bank.id);
-            } else {
-                vm.deleteBankAccountForCurrency(bank.id);
+            var elementExistsInArray;
+            $scope.updatedBankAccounts.forEach(function (element,index,array) {
+                if(bank.id == element.id){
+                    array.splice(index,1);
+                    elementExistsInArray = true;
+                }
+
+            });
+
+            if(elementExistsInArray){
+                return;
             }
+
+
+            if(bank.checked){
+                $scope.updatedBankAccounts.push({id: bank.id,checked: true});
+            } else {
+                $scope.updatedBankAccounts.push({id: bank.id,checked: false});
+            }
+        };
+
+        $scope.saveBankAccounts = function () {
+
+            if($scope.updatedBankAccounts.length == 0){
+                toastr.success('No new changes detected');
+            }
+
+            $scope.updatedBankAccounts.forEach(function (element) {
+                if(element.checked){
+                    vm.activateBankAccountForCurrency(element.id);
+                } else {
+                    vm.deleteBankAccountForCurrency(element.id);
+                }
+            })
+            $scope.updatedBankAccounts = [];
         };
 
         vm.activateBankAccountForCurrency = function(id){

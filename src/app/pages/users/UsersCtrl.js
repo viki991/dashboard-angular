@@ -5,8 +5,8 @@
         .controller('UsersCtrl', UsersCtrl);
 
     /** @ngInject */
-    function UsersCtrl($scope,environmentConfig,$http,typeaheadService,$state,
-                       cookieManagement,errorHandler,Upload,$window,toastr) {
+    function UsersCtrl($state,$scope,environmentConfig,$http,typeaheadService,
+                       cookieManagement,errorHandler,Upload,$window,toastr,serializeFiltersService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -14,6 +14,7 @@
         $scope.usersStateMessage = '';
         $scope.users = [];
         $scope.creatingUser = false;
+        $scope.showingFilters = true;
         $scope.newUserParams = {
             nationality: "US"
         };
@@ -25,21 +26,20 @@
         };
 
         $scope.usersSearchParams = {
-            searchIdentifier:'',
-            searchEmail:'',
-            searchMobileNumber: '',
-            searchFirstName:'',
-            searchLastName: '',
-            searchStatus: 'Status',
+            searchIdentifier:null,
+            searchEmail:null,
+            searchMobileNumber: null,
+            searchFirstName:null,
+            searchLastName: null,
             searchCurrency: {},
-            searchJoinedDateFrom: '',
-            searchJoinedDateTo: '',
-            searchLastLoginDateFrom: '',
-            searchLastLoginDateTo: '',
-            searchKycVerified: 'Status'
+            searchJoinedDateFrom: null,
+            searchJoinedDateTo: null,
+            searchLastLoginDateFrom: null,
+            searchLastLoginDateTo: null,
+            searchKycStatus: 'Status'
         };
 
-        $scope.statusOptions = ['Status','True','False'];
+        $scope.statusOptions = ['Status','Pending', 'Obsolete', 'Declined', 'Verified', 'Incomplete'];
         $scope.currencyOptions = [];
 
         //for angular datepicker
@@ -68,6 +68,26 @@
         $scope.getUsersEmailTypeahead = typeaheadService.getUsersEmailTypeahead();
         $scope.getUsersMobileTypeahead = typeaheadService.getUsersMobileTypeahead();
 
+        $scope.showFilters = function () {
+            $scope.showingFilters = !$scope.showingFilters;
+        };
+
+        $scope.clearFilters = function () {
+            $scope.usersSearchParams = {
+                searchIdentifier:null,
+                searchEmail:null,
+                searchMobileNumber: null,
+                searchFirstName:null,
+                searchLastName: null,
+                searchCurrency: {code: 'Currency'},
+                searchJoinedDateFrom: null,
+                searchJoinedDateTo: null,
+                searchLastLoginDateFrom: null,
+                searchLastLoginDateTo: null,
+                searchKycStatus: 'Status'
+            };
+        };
+
         vm.getCompanyCurrencies = function(){
             //adding currency as default value in both results array and ng-model of currency
             vm.currenciesList.splice(0,0,{code: 'Currency'});
@@ -85,20 +105,24 @@
         }
 
         vm.getUsersUrl = function(){
-            vm.filterParams = '?page=' + $scope.usersPagination.pageNo + '&page_size=' + $scope.usersPagination.itemsPerPage
-                + '&identifier__contains=' + ($scope.usersSearchParams.searchIdentifier ?  $scope.usersSearchParams.searchIdentifier : '')
-                + '&email__contains=' + ($scope.usersSearchParams.searchEmail ?  encodeURIComponent($scope.usersSearchParams.searchEmail) : '')
-                + '&mobile_number__contains=' + ($scope.usersSearchParams.searchMobileNumber ?  encodeURIComponent($scope.usersSearchParams.searchMobileNumber) : '')
-                + '&first_name__contains=' + ($scope.usersSearchParams.searchFirstName ?  $scope.usersSearchParams.searchFirstName : '')
-                + '&last_name__contains=' + ($scope.usersSearchParams.searchLastName ?  $scope.usersSearchParams.searchLastName : '')
-                + '&date_joined__gt=' + ($scope.usersSearchParams.searchJoinedDateFrom? Date.parse($scope.usersSearchParams.searchJoinedDateFrom) : '')
-                + '&date_joined__lt=' + ($scope.usersSearchParams.searchJoinedDateTo? Date.parse($scope.usersSearchParams.searchJoinedDateTo) : '')
-                + '&last_login__gt=' + ($scope.usersSearchParams.searchLastLoginDateFrom? Date.parse($scope.usersSearchParams.searchLastLoginDateFrom) : '')
-                + '&last_login__lt=' + ($scope.usersSearchParams.searchLastLoginDateTo? Date.parse($scope.usersSearchParams.searchLastLoginDateTo) : '')
-                + '&kyc_verified=' + ($scope.usersSearchParams.searchKycVerified == 'Status' ? '' : $scope.usersSearchParams.searchKycVerified == 'True' ? true : false)
-                + '&currency__code=' + ($scope.usersSearchParams.searchCurrency.code ? ($scope.usersSearchParams.searchCurrency.code == 'Currency' ? '' : $scope.usersSearchParams.searchCurrency.code) : '');
 
-            return environmentConfig.API + '/admin/users/' + vm.filterParams;
+            var searchObj = {
+                page: $scope.usersPagination.pageNo,
+                page_size: $scope.usersPagination.itemsPerPage || 1,
+                identifier__contains:($scope.usersSearchParams.searchIdentifier ?  $scope.usersSearchParams.searchIdentifier : null),
+                email__contains:($scope.usersSearchParams.searchEmail ?  encodeURIComponent($scope.usersSearchParams.searchEmail) : null),
+                mobile_number__contains:($scope.usersSearchParams.searchMobileNumber ?  encodeURIComponent($scope.usersSearchParams.searchMobileNumber) : null),
+                first_name__contains:($scope.usersSearchParams.searchFirstName ?  $scope.usersSearchParams.searchFirstName : null),
+                last_name__contains:($scope.usersSearchParams.searchLastName ?  $scope.usersSearchParams.searchLastName : null),
+                date_joined__gt:($scope.usersSearchParams.searchJoinedDateFrom? Date.parse($scope.usersSearchParams.searchJoinedDateFrom) : null),
+                date_joined__lt:($scope.usersSearchParams.searchJoinedDateTo? Date.parse($scope.usersSearchParams.searchJoinedDateTo) : null),
+                last_login__gt:($scope.usersSearchParams.searchLastLoginDateFrom? Date.parse($scope.usersSearchParams.searchLastLoginDateFrom) : null),
+                last_login__lt: ($scope.usersSearchParams.searchLastLoginDateTo? Date.parse($scope.usersSearchParams.searchLastLoginDateTo) : null),
+                kyc__status:($scope.usersSearchParams.searchKycStatus == 'Status' ? null : $scope.usersSearchParams.searchKycStatus.toLowerCase()),
+                currency__code: ($scope.usersSearchParams.searchCurrency.code ? ($scope.usersSearchParams.searchCurrency.code == 'Currency' ? null : $scope.usersSearchParams.searchCurrency.code) : null)
+            };
+
+            return environmentConfig.API + '/admin/users/?' + serializeFiltersService.serializeFilters(searchObj);
         };
 
         $scope.getAllUsers = function(applyFilter){
@@ -170,6 +194,6 @@
             $scope.newUserParams = {
                 nationality: "US"
             };
-        }
+        };
     }
 })();

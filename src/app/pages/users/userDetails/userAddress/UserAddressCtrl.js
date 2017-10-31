@@ -5,7 +5,8 @@
         .controller('UserAddressCtrl', UserAddressCtrl);
 
     /** @ngInject */
-    function UserAddressCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,errorHandler,$uibModal,toastr,$filter) {
+    function UserAddressCtrl($scope,environmentConfig,$stateParams,$http,cookieManagement,
+                             $window,errorHandler,$uibModal,toastr,$filter) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -32,7 +33,8 @@
                 }).then(function (res) {
                     $scope.loadingUserAddress = false;
                     if (res.status === 200) {
-                      $scope.userAddresses = res.data.data.results;
+                        $window.sessionStorage.userAddresses = JSON.stringify(res.data.data.results);
+                        $scope.userAddresses = res.data.data.results;
                     }
                 }).catch(function (error) {
                     $scope.loadingUserAddress = false;

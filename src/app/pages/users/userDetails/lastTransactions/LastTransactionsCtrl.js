@@ -81,7 +81,7 @@
                 + '&orderby=' + ($scope.searchParams.searchOrderBy == 'Latest' ? '-created' : $scope.searchParams.searchOrderBy == 'Largest' ? '-amount' : $scope.searchParams.searchOrderBy == 'Smallest' ? 'amount' : '')
                 + '&id=' + $scope.searchParams.searchId
                 + '&tx_type=' + ($scope.searchParams.searchType == 'Type' ? '' : $scope.searchParams.searchType.toLowerCase())
-                + '&status=' + ($scope.searchParams.searchStatus == 'Status' ? '' : $scope.searchParams.searchStatus)
+                + '&status=' + ($scope.searchParams.searchStatus == 'Status' ? '' : $scope.searchParams.searchStatus.toLowerCase())
                 + '&subtype=' + $scope.searchParams.searchSubType; // all the params of the filtering
 
             return environmentConfig.API + '/admin/transactions/?user=' + vm.uuid +  vm.filterParams;

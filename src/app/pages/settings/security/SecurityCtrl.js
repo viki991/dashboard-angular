@@ -13,6 +13,32 @@
         $scope.addingToken = false;
         $scope.createTokenData = {};
         $scope.createTokenData.tokenPassword = '';
+        $scope.activatedMfa = 'None';
+
+        vm.checkMultiFactorAuthEnabled = function () {
+            if(vm.token) {
+                $http.get(environmentConfig.API + '/auth/mfa/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': vm.token
+                    }
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        for(var key in res.data.data){
+                            if (res.data.data.hasOwnProperty(key)) {
+                                if(res.data.data[key]){
+                                    $scope.activatedMfa = key;
+                                }
+                            }
+                        }
+                    }
+                }).catch(function (error) {
+                    errorHandler.evaluateErrors(error.data);
+                    errorHandler.handleErrors(error);
+                });
+            }
+        };
+        vm.checkMultiFactorAuthEnabled();
 
         vm.getTokensList = function () {
             if(vm.token) {

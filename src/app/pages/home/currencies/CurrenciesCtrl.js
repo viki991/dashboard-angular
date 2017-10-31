@@ -82,5 +82,9 @@
             $state.go('users',{"currencyCode": code});
         };
 
+        $scope.goToPendingTransactions = function (currency,state) {
+            $state.go(state);
+        };
+
     }
 })();

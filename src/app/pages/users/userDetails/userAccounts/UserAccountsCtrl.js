@@ -5,7 +5,7 @@
         .controller('UserAccountsCtrl', UserAccountsCtrl);
 
     /** @ngInject */
-    function UserAccountsCtrl($rootScope,$scope,environmentConfig,$stateParams,toastr,
+    function UserAccountsCtrl($scope,environmentConfig,$stateParams,toastr,
                               $http,cookieManagement,errorHandler,$location,$state) {
 
         var vm = this;

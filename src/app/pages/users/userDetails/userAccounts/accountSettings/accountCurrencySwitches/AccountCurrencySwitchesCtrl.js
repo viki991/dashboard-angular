@@ -5,13 +5,14 @@
         .controller('AccountCurrencySwitchesCtrl', AccountCurrencySwitchesCtrl);
 
     /** @ngInject */
-    function AccountCurrencySwitchesCtrl($rootScope,$scope,$stateParams,$http,$uibModal,environmentConfig,cookieManagement,
+    function AccountCurrencySwitchesCtrl($window,$scope,$stateParams,$http,$uibModal,environmentConfig,cookieManagement,
                                          sharedResources,errorHandler,currencyModifiers,toastr,_) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.currencyCode = $stateParams.currencyCode;
         vm.reference = $stateParams.reference;
+        $scope.userData = JSON.parse($window.sessionStorage.userData);
         $scope.loadingAccountCurrencySwitches = true;
         $scope.loadingSubtypes = false;
         $scope.editingAccountCurrencySwitches = false;

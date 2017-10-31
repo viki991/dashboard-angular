@@ -10,6 +10,16 @@
         $scope.passwordResetDone = false;
         $scope.resettingPassword = false;
         $scope.passwordResetParams = {};
+        $scope.showPassword1 = false;
+        $scope.showPassword2 = false;
+
+        $scope.togglePasswordVisibility1 = function () {
+            $scope.showPassword1 = !$scope.showPassword1;
+        };
+
+        $scope.togglePasswordVisibility2 = function () {
+            $scope.showPassword2 = !$scope.showPassword2;
+        };
 
         $scope.resetPassword = function(passwordResetParams){
             $scope.resettingPassword = true;

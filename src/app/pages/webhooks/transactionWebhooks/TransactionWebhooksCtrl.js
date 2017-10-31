@@ -34,7 +34,7 @@
 
         vm.getTransactionWebhook = function (webhook) {
             $scope.loadingTransactionWebhooks = true;
-            $http.get(environmentConfig.API + '/admin/webhooks/transactions/' + webhook.id + '/', {
+            $http.get(environmentConfig.API + '/admin/transactions/webhooks/' + webhook.id + '/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': vm.token
@@ -60,7 +60,7 @@
         vm.getTransactionWebhooks = function () {
             if(vm.token) {
                 $scope.loadingTransactionWebhooks = true;
-                $http.get(environmentConfig.API + '/admin/webhooks/transactions/', {
+                $http.get(environmentConfig.API + '/admin/transactions/webhooks/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
@@ -93,7 +93,7 @@
              'transaction.create' : transactionWebhooksParams.event == 'Transaction Update' ? 'transaction.update' : transactionWebhooksParams.event == 'Transaction Delete' ?
              'transaction.delete' : transactionWebhooksParams.event == 'Transaction Initiate' ? 'transaction.initiate' : transactionWebhooksParams.event == 'Transaction Execute' ?
              'transaction.execute' : '';
-            $http.post(environmentConfig.API + '/admin/webhooks/transactions/', transactionWebhooksParams, {
+            $http.post(environmentConfig.API + '/admin/transactions/webhooks/', transactionWebhooksParams, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': vm.token
@@ -138,7 +138,7 @@
                'transaction.execute' : '';
              }
 
-            $http.patch(environmentConfig.API + '/admin/webhooks/transactions/'+ $scope.editTransactionWebhook.id + '/', vm.updatedTransactionWebhook, {
+            $http.patch(environmentConfig.API + '/admin/transactions/webhooks/'+ $scope.editTransactionWebhook.id + '/', vm.updatedTransactionWebhook, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': vm.token

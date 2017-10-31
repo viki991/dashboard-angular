@@ -13,6 +13,7 @@
         vm.currencyCode = $stateParams.currencyCode;
         vm.reference = $stateParams.reference;
         vm.currenciesList = JSON.parse($window.sessionStorage.currenciesList);
+        $scope.userData = JSON.parse($window.sessionStorage.userData);
         $scope.loadingAccountCurrencyLimits = true;
         $scope.loadingSubtypes = false;
         $scope.editingAccountCurrencyLimits = false;

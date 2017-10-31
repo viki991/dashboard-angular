@@ -29,7 +29,9 @@
             </div>
             <div class="row form-group">
                 <div class="col-sm-12">
-                    <input type="password" ng-model="password" class="form-control" id="inputPassword1" placeholder="Password">
+                    <input ng-attr-type="{{ showLoginPassword ? 'text' : 'password' }}" ng-model="password" class="form-control" id="inputPassword1" placeholder="Password">
+                    <i ng-click="toggleLoginPassword()" ng-show="showLoginPassword" class="fa fa-eye-slash pull-right register-password-icon pointer"></i>
+                    <i ng-click="toggleLoginPassword()" ng-hide="showLoginPassword" class="fa fa-eye pull-right register-password-icon-show pointer"></i>
                 </div>
             </div>
             <div class="row form-group">

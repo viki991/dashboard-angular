@@ -5,7 +5,7 @@
         .controller('RegisterCtrl', RegisterCtrl);
 
     /** @ngInject */
-    function RegisterCtrl($rootScope,$scope,$http,toastr,environmentConfig,errorHandler,$location,cookieManagement) {
+    function RegisterCtrl($rootScope,$scope,$http,environmentConfig,errorHandler,$location,cookieManagement) {
 
         //var vm = this;
         $scope.path = $location.path();
@@ -17,6 +17,16 @@
             password1: '',
             password2: '',
             terms_and_conditions: false
+        };
+        $scope.showPassword1 = false;
+        $scope.showPassword2 = false;
+
+        $scope.togglePasswordVisibility1 = function () {
+            $scope.showPassword1 = !$scope.showPassword1;
+        };
+
+        $scope.togglePasswordVisibility2 = function () {
+            $scope.showPassword2 = !$scope.showPassword2;
         };
 
         $scope.registerUser = function() {

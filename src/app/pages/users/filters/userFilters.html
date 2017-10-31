@@ -1,18 +1,26 @@
 <div ng-keydown="($event.keyCode === 13)  && getAllUsers('applyFilter')">
-    <div class="row">
+    <i ng-click="showFilters()" ng-show="showingFilters" class="fa fa-eye-slash panel-header-filter-icon-hide pointer" aria-hidden="true"></i>
+    <i ng-click="showFilters()" ng-hide="showingFilters" class="fa fa-eye panel-header-filter-icon-show pointer" aria-hidden="true"></i>
+    <a ng-click="clearFilters()" class="panel-header-filter-clear pointer">
+        <i class="fa fa-filter"
+           aria-hidden="true"></i> Clear
+    </a>
+    <div ng-show="showingFilters" class="row">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>Identifier</strong></label>
             <input type="text"  class="form-control" id="identifier"  placeholder="Enter identifier" ng-model="usersSearchParams.searchIdentifier" size="12">
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>Email</strong></label>
-            <input type="text" ng-model="usersSearchParams.searchEmail" placeholder="Enter email address"
+            <input type="text" ng-model="usersSearchParams.searchEmail" ng-model-options='{ debounce: 800 }'
+                   placeholder="Enter email address"
                    uib-typeahead="email for email in getUsersEmailTypeahead($viewValue)"
                    class="form-control" size="12">
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>Mobile number</strong></label>
-            <input type="text" ng-model="usersSearchParams.searchMobileNumber" placeholder="Enter mobile number"
+            <input type="text" ng-model="usersSearchParams.searchMobileNumber" ng-model-options='{ debounce: 800 }'
+                   placeholder="Enter mobile number"
                    uib-typeahead="mobile for mobile in getUsersMobileTypeahead($viewValue)"
                    class="form-control" size="12">
         </div>
@@ -33,7 +41,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div ng-show="showingFilters" class="row">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
             <label><strong>From joined</strong></label>
             <p class="input-group">
@@ -79,9 +87,9 @@
             </p>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 divider">
-            <label><strong>KYC verified</strong></label>
+            <label><strong>KYC status</strong></label>
             <br>
-            <select class="form-control pointer" ng-model="usersSearchParams.searchKycVerified" ng-options="status for status in statusOptions">
+            <select class="form-control pointer" ng-model="usersSearchParams.searchKycStatus" ng-options="status for status in statusOptions">
             </select>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 pull-right apply-button">

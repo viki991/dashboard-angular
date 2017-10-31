@@ -35,7 +35,7 @@
             <td class="table-row-center transactions-list-element" ng-bind="transaction.currency.code"></td>
             <td class="table-row-center transactions-list-element" ng-bind="transaction.amount  | currencyModifiersFilter: transaction.currency.divisibility"></td>
             <td class="table-row-center transactions-list-element" >{{transaction.created | date:'mediumDate'}} {{transaction.created | date:'shortTime'}}</td>
-            <td class="table-row-center transactions-list-element" ng-bind="transaction.status"></td>
+            <td class="table-row-center transactions-list-element" ng-bind="transaction.status | capitalizeWord"></td>
         </tr>
     </table>
     <div ng-show="transactions.list.length > 0">

@@ -11,6 +11,11 @@
         cookieManagement.deleteCookie('TOKEN');
         $scope.gotCompanyName = false;
         $scope.path = $location.path();
+        $scope.showLoginPassword = false;
+
+        $scope.toggleLoginPassword = function () {
+            $scope.showLoginPassword = !$scope.showLoginPassword;
+        };
 
         $scope.login = function(user, company, password) {
             $rootScope.$pageFinishedLoading = false;

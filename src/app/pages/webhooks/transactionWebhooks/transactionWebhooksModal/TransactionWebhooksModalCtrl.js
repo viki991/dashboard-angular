@@ -14,7 +14,7 @@
 
         $scope.deleteTransactionWebhook = function () {
             $scope.deletingTransactionWebhook = true;
-            $http.delete(environmentConfig.API + '/admin/webhooks/transactions/' + $scope.transactionWebhook.id + '/', {
+            $http.delete(environmentConfig.API + '/admin/transactions/webhooks/' + $scope.transactionWebhook.id + '/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': vm.token

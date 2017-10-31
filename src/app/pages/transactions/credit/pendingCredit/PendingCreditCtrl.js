@@ -5,7 +5,7 @@
         .controller('PendingCreditCtrl', PendingCreditCtrl);
 
     /** @ngInject */
-    function PendingCreditCtrl($rootScope,$scope,$http,environmentConfig,cookieManagement,$uibModal,errorHandler) {
+    function PendingCreditCtrl($scope,$http,environmentConfig,cookieManagement,$uibModal,errorHandler) {
 
         var vm = this;
         $scope.transactions = {};
