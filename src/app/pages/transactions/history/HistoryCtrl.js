@@ -5,11 +5,13 @@
         .controller('HistoryCtrl', HistoryCtrl);
 
     /** @ngInject */
-    function HistoryCtrl($scope,environmentConfig,$http,cookieManagement,$uibModal,errorHandler,$state,$window,typeaheadService) {
+    function HistoryCtrl($scope,environmentConfig,$http,cookieManagement,$uibModal,sharedResources,
+                         errorHandler,$state,$window,typeaheadService,$filter,serializeFiltersService) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.currenciesList = JSON.parse($window.sessionStorage.currenciesList || '[]');
+        $scope.showingFilters = true;
 
         $scope.pagination = {
             itemsPerPage: 26,
@@ -18,10 +20,10 @@
         };
 
         $scope.searchParams = {
-            searchId: $state.params.transactionId || '',
-            searchUser: $state.params.code || '',
-            searchDateFrom: '',
-            searchDateTo: '',
+            searchId: $state.params.transactionId || null,
+            searchUser: $state.params.code || null,
+            searchDateFrom: null,
+            searchDateTo: null,
             searchType: 'Type',
             searchStatus: 'Status',
             searchCurrency: {},
@@ -36,7 +38,12 @@
         $scope.typeOptions = ['Type','Credit','Debit']; //Transfer
         $scope.statusOptions = ['Status','Initiating','Processing','Pending','Complete','Failed'];
         $scope.currencyOptions = [];
-        $scope.orderByOptions = ['Largest','Latest','Smallest'];
+        $scope.orderByOptions = ['Latest','Largest','Smallest'];
+
+        sharedResources.getSubtypes().then(function (res) {
+            $scope.subtypeOptions = _.pluck(res.data.data,'name');
+            $scope.subtypeOptions.unshift('');
+        });
 
         //for angular datepicker
         $scope.dateObj = {};
@@ -49,6 +56,47 @@
         $scope.popup2 = {};
         $scope.open2 = function() {
             $scope.popup2.opened = true;
+        };
+
+        $scope.getFileName = $filter('date')(Date.now(),'mediumDate') + ' ' + $filter('date')(Date.now(),'shortTime') + '-transactionsHistory.csv';
+
+        $scope.getHeader = function () {return ["Id", "User","Balance","Type","Currency", "Amount",
+            "Fee","Subtype","Account","Status","Date","Reference","Note","Metadata"]};
+
+        $scope.getCSVArray = function () {
+            var array = [];
+            $scope.transactions.forEach(function (element) {
+                var metadata = '';
+                if(typeof element.metadata === 'object' && element.metadata && Object.keys(element.metadata).length > 0){
+                    metadata = JSON.stringify(element.metadata);
+                } else if (typeof element.metadata === 'string'){
+                    metadata = element.metadata;
+                } else {
+                    metadata = null;
+                }
+                array.push({
+                    Id: element.id,
+                    user: element.user.email,
+                    balance: $filter('currencyModifiersFilter')(element.balance,element.currency.divisibility).toString(),
+                    type: $filter('capitalizeWord')(element.tx_type),
+                    currency: element.currency.code,
+                    amount: $filter('currencyModifiersFilter')(element.amount,element.currency.divisibility).toString(),
+                    fee: $filter('currencyModifiersFilter')(element.fee,element.currency.divisibility).toString(),
+                    subtype: element.subtype,
+                    account: element.account,
+                    status: element.status,
+                    date: $filter('date')(element.created,'mediumDate') + ' ' +$filter('date')(element.created,'shortTime'),
+                    reference: element.reference,
+                    note: element.note,
+                    metadata: metadata
+                });
+            });
+
+            return array;
+        };
+
+        $scope.showFilters = function () {
+            $scope.showingFilters = !$scope.showingFilters;
         };
 
         $scope.orderByFunction = function () {
@@ -68,21 +116,38 @@
                 $scope.pagination.itemsPerPage = 250;
             }
         };
+        
+        $scope.clearFilters = function () {
+            $scope.searchParams = {
+                searchId: null,
+                searchUser: null,
+                searchDateFrom: null,
+                searchDateTo: null,
+                searchType: 'Type',
+                searchStatus: 'Status',
+                searchCurrency: {code: 'Currency'},
+                searchOrderBy: 'Latest',
+                searchSubType: ''
+            };
+        };
 
         vm.getTransactionUrl = function(){
 
-            vm.filterParams = '?page=' + $scope.pagination.pageNo + '&page_size=' + $scope.pagination.itemsPerPage
-                + '&created__gt=' + ($scope.searchParams.searchDateFrom? Date.parse($scope.searchParams.searchDateFrom) : '')
-                + '&created__lt=' + ($scope.searchParams.searchDateTo? Date.parse($scope.searchParams.searchDateTo) : '')
-                + '&currency=' + ($scope.searchParams.searchCurrency.code ? ($scope.searchParams.searchCurrency.code == 'Currency' ? '' : $scope.searchParams.searchCurrency.code) : '')
-                + '&user=' + ($scope.searchParams.searchUser ? encodeURIComponent($scope.searchParams.searchUser) : '')
-                + '&orderby=' + ($scope.searchParams.searchOrderBy == 'Latest' ? '-created' : $scope.searchParams.searchOrderBy == 'Largest' ? '-amount' : $scope.searchParams.searchOrderBy == 'Smallest' ? 'amount' : '')
-                + '&id=' + $scope.searchParams.searchId
-                + '&tx_type=' + ($scope.searchParams.searchType == 'Type' ? '' : $scope.searchParams.searchType.toLowerCase())
-                + '&status=' + ($scope.searchParams.searchStatus == 'Status' ? '' : $scope.searchParams.searchStatus.toLowerCase())
-                + '&subtype=' + $scope.searchParams.searchSubType; // all the params of the filtering
+            var searchObj = {
+                page: $scope.pagination.pageNo,
+                page_size: $scope.pagination.itemsPerPage || 1,
+                created__gt: $scope.searchParams.searchDateFrom ? Date.parse($scope.searchParams.searchDateFrom): null,
+                created__lt: $scope.searchParams.searchDateTo? Date.parse($scope.searchParams.searchDateTo): null,
+                currency: ($scope.searchParams.searchCurrency.code ? ($scope.searchParams.searchCurrency.code == 'Currency' ? null: $scope.searchParams.searchCurrency.code): null),
+                user: ($scope.searchParams.searchUser ? encodeURIComponent($scope.searchParams.searchUser) : null),
+                orderby: ($scope.searchParams.searchOrderBy == 'Latest' ? '-created' : $scope.searchParams.searchOrderBy == 'Largest' ? '-amount' : $scope.searchParams.searchOrderBy == 'Smallest' ? 'amount' : null),
+                id: $scope.searchParams.searchId ? encodeURIComponent($scope.searchParams.searchId) : null,
+                tx_type: ($scope.searchParams.searchType == 'Type' ? null : $scope.searchParams.searchType.toLowerCase()),
+                status: ($scope.searchParams.searchStatus == 'Status' ? null : $scope.searchParams.searchStatus),
+                subtype: $scope.searchParams.searchSubType ? $scope.searchParams.searchSubType: null
+            };
 
-            return environmentConfig.API + '/admin/transactions/' + vm.filterParams;
+            return environmentConfig.API + '/admin/transactions/?' + serializeFiltersService.serializeFilters(searchObj);
         };
 
         $scope.getLatestTransactions = function(applyFilter){
@@ -146,10 +211,10 @@
             vm.theModal.result.then(function(transaction){
                 if(transaction){
                     $scope.searchParams = {
-                        searchId: '',
-                        searchUser: $state.params.code || '',
-                        searchDateFrom: '',
-                        searchDateTo: '',
+                        searchId: null,
+                        searchUser: $state.params.code || null,
+                        searchDateFrom: null,
+                        searchDateTo: null,
                         searchType: 'Type',
                         searchStatus: 'Status',
                         searchCurrency: {code: 'Currency'},

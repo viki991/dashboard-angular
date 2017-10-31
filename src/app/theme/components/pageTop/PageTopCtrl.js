@@ -50,7 +50,7 @@
         if(vm.currentLocation != '/login' && vm.currentLocation != '/verification' &&
             vm.currentLocation != '/company/name_request' && vm.currentLocation != '/register' &&
             vm.currentLocation != '/password/reset' && vm.currentLocation != '/authentication/multi-factor/verify/sms' &&
-            vm.currentLocation != '/authentication/multi-factor/verify/token'
+            vm.currentLocation != '/authentication/multi-factor/verify/token' && vm.currentLocation != '/currency/add/initial'
         ){
             vm.getCompanyInfo();
         }
@@ -92,6 +92,7 @@
             $rootScope.securityConfigured = true;
             $rootScope.companyName = null;
             $rootScope.haveCompanyName = false;
+            $rootScope.userFullyVerified = false;
             cookieManagement.deleteCookie('TOKEN');
             $location.path('/login');
         };

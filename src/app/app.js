@@ -10,8 +10,9 @@ angular.module('BlurAdmin', [
     'ui.router',
     'toastr',
     'countrySelect',
+    'ngCsv',
     'iso-3166-country-codes',
-
+    'ngclipboard',
     'BlurAdmin.theme',
     'BlurAdmin.pages'
 ])
@@ -26,77 +27,88 @@ angular.module('BlurAdmin', [
         //using to check if user is in changing password or setting up 2 factor authentication
         $rootScope.securityConfigured = true;
 
+        //using to check if user is in changing password or setting up 2 factor authentication
+        $rootScope.userFullyVerified = false;
+
         var locationChangeStart = $rootScope.$on('$locationChangeStart', function (event,newUrl) {
 
             var newUrlArray = newUrl.split('/'),
                 newUrlLastElement = _.last(newUrlArray);
 
-            //using to check if user has a verified email address
-            var verifyUser = function (){
-                userVerification.verify(function(err,verified){
-                    if(verified){
-                        $rootScope.userVerified = true;
-                        getCompanyInfo();
+            if(!$rootScope.userFullyVerified){
+                //using to check if user has a verified email address
+                var verifyUser = function (){
+                    userVerification.verify(function(err,verified){
+                        if(verified){
+                            $rootScope.userVerified = true;
+                            getCompanyInfo();
+                        } else {
+                            $rootScope.userVerified = false;
+                        }
+                    });
+                };
+                if(newUrlLastElement != 'change' && newUrlLastElement != 'multi-factor'
+                    && newUrl.indexOf('/multi-factor/sms') < 0 && newUrl.indexOf('/multi-factor/verify') < 0){
+                    verifyUser();
+                }
+
+                //using to check if user has a company name
+                var getCompanyInfo = function () {
+                    var token = cookieManagement.getCookie('TOKEN');
+                    if(token && $rootScope.userVerified) {
+                        $http.get(environmentConfig.API + '/admin/company/', {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': token
+                            }
+                        }).then(function (res) {
+                            if (res.status === 200) {
+                                if(res.data.data && res.data.data.name){
+                                    $rootScope.haveCompanyName = true;
+                                    $rootScope.companyName = res.data.data.name;
+                                    getCompanyCurrencies(token);
+                                } else {
+                                    $location.path('/company/name_request');
+                                }
+                            }
+                        }).catch(function (error) {
+                            $rootScope.haveCompanyName = false;
+                            errorHandler.handleErrors(error);
+                        });
                     } else {
-                        $rootScope.userVerified = false;
+                        $location.path('/login');
                     }
-                });
-            };
-            if(newUrlLastElement != 'change' && newUrlLastElement != 'multi-factor'
-                && newUrl.indexOf('/multi-factor/sms') < 0 && newUrl.indexOf('/multi-factor/verify') < 0){
-                verifyUser();
+                };
+
+                //using to check if user has at least one currency
+                var getCompanyCurrencies = function(token){
+                    if(token){
+                        $http.get(environmentConfig.API + '/admin/currencies/?enabled=true', {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': token
+                            }
+                        }).then(function (res) {
+                            if (res.status === 200) {
+                                if(res.data.data.results.length == 0){
+                                    $location.path('currency/add/initial');
+                                } else {
+                                    $rootScope.intialCurrency = true;
+                                    if($rootScope.intialCurrency && $rootScope.haveCompanyName && $rootScope.userVerified) {
+                                        $rootScope.userFullyVerified = true;
+                                    } else {
+                                        $rootScope.userFullyVerified = false;
+                                    }
+                                }
+                            }
+                        }).catch(function (error) {
+                            errorHandler.evaluateErrors(error.data);
+                            errorHandler.handleErrors(error);
+                        });
+                    }
+                };
+
             }
-
-            //using to check if user has a company name
-            var getCompanyInfo = function () {
-                var token = cookieManagement.getCookie('TOKEN');
-                if(token && $rootScope.userVerified) {
-                    $http.get(environmentConfig.API + '/admin/company/', {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': token
-                        }
-                    }).then(function (res) {
-                        if (res.status === 200) {
-                            if(res.data.data && res.data.data.name){
-                                $rootScope.haveCompanyName = true;
-                                $rootScope.companyName = res.data.data.name;
-                                getCompanyCurrencies(token);
-                            } else {
-                                $location.path('/company/name_request');
-                            }
-                        }
-                    }).catch(function (error) {
-                        $rootScope.haveCompanyName = false;
-                        errorHandler.handleErrors(error);
-                    });
-                } else {
-                    $location.path('/login');
-                }
-            };
-
-            //using to check if user has at least one currency
-            var getCompanyCurrencies = function(token){
-                if(token){
-                    $http.get(environmentConfig.API + '/admin/currencies/?enabled=true', {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': token
-                        }
-                    }).then(function (res) {
-                        if (res.status === 200) {
-                            if(res.data.data.results.length == 0){
-                                $location.path('currency/add/initial');
-                            } else {
-                                $rootScope.intialCurrency = true
-                            }
-                        }
-                    }).catch(function (error) {
-                        errorHandler.evaluateErrors(error.data);
-                        errorHandler.handleErrors(error);
-                    });
-                }
-            };
 
             routeManagement(event,newUrl);
         });
@@ -110,6 +122,7 @@ angular.module('BlurAdmin', [
                 cookieManagement.deleteCookie('TOKEN');
                 $rootScope.gotToken = false;
                 $rootScope.securityConfigured = true;
+                $rootScope.userFullyVerified = false;
                 $location.path('/login');
             } else{
                 if(newUrl.indexOf('password/reset/confirm') > 0 || newUrl.indexOf('email/verify') > 0) {

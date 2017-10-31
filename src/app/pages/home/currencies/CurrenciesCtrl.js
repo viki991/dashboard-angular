@@ -5,7 +5,7 @@
         .controller('CurrenciesCtrl', CurrenciesCtrl);
 
     /** @ngInject */
-    function CurrenciesCtrl($rootScope,$scope,$location,cookieManagement,environmentConfig,$http,errorHandler,$window,_) {
+    function CurrenciesCtrl($rootScope,$scope,$state,$location,cookieManagement,environmentConfig,$http,errorHandler,$window,_) {
 
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
@@ -79,6 +79,12 @@
 
         $scope.goToAddCurrency = function(){
             $location.path('/currency/add');
-        }
+        };
+
+        $scope.goToPendingTransactions = function (currency,state) {
+            $rootScope.selectedCurrency = currency;
+            $state.go(state);
+        };
+
     }
 })();

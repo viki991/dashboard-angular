@@ -24,17 +24,24 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="text" ng-change="fixformat(company)" ng-model="registerData.company" class="form-control" id="inputName1" placeholder="Choose a unique ID for your company*" required>
+                        <input type="text" ng-change="fixformat(company)" ng-model="registerData.company"
+                               class="form-control" id="inputName1" placeholder="Choose a unique ID for your company*" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="password" ng-model="registerData.password1" class="form-control" id="inputPassword1" placeholder="Password*" required>
+                        <input ng-attr-type="{{ showPassword1 ? 'text' : 'password' }}" ng-model="registerData.password1"
+                               class="form-control" id="inputPassword1" placeholder="Password*" required>
+                        <i ng-click="togglePasswordVisibility1()" ng-show="showPassword1" class="fa fa-eye-slash pull-right register-password-icon pointer"></i>
+                        <i ng-click="togglePasswordVisibility1()" ng-hide="showPassword1" class="fa fa-eye pull-right register-password-icon-show pointer"></i>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="password" ng-model="registerData.password2" class="form-control" id="inputPassword2" placeholder="Retype password*" required>
+                        <input ng-attr-type="{{ showPassword2 ? 'text' : 'password' }}" ng-model="registerData.password2"
+                               class="form-control" id="inputPassword2" placeholder="Retype password*" required>
+                        <i ng-click="togglePasswordVisibility2()" ng-show="showPassword2" class="fa fa-eye-slash pull-right register-password-icon pointer"></i>
+                        <i ng-click="togglePasswordVisibility2()" ng-hide="showPassword2" class="fa fa-eye pull-right register-password-icon-show pointer"></i>
                     </div>
                 </div>
                 <div class="form-group">

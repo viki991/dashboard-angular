@@ -10,23 +10,23 @@
         var vm = this;
         vm.token = cookieManagement.getCookie('TOKEN');
         vm.uuid = $stateParams.uuid;
-        $scope.loadingUser = true;
+        $scope.loadingUserActivity = true;
 
         vm.getUser = function(){
             if(vm.token) {
-                $scope.loadingUser = true;
+                $scope.loadingUserActivity = true;
                 $http.get(environmentConfig.API + '/admin/users/' + vm.uuid + '/', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': vm.token
                     }
                 }).then(function (res) {
-                    $scope.loadingUser = false;
+                    $scope.loadingUserActivity = false;
                     if (res.status === 200) {
                         $scope.user = res.data.data;
                     }
                 }).catch(function (error) {
-                    $scope.loadingUser = false;
+                    $scope.loadingUserActivity = false;
                     errorHandler.evaluateErrors(error.data);
                     errorHandler.handleErrors(error);
                 });
